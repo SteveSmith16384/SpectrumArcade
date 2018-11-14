@@ -11,5 +11,15 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/jme3-jbullet"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jme3-jogg"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Blocky"/>
+	<classpathentry kind="lib" path="libs/jmeCapture-0.1/audio-send-natives.jar"/>
+	<classpathentry kind="lib" path="libs/jmeCapture-0.1/audio-send.jar"/>
+	<classpathentry kind="lib" path="libs/jmeCapture-0.1/jmeCapture.jar"/>
+	<classpathentry kind="lib" path="libs/jmeCapture-0.1/tritonus_aos-0.3.6.jar"/>
+	<classpathentry kind="lib" path="libs/jmeCapture-0.1/tritonus_share-0.3.6.jar"/>
+	<classpathentry kind="lib" path="libs/jttf/jME-TTF-v2.12.jar"/>
+	<classpathentry kind="lib" path="libs/jttf/sfntly.jar"/>
+	<classpathentry kind="lib" path="libs/mp3/jl1.0.jar"/>
+	<classpathentry kind="lib" path="libs/mp3/mp3spi1.9.4.jar"/>
+	<classpathentry kind="lib" path="libs/mp3/tritonus_share.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -17,5 +17,5 @@ public interface ILevelGenerator {
 	
 	ColorRGBA getBackgroundColour();
 	
-	int getLevelCode();
+	//int getLevelCode();
 }

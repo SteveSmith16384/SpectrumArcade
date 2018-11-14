@@ -44,13 +44,13 @@ public class AntAttackLevel implements ILevelGenerator {
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
-		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
-		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
+		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
+		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 
-		for (int i=0 ; i<1 ; i++) {
+		for (int i=0 ; i<5 ; i++) {
 			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
 			int z = NumberFunctions.rnd(2, MAP_SIZE-4);
-			Ant ant = new Ant(game, x, 15+i, z, 0); // Make jeight unique to stop collisions at start
+			Ant ant = new Ant(game, x, 15+i, z); // Make jeight unique to stop collisions at start
 			game.addEntity(ant);
 		}
 
@@ -61,7 +61,7 @@ public class AntAttackLevel implements ILevelGenerator {
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
 			Vector3f pos = res.getCollision(0).getContactPoint();
-			Key key = new Key(game, pos.x, pos.y, pos.z);
+			Key key = new Key(game, pos.x, pos.y + 0.3f, pos.z);
 			game.addEntity(key);
 		}
 	}
@@ -78,11 +78,11 @@ public class AntAttackLevel implements ILevelGenerator {
 		return ColorRGBA.White;
 	}
 
-
+/*
 	@Override
 	public int getLevelCode() {
 		return LevelCodes.LVL_ANT_ATTACK;
 	}
 
-
+*/
 }

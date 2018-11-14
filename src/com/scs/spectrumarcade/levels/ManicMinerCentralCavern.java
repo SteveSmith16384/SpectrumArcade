@@ -96,12 +96,11 @@ public class ManicMinerCentralCavern implements ILevelGenerator {
 		return ColorRGBA.Black;
 	}
 
-
+/*
 	@Override
 	public int getLevelCode() {
 		return LevelCodes.LVL_CENTRAL_CAVERN;
 	}
 
-
-
+*/
 }

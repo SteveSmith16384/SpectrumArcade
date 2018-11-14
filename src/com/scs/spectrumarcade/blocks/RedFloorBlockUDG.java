@@ -9,7 +9,7 @@ public class RedFloorBlockUDG implements IBlock {
 	private final IBlockTextureLocator blockTextureLocator;
 
 	public RedFloorBlockUDG() {
-		blockTextureLocator = new SimpleBlockTexture(1, 0);
+		blockTextureLocator = new SimpleBlockTexture(5, 1);
 	}
 
 	public IBlockTextureLocator getTexture() {

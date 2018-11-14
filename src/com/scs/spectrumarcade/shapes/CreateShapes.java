@@ -27,13 +27,8 @@ public class CreateShapes {
 		tex3.setWrap(WrapMode.Repeat);
 
 		Material floor_mat = null;
-		if (Settings.LIGHTING) {
 			floor_mat = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
 			floor_mat.setTexture("DiffuseMap", tex3);
-		} else {
-			floor_mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-			floor_mat.setTexture("ColorMap", tex3);
-		}
 
 		Geometry floor_geo = new Geometry("Floor", floor);
 		floor_geo.setMaterial(floor_mat);
@@ -56,11 +51,7 @@ public class CreateShapes {
 		floor.scaleTextureCoordinates(new Vector2f(3, 6));
 
 		Material floor_mat = null;
-		if (Settings.LIGHTING) {
 			floor_mat = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
-		} else {
-			floor_mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		}
 		TextureKey key3 = new TextureKey("Textures/Terrain/Pond/Pond.jpg");
 		key3.setGenerateMips(true);
 		Texture tex3 = assetManager.loadTexture(key3);
@@ -89,13 +80,8 @@ public class CreateShapes {
 		tex3.setWrap(WrapMode.Repeat);
 
 		Material floor_mat = null;
-		if (Settings.LIGHTING) {
 			floor_mat = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
 			floor_mat.setTexture("DiffuseMap", tex3);
-		} else {
-			floor_mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-			floor_mat.setTexture("ColorMap", tex3);
-		}
 
 		Geometry floor_geo = new Geometry(name, floor);
 		floor_geo.setMaterial(floor_mat);

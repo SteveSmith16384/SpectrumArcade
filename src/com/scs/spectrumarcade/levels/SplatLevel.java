@@ -77,11 +77,11 @@ public class SplatLevel implements ILevelGenerator {
 		return ColorRGBA.White;
 	}
 
-
+/*
 	@Override
 	public int getLevelCode() {
 		return LevelCodes.LVL_SPLAT;
 	}
-
+*/
 
 }

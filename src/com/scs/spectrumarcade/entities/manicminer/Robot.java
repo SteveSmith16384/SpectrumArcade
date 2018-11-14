@@ -8,7 +8,7 @@ public class Robot extends AbstractPhysicalEntity {
 	public static final float START_HEALTH = 5f;
 
 	public Robot(SpectrumArcade _game, float x, float y, float z, int sX, int sY) {
-		super(_game);
+		super(_game, "Robot");
 		
 			//this.ai = new RobotAI(this, sX, sY);
 		

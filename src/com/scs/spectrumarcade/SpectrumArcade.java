@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.prefs.BackingStoreException;
 
+import com.aurellem.capture.Capture;
+import com.aurellem.capture.IsoTimer;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
@@ -19,21 +21,21 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
 import com.jme3.light.Light;
 import com.jme3.light.LightList;
 import com.jme3.light.SpotLight;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.Player;
-import com.scs.spectrumarcade.levels.AntAttackLevel;
+import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -61,13 +63,15 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
 	public boolean started = false;
-/*
+	
+	private DirectionalLight sun;
+	/*
 	private AudioNode ambient_node;
 	private AudioNode game_over_sound_node;
 	public AudioNode thunderclap_sound_node;
 	private AudioNode scary_sound1, scary_sound2, bens_sfx;
 	private float next_scary_sound = 10;
-*/
+	 */
 
 
 	public static void main(String[] args) {
@@ -90,13 +94,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			app.setPauseOnLostFocus(true);
 
 			File video, audio;
-			/*if (Settings.RECORD_VID) {
+			if (Settings.RECORD_VID) {
 				app.setTimer(new IsoTimer(60));
 				video = File.createTempFile("JME-water-video", ".avi");
 				audio = File.createTempFile("JME-water-audio", ".wav");
 				Capture.captureVideo(app, video);
 				Capture.captureAudio(app, audio);
-			}*/
+			}
 
 			app.start();
 
@@ -132,32 +136,29 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		setUpLight();
 
 		FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-		if (Settings.DEBUG_LIGHT == false) {
+		/*if (Settings.DEBUG_LIGHT == false) {
 			FogFilter fog = new FogFilter(ColorRGBA.Red, 1f, 2f);//Settings.CAM_DIST/2);
 			fog.setFogDistance(2f);
 			//fpp.addFilter(fog);
-		}
+		}*/
 		viewPort.addProcessor(fpp);
-		
+
 		player = new Player(this, 5, 5);
 		rootNode.attachChild(player.getMainNode());
 		this.entities.add(player);
 
-		ILevelGenerator level = new AntAttackLevel();
-		try {
-			level.generateLevel(this);
-			level.moveAvatarToStartPosition(player);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
+
+		final int SHADOWMAP_SIZE = 1024;
+		DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(getAssetManager(), SHADOWMAP_SIZE, 2);
+		dlsr.setLight(sun);
+		this.viewPort.addProcessor(dlsr);
 
 		//hud = new HUD(this, this.getAssetManager(), cam.getWidth(), cam.getHeight(), guiFont_small);
 		//this.guiNode.attachChild(hud);
 		//this.entities.add(hud);
 
-/*
+		/*
 		// Audio nodes
 		ambient_node = new AudioNode(assetManager, "Sound/horror ambient.ogg", true);
 		ambient_node.setPositional(false);
@@ -170,8 +171,18 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			// Unable to play sounds - no audiocard/speakers?
 		}
 
-*/
+		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
+
+		ILevelGenerator level = new ArcadeRoom();//AntAttackLevel();
+		try {
+			level.generateLevel(this);
+			level.moveAvatarToStartPosition(player);
+			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 	}
 
@@ -183,8 +194,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getRootNode().attachChild(ape.getMainNode());
 		}
 	}
-	
-	
+
+
 	@Override
 	public void simpleUpdate(float tpf_secs) {
 		/*
@@ -211,13 +222,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				walkDirection.addLocal(camDir.negate());
 			}
 			player.playerControl.setWalkDirection(walkDirection);
-/*
+			/*
 			next_scary_sound -= tpf_secs;
 			if (next_scary_sound <= 0) {
 				playRandomScarySound();
 				next_scary_sound = 5 + rnd.nextInt(10);
 			}
-			*/
+			 */
 		}
 
 		for(IEntity ip : entities) {
@@ -248,22 +259,22 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.rootNode.removeLight(it);
 		}
 
-		if (Settings.DEBUG_LIGHT == false) {
-			AmbientLight al = new AmbientLight();
-			al.setColor(ColorRGBA.White.mult(.5f));
-			rootNode.addLight(al);
+		AmbientLight al = new AmbientLight();
+		al.setColor(ColorRGBA.White);
+		rootNode.addLight(al);
 
-			this.spotlight = new SpotLight();
+		sun = new DirectionalLight();
+		sun.setColor(ColorRGBA.Yellow);
+		sun.setDirection(new Vector3f(.5f, -1f, .5f).normalizeLocal());
+		rootNode.addLight(sun);
+
+		/*this.spotlight = new SpotLight();
 			spotlight.setColor(ColorRGBA.White.mult(3f));
 			spotlight.setSpotRange(10f);
 			spotlight.setSpotInnerAngle(FastMath.QUARTER_PI / 8);
 			spotlight.setSpotOuterAngle(FastMath.QUARTER_PI / 2);
 			rootNode.addLight(spotlight);
-		} else {
-			AmbientLight al = new AmbientLight();
-			al.setColor(ColorRGBA.White.mult(1));
-			rootNode.addLight(al);
-		}
+			*/
 	}
 
 
@@ -331,24 +342,31 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void collision(PhysicsCollisionEvent event) {
-		//System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
-		// SkullModel (SkullModel) collided with Player_MainNode (Node)
+		System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
 
 		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
-		AbstractEntity a = ga.getUserData(Settings.ENTITY);
-		/*if (a == null) {
-			throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
-		}*/
+		AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);
+		while (a == null && ga.getParent() != null) {
+			ga = ga.getParent();
+			a = ga.getUserData(Settings.ENTITY);
+		}
+		if (a == null) {
+			//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
+			return;
+		}
 
 		Spatial gb = (Spatial)event.getObjectB().getUserObject(); 
-		AbstractEntity b = gb.getUserData(Settings.ENTITY);
-		/*if (b == null) {
-			throw new RuntimeException("Geometry " + gb.getName() + " has no entity");
-		}*/
-
-		if (a != null && b != null) {
-			CollisionLogic.collision(this, a, b);
+		AbstractPhysicalEntity b = gb.getUserData(Settings.ENTITY);
+		while (b == null && gb.getParent() != null) {
+			gb = gb.getParent();
+			b = gb.getUserData(Settings.ENTITY);
 		}
+		if (b == null) {
+			//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
+			return;
+		}
+
+		CollisionLogic.collision(this, a, b);
 	}
 
 
@@ -361,7 +379,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		return this.player_won;
 	}
 
-/*
+	/*
 	private void playRandomScarySound() {
 		if (Settings.USE_BENS_SOUND) {
 			this.bens_sfx.playInstance();
@@ -377,7 +395,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			}
 		}
 	}
-*/
+	 */
 
 	public static void p(String s) {
 		System.out.println(System.currentTimeMillis() + ": " + s);
@@ -393,5 +411,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		return bulletAppState;
 	}
 
+
+	public void removeEntity(IEntity e) {
+		this.entities.remove(e);
+	}
 
 }

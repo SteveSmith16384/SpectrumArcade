@@ -17,7 +17,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
 	private static final float TURN_SPEED = 1f;
-	
+
 	protected Node mainNode, left_node, right_node;
 	protected RigidBodyControl srb;
 
@@ -25,20 +25,20 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 		super(_game, _name);
 
 		mainNode = new Node(name + "_MainNode");
-		
+
 		left_node = new Node("left_node");
 		mainNode.attachChild(left_node);
 		left_node.setLocalTranslation(-3, 0, 0);
-		
+
 		right_node = new Node("right_node");
 		mainNode.attachChild(right_node);
 		right_node.setLocalTranslation(3, 0, 0);
-		
+
 		mainNode.setUserData(Settings.ENTITY, this);
 
 	}
 
-	
+
 	public Node getMainNode() {
 		return mainNode;
 	}
@@ -47,12 +47,12 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 	public void remove() {
 		this.mainNode.removeFromParent();
 		if (srb != null) {
-		this.game.bulletAppState.getPhysicsSpace().remove(this.srb);
+			this.game.bulletAppState.getPhysicsSpace().remove(this.srb);
 		}
-		
+		super.remove();
 	}
 
-	
+
 	public void turnLeft(float tpf) {
 		this.getMainNode().rotate(new Quaternion().fromAngleAxis(-1 * TURN_SPEED * tpf, Vector3f.UNIT_Y));
 	}
@@ -61,8 +61,8 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 	public void turnRight(float tpf) {
 		this.getMainNode().rotate(new Quaternion().fromAngleAxis(1 * TURN_SPEED * tpf, Vector3f.UNIT_Y));
 	}
-	
-	
+
+
 	public float distance(AbstractPhysicalEntity o) {
 		return distance(o.getMainNode().getWorldTranslation());
 	}
@@ -85,30 +85,30 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 			if (o instanceof AbstractPhysicalEntity && o != this) {
 				AbstractPhysicalEntity go = (AbstractPhysicalEntity)o;
 				// if (go.collides) {
-					if (go.getMainNode().getWorldBound() != null) {
-						results.clear();
-						try {
-							go.getMainNode().collideWith(r, results);
-						} catch (UnsupportedCollisionException ex) {
-							System.out.println("Spatial: " + go.getMainNode());
-							ex.printStackTrace();
-						}
-						if (results.size() > 0) {
-							float go_dist = this.distance(cansee)-1;
-							/*Iterator<CollisionResult> it = results.iterator();
+				if (go.getMainNode().getWorldBound() != null) {
+					results.clear();
+					try {
+						go.getMainNode().collideWith(r, results);
+					} catch (UnsupportedCollisionException ex) {
+						System.out.println("Spatial: " + go.getMainNode());
+						ex.printStackTrace();
+					}
+					if (results.size() > 0) {
+						float go_dist = this.distance(cansee)-1;
+						/*Iterator<CollisionResult> it = results.iterator();
 							while (it.hasNext()) {*/
-							CollisionResult cr = results.getClosestCollision();
-							if (cr.getDistance() < go_dist) {
-								return false;
-							}
+						CollisionResult cr = results.getClosestCollision();
+						if (cr.getDistance() < go_dist) {
+							return false;
 						}
 					}
+				}
 				//}
 			}
 		}
 		return true;
 	}
 
-	
+
 
 }

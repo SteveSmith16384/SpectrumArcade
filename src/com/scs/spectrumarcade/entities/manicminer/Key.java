@@ -28,7 +28,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(0);
 		geometry.addControl(srb);
 		game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
@@ -38,11 +38,11 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
 	@Override
 	public void process(float tpfSecs) {
-		rotDegrees += (tpfSecs * 0.05f);
-		if (rotDegrees > 360) {
+		/*rotDegrees += (tpfSecs * 0.005f);
+		while (rotDegrees > 360) {
 			rotDegrees -= 360;
-		}
-		float rads = (float)Math.toRadians(rotDegrees);
+		}*/
+		float rads = (float)Math.toRadians((tpfSecs * 0.05f));
 		geometry.rotate(0, rads, 0);
 
 	}
@@ -50,7 +50,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
 	@Override
 	public void collected(Player avatar) {
-		//game.markForRemoval(this);
+		this.remove();
 	}
 
 }

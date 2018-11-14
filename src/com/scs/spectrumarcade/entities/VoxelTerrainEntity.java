@@ -30,12 +30,10 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	public BlockTerrainControl blocks;
 	private float blockSize;
 	private int worldSizeBlocks;
-	//private Vector3f pos;
 
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize) {
 		super(_game, "VoxelTerrainEntity");
 
-		//pos = new Vector3f(x, y, z);
 		worldSizeBlocks = _worldSizeBlocks;
 		blockSize = _blockSize;
 
@@ -149,7 +147,6 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
 		
 	}
 

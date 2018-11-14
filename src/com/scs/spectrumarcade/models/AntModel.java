@@ -25,8 +25,6 @@ public class AntModel extends Node {
 	public AntModel(AssetManager _assetManager) {
 		assetManager = _assetManager;
 
-
-		node = new Node("RobotNode");
 		Spatial model = assetManager.loadModel("Models/spider/Spider.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/spider/Spider.png");
 		model.setShadowMode(ShadowMode.CastAndReceive);
@@ -38,7 +36,7 @@ public class AntModel extends Node {
 		AnimControl control = JMEModelFunctions.getNodeWithControls("Sphere (Node)", (Node)model);
 		channel = control.createChannel();
 
-		((Node)node).attachChild(model); // Need to have an extra node to keep model's relative position
+		this.attachChild(model); // Need to have an extra node to keep model's relative position
 	}
 	
 	/*

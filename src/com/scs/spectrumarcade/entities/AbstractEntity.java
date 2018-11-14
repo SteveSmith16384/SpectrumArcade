@@ -22,11 +22,6 @@ public abstract class AbstractEntity implements IEntity, Savable {
 	protected SpectrumArcade game;
 	public String name;
 
-	public AbstractEntity(SpectrumArcade _game) {
-		this(_game, "todo");
-	}
-	
-	
 	public AbstractEntity(SpectrumArcade _game, String _name) {
 		super();
 		
@@ -42,8 +37,11 @@ public abstract class AbstractEntity implements IEntity, Savable {
 	 */
 	//public abstract Spatial getGeometry();
 	
-	//public abstract void remove();
-	//@Override
+	public void remove() {
+		game.removeEntity(this);
+	}
+
+
 	@Override
 	public String toString() {
 		return "Entity:" + name;

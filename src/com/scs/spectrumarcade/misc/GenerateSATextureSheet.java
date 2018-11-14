@@ -18,8 +18,8 @@ public class GenerateSATextureSheet {
 
 	public GenerateSATextureSheet() throws IOException {
 		String[][] tiles = {
-				{"bricks.png", "redfloor.png", "conveyor_top.png", "exit.png", "greensun.jpg", "fence.png", "conveyor_side.png"}, 
-				{"antattack.png", "splat.png"}
+				{"bricks.png", "redfloor_pxl.png", "conveyor_top.png", "exit.png", "greensun.jpg", "fence.png", "conveyor_side.png"}, 
+				{"antattack.png", "splat.png", "ericwall.png", "ericwall2.png", "minedout_cyan.png", "redfloor_udg.png"}
 		}; // Keep these in the same order!
 
 		TextureSheetGenerator gen = new TextureSheetGenerator();
