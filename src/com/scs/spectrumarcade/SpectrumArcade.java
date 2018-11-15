@@ -65,6 +65,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public boolean started = false;
 	
 	private DirectionalLight sun;
+	private GameData gameData = new GameData();
+	
 	/*
 	private AudioNode ambient_node;
 	private AudioNode game_over_sound_node;
@@ -144,8 +146,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		viewPort.addProcessor(fpp);
 
 		player = new Player(this, 5, 5);
-		rootNode.attachChild(player.getMainNode());
-		this.entities.add(player);
+		//rootNode.attachChild(player.getMainNode());
+		//this.addEntity(player);
 
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
 
@@ -175,15 +177,24 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
 		ILevelGenerator level = new ArcadeRoom();//AntAttackLevel();
+		this.startNewLevel(level);
+	}
+	
+	
+	public void startNewLevel(ILevelGenerator level) {
 		try {
+			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
+			this.rootNode.detachAllChildren();
+			this.getBulletAppState().getPhysicsSpace().clearForces();
+			
 			level.generateLevel(this);
+			this.addEntity(player);
 			level.moveAvatarToStartPosition(player);
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
+		
 	}
 
 
@@ -192,6 +203,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof AbstractPhysicalEntity) {
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
+			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+
 		}
 	}
 

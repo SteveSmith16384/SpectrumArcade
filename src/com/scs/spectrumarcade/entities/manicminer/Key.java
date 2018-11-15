@@ -11,13 +11,13 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
-	private float rotDegrees = 0;
-	private Geometry geometry;
+	//private float rotDegrees = 0;
+	//private Geometry geometry;
 
 	public Key(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "todo");
 
-		geometry = (Geometry)game.getAssetManager().loadModel("Models/key.obj");
+		Geometry geometry = (Geometry)game.getAssetManager().loadModel("Models/key.obj");
 		JMEModelFunctions.scaleModelToWidth(geometry, 1f);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/yellowsun.jpg");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
@@ -29,9 +29,10 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(0);
-		geometry.addControl(srb);
-		game.bulletAppState.getPhysicsSpace().add(srb);
+		this.mainNode.addControl(srb);
+		//game.bulletAppState.getPhysicsSpace().add(this.getMainNode());
 		srb.setKinematic(true);
+		this.getMainNode().addControl(srb);
 
 	}
 
@@ -42,8 +43,8 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 		while (rotDegrees > 360) {
 			rotDegrees -= 360;
 		}*/
-		float rads = (float)Math.toRadians((tpfSecs * 0.05f));
-		geometry.rotate(0, rads, 0);
+		//float rads = (float)Math.toRadians((tpfSecs * 1));
+		this.getMainNode().rotate(0, tpfSecs, 0);
 
 	}
 

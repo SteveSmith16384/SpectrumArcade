@@ -52,11 +52,11 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 		this.mainNode.attachChild(geometry);
 
 		floor_phy = new RigidBodyControl(0);
-		geometry.addControl(floor_phy);
+		mainNode.addControl(floor_phy);
 		//floor_phy.setKinematic(true);
 		floor_phy.setFriction(1f);
 
-		game.bulletAppState.getPhysicsSpace().add(floor_phy);
+		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

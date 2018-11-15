@@ -5,6 +5,7 @@ import com.jme3.scene.Node;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
+import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.models.AntModel;
 
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact {
@@ -20,7 +21,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact 
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1f);
-		geometry.addControl(srb);
+		mainNode.addControl(srb);
 		game.bulletAppState.getPhysicsSpace().add(srb);
 		//srb.setKinematic(true);
 
@@ -35,7 +36,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact 
 
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
+		//JMEAngleFunctions.moveForwards(spatial, speed);
 		
 	}
 

@@ -86,7 +86,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	}
 
 
-	public void addBlock(Vector3f pos, int blockType) {
+	public void addBlock(Vector3Int pos, int blockType) {
 		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);//, false);
 		//Globals.p("Adding block at " + blockPosition);
 		blocks.setBlock(blockPosition, BlockCodes.getClassFromCode(blockType));

@@ -31,8 +31,8 @@ public class SplatLevel implements ILevelGenerator {
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
 		game.addEntity(terrainUDG);
-		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
-		game.addEntity(terrainPixel);
+		//VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
+		//game.addEntity(terrainPixel);
 
 		// Border
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));

@@ -47,7 +47,7 @@ public class Player extends AbstractPhysicalEntity {
 
 		game.bulletAppState.getPhysicsSpace().add(playerControl);
 
-		this.getMainNode().setUserData(Settings.ENTITY, this);
+		//this.getMainNode().setUserData(Settings.ENTITY, this);
 
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
@@ -90,12 +90,12 @@ public class Player extends AbstractPhysicalEntity {
 
 	}
 
-
+/*
 	@Override
 	public void remove() {
 		this.mainNode.removeFromParent();
 		this.game.bulletAppState.getPhysicsSpace().remove(this.playerControl);
 
 	}
-
+*/
 }

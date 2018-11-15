@@ -23,6 +23,8 @@ public class BlockCodes {
 	public static final int ANT_ATTACK = 8;
 	public static final int SPLAT = 9;
 	public static final int RED_FLOOR_PXL = 10;
+	public static final int EATF_SOLID = 11;
+	public static final int EATF_WEAK = 12;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -35,6 +37,8 @@ public class BlockCodes {
 		case ANT_ATTACK: return AntAttackBlock.class;
 		case SPLAT: return SplatBlock.class;
 		case RED_FLOOR_PXL: return RedFloorBlockPxl.class;
+		case EATF_SOLID: return RedFloorBlockPxl.class;
+		case EATF_WEAK: return RedFloorBlockPxl.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

@@ -17,14 +17,12 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 		float w = 1f;
 		float h = 1f;
 		float d = 1f;
-		
-		Spatial geometry = null;
 
-			geometry = (Geometry)game.getAssetManager().loadModel("Models/RocksFlowersGrassPack/OBJ/grass_1.obj");
-			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Models/RocksFlowersGrassPack/OBJ/textures/palette_32x32.png");
-			JMEModelFunctions.scaleModelToWidth(geometry, w);
-			JMEModelFunctions.moveYOriginTo(geometry, 0f);
-			geometry.setShadowMode(ShadowMode.CastAndReceive);
+		Spatial geometry = game.getAssetManager().loadModel("Models/RocksFlowersGrassPack/OBJ/grass_1.obj");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Models/RocksFlowersGrassPack/OBJ/textures/palette_32x32.png");
+		JMEModelFunctions.scaleModelToWidth(geometry, w);
+		JMEModelFunctions.moveYOriginTo(geometry, 0f);
+		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
 		JMEModelFunctions.moveYOriginTo(geometry, 0f);
 
@@ -46,8 +44,8 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing
+
 	}
 
 }
