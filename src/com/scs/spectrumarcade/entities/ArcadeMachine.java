@@ -1,7 +1,5 @@
 package com.scs.spectrumarcade.entities;
 
-import java.lang.reflect.Constructor;
-
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.IEntity;
@@ -35,7 +33,7 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
+		// Do nothing
 		
 	}
 
@@ -44,7 +42,7 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 		if (collidedWith == game.player) {
 			try {
 				ILevelGenerator object = level.newInstance();
-				game.startNewLevel(object);
+				this.game.startNewLevel(object);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

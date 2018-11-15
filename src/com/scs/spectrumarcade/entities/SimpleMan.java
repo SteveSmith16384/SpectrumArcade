@@ -22,7 +22,7 @@ public class SimpleMan extends AbstractPhysicalEntity {
 
 		srb = new RigidBodyControl(1f);
 		model.addControl(srb);
-		game.bulletAppState.getPhysicsSpace().add(srb);
+		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 	}
 

@@ -154,16 +154,16 @@ public class JMEAngleFunctions {
 	public static Vector3f getRandomDirection_8() {
 		int i = NumberFunctions.rnd(0,  7);
 		switch (i) {
-		case 0: return new Vector3f(1f, 0, 0);
-		case 1: return new Vector3f(-1f, 0, 0);
-		case 2: return new Vector3f(0f, 0, 1f);
-		case 3: return new Vector3f(0f, 0, -1f);
+		case 0: return new Vector3f(1f, 0, 0).normalizeLocal();
+		case 1: return new Vector3f(-1f, 0, 0).normalizeLocal();
+		case 2: return new Vector3f(0f, 0, 1f).normalizeLocal();
+		case 3: return new Vector3f(0f, 0, -1f).normalizeLocal();
 
 		// Diagonals
-		case 4: return new Vector3f(1f, 0, 1f);
-		case 5: return new Vector3f(-1f, 0, -1f);
-		case 6: return new Vector3f(-1f, 0, 1f);
-		case 7: return new Vector3f(1f, 0, -1f);
+		case 4: return new Vector3f(1f, 0, 1f).normalizeLocal();
+		case 5: return new Vector3f(-1f, 0, -1f).normalizeLocal();
+		case 6: return new Vector3f(-1f, 0, 1f).normalizeLocal();
+		case 7: return new Vector3f(1f, 0, -1f).normalizeLocal();
 		}
 		throw new RuntimeException("Invalid direction: " + i);
 	}

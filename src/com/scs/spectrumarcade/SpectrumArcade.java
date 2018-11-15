@@ -35,7 +35,7 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.Player;
-import com.scs.spectrumarcade.levels.ArcadeRoom;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		ILevelGenerator level = new ArcadeRoom();//AntAttackLevel();
+		ILevelGenerator level = new AntAttackLevel();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
 	
@@ -360,6 +360,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
 		AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);
 		while (a == null && ga.getParent() != null) {
+			Globals.p("Getting parent of " + ga);
 			ga = ga.getParent();
 			a = ga.getUserData(Settings.ENTITY);
 		}
@@ -371,6 +372,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		Spatial gb = (Spatial)event.getObjectB().getUserObject(); 
 		AbstractPhysicalEntity b = gb.getUserData(Settings.ENTITY);
 		while (b == null && gb.getParent() != null) {
+			Globals.p("Getting parent of " + gb);
 			gb = gb.getParent();
 			b = gb.getUserData(Settings.ENTITY);
 		}

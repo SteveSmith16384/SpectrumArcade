@@ -33,8 +33,8 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1f);
-		geometry.addControl(srb);
-		game.bulletAppState.getPhysicsSpace().add(srb);
+		mainNode.addControl(srb);
+		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 		
 		
@@ -49,7 +49,7 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
+		// Do nothing
 
 	}
 

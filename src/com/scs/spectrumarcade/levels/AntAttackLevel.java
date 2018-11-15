@@ -47,10 +47,10 @@ public class AntAttackLevel implements ILevelGenerator {
 		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
 		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 
-		for (int i=0 ; i<5 ; i++) {
+		for (int i=0 ; i<1 ; i++) {
 			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
 			int z = NumberFunctions.rnd(2, MAP_SIZE-4);
-			Ant ant = new Ant(game, x, 15+i, z); // Make jeight unique to stop collisions at start
+			Ant ant = new Ant(game, x, 6+i, z); // Make jeight unique to stop collisions at start
 			game.addEntity(ant);
 		}
 

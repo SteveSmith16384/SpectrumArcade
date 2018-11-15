@@ -24,10 +24,10 @@ public class ArcadeRoom implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
 		game.addEntity(floor);
-		/*
+
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, AntAttackLevel.class);
 		game.addEntity(machine);
-
+/*
 		ArcadeMachine machine2 = new ArcadeMachine(game, 4, 0, 2, SplatLevel.class);
 		game.addEntity(machine2);
 
@@ -37,8 +37,9 @@ public class ArcadeRoom implements ILevelGenerator {
 		ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, MinedOutLevel.class);
 		game.addEntity(machine4);
 		*/
-		//Key key = new Key(game, 5, 1, 5);
-		//game.addEntity(key);
+		
+		Key key = new Key(game, 5, 1, 5);
+		game.addEntity(key);
 	}
 
 

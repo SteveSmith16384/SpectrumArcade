@@ -13,8 +13,6 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact {
 
-	//private Geometry geometry;
-
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
@@ -28,9 +26,9 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(0);
-		geometry.addControl(srb);
-		game.bulletAppState.getPhysicsSpace().add(srb);
-		srb.setKinematic(true);
+		mainNode.addControl(srb);
+		//game.bulletAppState.getPhysicsSpace().add(srb);
+		//srb.setKinematic(true);
 
 	}
 

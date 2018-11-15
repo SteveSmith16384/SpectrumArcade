@@ -1,13 +1,29 @@
 package com.scs.spectrumarcade;
 
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
+import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.components.IPlayerCollectable;
-import com.scs.spectrumarcade.entities.AbstractEntity;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.Player;
 
 public class CollisionLogic {
 
-	public static void collision(SpectrumArcade game, AbstractEntity a, AbstractEntity b) {
+	public static void collision(SpectrumArcade game, AbstractPhysicalEntity a, AbstractPhysicalEntity b) {
+		if (a.getMainNode().getParent() == null) { // Prevent collisions after changing level
+			return;
+		}
+		if (b.getMainNode().getParent() == null) { // Prevent collisions after changing level
+			return;
+		}
+		if (a instanceof INotifiedOfCollision) {
+			INotifiedOfCollision anoc = (INotifiedOfCollision)a;
+			anoc.notifiedOfCollision(b);
+		}
+		if (b instanceof INotifiedOfCollision) {
+			INotifiedOfCollision anoc = (INotifiedOfCollision)b;
+			anoc.notifiedOfCollision(a);
+		}
+
 		if (a instanceof Player && b instanceof IPlayerCollectable) {
 			Player_Collectable(game, (Player)a, (IPlayerCollectable)b);
 		}
@@ -25,6 +41,7 @@ public class CollisionLogic {
 	
 	
 	private static void Player_Collectable(SpectrumArcade game, Player player, IPlayerCollectable col) {
+		col.collected(player);
 		col.remove();
 	}
 	

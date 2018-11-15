@@ -33,8 +33,8 @@ public class PoisonousPlant extends AbstractPhysicalEntity implements ICausesHar
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1f);
-		geometry.addControl(srb);
-		game.bulletAppState.getPhysicsSpace().add(srb);
+		mainNode.addControl(srb);
+		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 
 		

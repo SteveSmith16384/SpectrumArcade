@@ -7,11 +7,11 @@ public class Globals {
 
 	
 	public static void p(String s) {
-		// todo
+		System.out.println(s);
 	}
 
 
 	public static void pe(String s) {
-		// todo
+		System.err.println(s);
 	}
 }

@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.manicminer;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IPlayerCollectable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
@@ -51,7 +52,8 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
 	@Override
 	public void collected(Player avatar) {
-		this.remove();
+		Globals.p("Key collected");
+		//this.remove();
 	}
 
 }
