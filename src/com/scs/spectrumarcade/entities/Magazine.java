@@ -10,14 +10,14 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.BufferUtils;
-import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.Settings;
+import com.scs.spectrumarcade.SpectrumArcade;
 
-public class Wall extends AbstractPhysicalEntity {
+public class Magazine extends AbstractPhysicalEntity {
 
 	//private RigidBodyControl floor_phy;
 
-	public Wall(SpectrumArcade _game, float x, float yBottom, float z, float w, float h, float d, String tex, boolean tile) {
+	public Magazine(SpectrumArcade _game, float x, float yBottom, float z, float w, float h, float d, String tex, boolean tile) {
 		super(_game, "Wall");
 
 		Box box1 = new Box(w/2, h/2, d/2);
@@ -49,13 +49,11 @@ public class Wall extends AbstractPhysicalEntity {
 
 		this.mainNode.attachChild(geometry);
 
-		RigidBodyControl floor_phy = new RigidBodyControl(0);
+		RigidBodyControl floor_phy = new RigidBodyControl(1);
 		mainNode.addControl(floor_phy);
 		floor_phy.setKinematic(true);
 
 		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
-
-		geometry.setUserData(Settings.ENTITY, this);
 
 	}
 
@@ -72,6 +70,6 @@ public class Wall extends AbstractPhysicalEntity {
 		this.game.bulletAppState.getPhysicsSpace().remove(this.floor_phy);
 
 	}
-*/
 
+*/
 }

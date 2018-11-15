@@ -19,7 +19,7 @@ import com.scs.spectrumarcade.Settings;
 public class FloorOrCeiling extends AbstractPhysicalEntity {
 
 	//private Geometry geometry;
-	private RigidBodyControl floor_phy;
+	//private RigidBodyControl floor_phy;
 
 	public FloorOrCeiling(SpectrumArcade _game, float x, float yTop, float z, float w, float h, float d, String tex) {
 		super(_game, "FloorOrCeiling");
@@ -51,9 +51,9 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 
 		this.mainNode.attachChild(geometry);
 
-		floor_phy = new RigidBodyControl(0);
+		RigidBodyControl floor_phy = new RigidBodyControl(0);
 		mainNode.addControl(floor_phy);
-		//floor_phy.setKinematic(true);
+		floor_phy.setKinematic(true);
 		floor_phy.setFriction(1f);
 
 		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
@@ -68,13 +68,13 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 		// Do nothing
 	}
 
-
+/*
 	@Override
 	public void remove() {
 		this.mainNode.removeFromParent();
 		this.game.bulletAppState.getPhysicsSpace().remove(this.floor_phy);
 
 	}
-
+*/
 
 }

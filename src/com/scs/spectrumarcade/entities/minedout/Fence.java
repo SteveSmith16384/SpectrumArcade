@@ -19,15 +19,15 @@ public class Fence extends AbstractPhysicalEntity {
 	private static final float WIDTH = 2f;
 	private static final float HEIGHT = 1.5f;
 
-	private Geometry geometry;
-	private RigidBodyControl floor_phy;
+	//private Geometry geometry;
+	//private RigidBodyControl floor_phy;
 
 	public Fence(SpectrumArcade _game, float x, float z, float rot) {
 		super(_game, "Fence");
 
 		Box box1 = new Box(WIDTH/2, HEIGHT/2, .1f);
 		box1.scaleTextureCoordinates(new Vector2f(WIDTH, HEIGHT));
-		geometry = new Geometry("Fence", box1);
+		Geometry geometry = new Geometry("Fence", box1);
 		//TextureKey key3 = new TextureKey("Textures/Terrain/Pond/Pond.jpg");
 		TextureKey key3 = new TextureKey("Textures/bricktex.jpg");
 		key3.setGenerateMips(true);
@@ -45,12 +45,13 @@ public class Fence extends AbstractPhysicalEntity {
 		mainNode.rotate(0, rads, 0);
 		mainNode.setLocalTranslation(x+(WIDTH/2), HEIGHT/2, z+0.5f);
 
-		floor_phy = new RigidBodyControl(0);
+		RigidBodyControl floor_phy = new RigidBodyControl(0);
+		floor_phy.setKinematic(true);
 		geometry.addControl(floor_phy);
 
-		game.bulletAppState.getPhysicsSpace().add(floor_phy);
+		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
 
-		this.geometry.setUserData(Settings.ENTITY, this);
+		geometry.setUserData(Settings.ENTITY, this);
 
 	}
 
