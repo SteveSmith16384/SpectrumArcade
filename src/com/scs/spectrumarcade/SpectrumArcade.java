@@ -86,14 +86,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			}
 			settings.setTitle(Settings.NAME + " (v" + Settings.VERSION + ")");
 			if (Settings.SHOW_LOGO) {
-				settings.setSettingsDialogImage("/ad_logo.png");
+				settings.setSettingsDialogImage("todo");
 			} else {
 				settings.setSettingsDialogImage(null);
 			}
 
 			SpectrumArcade app = new SpectrumArcade();
 			app.setSettings(settings);
-			app.setPauseOnLostFocus(true);
+			//app.setPauseOnLostFocus(true);
 
 			File video, audio;
 			if (Settings.RECORD_VID) {
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		ILevelGenerator level = new AntAttackLevel();//ArcadeRoom();//
+		ILevelGenerator level = new AntAttackLevel(); //EricAndTheFloatersLevel();//();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
 	
@@ -211,6 +211,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void simpleUpdate(float tpf_secs) {
+		if (tpf_secs > 1f) {
+			tpf_secs = 1f;
+		}
 		/*
 		 * The direction of character is determined by the camera angle
 		 * the Y direction is set to zero to keep our character from
@@ -355,7 +358,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void collision(PhysicsCollisionEvent event) {
-		System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
+		//System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
 
 		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
 		AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);

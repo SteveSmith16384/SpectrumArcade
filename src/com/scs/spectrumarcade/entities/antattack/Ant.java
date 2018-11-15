@@ -18,7 +18,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	public static final float SPEED = 10f;
 	public static final float START_HEALTH = 5f;
 
-	private Vector3f dir;
+	//private Vector3f dir;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -28,12 +28,12 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		dir = JMEAngleFunctions.getRandomDirection_8();
+		Vector3f dir = JMEAngleFunctions.getRandomDirection_8();
 		JMEAngleFunctions.rotateToWorldDirection(this.mainNode, dir);
 
 		srb = new RigidBodyControl(1f);
-		srb.setRestitution(.01f);
 		mainNode.addControl(srb);
+		//wwwwwwwwsrb.setRestitution(.01f);
 		//srb.setKinematic(true);
 
 	}
@@ -47,9 +47,15 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	@Override
 	public void process(float tpfSecs) {
+		if (this.getMainNode().getWorldTranslation().y < -5) {
+			Globals.pe("ANT OF EDGE");
+		}
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
-		this.srb.applyCentralForce(dir.mult(tpfSecs * SPEED));
-
+		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
+		
+		dir.multLocal(10f);//SPEED));
+		Globals.p("Ant force: " + dir);
+		this.srb.applyCentralForce(dir);
 	}
 
 
@@ -57,7 +63,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
 			Globals.p("Ant collided with " + collidedWith);
-			this.srb.applyTorque(new Vector3f(0, -1, 0));
+			this.srb.applyTorque(new Vector3f(0, -1, 0).multLocal(10));
 		}		
 	}
 

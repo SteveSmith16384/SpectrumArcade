@@ -2,6 +2,7 @@ package com.scs.spectrumarcade.models;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
+import com.jme3.animation.LoopMode;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
@@ -15,15 +16,15 @@ public class AntModel extends Node {
 	public static final float MODEL_WIDTH = 2.2f;
 	public static final float MODEL_HEIGHT = 0.7f;
 
-	private AssetManager assetManager;
-	private Spatial node;
+	//private AssetManager assetManager;
+	//private Spatial node;
 
 	// Anim
 	private AnimChannel channel;
-	private int currAnimCode = -1;
+	//private int currAnimCode = -1;
 
-	public AntModel(AssetManager _assetManager) {
-		assetManager = _assetManager;
+	public AntModel(AssetManager assetManager) {
+		//assetManager = _assetManager;
 
 		Spatial model = assetManager.loadModel("Models/spider/Spider.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/spider/Spider.png");
@@ -37,6 +38,10 @@ public class AntModel extends Node {
 		channel = control.createChannel();
 
 		this.attachChild(model); // Need to have an extra node to keep model's relative position
+		
+		channel.setLoopMode(LoopMode.Loop);
+		channel.setAnim("SpiderWalk");
+
 	}
 	
 	/*
