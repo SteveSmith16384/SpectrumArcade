@@ -69,8 +69,8 @@ public class AntAttackLevel implements ILevelGenerator {
 		// Show all blocks for debugging
 		terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
 		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
-		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID);
-		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK);
+		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID); // 26
+		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK); // 17
 		terrainUDG.addBlock_Block(new Vector3Int(5, 0, 5), BlockCodes.EXIT);
 		terrainUDG.addBlock_Block(new Vector3Int(6, 0, 6), BlockCodes.RED_FLOOR_PXL);
 		terrainUDG.addBlock_Block(new Vector3Int(7, 0, 7), BlockCodes.RED_FLOOR_UDG);
@@ -95,11 +95,4 @@ public class AntAttackLevel implements ILevelGenerator {
 		return ColorRGBA.White;
 	}
 
-/*
-	@Override
-	public int getLevelCode() {
-		return LevelCodes.LVL_ANT_ATTACK;
-	}
-
-*/
 }

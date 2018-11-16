@@ -408,4 +408,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.entities.remove(e);
 	}
 
+	
+	public void keyCollected() {
+		this.gameData.numKeys++;
+	}
+	
 }

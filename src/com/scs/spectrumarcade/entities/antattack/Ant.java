@@ -13,12 +13,11 @@ import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.models.AntModel;
 
+import ssmith.lang.NumberFunctions;
+
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
 
-	public static final float SPEED = 10f;
-	public static final float START_HEALTH = 5f;
-
-	//private Vector3f dir;
+	public static final float SPEED = 1f;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -49,14 +48,14 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void process(float tpfSecs) {
 		if (this.getMainNode().getWorldTranslation().y < -5) {
-			Globals.pe("ANT OF EDGE");
+			Globals.pe("ANT OFF EDGE");
 		}
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		
-		dir.multLocal(10f);//SPEED));
+
+		Vector3f force = dir.mult(10);
 		//Globals.p("Ant force: " + dir);
-		this.srb.applyCentralForce(dir);
+		this.srb.applyCentralForce(force);
 	}
 
 
@@ -64,9 +63,13 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
 			Globals.p("Ant collided with " + collidedWith + " and is turning");
-			// todo - turn the other way as well
-			//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
-			this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(.5f));
+			// todo - keep turning same direction for a while
+			if (NumberFunctions.rnd(1,  2) == 1) {
+				//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
+				this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(1.5f));
+			} else {
+				this.srb.applyTorqueImpulse(new Vector3f(0, 1, 0).multLocal(1.5f));
+			}
 		}		
 	}
 

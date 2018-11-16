@@ -45,7 +45,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 			rotDegrees -= 360;
 		}*/
 		//float rads = (float)Math.toRadians((tpfSecs * 1));
-		this.getMainNode().rotate(0, tpfSecs, 0);
+		this.getMainNode().rotate(0, tpfSecs*2, 0);
 
 	}
 
@@ -53,7 +53,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 	@Override
 	public void collected(Player avatar) {
 		Globals.p("Key collected");
-		//this.remove();
+		game.keyCollected();
 	}
 
 }
