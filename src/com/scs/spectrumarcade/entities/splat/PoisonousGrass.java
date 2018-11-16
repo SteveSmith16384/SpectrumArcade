@@ -14,7 +14,7 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 	public PoisonousGrass(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "todo");
 
-		float w = 1f;
+		float w = .5f;
 		float h = 1f;
 		float d = 1f;
 
@@ -30,9 +30,8 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 
 	}

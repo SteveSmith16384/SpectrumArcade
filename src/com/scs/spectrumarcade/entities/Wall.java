@@ -15,8 +15,6 @@ import com.scs.spectrumarcade.Settings;
 
 public class Wall extends AbstractPhysicalEntity {
 
-	//private RigidBodyControl floor_phy;
-
 	public Wall(SpectrumArcade _game, float x, float yBottom, float z, float w, float h, float d, String tex, boolean tile) {
 		super(_game, "Wall");
 
@@ -48,6 +46,7 @@ public class Wall extends AbstractPhysicalEntity {
 		geometry.setLocalTranslation(w/2, h/2, d/2);
 
 		this.mainNode.attachChild(geometry);
+		mainNode.setLocalTranslation(x, yBottom+h, z); // Move it into position
 
 		RigidBodyControl floor_phy = new RigidBodyControl(0);
 		mainNode.addControl(floor_phy);
@@ -64,14 +63,4 @@ public class Wall extends AbstractPhysicalEntity {
 	public void process(float tpf) {
 		// Do nothing
 	}
-
-/*
-	@Override
-	public void remove() {
-		this.mainNode.removeFromParent();
-		this.game.bulletAppState.getPhysicsSpace().remove(this.floor_phy);
-
-	}
-*/
-
 }

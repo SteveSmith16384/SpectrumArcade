@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class EATFWeakBlock extends AbstractBlock {
 
 	public EATFWeakBlock() {
-		super(4, 1);
+		super(2, 1);
 	}
 
 }

@@ -32,22 +32,22 @@ public class PoisonousPlant extends AbstractPhysicalEntity implements ICausesHar
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
-
 		
 	}
 
+	
 	@Override
 	public float getDamageCaused() {
 		return 1;
 	}
 
+	
 	@Override
 	public void process(float tpfSecs) {
-		// TODO Auto-generated method stub
+		// Do nothing
 
 	}
 

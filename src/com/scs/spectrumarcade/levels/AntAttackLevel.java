@@ -35,8 +35,8 @@ public class AntAttackLevel implements ILevelGenerator {
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
 		game.addEntity(terrainUDG);
-		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
-		game.addEntity(terrainPixel);
+		//VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
+		//game.addEntity(terrainPixel);
 
 		// Border
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -61,9 +61,26 @@ public class AntAttackLevel implements ILevelGenerator {
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
 			Vector3f pos = res.getCollision(0).getContactPoint();
-			Key key = new Key(game, pos.x, pos.y + 0.3f, pos.z);
+			Key key = new Key(game, pos.x, pos.y + 1.3f, pos.z); // Raise key so ants don't hit it
 			game.addEntity(key);
 		}
+		
+		
+		// Show all blocks for debugging
+		terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
+		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
+		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID);
+		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK);
+		terrainUDG.addBlock_Block(new Vector3Int(5, 0, 5), BlockCodes.EXIT);
+		terrainUDG.addBlock_Block(new Vector3Int(6, 0, 6), BlockCodes.RED_FLOOR_PXL);
+		terrainUDG.addBlock_Block(new Vector3Int(7, 0, 7), BlockCodes.RED_FLOOR_UDG);
+		terrainUDG.addBlock_Block(new Vector3Int(8, 0, 8), BlockCodes.SPLAT);
+		/*terrainUDG.addBlock_Block(new Vector3Int(9, 0, 9), BlockCodes.);
+		terrainUDG.addBlock_Block(new Vector3Int(10, 0, 10), BlockCodes.BRICK);
+		terrainUDG.addBlock_Block(new Vector3Int(11, 0, 0), BlockCodes.BRICK);
+		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);
+		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);
+		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);*/
 	}
 
 

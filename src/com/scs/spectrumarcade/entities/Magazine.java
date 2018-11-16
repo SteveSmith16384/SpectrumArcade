@@ -15,26 +15,17 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public class Magazine extends AbstractPhysicalEntity {
 
-	//private RigidBodyControl floor_phy;
-
-	public Magazine(SpectrumArcade _game, float x, float yBottom, float z, float w, float h, float d, String tex, boolean tile) {
-		super(_game, "Wall");
+	public Magazine(SpectrumArcade _game, float x, float yBottom, float z, String tex) {
+		super(_game, "Magazine");
+		
+		float w = 0.2f;
+		float h = 0.25f;
+		float d = 0.05f;
 
 		Box box1 = new Box(w/2, h/2, d/2);
 
-		if (tile) {
-			box1.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(new float[]{
-					0, h, w, h, w, 0, 0, 0, // back
-					0, h, d, h, d, 0, 0, 0, // right
-					0, h, w, h, w, 0, 0, 0, // front
-					0, h, d, h, d, 0, 0, 0, // left
-					w, 0, w, d, 0, d, 0, 0, // top
-					w, 0, w, d, 0, d, 0, 0  // bottom
-			}));
-		}
-
 		Geometry geometry = new Geometry("FloorGeom", box1);
-		geometry.setShadowMode(ShadowMode.Receive);
+		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
 		TextureKey key3 = new TextureKey(tex);
 		key3.setGenerateMips(true);
@@ -53,8 +44,6 @@ public class Magazine extends AbstractPhysicalEntity {
 		mainNode.addControl(floor_phy);
 		floor_phy.setKinematic(true);
 
-		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
-
 	}
 
 
@@ -63,13 +52,4 @@ public class Magazine extends AbstractPhysicalEntity {
 		// Do nothing
 	}
 
-/*
-	@Override
-	public void remove() {
-		this.mainNode.removeFromParent();
-		this.game.bulletAppState.getPhysicsSpace().remove(this.floor_phy);
-
-	}
-
-*/
 }

@@ -4,6 +4,8 @@ import com.scs.spectrumarcade.blocks.AntAttackBlock;
 import com.scs.spectrumarcade.blocks.BrickBlock;
 import com.scs.spectrumarcade.blocks.ConveyorBlock;
 import com.scs.spectrumarcade.blocks.DebugBlock;
+import com.scs.spectrumarcade.blocks.EATFSolidBlock;
+import com.scs.spectrumarcade.blocks.EATFWeakBlock;
 import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
@@ -37,8 +39,8 @@ public class BlockCodes {
 		case ANT_ATTACK: return AntAttackBlock.class;
 		case SPLAT: return SplatBlock.class;
 		case RED_FLOOR_PXL: return RedFloorBlockPxl.class;
-		case EATF_SOLID: return RedFloorBlockPxl.class;
-		case EATF_WEAK: return RedFloorBlockPxl.class;
+		case EATF_SOLID: return EATFSolidBlock.class;
+		case EATF_WEAK: return EATFWeakBlock.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

@@ -33,7 +33,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 		srb = new RigidBodyControl(1f);
 		mainNode.addControl(srb);
-		//wwwwwwwwsrb.setRestitution(.01f);
+		srb.setAngularDamping(0.8f);
+		//srb.setRestitution(.01f);
 		//srb.setKinematic(true);
 
 	}
@@ -54,7 +55,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		
 		dir.multLocal(10f);//SPEED));
-		Globals.p("Ant force: " + dir);
+		//Globals.p("Ant force: " + dir);
 		this.srb.applyCentralForce(dir);
 	}
 
@@ -62,8 +63,10 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
-			Globals.p("Ant collided with " + collidedWith);
-			this.srb.applyTorque(new Vector3f(0, -1, 0).multLocal(10));
+			Globals.p("Ant collided with " + collidedWith + " and is turning");
+			// todo - turn the other way as well
+			//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
+			this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(.5f));
 		}		
 	}
 

@@ -19,6 +19,7 @@ import mygame.util.Vector3Int;
 public class SplatLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
+	private static final int WALL_HEIGHT = 5;
 
 	public SplatLevel() {
 	}
@@ -31,8 +32,6 @@ public class SplatLevel implements ILevelGenerator {
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
 		game.addEntity(terrainUDG);
-		//VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
-		//game.addEntity(terrainPixel);
 
 		// Border
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -41,12 +40,17 @@ public class SplatLevel implements ILevelGenerator {
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
 		int map[][] = MapLoader.loadMap("maps/splat_map1.csv");
+		
 		// Create heightmap
 		int heightMap[][] = new int[map.length][map[0].length];
 		for (int z=0 ; z<map[0].length ; z++) {
-			for (int x=0 ; z<map.length ; x++) {
-				if (map[x][z] == 1) {
-					heightMap[x][z] = 1;
+			for (int x=0 ; x<map.length ; x++) {
+				try {
+					if (map[x][z] == 1) {
+						heightMap[x][z] = WALL_HEIGHT;
+					}
+				} catch (ArrayIndexOutOfBoundsException ex) {
+					ex.printStackTrace();
 				}
 			}
 		}
@@ -54,7 +58,7 @@ public class SplatLevel implements ILevelGenerator {
 
 		// Load plants
 		for (int z=0 ; z<map[0].length ; z++) {
-			for (int x=0 ; z<map.length ; x++) {
+			for (int x=0 ; x<map.length ; x++) {
 				if (map[x][z] == 2) {
 					PoisonousGrass key = new PoisonousGrass(game, x, 0, z);
 					game.addEntity(key);
@@ -62,13 +66,12 @@ public class SplatLevel implements ILevelGenerator {
 				}
 			}
 		}
-
 	}
 
 
 	@Override
 	public void moveAvatarToStartPosition(Player avatar) {
-		avatar.playerControl.warp(new Vector3f(10, 3f, 10f));
+		avatar.playerControl.warp(new Vector3f(2, 3f, 2f));
 	}
 
 
@@ -76,12 +79,5 @@ public class SplatLevel implements ILevelGenerator {
 	public ColorRGBA getBackgroundColour() {
 		return ColorRGBA.White;
 	}
-
-/*
-	@Override
-	public int getLevelCode() {
-		return LevelCodes.LVL_SPLAT;
-	}
-*/
 
 }

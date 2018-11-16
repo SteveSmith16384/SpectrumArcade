@@ -1,11 +1,8 @@
-package com.scs.spectrumarcade.entities;
+package com.scs.spectrumarcade.entities.splat;
 
 import com.jme3.asset.TextureKey;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
-import com.jme3.material.RenderState.BlendMode;
-import com.jme3.math.Vector2f;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.VertexBuffer.Type;
@@ -13,13 +10,20 @@ import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.BufferUtils;
-import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.Settings;
+import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
-public class FloorOrCeiling extends AbstractPhysicalEntity {
+public class KillingWall extends AbstractPhysicalEntity {
+	
+	private static final float SIZE = 4f;
 
-	public FloorOrCeiling(SpectrumArcade _game, float x, float yTop, float z, float w, float h, float d, String tex) {
-		super(_game, "FloorOrCeiling");
+	public KillingWall(SpectrumArcade _game, float x, float yBottom, float z) {
+		super(_game, "KillingWall");
+		
+		float w = SIZE;
+		float h = SIZE;
+		float d = SIZE;
 
 		Box box1 = new Box(w/2, h/2, d/2);
 
@@ -33,9 +37,9 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 		}));
 
 		Geometry geometry = new Geometry("FloorGeom", box1);
-		geometry.setShadowMode(ShadowMode.Receive);
+		//geometry.setShadowMode(ShadowMode.Receive);
 
-		TextureKey key3 = new TextureKey(tex);
+		TextureKey key3 = new TextureKey("Textures/mm_bricks.png");
 		key3.setGenerateMips(true);
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);
@@ -44,15 +48,10 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 		floorMat.setTexture("DiffuseMap", tex3);
 		geometry.setMaterial(floorMat);
 
-		geometry.setLocalTranslation(w/2, -h/2, d/2); // Move it into position
+		geometry.setLocalTranslation(w/2, +h/2, d/2); // Move it into position
 
 		this.mainNode.attachChild(geometry);
-		mainNode.setLocalTranslation(x, yTop, z); // Move it into position
-
-		RigidBodyControl floor_phy = new RigidBodyControl(0);
-		mainNode.addControl(floor_phy);
-		floor_phy.setKinematic(true);
-		floor_phy.setFriction(1f);
+		mainNode.setLocalTranslation(x, yBottom, z); // Move it into position
 
 		geometry.setUserData(Settings.ENTITY, this);
 
@@ -61,7 +60,7 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 
 	@Override
 	public void process(float tpf) {
-		// Do nothing
+
 	}
 
 

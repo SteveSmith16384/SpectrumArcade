@@ -5,11 +5,13 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.blocks.AntAttackBlock;
 import com.scs.spectrumarcade.blocks.BrickBlock;
 import com.scs.spectrumarcade.blocks.ConveyorBlock;
 import com.scs.spectrumarcade.blocks.DebugBlock;
+import com.scs.spectrumarcade.blocks.EATFSolidBlock;
 import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
@@ -44,18 +46,19 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 		int s = worldSizeBlocks / CHUNK_SIZE;
 		blockSettings.setWorldSizeInChunks(new Vector3Int(s+1, s+1, s+1));
 		blockSettings.setViewDistance(200f);
-		blockSettings.texturesPerSheet = 16;
+		blockSettings.texturesPerSheet = Settings.TEX_PER_SHEET;
 
 		blocks = new BlockTerrainControl(blockSettings);
-		blocks.registerBlock(new BrickBlock());
+		/*blocks.registerBlock(new BrickBlock());
 		blocks.registerBlock(new RedFloorBlockUDG());
 		blocks.registerBlock(new RedFloorBlockPxl());
 		blocks.registerBlock(new ExitBlock());
 		blocks.registerBlock(new ConveyorBlock());
 		blocks.registerBlock(new DebugBlock());
 		blocks.registerBlock(new FenceBlock());
-		blocks.registerBlock(new AntAttackBlock());
-		blocks.registerBlock(new SplatBlock());
+		blocks.registerBlock(new AntAttackBlock());*/
+		//blocks.registerBlock(new SplatBlock());
+		//blocks.registerBlock(new EATFSolidBlock());
 
 		this.getMainNode().addControl(blocks);
 		this.getMainNode().setLocalTranslation(x, y, z);
@@ -68,8 +71,8 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 				RigidBodyControl control = geom.getControl(RigidBodyControl.class);
 				if(control == null){
 					control = new RigidBodyControl(0);
-					control.setKinematic(true);
 					geom.addControl(control);
+					control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
 				}
 				control.setCollisionShape(new MeshCollisionShape(geom.getMesh()));
@@ -86,10 +89,18 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	}
 
 
-	public void addBlock(Vector3Int pos, int blockType) {
+	public void addBlock_Actual(Vector3Int pos, int blockType) {
 		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);//, false);
 		//Globals.p("Adding block at " + blockPosition);
 		blocks.setBlock(blockPosition, BlockCodes.getClassFromCode(blockType));
+
+	}
+
+
+	public void addBlock_Block(Vector3Int pos, int blockType) {
+		//Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);//, false);
+		//Globals.p("Adding block at " + blockPosition);
+		blocks.setBlock(pos, BlockCodes.getClassFromCode(blockType));
 
 	}
 

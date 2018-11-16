@@ -1,6 +1,6 @@
 Material My Material : Common/MatDefs/Light/Lighting.j3md {
      MaterialParameters {
-        DiffuseMap : MagNearest Flip Textures/mm_tiles.png
+        DiffuseMap : Flip Textures/sa_tiles.png
      }
     AdditionalRenderState {
     }

@@ -16,7 +16,6 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.font.BitmapFont;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -67,15 +66,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private DirectionalLight sun;
 	private GameData gameData = new GameData();
 	
-	/*
-	private AudioNode ambient_node;
-	private AudioNode game_over_sound_node;
-	public AudioNode thunderclap_sound_node;
-	private AudioNode scary_sound1, scary_sound2, bens_sfx;
-	private float next_scary_sound = 10;
-	 */
-
-
 	public static void main(String[] args) {
 		try {
 			AppSettings settings = new AppSettings(true);
@@ -122,7 +112,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		assetManager.registerLocator("assets/", FileLocator.class); // default
 		//assetManager.registerLocator("assets/Textures/", FileLocator.class);
 
-		BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
+		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
 
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
 
@@ -176,7 +166,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		ILevelGenerator level = new AntAttackLevel(); //EricAndTheFloatersLevel();//();//ArcadeRoom();//
+		ILevelGenerator level = new AntAttackLevel(); //EricAndTheFloatersLevel();//SplatLevel();//();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
 	
@@ -193,6 +183,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		
 	}
@@ -363,7 +354,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
 		AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);
 		while (a == null && ga.getParent() != null) {
-			Globals.p("Getting parent of " + ga);
+			//Globals.p("Getting parent of " + ga);
 			ga = ga.getParent();
 			a = ga.getUserData(Settings.ENTITY);
 		}
@@ -375,7 +366,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		Spatial gb = (Spatial)event.getObjectB().getUserObject(); 
 		AbstractPhysicalEntity b = gb.getUserData(Settings.ENTITY);
 		while (b == null && gb.getParent() != null) {
-			Globals.p("Getting parent of " + gb);
+			//Globals.p("Getting parent of " + gb);
 			gb = gb.getParent();
 			b = gb.getUserData(Settings.ENTITY);
 		}
@@ -397,23 +388,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		return this.player_won;
 	}
 
-	/*
-	private void playRandomScarySound() {
-		if (Settings.USE_BENS_SOUND) {
-			this.bens_sfx.playInstance();
-		} else {
-			int i = rnd.nextInt(2);
-			switch (i) {
-			case 0:
-				this.scary_sound1.playInstance();
-				break;
-			case 1:
-				this.scary_sound2.playInstance();
-				break;
-			}
-		}
-	}
-	 */
 
 	public static void p(String s) {
 		System.out.println(System.currentTimeMillis() + ": " + s);
