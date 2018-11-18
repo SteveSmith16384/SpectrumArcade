@@ -28,7 +28,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		Mesh sphere = new Sphere(8, 8, EricAndTheFloatersLevel.SEGMENT_SIZE/3, true, false);
 		Geometry geometry = new Geometry("FloaterSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/yellowsun.jpg");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -60,10 +60,10 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
-			Globals.p("Floater collided with " + collidedWith + " and is turning");
+			//Globals.p("Floater collided with " + collidedWith + " and is turning");
 			// todo - turn the other way as well
 			//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
-			dir = JMEAngleFunctions.getRandomDirection_8();
+			dir = JMEAngleFunctions.getRandomDirection_4();
 			//this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(.5f));
 		}		
 	}

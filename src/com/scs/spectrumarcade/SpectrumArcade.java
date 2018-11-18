@@ -34,7 +34,7 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.Player;
-import com.scs.spectrumarcade.levels.AntAttackLevel;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -166,7 +166,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		ILevelGenerator level = new AntAttackLevel(); //EricAndTheFloatersLevel();//SplatLevel();//();//ArcadeRoom();//
+		ILevelGenerator level = new EricAndTheFloatersLevel();//AntAttackLevel(); //SplatLevel();//();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
 	

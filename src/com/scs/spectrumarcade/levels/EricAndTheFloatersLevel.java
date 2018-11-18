@@ -27,7 +27,7 @@ public class EricAndTheFloatersLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/splat.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/splat_wall.png");
 		game.addEntity(floor);
 		//FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, SEGMENT_SIZE+1, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/splat.png");
 		//game.addEntity(ceiling); // ceiling.getMainNode().getWorldBound() 
@@ -40,11 +40,11 @@ public class EricAndTheFloatersLevel implements ILevelGenerator {
 
 		//  outer walls
 		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(0, 0, 0), new Vector3Int(gridSize, 1, 1));
-		//terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, gridSize));
-		//terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(0, 0, gridSize), new Vector3Int(gridSize, 1, 1));
-		//terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(gridSize, 0, 0), new Vector3Int(1, 1, gridSize));
+		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, gridSize));
+		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(0, 0, gridSize), new Vector3Int(gridSize, 1, 1));
+		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(gridSize, 0, 0), new Vector3Int(1, 1, gridSize));
 
-		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.EATF_SOLID);
+		//terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.EATF_SOLID);
 		
 		// Add solid walls
 		for (int zGrid=1 ; zGrid<gridSize-1 ; zGrid++) {
@@ -55,25 +55,25 @@ public class EricAndTheFloatersLevel implements ILevelGenerator {
 					} else {
 						if (NumberFunctions.rnd(1,  4) == 1) {
 							//terrainUDG.addBlock(new Vector3Int(x, 0, z), BlockCodes.EATF_WEAK);
-						} else if (NumberFunctions.rnd(1,  4) == 1) {
-							//Floater f = new Floater(game, x * SEGMENT_SIZE, 2f, z*SEGMENT_SIZE);
-							//game.addEntity(f);
+						} else if (NumberFunctions.rnd(1,  8) == 1) {
+							Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
+							game.addEntity(f);
 						}
 					}
 				}
 			}			
 		}
 
-		/*
+/*
 		// Floaters
-		for (int i=0 ; i<1 ; i++) {
+		for (int i=0 ; i<4 ; i++) {
 			int x = SEGMENT_SIZE+5;//NumberFunctions.rnd(2, MAP_SIZE-4);
 			int z = SEGMENT_SIZE+5;//NumberFunctions.rnd(2, MAP_SIZE-4);
 			Floater floater = new Floater(game, x, 2f, z);
 			game.addEntity(floater);
 		}
 
-		 */
+*/
 	}
 
 

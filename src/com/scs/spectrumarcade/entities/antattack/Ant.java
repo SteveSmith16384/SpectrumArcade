@@ -62,7 +62,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
-			Globals.p("Ant collided with " + collidedWith + " and is turning");
+			//Globals.p("Ant collided with " + collidedWith + " and is turning");
 			// todo - keep turning same direction for a while
 			if (NumberFunctions.rnd(1,  2) == 1) {
 				//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));

@@ -71,10 +71,10 @@ public class AntAttackLevel implements ILevelGenerator {
 		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
 		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID); // 26
 		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK); // 17
-		terrainUDG.addBlock_Block(new Vector3Int(5, 0, 5), BlockCodes.EXIT);
-		terrainUDG.addBlock_Block(new Vector3Int(6, 0, 6), BlockCodes.RED_FLOOR_PXL);
-		terrainUDG.addBlock_Block(new Vector3Int(7, 0, 7), BlockCodes.RED_FLOOR_UDG);
-		terrainUDG.addBlock_Block(new Vector3Int(8, 0, 8), BlockCodes.SPLAT);
+		terrainUDG.addBlock_Block(new Vector3Int(5, 0, 5), BlockCodes.EXIT); // 24
+		terrainUDG.addBlock_Block(new Vector3Int(6, 0, 6), BlockCodes.RED_FLOOR_PXL); // ant attack
+		terrainUDG.addBlock_Block(new Vector3Int(7, 0, 7), BlockCodes.RED_FLOOR_UDG); // 41
+		terrainUDG.addBlock_Block(new Vector3Int(8, 0, 8), BlockCodes.SPLAT); // OK
 		/*terrainUDG.addBlock_Block(new Vector3Int(9, 0, 9), BlockCodes.);
 		terrainUDG.addBlock_Block(new Vector3Int(10, 0, 10), BlockCodes.BRICK);
 		terrainUDG.addBlock_Block(new Vector3Int(11, 0, 0), BlockCodes.BRICK);
