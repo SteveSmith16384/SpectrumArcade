@@ -12,7 +12,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.antattack.Ant;
 import com.scs.spectrumarcade.entities.manicminer.Key;
@@ -93,7 +93,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, 10, 5, 10f);
+		return new WalkingPlayer(game, 10, 5, 10f);
 	}
 
 

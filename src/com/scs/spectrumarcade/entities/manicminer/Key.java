@@ -7,7 +7,7 @@ import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IPlayerCollectable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
@@ -16,7 +16,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 	//private Geometry geometry;
 
 	public Key(SpectrumArcade _game, float x, float y, float z) {
-		super(_game, "todo");
+		super(_game, "Key");
 
 		Geometry geometry = (Geometry)game.getAssetManager().loadModel("Models/key.obj");
 		JMEModelFunctions.scaleModelToWidth(geometry, 1f);
@@ -51,7 +51,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
 
 	@Override
-	public void collected(Player avatar) {
+	public void collected(WalkingPlayer avatar) {
 		Globals.p("Key collected");
 		game.keyCollected();
 	}

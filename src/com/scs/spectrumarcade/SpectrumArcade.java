@@ -166,12 +166,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof AbstractPhysicalEntity) {
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
-			/*if (e instanceof PlayerCar) {
-				bulletAppState.getPhysicsSpace().add(ape.getMainNode().getChild(2)); // todo - not this!
-			} else {*/
-				bulletAppState.getPhysicsSpace().add(ape.getMainNode());
-			//}
-
+			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
 		}
 	}
 
@@ -186,7 +181,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		for(IEntity ip : entities) {
 			//if (ip != null) {				
-				ip.process(tpfSecs);
+			ip.process(tpfSecs);
 			//}
 		}
 

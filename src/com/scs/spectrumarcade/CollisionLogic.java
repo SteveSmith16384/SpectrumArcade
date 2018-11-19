@@ -4,7 +4,7 @@ import com.scs.spectrumarcade.components.ICausesHarmOnContact;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.components.IPlayerCollectable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 
 public class CollisionLogic {
 
@@ -24,29 +24,29 @@ public class CollisionLogic {
 			anoc.notifiedOfCollision(a);
 		}
 
-		if (a instanceof Player && b instanceof IPlayerCollectable) {
-			Player_Collectable(game, (Player)a, (IPlayerCollectable)b);
+		if (a instanceof WalkingPlayer && b instanceof IPlayerCollectable) {
+			Player_Collectable(game, (WalkingPlayer)a, (IPlayerCollectable)b);
 		}
-		if (a instanceof IPlayerCollectable && b instanceof Player) {
-			Player_Collectable(game, (Player)b, (IPlayerCollectable)a);
+		if (a instanceof IPlayerCollectable && b instanceof WalkingPlayer) {
+			Player_Collectable(game, (WalkingPlayer)b, (IPlayerCollectable)a);
 		}
 
-		if (a instanceof Player && b instanceof ICausesHarmOnContact) {
-			Player_Harm(game, (Player)a, (ICausesHarmOnContact)b);
+		if (a instanceof WalkingPlayer && b instanceof ICausesHarmOnContact) {
+			Player_Harm(game, (WalkingPlayer)a, (ICausesHarmOnContact)b);
 		}
-		if (a instanceof ICausesHarmOnContact && b instanceof Player) {
-			Player_Harm(game, (Player)b, (ICausesHarmOnContact)a);
+		if (a instanceof ICausesHarmOnContact && b instanceof WalkingPlayer) {
+			Player_Harm(game, (WalkingPlayer)b, (ICausesHarmOnContact)a);
 		}
 	}
 	
 	
-	private static void Player_Collectable(SpectrumArcade game, Player player, IPlayerCollectable col) {
+	private static void Player_Collectable(SpectrumArcade game, WalkingPlayer player, IPlayerCollectable col) {
 		col.collected(player);
 		col.remove();
 	}
 	
 	
-	private static void Player_Harm(SpectrumArcade game, Player player, ICausesHarmOnContact col) {
+	private static void Player_Harm(SpectrumArcade game, WalkingPlayer player, ICausesHarmOnContact col) {
 		//Settings.p()
 		// todo
 	}

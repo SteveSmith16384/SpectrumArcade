@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.entities.manicminer.PoisonousPlant;
@@ -94,7 +94,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 */
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, 15, 5, 20f);
+		return new WalkingPlayer(game, 15, 5, 20f);
 	}
 
 

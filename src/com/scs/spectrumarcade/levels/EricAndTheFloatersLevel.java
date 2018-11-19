@@ -10,7 +10,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.ericandfloaters.Floater;
 
@@ -86,7 +86,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
+		return new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
 	}
 
 

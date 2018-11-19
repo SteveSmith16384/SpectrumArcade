@@ -44,7 +44,6 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 				ILevelGenerator object = level.newInstance();
 				this.game.startNewLevel(object);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

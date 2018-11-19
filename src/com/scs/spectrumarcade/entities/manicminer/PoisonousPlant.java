@@ -12,7 +12,7 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 public class PoisonousPlant extends AbstractPhysicalEntity implements ICausesHarmOnContact {
 
 	public PoisonousPlant(SpectrumArcade _game, float x, float y, float z) {
-		super(_game, "todo");
+		super(_game, "PoisonousPlant");
 
 		float w = 1f;
 		float h = 1f;

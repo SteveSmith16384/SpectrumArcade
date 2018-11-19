@@ -109,10 +109,10 @@ public class PlayerCar extends Avatar {
 	
 	@Override
 	public void process(float tpfSecs) {
-		Vector3f pos = new Vector3f();
+		/*Vector3f pos = new Vector3f();
 		vehicle.getPhysicsLocation(pos);
-		Globals.p("Car pos:" + pos);// game.player.getMainNode().getWorldTranslation());
-
+		Globals.p("Car pos:" + pos);
+*/
 	}
 
 	

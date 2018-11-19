@@ -6,7 +6,7 @@ public class Settings {
 
 	public static final boolean RECORD_VID = false;
 	public static final boolean SHOW_DEBUG = false;
-	public static final boolean SHOW_LOGO = false; // todo - need a logo!
+	public static final boolean SHOW_LOGO = false;
 	
 	public static final float CAM_DIST = 30f;
 	public static final int TEX_PER_SHEET = 16;

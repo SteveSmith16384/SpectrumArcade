@@ -11,7 +11,7 @@ import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.splat.PoisonousGrass;
 
@@ -78,7 +78,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 */
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, 2, 3, 2f);
+		return new WalkingPlayer(game, 2, 3, 2f);
 	}
 
 

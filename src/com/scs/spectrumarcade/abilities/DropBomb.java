@@ -1,8 +1,8 @@
 package com.scs.spectrumarcade.abilities;
 
-public class ThrowBomb {
+public class DropBomb {
 
-	public ThrowBomb() {
+	public DropBomb() {
 		// TODO Auto-generated constructor stub
 	}
 

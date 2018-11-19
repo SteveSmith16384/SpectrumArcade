@@ -10,7 +10,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 
 import mygame.util.Vector3Int;
@@ -50,7 +50,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, MAP_SIZE/2, 3f, 3f);
+		return new WalkingPlayer(game, MAP_SIZE/2, 3f, 3f);
 	}
 
 
@@ -62,6 +62,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		// todo - not every iteration
 		Vector3f pos = ((AbstractPhysicalEntity)game.player).getMainNode().getWorldTranslation();
 		this.terrainUDG.addBlock_Block(new Vector3Int((int)pos.x, 0, (int)pos.z), BlockCodes.MINED_OUT_WALKED_ON);
 		

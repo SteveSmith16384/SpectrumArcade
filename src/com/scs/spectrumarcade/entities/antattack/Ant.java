@@ -17,11 +17,12 @@ import ssmith.lang.NumberFunctions;
 
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
 
-	public static final float SPEED = 1f;
-	public static final long TURN_INTERVAL = 2000;
+	private static final float SPEED = 1f;
+	private static final long TURN_INTERVAL = 2000;
 
 	private long timeUntilNextTurn = 0;
 	private Vector3f turnDir;
+	private long dontMoveUntil = 0;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -54,12 +55,14 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
 		}
-		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
-		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 
-		Vector3f force = dir.mult(10);
-		//Globals.p("Ant force: " + dir);
-		this.srb.applyCentralForce(force);
+		if (this.dontMoveUntil < System.currentTimeMillis()) {
+			//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
+			Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
+			Vector3f force = dir.mult(10);
+			//Globals.p("Ant force: " + dir);
+			this.srb.applyCentralForce(force);
+		}
 	}
 
 
@@ -75,6 +78,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 					turnDir = new Vector3f(0, -1, 0).multLocal(1.5f);
 				}
 			}
+			dontMoveUntil = System.currentTimeMillis() + 3000;
 			this.srb.applyTorqueImpulse(turnDir);
 		}		
 	}

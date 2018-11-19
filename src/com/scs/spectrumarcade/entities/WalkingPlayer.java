@@ -14,7 +14,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public class Player extends Avatar { // todo - rename
+public class WalkingPlayer extends Avatar {
 
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
@@ -37,7 +37,7 @@ public class Player extends Avatar { // todo - rename
 	private int next_footstep_sound = 0;
 	public boolean walking = false;
 
-	public Player(SpectrumArcade _game, float x, float y, float z) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Player");
 
 		/** Create a box to use as our player model */

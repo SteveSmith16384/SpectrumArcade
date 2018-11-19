@@ -1,10 +1,10 @@
 package com.scs.spectrumarcade.components;
 
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 
 public interface IPlayerCollectable {
 
-	void collected(Player avatar);
+	void collected(WalkingPlayer avatar);
 	
 	void remove();
 }

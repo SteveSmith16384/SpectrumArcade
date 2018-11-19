@@ -9,7 +9,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.Player;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
@@ -52,7 +52,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new Player(game, 10, 3, 10f);
+		return new WalkingPlayer(game, 10, 3, 10f);
 	}
 
 

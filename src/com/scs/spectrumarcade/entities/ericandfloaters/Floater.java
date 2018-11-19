@@ -16,6 +16,8 @@ import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
+import ssmith.util.RealtimeInterval;
+
 public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
 
 	public static final float SPEED = 10f;
@@ -23,7 +25,10 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 	private Vector3f dir;
 	private long timeUntilNextTurn = 0;
-
+	
+	private Vector3f prevPos;
+	private RealtimeInterval checkPosInterval = new RealtimeInterval(3000);
+	
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
@@ -40,12 +45,19 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		mainNode.addControl(srb);
 
 		dir = JMEAngleFunctions.getRandomDirection_4();
+		
+		prevPos = new Vector3f(x, y, z);
 
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
+		if (checkPosInterval.hitInterval()) {
+			//if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+				dir = JMEAngleFunctions.getRandomDirection_4();
+			//}
+		}
 		//Globals.p("Floater pos: " + this.getMainNode().getWorldTranslation());
 		Vector3f force = dir.mult(SPEED);
 		//Globals.p("Floater force: " + dir);
@@ -61,13 +73,13 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
-		if (collidedWith instanceof FloorOrCeiling == false) {
+		/*if (collidedWith instanceof FloorOrCeiling == false) {
 			//Globals.p("Floater collided with " + collidedWith + " and is turning");
 			if (timeUntilNextTurn < System.currentTimeMillis()) {
 				dir = JMEAngleFunctions.getRandomDirection_4();//.mult(0.5f);
 				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
 			}
-		}		
+		}		*/
 	}
 
 
