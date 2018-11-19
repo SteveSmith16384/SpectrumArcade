@@ -4,10 +4,13 @@ import com.scs.spectrumarcade.blocks.AntAttackBlock;
 import com.scs.spectrumarcade.blocks.BrickBlock;
 import com.scs.spectrumarcade.blocks.ConveyorBlock;
 import com.scs.spectrumarcade.blocks.DebugBlock;
+import com.scs.spectrumarcade.blocks.EATFOuterWall;
 import com.scs.spectrumarcade.blocks.EATFSolidBlock;
 import com.scs.spectrumarcade.blocks.EATFWeakBlock;
 import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
+import com.scs.spectrumarcade.blocks.MinedOutPlain;
+import com.scs.spectrumarcade.blocks.MinedOutWalkedOn;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.SplatBlock;
@@ -27,6 +30,9 @@ public class BlockCodes {
 	public static final int RED_FLOOR_PXL = 10;
 	public static final int EATF_SOLID = 11;
 	public static final int EATF_WEAK = 12;
+	public static final int EATF_OUTER_WALL = 13;
+	public static final int MINED_OUT_FRESH = 14;
+	public static final int MINED_OUT_WALKED_ON = 15;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -41,6 +47,9 @@ public class BlockCodes {
 		case RED_FLOOR_PXL: return RedFloorBlockPxl.class;
 		case EATF_SOLID: return EATFSolidBlock.class;
 		case EATF_WEAK: return EATFWeakBlock.class;
+		case EATF_OUTER_WALL: return EATFOuterWall.class;
+		case MINED_OUT_FRESH: return MinedOutPlain.class;
+		case MINED_OUT_WALKED_ON: return MinedOutWalkedOn.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

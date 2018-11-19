@@ -5,9 +5,7 @@ import java.awt.Graphics2D;
 
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.jme.PaintableImage;
-import com.scs.spectrumarcade.levels.LevelCodes;
 
 import ssmith.lang.NumberFunctions;
 
@@ -26,16 +24,16 @@ public class MinerTexture {
 			@Override
 			public void paint(Graphics2D g) {
 				Color col = null;
-				switch (levelCode) {
+				/*switch (levelCode) {
 				case LevelCodes.LVL_CENTRAL_CAVERN:
 					col = Color.WHITE;
 					break;
-				case LevelCodes.LVL_ANT_ATTACK:
+				case LevelCodes.LVL_ANT_ATTACK:*/
 					col = Color.DARK_GRAY;
-					break;
+/*					break;
 				default:
 					Globals.pe("Warning: no avatar colour set up for level " + levelCode);
-				}
+				}*/
 
 				for (int row=0 ; row<5 ; row++) {
 					switch (row) {

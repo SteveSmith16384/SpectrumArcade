@@ -6,7 +6,6 @@ import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
@@ -20,7 +19,10 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
 
 	public static final float SPEED = 10f;
+	public static final long TURN_INTERVAL = 5000;
+
 	private Vector3f dir;
+	private long timeUntilNextTurn = 0;
 
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
@@ -37,8 +39,8 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);
 
-		dir = JMEAngleFunctions.getRandomDirection_8();
-		
+		dir = JMEAngleFunctions.getRandomDirection_4();
+
 	}
 
 
@@ -61,10 +63,10 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
 			//Globals.p("Floater collided with " + collidedWith + " and is turning");
-			// todo - turn the other way as well
-			//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
-			dir = JMEAngleFunctions.getRandomDirection_4();
-			//this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(.5f));
+			if (timeUntilNextTurn < System.currentTimeMillis()) {
+				dir = JMEAngleFunctions.getRandomDirection_4();//.mult(0.5f);
+				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
+			}
 		}		
 	}
 

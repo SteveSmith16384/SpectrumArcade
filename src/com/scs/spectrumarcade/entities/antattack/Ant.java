@@ -18,6 +18,10 @@ import ssmith.lang.NumberFunctions;
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
 
 	public static final float SPEED = 1f;
+	public static final long TURN_INTERVAL = 2000;
+
+	private long timeUntilNextTurn = 0;
+	private Vector3f turnDir;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -63,13 +67,15 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
 			//Globals.p("Ant collided with " + collidedWith + " and is turning");
-			// todo - keep turning same direction for a while
-			if (NumberFunctions.rnd(1,  2) == 1) {
-				//this.srb.setAngularVelocity(new Vector3f(0, -1, 0).multLocal(2));
-				this.srb.applyTorqueImpulse(new Vector3f(0, -1, 0).multLocal(1.5f));
-			} else {
-				this.srb.applyTorqueImpulse(new Vector3f(0, 1, 0).multLocal(1.5f));
+			if (timeUntilNextTurn < System.currentTimeMillis()) {
+				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
+				if (NumberFunctions.rnd(1,  2) == 1) {
+					turnDir = new Vector3f(0, 1, 0).multLocal(1.5f);
+				} else {
+					turnDir = new Vector3f(0, -1, 0).multLocal(1.5f);
+				}
 			}
+			this.srb.applyTorqueImpulse(turnDir);
 		}		
 	}
 

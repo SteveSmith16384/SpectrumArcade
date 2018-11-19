@@ -13,7 +13,6 @@ import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.input.KeyInput;
@@ -33,28 +32,17 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.Player;
-import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TurboEspritLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
-
-	// Our movement speed
-	private static final float speed = 3f;
-	private static final float strafeSpeed = 3f;
 
 	public static final Random rnd = new Random();
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
 	public BulletAppState bulletAppState;
 
-	private Vector3f walkDirection = new Vector3f();
-	private boolean left = false, right = false, up = false, down = false;
-	public Player player;
-
-	//Temporary vectors used on each frame.
-	private Vector3f camDir = new Vector3f();
-	private Vector3f camLeft = new Vector3f();
+	public Avatar player;
 
 	private SpotLight spotlight;
 	//private HUD hud;
@@ -62,10 +50,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
 	public boolean started = false;
-	
+
 	private DirectionalLight sun;
 	private GameData gameData = new GameData();
-	
+	private ILevelGenerator level;
 	public static void main(String[] args) {
 		try {
 			AppSettings settings = new AppSettings(true);
@@ -117,12 +105,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
 
 		// Set up Physics
-		bulletAppState = new BulletAppState(PhysicsSpace.BroadphaseType.DBVT);
-		bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
+		bulletAppState = new BulletAppState();//PhysicsSpace.BroadphaseType.DBVT);
+		//bulletAppState.setThreadingType(BulletAppState.ThreadingType.PARALLEL);
 		stateManager.attach(bulletAppState);
 		//bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
-		viewPort.setBackgroundColor(new ColorRGBA(0.1f, 0.1f, 0.1f, 1f));
+		//viewPort.setBackgroundColor(new ColorRGBA(0.1f, 0.1f, 0.1f, 1f));
 
 		setUpKeys();
 		setUpLight();
@@ -135,9 +123,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}*/
 		viewPort.addProcessor(fpp);
 
-		player = new Player(this, 5, 5);
-		//rootNode.attachChild(player.getMainNode());
-		//this.addEntity(player);
+		//player = new PlayerCar(this, 15, 15);
 
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
 
@@ -148,44 +134,30 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		//hud = new HUD(this, this.getAssetManager(), cam.getWidth(), cam.getHeight(), guiFont_small);
 		//this.guiNode.attachChild(hud);
-		//this.entities.add(hud);
 
-		/*
-		// Audio nodes
-		ambient_node = new AudioNode(assetManager, "Sound/horror ambient.ogg", true);
-		ambient_node.setPositional(false);
-		ambient_node.setVolume(0.3f);
-		ambient_node.setLooping(true);
-		this.rootNode.attachChild(ambient_node);
-		try {
-			ambient_node.play();
-		} catch (java.lang.IllegalStateException ex) {
-			// Unable to play sounds - no audiocard/speakers?
-		}
-
-		 */
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		ILevelGenerator level = new EricAndTheFloatersLevel();//AntAttackLevel(); //SplatLevel();//();//ArcadeRoom();//
+		level = new TurboEspritLevel(this);//AntAttackLevel(this); //EricAndTheFloatersLevel();//SplatLevel();//();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
-	
-	
+
+
 	public void startNewLevel(ILevelGenerator level) {
 		try {
+			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
 			this.getBulletAppState().getPhysicsSpace().clearForces();
-			
+
 			level.generateLevel(this);
-			this.addEntity(player);
-			level.moveAvatarToStartPosition(player);
+			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
+			this.addEntity((AbstractPhysicalEntity)player);
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		
+
 	}
 
 
@@ -194,59 +166,35 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof AbstractPhysicalEntity) {
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
-			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+			/*if (e instanceof PlayerCar) {
+				bulletAppState.getPhysicsSpace().add(ape.getMainNode().getChild(2)); // todo - not this!
+			} else {*/
+				bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+			//}
 
 		}
 	}
 
 
 	@Override
-	public void simpleUpdate(float tpf_secs) {
-		if (tpf_secs > 1f) {
-			tpf_secs = 1f;
-		}
-		/*
-		 * The direction of character is determined by the camera angle
-		 * the Y direction is set to zero to keep our character from
-		 * lifting of terrain. For free flying games simply ad speed 
-		 * to Y axis
-		 */
-		if (!game_over) {
-			camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
-			camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
-			walkDirection.set(0, 0, 0);
-			player.walking = up || down || left || right;
-			if (left) {
-				walkDirection.addLocal(camLeft);
-			}
-			if (right) {
-				walkDirection.addLocal(camLeft.negate());
-			}
-			if (up) {
-				walkDirection.addLocal(camDir);
-			}
-			if (down) {
-				walkDirection.addLocal(camDir.negate());
-			}
-			player.playerControl.setWalkDirection(walkDirection);
-			/*
-			next_scary_sound -= tpf_secs;
-			if (next_scary_sound <= 0) {
-				playRandomScarySound();
-				next_scary_sound = 5 + rnd.nextInt(10);
-			}
-			 */
+	public void simpleUpdate(float tpfSecs) {
+		if (tpfSecs > 1f) {
+			tpfSecs = 1f;
 		}
 
+		level.process(tpfSecs);
+
 		for(IEntity ip : entities) {
-			ip.process(tpf_secs);
+			//if (ip != null) {				
+				ip.process(tpfSecs);
+			//}
 		}
 
 		/*
 		 * By default the location of the box is on the bottom of the terrain
 		 * we make a slight offset to adjust for head height.
 		 */
-		Vector3f vec = player.getMainNode().getWorldTranslation();
+		Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
 		cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
 
 		if (spotlight != null) {
@@ -281,7 +229,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			spotlight.setSpotInnerAngle(FastMath.QUARTER_PI / 8);
 			spotlight.setSpotOuterAngle(FastMath.QUARTER_PI / 2);
 			rootNode.addLight(spotlight);
-			*/
+		 */
 	}
 
 
@@ -308,20 +256,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	 * We do not walk yet, we just keep track of the direction the user pressed. */
 	public void onAction(String binding, boolean isPressed, float tpf) {
 		if (this.game_over == false) {
-			if (binding.equals("Left")) {
-				left = isPressed;
-			} else if (binding.equals("Right")) {
-				right = isPressed;
-			} else if (binding.equals("Up")) {
-				up = isPressed;
-				//p("player: " + this.player.getGeometry().getWorldTranslation());
-			} else if (binding.equals("Down")) {
-				down = isPressed;
-			} else if (binding.equals("Jump")) {
-				if (isPressed) { 
-					player.playerControl.jump(); 
-				}
-			} else if (binding.equals(Settings.KEY_RECORD)) {
+			player.onAction(binding, isPressed, tpf);
+			if (binding.equals(Settings.KEY_RECORD)) {
 				if (isPressed) {
 					if (video_recorder == null) {
 						//log("RECORDING VIDEO");
@@ -408,9 +344,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.entities.remove(e);
 	}
 
-	
+
 	public void keyCollected() {
 		this.gameData.numKeys++;
 	}
-	
+
 }

@@ -6,34 +6,46 @@ import java.util.List;
 import com.jme3.audio.AudioNode;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
-import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.Settings;
+import com.scs.spectrumarcade.SpectrumArcade;
 
-public class Player extends AbstractPhysicalEntity {
+public class Player extends Avatar { // todo - rename
 
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
+	// Our movement speed
+	private static final float speed = 3f;
+	private static final float strafeSpeed = 3f;
+
 	private Geometry playerGeometry;
 	public BetterCharacterControl playerControl;
+	private Vector3f walkDirection = new Vector3f();
+	private boolean left = false, right = false, up = false, down = false;
+	//Temporary vectors used on each frame.
+	private Vector3f camDir = new Vector3f();
+	private Vector3f camLeft = new Vector3f();
 
+
+	// Footsteps
 	private List<AudioNode> audio_node_footsteps = new ArrayList<>();
 	private float time_until_next_footstep_sfx = 1;
 	private int next_footstep_sound = 0;
 	public boolean walking = false;
 
-	public Player(SpectrumArcade _game, float x, float z) {
+	public Player(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Player");
 
 		/** Create a box to use as our player model */
 		Box box1 = new Box(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, Settings.PLAYER_RAD);
 		playerGeometry = new Geometry("Player", box1);
-		//playerGeometry.setLocalTranslation(new Vector3f(x, 2f, z));
 		playerGeometry.setCullHint(CullHint.Always);
 		this.getMainNode().attachChild(playerGeometry);
-		this.getMainNode().setLocalTranslation(x, 2, z);
+		this.getMainNode().setLocalTranslation(x, y, z);
 
 		// create character control parameters (Radius,Height,Weight)
 		// Radius and Height determine the size of the collision bubble
@@ -42,12 +54,9 @@ public class Player extends AbstractPhysicalEntity {
 		// set basic physical properties:
 		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
-		//playerControl.warp(new Vector3f(x, 6, z)); // So we drop
 		this.getMainNode().addControl(playerControl);
 
 		game.bulletAppState.getPhysicsSpace().add(playerControl);
-
-		//this.getMainNode().setUserData(Settings.ENTITY, this);
 
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
@@ -62,8 +71,28 @@ public class Player extends AbstractPhysicalEntity {
 
 	@Override
 	public void process(float tpf) {
+		Camera cam = game.getCamera();
+
 		//SCPGame.p("Player:" + this.getMainNode().getWorldTranslation());
 		if (!game.isGameOver()) {
+			camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
+			camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
+			walkDirection.set(0, 0, 0);
+			walking = up || down || left || right;
+			if (left) {
+				walkDirection.addLocal(camLeft);
+			}
+			if (right) {
+				walkDirection.addLocal(camLeft.negate());
+			}
+			if (up) {
+				walkDirection.addLocal(camDir);
+			}
+			if (down) {
+				walkDirection.addLocal(camDir.negate());
+			}
+			playerControl.setWalkDirection(walkDirection);
+
 			if (walking) {
 				time_until_next_footstep_sfx -= tpf;
 				if (time_until_next_footstep_sfx <= 0) {
@@ -90,12 +119,29 @@ public class Player extends AbstractPhysicalEntity {
 
 	}
 
-/*
+
 	@Override
-	public void remove() {
-		this.mainNode.removeFromParent();
-		this.game.bulletAppState.getPhysicsSpace().remove(this.playerControl);
+	public void onAction(String binding, boolean isPressed, float tpf) {
+		if (binding.equals("Left")) {
+			left = isPressed;
+		} else if (binding.equals("Right")) {
+			right = isPressed;
+		} else if (binding.equals("Up")) {
+			up = isPressed;
+		} else if (binding.equals("Down")) {
+			down = isPressed;
+		} else if (binding.equals("Jump")) {
+			if (isPressed) { 
+				playerControl.jump(); 
+			}
+		}
 
 	}
-*/
+
+
+	@Override
+	public void warp(Vector3f v) {
+		playerControl.warp(v);		
+	}
+
 }

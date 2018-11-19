@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -16,12 +17,13 @@ import com.scs.spectrumarcade.entities.splat.PoisonousGrass;
 
 import mygame.util.Vector3Int;
 
-public class SplatLevel implements ILevelGenerator {
+public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
 	private static final int WALL_HEIGHT = 5;
 
-	public SplatLevel() {
+	public SplatLevel(SpectrumArcade _game) {
+		super(_game);
 	}
 
 
@@ -68,16 +70,28 @@ public class SplatLevel implements ILevelGenerator {
 		}
 	}
 
-
+/*
 	@Override
-	public void moveAvatarToStartPosition(Player avatar) {
-		avatar.playerControl.warp(new Vector3f(2, 3f, 2f));
+	public void moveAvatarToStartPosition(Avatar avatar) {
+		avatar.warp(new Vector3f(2, 3f, 2f));
 	}
+*/
+	@Override
+	public Avatar createAndPositionAvatar() {
+		return new Player(game, 2, 3, 2f);
+	}
+
 
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
 		return ColorRGBA.White;
+	}
+
+
+	@Override
+	public void process(float tpfSecs) {
+		// Todo - move killing wall
 	}
 
 }

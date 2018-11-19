@@ -5,18 +5,19 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.Player;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
-public class ArcadeRoom implements ILevelGenerator {
+public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
 
-	public ArcadeRoom() {
+	public ArcadeRoom(SpectrumArcade _game) {
+		super(_game);
 	}
 
 
@@ -42,10 +43,16 @@ public class ArcadeRoom implements ILevelGenerator {
 		game.addEntity(key);
 	}
 
+/*
+	@Override
+	public void moveAvatarToStartPosition(Avatar avatar) {
+		avatar.warp(new Vector3f(10f, 20f, 10f));
+	}
+*/
 
 	@Override
-	public void moveAvatarToStartPosition(Player avatar) {
-		avatar.playerControl.warp(new Vector3f(10f, 20f, 10f));
+	public Avatar createAndPositionAvatar() {
+		return new Player(game, 10, 3, 10f);
 	}
 
 
@@ -53,5 +60,12 @@ public class ArcadeRoom implements ILevelGenerator {
 	public ColorRGBA getBackgroundColour() {
 		return ColorRGBA.Black;
 	}
+
+
+	@Override
+	public void process(float tpfSecs) {
+		// Do nothing
+	}
+
 
 }

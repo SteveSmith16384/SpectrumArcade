@@ -8,8 +8,8 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.Player;
@@ -20,11 +20,12 @@ import com.scs.spectrumarcade.entities.manicminer.Key;
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
 
-public class AntAttackLevel implements ILevelGenerator {
+public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
 
-	public AntAttackLevel() {
+	public AntAttackLevel(SpectrumArcade _game) {
+		super(_game);
 	}
 
 
@@ -83,16 +84,28 @@ public class AntAttackLevel implements ILevelGenerator {
 		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);*/
 	}
 
+/*
+	@Override
+	public void moveAvatarToStartPosition(Avatar avatar) {
+		avatar.warp(new Vector3f(10, 20f, 10f));
+	}
+*/
 
 	@Override
-	public void moveAvatarToStartPosition(Player avatar) {
-		avatar.playerControl.warp(new Vector3f(10, 20f, 10f));
+	public Avatar createAndPositionAvatar() {
+		return new Player(game, 10, 5, 10f);
 	}
 
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
 		return ColorRGBA.White;
+	}
+
+
+	@Override
+	public void process(float tpfSecs) {
+		// Do nothing
 	}
 
 }

@@ -22,22 +22,14 @@ public class SimpleMan extends AbstractPhysicalEntity {
 
 		srb = new RigidBodyControl(1f);
 		model.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 	}
 
 	
 	@Override
 	public void process(float tpfSecs) {
-		this.getMainNode().lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+		//this.getMainNode().lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 		
 	}
 
-	/*
-	@Override
-	public void remove() {
-		this.mainNode.removeFromParent();
-		this.game.bulletAppState.getPhysicsSpace().remove(this.srb);
-		
-	}*/
 }

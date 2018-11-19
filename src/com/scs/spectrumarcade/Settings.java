@@ -9,8 +9,8 @@ public class Settings {
 	public static final boolean SHOW_LOGO = false; // todo - need a logo!
 	
 	public static final float CAM_DIST = 30f;
-	public static final int TEX_PER_SHEET = 8;
-	public static final String NAME = "Spectrum Arcade";
+	public static final int TEX_PER_SHEET = 16;
+	public static final String NAME = "Advanced Spectrum Arcade Simulator";
 	
 	// Player dimensions
 	public static final float PLAYER_HEIGHT = 1.5f;

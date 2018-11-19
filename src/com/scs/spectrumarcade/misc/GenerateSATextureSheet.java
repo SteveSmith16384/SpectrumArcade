@@ -20,12 +20,13 @@ public class GenerateSATextureSheet {
 
 	public GenerateSATextureSheet() throws IOException {
 		String[][] tiles = {
-				{"mm_bricks.png", "redfloor_pxl.png", "conveyor_top.png", "exit.png", "greensun.jpg", "fence.png", "conveyor_side.png"}, 
-				{"antattack.png", "splat_wall.png", "ericwall.png", "ericwall2.png", "minedout_cyan.png", "redfloor_udg.png"}
+				{"mm_bricks.png", "redfloor_pxl.png", "conveyor_top.png", "exit.png", "greensun.jpg", "fence.png", "conveyor_side.png", "black.png"}, 
+				{"antattack.png", "splat_wall.png", "ericwall.png", "ericwall2.png", "minedout_cyan.png", "redfloor_udg.png", "ericouterwall.png", "white.png"},
+				{""}
 		}; // Keep these in the same order!
 
 		TextureSheetGenerator gen = new TextureSheetGenerator();
-		gen.generateTextureSheet("assets/Textures", tiles, Settings.TEX_PER_SHEET, 32, "sa_tiles", 4, false);
+		gen.generateTextureSheet("assets/Textures", tiles, Settings.TEX_PER_SHEET, 32, "sa_tiles", 4, true);
 
 	}
 

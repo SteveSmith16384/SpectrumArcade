@@ -2,6 +2,7 @@ package com.scs.spectrumarcade.levels;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.Player;
@@ -13,11 +14,12 @@ import com.scs.spectrumarcade.entities.manicminer.Rock;
 
 import mygame.util.Vector3Int;
 
-public class ManicMinerCentralCavern implements ILevelGenerator {
+public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_DEPTH = 5;
 
-	public ManicMinerCentralCavern() {
+	public ManicMinerCentralCavern(SpectrumArcade game) {
+		super(game);
 
 	}
 
@@ -84,10 +86,15 @@ public class ManicMinerCentralCavern implements ILevelGenerator {
 		game.addEntity(robot);
 	}
 
-
+/*
 	@Override
-	public void moveAvatarToStartPosition(Player avatar) {
-		avatar.playerControl.warp(new Vector3f(15, 5, 20f));
+	public void moveAvatarToStartPosition(Avatar avatar) {
+		avatar.warp(new Vector3f(15, 5, 20f));
+	}
+*/
+	@Override
+	public Avatar createAndPositionAvatar() {
+		return new Player(game, 15, 5, 20f);
 	}
 
 
@@ -96,11 +103,10 @@ public class ManicMinerCentralCavern implements ILevelGenerator {
 		return ColorRGBA.Black;
 	}
 
-/*
+
 	@Override
-	public int getLevelCode() {
-		return LevelCodes.LVL_CENTRAL_CAVERN;
+	public void process(float tpfSecs) {
+		// Do nothing
 	}
 
-*/
 }
