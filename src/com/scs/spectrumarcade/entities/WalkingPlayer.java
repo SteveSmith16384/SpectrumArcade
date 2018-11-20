@@ -144,4 +144,12 @@ public class WalkingPlayer extends Avatar {
 		playerControl.warp(v);		
 	}
 
+
+	@Override
+	public void setCameraLocation(Camera cam) {
+		Vector3f vec = getMainNode().getWorldTranslation();
+		cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+		
+	}
+
 }

@@ -8,8 +8,8 @@ import com.jme3.math.ColorRGBA;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.entities.PlayerCar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.turboesprit.EspritAvatar;
 
 import mygame.util.Vector3Int;
 
@@ -51,7 +51,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new PlayerCar(game, MAP_SIZE/2, 3f, MAP_SIZE/2);
+		return new EspritAvatar(game, MAP_SIZE/2, 3f, MAP_SIZE/2);
 	}
 
 

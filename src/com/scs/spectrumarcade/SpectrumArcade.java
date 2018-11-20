@@ -189,8 +189,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 * By default the location of the box is on the bottom of the terrain
 		 * we make a slight offset to adjust for head height.
 		 */
-		Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
-		cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
+		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+		player.setCameraLocation(cam);
 
 		if (spotlight != null) {
 			this.spotlight.setPosition(cam.getLocation());
@@ -214,7 +215,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		rootNode.addLight(al);
 
 		sun = new DirectionalLight();
-		sun.setColor(ColorRGBA.Yellow);
+		sun.setColor(ColorRGBA.White);
 		sun.setDirection(new Vector3f(.5f, -1f, .5f).normalizeLocal());
 		rootNode.addLight(sun);
 

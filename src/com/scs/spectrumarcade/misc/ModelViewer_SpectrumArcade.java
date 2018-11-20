@@ -42,9 +42,9 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 
 		setupLight();
 
-		Spatial model = assetManager.loadModel("Models/ArcadeMachine/Model/Arcade.obj");
-		model.scale(.01f);
-		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/ArcadeMachine/Textures/Arcade.jpg");
+		Spatial model = assetManager.loadModel("Models/Car pack by Quaternius/RaceCar.blend");
+		//model.scale(.01f);
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/RaceCarTexture.png");
 		String animNode = "Peau(ZOMBIE) (Node)";
 		String animToUse = "Rig(Zombie)Action";
 

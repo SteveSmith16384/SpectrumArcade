@@ -10,20 +10,24 @@ import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public class PlayerCar extends Avatar {
+public abstract class PlayerCar extends Avatar {
+	
+	private static final boolean SHOW_CAR = false;
 
 	private VehicleControl vehicle;
 	private final float accelerationForce = 1000.0f;
 	private final float brakeForce = 100.0f;
 	private float steeringValue = 0;
 	private float accelerationValue = 0;
-	private Vector3f jumpForce = new Vector3f(0, 3000, 0);
+	//private Vector3f jumpForce = new Vector3f(0, 3000, 0);
 
+	
 	public PlayerCar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "PlayerCar");
 
@@ -100,15 +104,22 @@ public class PlayerCar extends Avatar {
 		vehicleNode.attachChild(node3);
 		vehicleNode.attachChild(node4);
 
-		//this.mainNode.addControl(vehicle);
-		//this.mainNode.attachChild(vehicleNode);
+		if (!SHOW_CAR) {
+			vehicleNode.setCullHint(CullHint.Always);
+		}
+
 		this.mainNode.setLocalTranslation(x,  y,  z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
+		
+		this.mainNode.attachChild(getModel());
 	}
 
 	
+	protected abstract Node getModel();
+	
 	@Override
 	public void process(float tpfSecs) {
+		game.getCamera().setRotation(this.vehicle.getPhysicsRotation());
 		/*Vector3f pos = new Vector3f();
 		vehicle.getPhysicsLocation(pos);
 		Globals.p("Car pos:" + pos);
