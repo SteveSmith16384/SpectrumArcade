@@ -109,4 +109,10 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 		// Do nothing
 	}
 
+
+	@Override
+	public String getHUDText() {
+		return "";
+	}
+
 }

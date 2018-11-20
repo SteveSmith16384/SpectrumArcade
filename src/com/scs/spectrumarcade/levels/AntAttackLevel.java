@@ -108,4 +108,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		// Do nothing
 	}
 
+
+	@Override
+	public String getHUDText() {
+		return "";
+	}
+
 }

@@ -94,4 +94,10 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 		// Todo - move killing wall
 	}
 
+
+	@Override
+	public String getHUDText() {
+		return "";
+	}
+
 }

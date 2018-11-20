@@ -68,4 +68,9 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	}
 
 
+	@Override
+	public String getHUDText() {
+		return "";
+	}
+
 }

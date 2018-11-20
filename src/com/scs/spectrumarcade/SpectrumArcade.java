@@ -54,6 +54,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private DirectionalLight sun;
 	private GameData gameData = new GameData();
 	private ILevelGenerator level;
+	
+	
 	public static void main(String[] args) {
 		try {
 			AppSettings settings = new AppSettings(true);
@@ -137,7 +139,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new TurboEspritLevel(this);//AntAttackLevel(this); //EricAndTheFloatersLevel();//SplatLevel();//();//ArcadeRoom();//
+		level = new TurboEspritLevel(this);//EricAndTheFloatersLevel(this);//AntAttackLevel(this); //SplatLevel();//();//ArcadeRoom();//
 		this.startNewLevel(level);
 	}
 
@@ -345,4 +347,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.gameData.numKeys++;
 	}
 
+	
+	public String getHUDText() {
+		return level.getHUDText();
+	}
 }

@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.turboesprit.EspritAvatar;
 
@@ -17,8 +18,6 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 60;
 	
-	private VoxelTerrainEntity terrainUDG;
-
 	public TurboEspritLevel(SpectrumArcade _game) {
 		super(_game);
 	}
@@ -26,29 +25,19 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 	
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 1f);
-		game.addEntity(terrainUDG);
-		
-		//Floor
-		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
-
-		//  outer walls
-		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_OUTER_WALL, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_OUTER_WALL, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_OUTER_WALL, new Vector3Int(0, 0, MAP_SIZE), new Vector3Int(MAP_SIZE, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.EATF_OUTER_WALL, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/moonbase_ceiling.png");
+		game.addEntity(floor);
 
 		
 	}
-/*
-	@Override
-	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp(new Vector3f(MAP_SIZE/2, 3f, MAP_SIZE/2));
+
+	
+	
+	private void addBuilding() {
 		
 	}
-*/
-
+	
+	
 	@Override
 	public Avatar createAndPositionAvatar() {
 		return new EspritAvatar(game, MAP_SIZE/2, 3f, MAP_SIZE/2);
@@ -63,7 +52,13 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		//game.getCamera().lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+	}
+
+
+
+	@Override
+	public String getHUDText() {
+		return "";
 	}
 
 }

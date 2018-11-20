@@ -23,11 +23,12 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private long timeUntilNextTurn = 0;
 	private Vector3f turnDir;
 	private long dontMoveUntil = 0;
+	private AntModel geometry;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
 
-		Node geometry = new AntModel(_game.getAssetManager());
+		geometry = new AntModel(_game.getAssetManager());
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
@@ -38,9 +39,10 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		srb = new RigidBodyControl(1f);
 		mainNode.addControl(srb);
 		srb.setAngularDamping(0.8f);
-		//srb.setRestitution(.01f);
-		//srb.setKinematic(true);
+		srb.setFriction(.6f);
+		srb.setRestitution(0);
 
+		geometry.walkAnim();
 	}
 
 
@@ -59,9 +61,13 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (this.dontMoveUntil < System.currentTimeMillis()) {
 			//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 			Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-			Vector3f force = dir.mult(10);
+			Vector3f force = dir.mult(5);
 			//Globals.p("Ant force: " + dir);
-			this.srb.applyCentralForce(force);
+			//this.srb.applyCentralForce(force);
+			this.srb.setLinearVelocity(force);
+			//geometry.walkAnim();
+		} else {
+			//geometry.idleAnim();
 		}
 	}
 
@@ -69,17 +75,18 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling == false) {
-			//Globals.p("Ant collided with " + collidedWith + " and is turning");
+			this.srb.setLinearVelocity(Vector3f.ZERO);
 			if (timeUntilNextTurn < System.currentTimeMillis()) {
 				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
 				if (NumberFunctions.rnd(1,  2) == 1) {
-					turnDir = new Vector3f(0, 1, 0).multLocal(1.5f);
+					turnDir = new Vector3f(0, 1, 0).multLocal(0.9f);
 				} else {
-					turnDir = new Vector3f(0, -1, 0).multLocal(1.5f);
+					turnDir = new Vector3f(0, -1, 0).multLocal(0.9f);
 				}
 			}
-			dontMoveUntil = System.currentTimeMillis() + 3000;
+			Globals.p("Ant collided with " + collidedWith + " and is turning");
 			this.srb.applyTorqueImpulse(turnDir);
+			dontMoveUntil = System.currentTimeMillis() + 1500;
 		}		
 	}
 

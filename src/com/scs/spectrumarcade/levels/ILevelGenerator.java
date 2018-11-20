@@ -19,4 +19,6 @@ public interface ILevelGenerator {
 	
 	void process(float tpfSecs);
 	
+	String getHUDText();
+	
 }

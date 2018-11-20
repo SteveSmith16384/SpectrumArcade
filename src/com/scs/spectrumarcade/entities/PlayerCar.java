@@ -120,10 +120,6 @@ public abstract class PlayerCar extends Avatar {
 	@Override
 	public void process(float tpfSecs) {
 		game.getCamera().setRotation(this.vehicle.getPhysicsRotation());
-		/*Vector3f pos = new Vector3f();
-		vehicle.getPhysicsLocation(pos);
-		Globals.p("Car pos:" + pos);
-*/
 	}
 
 	

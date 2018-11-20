@@ -54,7 +54,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 					if ((xGrid) % 2 == 0 && (zGrid) % 2 == 0) {
 						terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_SOLID);
 					} else {
-						if (NumberFunctions.rnd(1,  4) == 1) {
+						if (NumberFunctions.rnd(1,  6) == 1) {
 							terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
 						} else if (NumberFunctions.rnd(1,  8) == 1) {
 							//Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
@@ -68,8 +68,8 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 		// Floaters
 		for (int i=0 ; i<1 ; i++) {
-			int x = SEGMENT_SIZE+5;//NumberFunctions.rnd(2, MAP_SIZE-4);
-			int z = SEGMENT_SIZE+5;//NumberFunctions.rnd(2, MAP_SIZE-4);
+			int x = SEGMENT_SIZE+3;//NumberFunctions.rnd(2, MAP_SIZE-4);
+			int z = SEGMENT_SIZE+3;//NumberFunctions.rnd(2, MAP_SIZE-4);
 			Floater floater = new Floater(game, x, 2f, z);
 			game.addEntity(floater);
 		}
@@ -101,6 +101,12 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	@Override
 	public void process(float tpfSecs) {
 		// Do nothing
+	}
+
+
+	@Override
+	public String getHUDText() {
+		return "";
 	}
 
 }

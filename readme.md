@@ -12,6 +12,7 @@ All games owned by their respective owners.
 
 ### MODEL CREDITS
 Arcade Machine: https://free3d.com/3d-model/arcade-machine-cabinet-41196.html
+Car Models by Quaterius
 
 
 ## LICENCES

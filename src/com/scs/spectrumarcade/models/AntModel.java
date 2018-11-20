@@ -11,13 +11,11 @@ import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
+// SpiderStand, SpiderWalk
 public class AntModel extends Node {
 
 	public static final float MODEL_WIDTH = 2.2f;
 	public static final float MODEL_HEIGHT = 0.7f;
-
-	//private AssetManager assetManager;
-	//private Spatial node;
 
 	// Anim
 	private AnimChannel channel;
@@ -39,41 +37,21 @@ public class AntModel extends Node {
 
 		this.attachChild(model); // Need to have an extra node to keep model's relative position
 		
-		channel.setLoopMode(LoopMode.Loop);
-		channel.setAnim("SpiderWalk");
-
 	}
 	
-	/*
-	@Override
-	public void setAnim(int animCode) {
-		if (currAnimCode == animCode) {
-			return;			
-		}
-
-		switch (animCode) {
-		case AbstractAvatar.ANIM_IDLE:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("SpiderStand");
-			break;
-
-		case AbstractAvatar.ANIM_WALKING:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("SpiderWalk");
-			break;
-
-		case AbstractAvatar.ANIM_ATTACK:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("SpiderWalk");
-			break;
-
-		default:
-			Globals.pe(this.getClass().getSimpleName() + ": Unable to show anim " + animCode);
-		}
-
-		currAnimCode = animCode;
-
+	
+	public void walkAnim() {
+		channel.setLoopMode(LoopMode.Loop);
+		channel.setAnim("SpiderWalk");
+	
 	}
-*/
+	
+	
+	public void idleAnim() {
+		channel.setLoopMode(LoopMode.Loop);
+		channel.setAnim("SpiderStand");
+	
+	}
+	
 }
 
