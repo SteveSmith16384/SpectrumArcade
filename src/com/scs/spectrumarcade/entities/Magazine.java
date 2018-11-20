@@ -40,9 +40,9 @@ public class Magazine extends AbstractPhysicalEntity {
 
 		this.mainNode.attachChild(geometry);
 
-		RigidBodyControl floor_phy = new RigidBodyControl(1);
-		mainNode.addControl(floor_phy);
-		floor_phy.setKinematic(true);
+		srb = new RigidBodyControl(1);
+		mainNode.addControl(srb);
+		srb.setKinematic(true);
 
 	}
 

@@ -48,11 +48,9 @@ public class Wall extends AbstractPhysicalEntity {
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, yBottom+h, z); // Move it into position
 
-		RigidBodyControl floor_phy = new RigidBodyControl(0);
-		mainNode.addControl(floor_phy);
-		floor_phy.setKinematic(true);
-
-		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
+		srb = new RigidBodyControl(0);
+		mainNode.addControl(srb);
+		srb.setKinematic(true);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

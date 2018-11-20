@@ -15,13 +15,14 @@ public class EspritAvatar extends PlayerCar {
 		super(_game, x, y, z);
 		
 		camNode = new Node("CameraNode");
-		camNode.setLocalTranslation(0, 4, -5);
+		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
+		super.process(tpfSecs);
 		Globals.p("Esprit pos: " + this.getMainNode().getWorldTranslation());
 	}
 
@@ -34,7 +35,7 @@ public class EspritAvatar extends PlayerCar {
 	
 	@Override
 	public void setCameraLocation(Camera cam) {
-		cam.setLocation(camNode.getWorldTranslation());
+		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
 	}
 

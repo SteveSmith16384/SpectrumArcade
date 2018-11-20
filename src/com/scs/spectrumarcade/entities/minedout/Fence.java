@@ -45,11 +45,9 @@ public class Fence extends AbstractPhysicalEntity {
 		mainNode.rotate(0, rads, 0);
 		mainNode.setLocalTranslation(x+(WIDTH/2), HEIGHT/2, z+0.5f);
 
-		RigidBodyControl floor_phy = new RigidBodyControl(0);
-		floor_phy.setKinematic(true);
-		geometry.addControl(floor_phy);
-
-		//game.bulletAppState.getPhysicsSpace().add(floor_phy);
+		srb = new RigidBodyControl(0);
+		srb.setKinematic(true);
+		mainNode.addControl(srb);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

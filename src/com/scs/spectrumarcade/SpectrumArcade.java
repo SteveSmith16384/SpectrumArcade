@@ -54,8 +54,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private DirectionalLight sun;
 	private GameData gameData = new GameData();
 	private ILevelGenerator level;
-	
-	
+
+
 	public static void main(String[] args) {
 		try {
 			AppSettings settings = new AppSettings(true);
@@ -144,66 +144,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void startNewLevel(ILevelGenerator level) {
-		try {
-			// Clear previous
-			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
-			this.rootNode.detachAllChildren();
-			this.getBulletAppState().getPhysicsSpace().clearForces();
-
-			level.generateLevel(this);
-			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
-			this.addEntity((AbstractPhysicalEntity)player);
-			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-	}
-
-
-	public void addEntity(AbstractEntity e) {
-		this.entities.add(e);
-		if (e instanceof AbstractPhysicalEntity) {
-			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
-			this.getRootNode().attachChild(ape.getMainNode());
-			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
-		}
-	}
-
-
-	@Override
-	public void simpleUpdate(float tpfSecs) {
-		if (tpfSecs > 1f) {
-			tpfSecs = 1f;
-		}
-
-		level.process(tpfSecs);
-
-		for(IEntity ip : entities) {
-			//if (ip != null) {				
-			ip.process(tpfSecs);
-			//}
-		}
-
-		/*
-		 * By default the location of the box is on the bottom of the terrain
-		 * we make a slight offset to adjust for head height.
-		 */
-		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
-		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
-		player.setCameraLocation(cam);
-
-		if (spotlight != null) {
-			this.spotlight.setPosition(cam.getLocation());
-			this.spotlight.setDirection(cam.getDirection());
-		}
-
-		started = true;
-	}
-
-
 	private void setUpLight() {
 		// Remove existing lights
 		this.rootNode.getWorldLightList().clear(); //this.rootNode.getWorldLightList().size();
@@ -247,6 +187,64 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
 		inputManager.addListener(this, Settings.KEY_RECORD);
+	}
+
+
+	public void startNewLevel(ILevelGenerator level) {
+		try {
+			// Clear previous
+			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
+			this.rootNode.detachAllChildren();
+			this.getBulletAppState().getPhysicsSpace().clearForces();
+
+			level.generateLevel(this);
+			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
+			this.addEntity((AbstractPhysicalEntity)player);
+			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
+
+
+	public void addEntity(AbstractEntity e) {
+		this.entities.add(e);
+		if (e instanceof AbstractPhysicalEntity) {
+			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
+			this.getRootNode().attachChild(ape.getMainNode());
+			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+		}
+	}
+
+
+	@Override
+	public void simpleUpdate(float tpfSecs) {
+		if (tpfSecs > 1f) {
+			tpfSecs = 1f;
+		}
+
+		level.process(tpfSecs);
+
+		for(IEntity ip : entities) {
+			ip.process(tpfSecs);
+		}
+
+		/*
+		 * By default the location of the box is on the bottom of the terrain
+		 * we make a slight offset to adjust for head height.
+		 */
+		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
+		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+		player.setCameraLocation(cam);
+
+		if (spotlight != null) {
+			this.spotlight.setPosition(cam.getLocation());
+			this.spotlight.setDirection(cam.getDirection());
+		}
+
+		started = true;
 	}
 
 
@@ -347,7 +345,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.gameData.numKeys++;
 	}
 
-	
+
 	public String getHUDText() {
 		return level.getHUDText();
 	}

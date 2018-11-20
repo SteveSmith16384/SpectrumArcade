@@ -105,7 +105,10 @@ public abstract class PlayerCar extends Avatar {
 		vehicleNode.attachChild(node4);
 
 		if (!SHOW_CAR) {
-			vehicleNode.setCullHint(CullHint.Always);
+			node1.setCullHint(CullHint.Always);
+			node2.setCullHint(CullHint.Always);
+			node3.setCullHint(CullHint.Always);
+			node4.setCullHint(CullHint.Always);
 		}
 
 		this.mainNode.setLocalTranslation(x,  y,  z);
@@ -117,9 +120,10 @@ public abstract class PlayerCar extends Avatar {
 	
 	protected abstract Node getModel();
 	
+	
 	@Override
 	public void process(float tpfSecs) {
-		game.getCamera().setRotation(this.vehicle.getPhysicsRotation());
+		//todo - re-add game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
 	
