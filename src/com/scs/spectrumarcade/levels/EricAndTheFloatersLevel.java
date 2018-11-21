@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.DropBomb;
+import com.scs.spectrumarcade.abilities.EATFBombGun;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
@@ -84,9 +85,15 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	*/
 	
 	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
+	}
+
+	
+	@Override
 	public Avatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
-		wp.setAbility(1, new DropBomb(game));
+		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, false);
+		wp.setAbility(1, new EATFBombGun(game));
 		return wp;
 	}
 

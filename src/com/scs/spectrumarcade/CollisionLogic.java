@@ -47,8 +47,7 @@ public class CollisionLogic {
 	
 	
 	private static void Player_Harm(SpectrumArcade game, WalkingPlayer player, ICausesHarmOnContact col) {
-		//Settings.p()
-		// todo
+		game.playerKilled();
 	}
 	
 	

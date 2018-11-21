@@ -18,9 +18,9 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class PlayerCar extends Avatar {
 	
-	private static final boolean SHOW_CAR = false;
+	private static final boolean SHOW_CAR = true;
 
-	private VehicleControl vehicle;
+	public VehicleControl vehicle;
 	private final float accelerationForce = 1000.0f;
 	private final float brakeForce = 100.0f;
 	private float steeringValue = 0;
@@ -38,12 +38,13 @@ public abstract class PlayerCar extends Avatar {
 		//create a compound shape and attach the BoxCollisionShape for the car body at 0,1,0
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
 		CompoundCollisionShape compoundShape = new CompoundCollisionShape();
+		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
 		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 
 		//create vehicle node
 		Node vehicleNode = this.mainNode;// new Node("vehicleNode");
-		vehicle = new VehicleControl(compoundShape, 600);
+		vehicle = new VehicleControl(compoundShape, 400);
 		vehicleNode.addControl(vehicle);
 
 		//setting suspension values for wheels, this can be a bit tricky
@@ -59,11 +60,16 @@ public abstract class PlayerCar extends Avatar {
 		//Create four wheels and add them at their locations
 		Vector3f wheelDirection = new Vector3f(0, -1, 0); // was 0, -1, 0
 		Vector3f wheelAxle = new Vector3f(-1, 0, 0); // was -1, 0, 0
-		float radius = 0.5f;
+		/*float radius = 0.5f;
 		float restLength = 0.3f;
-		float yOff = 0.5f;
+		/*float yOff = 0.5f;
 		float xOff = 1f;
-		float zOff = 2f;
+		float zOff = 2f;*/
+		float radius = 0.2f;
+		float restLength = 0.1f;
+		float yOff = 0.2f;
+		float xOff = .5f;
+		float zOff = 1f;
 
 		Cylinder wheelMesh = new Cylinder(16, 16, radius, radius * 0.6f, true);
 
@@ -152,10 +158,17 @@ public abstract class PlayerCar extends Avatar {
 			vehicle.accelerate(accelerationValue);
 		} else if (binding.equals("Down")) {
 			if (value) {
+				accelerationValue -= accelerationForce;
+			} else {
+				accelerationValue += accelerationForce;
+			}
+			vehicle.accelerate(accelerationValue);
+
+			/*if (value) {
 				vehicle.brake(brakeForce);
 			} else {
 				vehicle.brake(0f);
-			}
+			}*/
 			/*} else if (binding.equals("Space")) {
 	            if (value) {
 	                vehicle.applyImpulse(jumpForce, Vector3f.ZERO);

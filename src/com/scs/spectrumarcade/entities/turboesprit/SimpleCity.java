@@ -11,7 +11,7 @@ public class SimpleCity {
 
 	private static final float WALL_THICKNESS = 3;
 	public static final float FLOOR_THICKNESS = 3f;
-	private static final float PATH_THICKNESS = .1f;
+	private static final float PATH_THICKNESS = .15f;
 
 	private SpectrumArcade game;
 	private int numSectors;
@@ -19,7 +19,7 @@ public class SimpleCity {
 	public SimpleCity(SpectrumArcade _game) {
 		game = _game;
 
-		numSectors = 16;//Settings.NUM_SECTORS;
+		numSectors = 16;
 	}
 
 

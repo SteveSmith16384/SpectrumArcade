@@ -130,6 +130,17 @@ public class JMEModelFunctions {
 	}
 
 
+	public static void centreXZ(Spatial model) {
+		/*Node parent = model.getParent();
+		if (parent == null) {
+			
+		}*/
+		BoundingBox bb = (BoundingBox)model.getWorldBound();
+		Vector3f pos = model.getLocalTranslation();
+		model.setLocalTranslation(-bb.getCenter().x, pos.y, -bb.getCenter().z);
+	}
+
+
 	public static void scaleModelToWidth(Spatial model, float width) {
 		BoundingBox bb = (BoundingBox)model.getWorldBound();
 		float currWidth = bb.getXExtent() * 2;

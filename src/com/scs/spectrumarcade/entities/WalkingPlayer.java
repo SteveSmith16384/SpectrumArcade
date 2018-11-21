@@ -37,9 +37,12 @@ public class WalkingPlayer extends Avatar {
 	private float time_until_next_footstep_sfx = 1;
 	private int next_footstep_sound = 0;
 	public boolean walking = false;
+	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, boolean _canJump) {
 		super(_game, "Player");
+
+		canJump = _canJump;
 
 		/** Create a box to use as our player model */
 		Box box1 = new Box(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, Settings.PLAYER_RAD);
@@ -133,8 +136,10 @@ public class WalkingPlayer extends Avatar {
 		} else if (binding.equals("Down")) {
 			down = isPressed;
 		} else if (binding.equals("Jump")) {
-			if (isPressed) { 
-				playerControl.jump(); 
+			if (canJump) {
+				if (isPressed) { 
+					playerControl.jump(); 
+				}
 			}
 		}
 
@@ -151,9 +156,9 @@ public class WalkingPlayer extends Avatar {
 	public void setCameraLocation(Camera cam) {
 		Vector3f vec = getMainNode().getWorldTranslation();
 		cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
-		
+
 	}
-	
+
 	@Override
 	public void actuallyRemove() {
 		super.actuallyRemove();

@@ -73,12 +73,12 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 /*
 	@Override
 	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp(new Vector3f(2, 3f, 2f));
+		avatar.warp();
 	}
 */
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 2, 3, 2f);
+		return new WalkingPlayer(game, 2, 3, 2f, true);
 	}
 
 
@@ -98,6 +98,12 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public String getHUDText() {
 		return "";
+	}
+
+
+	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(2, 3f, 2f);
 	}
 
 }

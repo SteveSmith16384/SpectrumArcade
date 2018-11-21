@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.turboesprit.TurboEspritAvatar;
@@ -12,8 +13,8 @@ import com.scs.spectrumarcade.entities.turboesprit.SimpleCity;
 
 public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
-	//private static final int MAP_SIZE = 120;
-
+	private TurboEspritAvatar car;
+	
 	public TurboEspritLevel(SpectrumArcade _game) {
 		super(_game);
 	}
@@ -32,7 +33,14 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new TurboEspritAvatar(game, 10f, 30f, 10f);
+		car = new TurboEspritAvatar(game, 12f, 3f, 12f);
+		return car;
+	}
+
+
+	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(12f, 3f, 12f);
 	}
 
 
@@ -50,7 +58,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "Speed: " + this.car.vehicle.getCurrentVehicleSpeedKmHour();
 	}
 
 }

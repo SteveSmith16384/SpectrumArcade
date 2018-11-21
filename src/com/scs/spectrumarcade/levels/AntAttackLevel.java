@@ -10,10 +10,11 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.antattack.Ant;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
@@ -45,8 +46,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
-		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
-		//terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
+		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
+		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 
 		for (int i=0 ; i<1 ; i++) {
 			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
@@ -55,6 +56,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(ant);
 		}
 
+		// Add keys
 		for (int i=0 ; i<5 ; i++) {
 			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
 			int z = NumberFunctions.rnd(2, MAP_SIZE-4);
@@ -68,7 +70,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		
 		
 		// Show all blocks for debugging
-		terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
+		/*terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
 		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
 		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID); // 26
 		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK); // 17
@@ -92,8 +94,14 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 */
 
 	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(MAP_SIZE/2, 3f, 2f);
+	}
+
+	
+	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 10, 5, 10f);
+		return new WalkingPlayer(game, MAP_SIZE/2, 3f, 2f, true);
 	}
 
 

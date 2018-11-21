@@ -35,8 +35,10 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
+import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TurboEspritLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -56,9 +58,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public boolean started = false;
 
 	private DirectionalLight sun;
-	private GameData gameData = new GameData();
+	private GameData gameData;
 	private ILevelGenerator level;
 	private boolean[] abilityActivated = new boolean[3];
+	//private int keysRemaining = 0;
 
 	public static void main(String[] args) {
 		try {
@@ -136,12 +139,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		dlsr.setLight(sun);
 		this.viewPort.addProcessor(dlsr);
 
+		gameData = new GameData();
+		
 		hud = new HUD(this, cam);
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new EricAndTheFloatersLevel(this);//MinedOutLevel(this); // TurboEspritLevel(this);//ArcadeRoom(this);//AntAttackLevel(this); //SplatLevel();//();//
+		level = new TurboEspritLevel(this);//MinedOutLevel(this); //EricAndTheFloatersLevel(this);// ArcadeRoom(this);//AntAttackLevel(this); //SplatLevel();//();//
 		this.startNewLevel(level);
 	}
 
@@ -203,6 +208,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.rootNode.detachAllChildren();
 			//this.getBulletAppState().getPhysicsSpace().clearForces();
 
+			gameData.numKeys = 0;
+			
 			level.generateLevel(this);
 			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
 			this.addEntity((AbstractPhysicalEntity)player);
@@ -221,6 +228,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
 			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+		}
+		if (e instanceof Key) {
+			gameData.numKeys++;
 		}
 	}
 
@@ -369,11 +379,19 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void keyCollected() {
-		this.gameData.numKeys++;
+		this.gameData.numKeys--;
+		if (gameData.numKeys <= 0) {
+			this.startNewLevel(new ArcadeRoom(this));
+		}
 	}
 
 
 	public String getHUDText() {
-		return level.getHUDText();
+		return "keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
+	}
+	
+	
+	public void playerKilled() {
+		player.warp(level.getAvatarStartPos());
 	}
 }
