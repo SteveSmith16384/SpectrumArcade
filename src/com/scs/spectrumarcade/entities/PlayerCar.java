@@ -18,7 +18,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class PlayerCar extends Avatar {
 	
-	private static final boolean SHOW_CAR = true;
+	private static final boolean SHOW_CAR = false;
 
 	public VehicleControl vehicle;
 	private final float accelerationForce = 1000.0f;
@@ -163,16 +163,12 @@ public abstract class PlayerCar extends Avatar {
 				accelerationValue += accelerationForce;
 			}
 			vehicle.accelerate(accelerationValue);
-
-			/*if (value) {
+		} else if (binding.equals("Space")) {
+			if (value) {
 				vehicle.brake(brakeForce);
 			} else {
 				vehicle.brake(0f);
-			}*/
-			/*} else if (binding.equals("Space")) {
-	            if (value) {
-	                vehicle.applyImpulse(jumpForce, Vector3f.ZERO);
-	            }*/
+			}
 		} else if (binding.equals("Jump")) {
 			if (value) {
 				System.out.println("Reset");

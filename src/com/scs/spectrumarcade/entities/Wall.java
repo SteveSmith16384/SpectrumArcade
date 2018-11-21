@@ -39,9 +39,9 @@ public class Wall extends AbstractPhysicalEntity {
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);
 
-		Material floorMat = new Material(game.getAssetManager(),"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
-		floorMat.setTexture("DiffuseMap", tex3);
-		geometry.setMaterial(floorMat);
+		Material material = new Material(game.getAssetManager(),"Common/MatDefs/Light/Lighting.j3md");
+		material.setTexture("DiffuseMap", tex3);
+		geometry.setMaterial(material);
 
 		geometry.setLocalTranslation(w/2, h/2, d/2);
 
@@ -50,7 +50,6 @@ public class Wall extends AbstractPhysicalEntity {
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//srb.setKinematic(true);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

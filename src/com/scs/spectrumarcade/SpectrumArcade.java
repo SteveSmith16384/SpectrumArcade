@@ -112,6 +112,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
 
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
+		cam.lookAt(new Vector3f(1, 1, 1), Vector3f.UNIT_Y);
 
 		// Set up Physics
 		bulletAppState = new BulletAppState();//PhysicsSpace.BroadphaseType.DBVT);

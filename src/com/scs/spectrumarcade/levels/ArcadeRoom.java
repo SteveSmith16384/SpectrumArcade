@@ -12,6 +12,7 @@ import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.Magazine;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
+import com.scs.spectrumarcade.entities.Wall;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
@@ -27,6 +28,9 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
 		game.addEntity(floor);
+		
+		Wall wall1 = new Wall(game, 0, 0, 0, MAP_SIZE, 4, .1f, "Textures/lliella_funinthesun_paper1.jpg", true);
+		game.addEntity(wall1);
 
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);

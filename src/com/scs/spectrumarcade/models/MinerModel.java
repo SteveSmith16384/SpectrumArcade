@@ -2,6 +2,7 @@ package com.scs.spectrumarcade.models;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
+import com.jme3.animation.LoopMode;
 import com.jme3.asset.AssetManager;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
@@ -22,24 +23,28 @@ public class MinerModel extends Node {
 	private long jumpEndTime;
 	private int levelCode;
 
-	public MinerModel(AssetManager _assetManager, int _levelCode) {
+	public MinerModel(AssetManager _assetManager) {
 		assetManager = _assetManager;
-		
-		levelCode = _levelCode;
 
-			model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
-			JMEModelFunctions.setTextureOnSpatial(assetManager, model, MinerTexture.getTexture(levelCode));
+		model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, MinerTexture.getTexture(levelCode));
 
-			JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
-			JMEModelFunctions.moveYOriginTo(model, 0f);
+		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
+		JMEModelFunctions.moveYOriginTo(model, 0f);
 
-			AnimControl control = JMEModelFunctions.getNodeWithControls(null, (Node)model);
-			channel = control.createChannel();
+		AnimControl control = JMEModelFunctions.getNodeWithControls(null, (Node)model);
+		channel = control.createChannel();
 
 		model.setShadowMode(ShadowMode.Cast);
 	}
+	
+	
+	public void walkAnim() {
+		channel.setLoopMode(LoopMode.Loop);
+		channel.setAnim("Walk");
+	}
 
-/*
+	/*
 	public void setAnim(int animCode) {
 		if (currAnimCode == animCode) {
 			return;			
@@ -95,5 +100,5 @@ public class MinerModel extends Node {
 
 		currAnimCode = animCode;
 	}
-*/
+	 */
 }
