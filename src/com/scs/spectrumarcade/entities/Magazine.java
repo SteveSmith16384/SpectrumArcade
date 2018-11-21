@@ -15,12 +15,12 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public class Magazine extends AbstractPhysicalEntity {
 
-	public Magazine(SpectrumArcade _game, float x, float yBottom, float z, String tex) {
+	public Magazine(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "Magazine");
 		
-		float w = 0.2f;
-		float h = 0.25f;
-		float d = 0.05f;
+		float w = 0.3f;
+		float h = 0.35f;
+		float d = 0.02f;
 
 		Box box1 = new Box(w/2, h/2, d/2);
 
@@ -39,11 +39,10 @@ public class Magazine extends AbstractPhysicalEntity {
 		geometry.setLocalTranslation(w/2, h/2, d/2);
 
 		this.mainNode.attachChild(geometry);
+		mainNode.setLocalTranslation(x, y, z);
 
-		srb = new RigidBodyControl(1);
+		srb = new RigidBodyControl(2);
 		mainNode.addControl(srb);
-		srb.setKinematic(true);
-
 	}
 
 

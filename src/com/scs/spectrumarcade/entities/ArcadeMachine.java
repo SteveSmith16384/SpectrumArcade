@@ -14,19 +14,18 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 
 	private Class<? extends ILevelGenerator> level;
 	
-	public ArcadeMachine(SpectrumArcade _game, float x, float y, float z, Class<? extends ILevelGenerator> _level) {
+	public ArcadeMachine(SpectrumArcade _game, float x, float y, float z, String folder, Class<? extends ILevelGenerator> _level) {
 		super(_game, "ArcadeMachine");
 
 		level = _level;
 		
-		Node geometry = new ArcadeMachineModel(_game.getAssetManager());
+		Node geometry = new ArcadeMachineModel(_game.getAssetManager(), folder);
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(srb);
 		srb.setKinematic(true);
 
 	}

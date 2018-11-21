@@ -19,7 +19,7 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 	private static final float TURN_SPEED = 1f;
 
 	protected Node mainNode, left_node, right_node;
-	protected RigidBodyControl srb;
+	public RigidBodyControl srb;
 
 	public AbstractPhysicalEntity(SpectrumArcade _game, String _name) {
 		super(_game, _name);
@@ -44,12 +44,12 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 	}
 
 
-	public void remove() {
+	@Override
+	public void actuallyRemove() {
 		this.mainNode.removeFromParent();
 		if (srb != null) {
 			this.game.bulletAppState.getPhysicsSpace().remove(this.srb);
 		}
-		super.remove();
 	}
 
 

@@ -2,6 +2,7 @@ package com.scs.spectrumarcade;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.prefs.BackingStoreException;
@@ -16,8 +17,10 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.light.Light;
@@ -33,19 +36,20 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TurboEspritLevel;
+import com.scs.spectrumarcade.levels.MinedOutLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
 	public static final Random rnd = new Random();
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
+	public List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
 	public BulletAppState bulletAppState;
 
 	public Avatar player;
 
 	private SpotLight spotlight;
-	//private HUD hud;
+	private HUD hud;
 	private boolean game_over = false;
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
@@ -54,7 +58,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private DirectionalLight sun;
 	private GameData gameData = new GameData();
 	private ILevelGenerator level;
-
+	private boolean[] abilityActivated = new boolean[3];
 
 	public static void main(String[] args) {
 		try {
@@ -134,12 +138,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		dlsr.setLight(sun);
 		this.viewPort.addProcessor(dlsr);
 
-		//hud = new HUD(this, this.getAssetManager(), cam.getWidth(), cam.getHeight(), guiFont_small);
-		//this.guiNode.attachChild(hud);
+		hud = new HUD(this, cam);
+		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new TurboEspritLevel(this);//EricAndTheFloatersLevel(this);//AntAttackLevel(this); //SplatLevel();//();//ArcadeRoom();//
+		level = new MinedOutLevel(this); // EricAndTheFloatersLevel(this);//ArcadeRoom(this);//TurboEspritLevel(this);//AntAttackLevel(this); //SplatLevel();//();//
 		this.startNewLevel(level);
 	}
 
@@ -158,7 +162,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		sun = new DirectionalLight();
 		sun.setColor(ColorRGBA.White);
-		sun.setDirection(new Vector3f(.5f, -1f, .5f).normalizeLocal());
+		sun.setDirection(new Vector3f(-.5f, -1f, -.5f).normalizeLocal());
 		rootNode.addLight(sun);
 
 		/*this.spotlight = new SpotLight();
@@ -187,6 +191,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
 		inputManager.addListener(this, Settings.KEY_RECORD);
+
+		inputManager.addMapping("Ability1", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+		inputManager.addListener(this, "Ability1");
+
 	}
 
 
@@ -195,7 +203,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
-			this.getBulletAppState().getPhysicsSpace().clearForces();
+			//this.getBulletAppState().getPhysicsSpace().clearForces();
 
 			level.generateLevel(this);
 			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
@@ -225,6 +233,17 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			tpfSecs = 1f;
 		}
 
+		for (int i=1 ; i<=2 ; i++) {
+			if (this.abilityActivated[i]) {
+				this.player.activateAbility(i);
+			}
+		}
+		
+		while (this.entitiesToRemove.size() > 0) {
+			IEntity e = this.entitiesToRemove.remove(0);
+			this.actuallyRemoveEntity(e);
+		}
+
 		level.process(tpfSecs);
 
 		for(IEntity ip : entities) {
@@ -248,12 +267,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	/** These are our custom actions triggered by key presses.
-	 * We do not walk yet, we just keep track of the direction the user pressed. */
 	public void onAction(String binding, boolean isPressed, float tpf) {
+		// DO NOT DO ANY ACTUAL ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
 		if (this.game_over == false) {
 			player.onAction(binding, isPressed, tpf);
-			if (binding.equals(Settings.KEY_RECORD)) {
+			if (binding.equals("Ability1")) {
+				//player.activateAbility(1); // todo - in main game thread!
+				abilityActivated[1] = isPressed;
+			} else if (binding.equals(Settings.KEY_RECORD)) {
 				if (isPressed) {
 					if (video_recorder == null) {
 						//log("RECORDING VIDEO");
@@ -336,7 +357,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void removeEntity(IEntity e) {
+	public void markEntityForRemoval(IEntity e) {
+		this.entitiesToRemove.add(e);
+	}
+
+
+
+	public void actuallyRemoveEntity(IEntity e) {
+		e.actuallyRemove();
 		this.entities.remove(e);
 	}
 

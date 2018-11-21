@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class MinedOutWalkedOn extends AbstractBlock {
 
 	public MinedOutWalkedOn() {
-		super(4, 1);
+		super(7, 1);
 	}
 
 }

@@ -19,9 +19,6 @@ public class Fence extends AbstractPhysicalEntity {
 	private static final float WIDTH = 2f;
 	private static final float HEIGHT = 1.5f;
 
-	//private Geometry geometry;
-	//private RigidBodyControl floor_phy;
-
 	public Fence(SpectrumArcade _game, float x, float z, float rot) {
 		super(_game, "Fence");
 
@@ -34,10 +31,10 @@ public class Fence extends AbstractPhysicalEntity {
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);
 
-		Material floor_mat = new Material(game.getAssetManager(),"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
-		floor_mat.setTexture("DiffuseMap", tex3);
-		floor_mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
-		geometry.setMaterial(floor_mat);
+		Material mat = new Material(game.getAssetManager(),"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
+		mat.setTexture("DiffuseMap", tex3);
+		mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		geometry.setMaterial(mat);
 		geometry.setQueueBucket(Bucket.Transparent);
 
 		this.mainNode.attachChild(geometry);
@@ -59,13 +56,4 @@ public class Fence extends AbstractPhysicalEntity {
 		// Do nothing
 	}
 
-/*
-	@Override
-	public void remove() {
-		this.mainNode.removeFromParent();
-		this.game.bulletAppState.getPhysicsSpace().remove(this.floor_phy);
-
-	}
-
-*/
 }

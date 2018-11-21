@@ -19,11 +19,12 @@ import ssmith.lang.NumberFunctions;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE = 30;
+	private static final boolean SHOW_MINES = true;
+	
+	private static final int MAP_SIZE = 10;
 	
 	private boolean[][] mines = new boolean[MAP_SIZE][MAP_SIZE];
 	private VoxelTerrainEntity terrainUDG;
-	private SpectrumArcade game;
 
 	public MinedOutLevel(SpectrumArcade _game) {
 		super(_game);
@@ -37,11 +38,15 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		
 		terrainUDG.addRectRange_Blocks(BlockCodes.MINED_OUT_FRESH, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
 		
-		// todo - choose mines
-		for (int i=0 ; i>30 ; i++) {
+		// choose mines
+		for (int i=0 ; i<30 ; i++) {
 			int x = NumberFunctions.rnd(1, MAP_SIZE-2);
 			int z = NumberFunctions.rnd(3, MAP_SIZE-2);
 			mines[x][z] = true;
+			if (SHOW_MINES) {
+				this.terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.BRICK);
+
+			}
 		}
 		// todo - add fence
 		
@@ -63,7 +68,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.Cyan;
+		return ColorRGBA.Blue;
 	}
 
 

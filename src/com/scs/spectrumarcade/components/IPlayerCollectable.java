@@ -6,5 +6,5 @@ public interface IPlayerCollectable {
 
 	void collected(WalkingPlayer avatar);
 	
-	void remove();
+	void markForRemoval();
 }

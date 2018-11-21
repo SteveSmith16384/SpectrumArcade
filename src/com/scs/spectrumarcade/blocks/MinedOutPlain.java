@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class MinedOutPlain extends AbstractBlock {
 
 	public MinedOutPlain() {
-		super(7, 1);
+		super(4, 1);
 	}
 
 }

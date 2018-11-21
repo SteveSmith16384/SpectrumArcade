@@ -75,17 +75,17 @@ public class SimpleCity {
 
 		// Road
 		String roadtex = "Textures/road2.png";
-		CreateFloor(x, -FLOOR_THICKNESS, z, SKYSCRAPER_WIDTH+6, FLOOR_THICKNESS, 2, roadtex); // top x
-		CreateFloor(x+SKYSCRAPER_WIDTH+4, -FLOOR_THICKNESS, z+2, 2, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+4, roadtex); // right x
-		CreateFloor(x+2, -FLOOR_THICKNESS, z+SKYSCRAPER_WIDTH+4, SKYSCRAPER_WIDTH+2, FLOOR_THICKNESS, 2, roadtex); // bottom x
-		CreateFloor(x, -FLOOR_THICKNESS, z+2, 2, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+4, roadtex); // Left
+		CreateFloor(x, 0, z, SKYSCRAPER_WIDTH+6, FLOOR_THICKNESS, 2, roadtex); // top x
+		CreateFloor(x+SKYSCRAPER_WIDTH+4, 0, z+2, 2, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+4, roadtex); // right x
+		CreateFloor(x+2, 0, z+SKYSCRAPER_WIDTH+4, SKYSCRAPER_WIDTH+2, FLOOR_THICKNESS, 2, roadtex); // bottom x
+		CreateFloor(x, 0, z+2, 2, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+4, roadtex); // Left
 
 		// Sidewalk
 		String sidewalktex = "Textures/floor015.png";
-		CreateFloor(x+2, -FLOOR_THICKNESS+PATH_THICKNESS, z+2, SKYSCRAPER_WIDTH+2, FLOOR_THICKNESS, 1, sidewalktex); // top x
-		CreateFloor(x+SKYSCRAPER_WIDTH+3, -FLOOR_THICKNESS+PATH_THICKNESS, z+3, 1, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+1, sidewalktex); // right x
-		CreateFloor(x+2, -FLOOR_THICKNESS+PATH_THICKNESS, z+SKYSCRAPER_WIDTH+3, SKYSCRAPER_WIDTH+1, FLOOR_THICKNESS, 1, sidewalktex); // bottom x
-		CreateFloor(x+2, -FLOOR_THICKNESS+PATH_THICKNESS, z+3, 1, FLOOR_THICKNESS, SKYSCRAPER_WIDTH, sidewalktex); // Left x
+		CreateFloor(x+2, PATH_THICKNESS, z+2, SKYSCRAPER_WIDTH+2, FLOOR_THICKNESS, 1, sidewalktex); // top x
+		CreateFloor(x+SKYSCRAPER_WIDTH+3, PATH_THICKNESS, z+3, 1, FLOOR_THICKNESS, SKYSCRAPER_WIDTH+1, sidewalktex); // right x
+		CreateFloor(x+2, PATH_THICKNESS, z+SKYSCRAPER_WIDTH+3, SKYSCRAPER_WIDTH+1, FLOOR_THICKNESS, 1, sidewalktex); // bottom x
+		CreateFloor(x+2, PATH_THICKNESS, z+3, 1, FLOOR_THICKNESS, SKYSCRAPER_WIDTH, sidewalktex); // Left x
 
 		int i = NumberFunctions.rnd(1, 1); // todo - was 4
 		if (i == 1) {

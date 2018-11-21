@@ -52,8 +52,8 @@ public class HUD extends Node {
 
 		float xPos = cam.getWidth() * .7f;
 
-		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "Please wait..."), ColorRGBA.Green);
-		textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.6f), 0);
+		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
+		textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.9f), 0);
 		this.attachChild(textArea);
 
 		float yPos = cam.getHeight() - lineSpacing;

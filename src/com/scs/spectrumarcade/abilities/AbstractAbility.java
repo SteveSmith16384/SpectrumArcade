@@ -1,9 +1,13 @@
 package com.scs.spectrumarcade.abilities;
 
-public class AbstractAbility {
+import com.scs.spectrumarcade.SpectrumArcade;
 
-	public AbstractAbility() {
-		// TODO Auto-generated constructor stub
+public abstract class AbstractAbility {
+
+	protected SpectrumArcade game;
+	
+	public AbstractAbility(SpectrumArcade _game) {
+		game =_game;
 	}
 
 }

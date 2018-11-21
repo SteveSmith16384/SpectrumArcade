@@ -9,6 +9,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
+import com.scs.spectrumarcade.entities.Magazine;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
@@ -26,14 +27,15 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
 		game.addEntity(floor);
 
-		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, AntAttackLevel.class);
+		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);
+
+		ArcadeMachine machine3 = new ArcadeMachine(game, 6, 0, 2, "ArcadeMachine_EricAndTheFloaters", EricAndTheFloatersLevel.class);
+		game.addEntity(machine3);
 /*
 		ArcadeMachine machine2 = new ArcadeMachine(game, 4, 0, 2, SplatLevel.class);
 		game.addEntity(machine2);
 
-		ArcadeMachine machine3 = new ArcadeMachine(game, 6, 0, 2, EricAndTheFloatersLevel.class);
-		game.addEntity(machine3);
 
 		ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, MinedOutLevel.class);
 		game.addEntity(machine4);
@@ -41,6 +43,9 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		
 		Key key = new Key(game, 5, 1, 5);
 		game.addEntity(key);
+		
+		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
+		game.addEntity(mag);
 	}
 
 /*

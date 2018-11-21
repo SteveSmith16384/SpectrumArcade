@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.jme3.audio.AudioNode;
 import com.jme3.bullet.control.BetterCharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
@@ -56,7 +57,8 @@ public class WalkingPlayer extends Avatar {
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
-		game.bulletAppState.getPhysicsSpace().add(playerControl);
+		//game.bulletAppState.getPhysicsSpace().add(playerControl);
+		//this.srb = (RigidBodyControl)playerControl;
 
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
@@ -150,6 +152,15 @@ public class WalkingPlayer extends Avatar {
 		Vector3f vec = getMainNode().getWorldTranslation();
 		cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
 		
+	}
+	
+	@Override
+	public void actuallyRemove() {
+		super.actuallyRemove();
+		if (playerControl != null) {
+			this.game.bulletAppState.getPhysicsSpace().remove(this.playerControl);
+		}
+
 	}
 
 }

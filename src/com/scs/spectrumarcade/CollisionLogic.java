@@ -42,7 +42,7 @@ public class CollisionLogic {
 	
 	private static void Player_Collectable(SpectrumArcade game, WalkingPlayer player, IPlayerCollectable col) {
 		col.collected(player);
-		col.remove();
+		col.markForRemoval();
 	}
 	
 	

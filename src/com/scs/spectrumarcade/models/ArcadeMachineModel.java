@@ -8,8 +8,8 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class ArcadeMachineModel extends Node {
 
-	public ArcadeMachineModel(AssetManager assetManager) {
-		Spatial model = assetManager.loadModel("Models/ArcadeMachine_AntAttack/Arcade.obj");
+	public ArcadeMachineModel(AssetManager assetManager, String folder) {
+		Spatial model = assetManager.loadModel("Models/" + folder + "/Arcade.obj");
 		JMEModelFunctions.scaleModelToHeight(model, 2f);
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		this.attachChild(model);

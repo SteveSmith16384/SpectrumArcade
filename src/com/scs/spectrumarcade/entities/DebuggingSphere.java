@@ -36,7 +36,7 @@ public class DebuggingSphere extends AbstractPhysicalEntity {
 
 
 	@Override
-	public void remove() {
+	public void markForRemoval() {
 		this.mainNode.removeFromParent();
 	}
 

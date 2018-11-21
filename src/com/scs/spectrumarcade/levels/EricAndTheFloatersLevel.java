@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.DropBomb;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.ericandfloaters.Floater;
 
 import mygame.util.Vector3Int;
@@ -35,7 +35,6 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 		int gridSize = MAP_SIZE/SEGMENT_SIZE;
 
-
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
 		game.addEntity(terrainUDG);
 
@@ -57,15 +56,15 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 						if (NumberFunctions.rnd(1,  6) == 1) {
 							terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
 						} else if (NumberFunctions.rnd(1,  8) == 1) {
-							//Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
-							//game.addEntity(f);
+							Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
+							game.addEntity(f);
 						}
 					}
 				}
 			}			
 		}
 
-
+/*
 		// Floaters
 		for (int i=0 ; i<1 ; i++) {
 			int x = SEGMENT_SIZE+3;//NumberFunctions.rnd(2, MAP_SIZE-4);
@@ -73,7 +72,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 			Floater floater = new Floater(game, x, 2f, z);
 			game.addEntity(floater);
 		}
-
+*/
 	}
 
 /*
@@ -86,9 +85,10 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
+		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
+		wp.setAbility(1, new DropBomb(game));
+		return wp;
 	}
-
 
 
 

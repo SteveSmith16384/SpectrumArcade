@@ -37,8 +37,8 @@ public abstract class AbstractEntity implements IEntity, Savable {
 	 */
 	//public abstract Spatial getGeometry();
 	
-	public void remove() {
-		game.removeEntity(this);
+	public void markForRemoval() {
+		game.markEntityForRemoval(this);
 	}
 
 
