@@ -6,14 +6,15 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class EspritModel extends Node {
+public class VWCorradon extends Node {
 
 	public static final float MODEL_WIDTH = 2.2f;
 	public static final float MODEL_HEIGHT = 0.7f;
 
-	public EspritModel(AssetManager assetManager) {
-		Spatial model = assetManager.loadModel("Models/Car pack by Quaternius/RaceCar.blend");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/RaceCarTexture.png");
+	public VWCorradon(AssetManager assetManager) {
+		Spatial model = assetManager.loadModel("Models/car2/car2.obj");
+		model.scale(.01f);
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/car2/corradon.png");
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);

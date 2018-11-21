@@ -43,7 +43,7 @@ public abstract class PlayerCar extends Avatar {
 
 		//create vehicle node
 		Node vehicleNode = this.mainNode;// new Node("vehicleNode");
-		vehicle = new VehicleControl(compoundShape, 400);
+		vehicle = new VehicleControl(compoundShape, 600);
 		vehicleNode.addControl(vehicle);
 
 		//setting suspension values for wheels, this can be a bit tricky
@@ -123,7 +123,7 @@ public abstract class PlayerCar extends Avatar {
 	
 	@Override
 	public void process(float tpfSecs) {
-		//todo - re-add game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
 	

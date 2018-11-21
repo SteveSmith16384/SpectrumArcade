@@ -26,7 +26,7 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		srb.setKinematic(true);
+		//srb.setKinematic(true);
 
 	}
 

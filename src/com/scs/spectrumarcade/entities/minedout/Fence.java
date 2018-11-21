@@ -16,7 +16,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public class Fence extends AbstractPhysicalEntity {
 
-	private static final float WIDTH = 2f;
+	private static final float WIDTH = 1f;
 	private static final float HEIGHT = 1.5f;
 
 	public Fence(SpectrumArcade _game, float x, float z, float rot) {
@@ -26,7 +26,7 @@ public class Fence extends AbstractPhysicalEntity {
 		box1.scaleTextureCoordinates(new Vector2f(WIDTH, HEIGHT));
 		Geometry geometry = new Geometry("Fence", box1);
 		//TextureKey key3 = new TextureKey("Textures/Terrain/Pond/Pond.jpg");
-		TextureKey key3 = new TextureKey("Textures/bricktex.jpg");
+		TextureKey key3 = new TextureKey("Textures/street001.jpg");//fence.png");
 		key3.setGenerateMips(true);
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);
@@ -43,8 +43,8 @@ public class Fence extends AbstractPhysicalEntity {
 		mainNode.setLocalTranslation(x+(WIDTH/2), HEIGHT/2, z+0.5f);
 
 		srb = new RigidBodyControl(0);
-		srb.setKinematic(true);
 		mainNode.addControl(srb);
+		//srb.setKinematic(true);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

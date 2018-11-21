@@ -10,9 +10,9 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
+import com.scs.spectrumarcade.entities.minedout.Fence;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
@@ -20,9 +20,9 @@ import ssmith.lang.NumberFunctions;
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final boolean SHOW_MINES = true;
-	
+
 	private static final int MAP_SIZE = 10;
-	
+
 	private boolean[][] mines = new boolean[MAP_SIZE][MAP_SIZE];
 	private VoxelTerrainEntity terrainUDG;
 
@@ -30,14 +30,14 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		super(_game);
 	}
 
-	
+
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 1f);
 		game.addEntity(terrainUDG);
-		
+
 		terrainUDG.addRectRange_Blocks(BlockCodes.MINED_OUT_FRESH, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
-		
+
 		// choose mines
 		for (int i=0 ; i<30 ; i++) {
 			int x = NumberFunctions.rnd(1, MAP_SIZE-2);
@@ -49,17 +49,25 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			}
 		}
 		// todo - add fence
-		
-		
+		for (int z=0; z<MAP_SIZE ; z++) {
+			for (int x=0; x<MAP_SIZE ; x++) {
+				if (x == 0 || z == 0 || x == MAP_SIZE-1 || z == MAP_SIZE-1) {
+					Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 9);
+					game.addEntity(f);
+				}
+			}
+		}
+
+
 	}
-/*
+	/*
 	@Override
 	public void moveAvatarToStartPosition(Avatar avatar) {
 		avatar.warp(new Vector3f(MAP_SIZE/2, 3f, 3f));
-		
+
 	}
-*/
-	
+	 */
+
 	@Override
 	public Avatar createAndPositionAvatar() {
 		return new WalkingPlayer(game, MAP_SIZE/2, 3f, 2f);
@@ -83,26 +91,43 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		} else {
 			this.terrainUDG.addBlock_Block(new Vector3Int((int)pos.x, 0, (int)pos.z), BlockCodes.MINED_OUT_WALKED_ON);
 		}
-		
+
 	}
 
 
 	@Override
 	public String getHUDText() {
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
-		int sx = (int)pos.x;
-		int sz = (int)pos.z;
+		int x = (int)pos.x;
+		int z = (int)pos.z;
 		int count = 0;
-		for (int z=sz-1; z<=sz+1 ; z++) {
-			for (int x=sx-1; x<=sx+1 ; x++) {
-				try {
-					if (mines[x][z]) {
-						count++;
-					}
-				} catch (ArrayIndexOutOfBoundsException ex) {
-					// Do nothing
-				}
+		try {
+			if (mines[x-1][z]) {
+				count++;
 			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			// Do nothing
+		}
+		try {
+			if (mines[x+1][z]) {
+				count++;
+			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			// Do nothing
+		}
+		try {
+			if (mines[x][z-1]) {
+				count++;
+			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			// Do nothing
+		}
+		try {
+			if (mines[x][z+1]) {
+				count++;
+			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			// Do nothing
 		}
 		return "There are " + count + " mines next to you";
 	}

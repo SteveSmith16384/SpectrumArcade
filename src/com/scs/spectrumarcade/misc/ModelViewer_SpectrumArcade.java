@@ -41,10 +41,14 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		super.getViewPort().setBackgroundColor(ColorRGBA.Black);
 
 		setupLight();
-
+/*
 		Spatial model = assetManager.loadModel("Models/ArcadeMachine_AntAttack/Arcade.obj");
 		model.scale(.01f);
-		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/RaceCarTexture.png");
+		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/RaceCarTexture.png");*/
+		Spatial model = assetManager.loadModel("Models/car2/car2.obj");
+		model.scale(.01f);
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/car2/corradon.png");
+
 		String animNode = "Peau(ZOMBIE) (Node)";
 		String animToUse = "Rig(Zombie)Action";
 

@@ -2,16 +2,15 @@ package com.scs.spectrumarcade.entities.turboesprit;
 
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.PlayerCar;
-import com.scs.spectrumarcade.models.EspritModel;
+import com.scs.spectrumarcade.models.VWCorradon;
 
-public class EspritAvatar extends PlayerCar {
+public class TurboEspritAvatar extends PlayerCar {
 	
 	private Node camNode;
 
-	public EspritAvatar(SpectrumArcade _game, float x, float y, float z) {
+	public TurboEspritAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, x, y, z);
 		
 		camNode = new Node("CameraNode");
@@ -23,13 +22,13 @@ public class EspritAvatar extends PlayerCar {
 	@Override
 	public void process(float tpfSecs) {
 		super.process(tpfSecs);
-		Globals.p("Esprit pos: " + this.getMainNode().getWorldTranslation());
+		//Globals.p("Esprit pos: " + this.getMainNode().getWorldTranslation());
 	}
 
 
 	@Override
 	protected Node getModel() {
-		return new EspritModel(game.getAssetManager());
+		return new VWCorradon(game.getAssetManager());
 	}
 
 	

@@ -12,7 +12,7 @@ public class DropBomb extends AbstractAbility implements IAbility {
 	
 
 	@Override
-	public void acivate() {
+	public void activate() {
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
 		pos.addLocal(game.getCamera().getDirection().mult(2));
 		Bomb bomb = new Bomb(game, pos.x, pos.y, pos.z);

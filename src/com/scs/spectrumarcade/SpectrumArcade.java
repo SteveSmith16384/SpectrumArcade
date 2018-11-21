@@ -35,8 +35,8 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.MinedOutLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -129,8 +129,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}*/
 		viewPort.addProcessor(fpp);
 
-		//player = new PlayerCar(this, 15, 15);
-
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
 
 		final int SHADOWMAP_SIZE = 1024;
@@ -143,7 +141,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new MinedOutLevel(this); // EricAndTheFloatersLevel(this);//ArcadeRoom(this);//TurboEspritLevel(this);//AntAttackLevel(this); //SplatLevel();//();//
+		level = new EricAndTheFloatersLevel(this);//MinedOutLevel(this); // TurboEspritLevel(this);//ArcadeRoom(this);//AntAttackLevel(this); //SplatLevel();//();//
 		this.startNewLevel(level);
 	}
 
@@ -250,6 +248,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			ip.process(tpfSecs);
 		}
 
+		hud.processByClient(tpfSecs);
 		/*
 		 * By default the location of the box is on the bottom of the terrain
 		 * we make a slight offset to adjust for head height.

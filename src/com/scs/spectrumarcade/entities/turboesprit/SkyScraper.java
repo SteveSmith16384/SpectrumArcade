@@ -49,6 +49,7 @@ public class SkyScraper extends AbstractPhysicalEntity {
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
+		//srb.setKinematic(true);
 
 		geometry.setUserData(Settings.ENTITY, this);
 

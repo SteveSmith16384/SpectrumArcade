@@ -34,8 +34,7 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 
 		srb = new RigidBodyControl(1f);
 		mainNode.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(srb);
-		srb.setKinematic(true);
+		//srb.setKinematic(true);
 		
 		
 	}

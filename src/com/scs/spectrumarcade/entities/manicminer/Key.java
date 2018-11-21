@@ -31,8 +31,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable {
 
 		srb = new RigidBodyControl(0);
 		this.mainNode.addControl(srb);
-		//game.bulletAppState.getPhysicsSpace().add(this.getMainNode());
-		srb.setKinematic(true);
+		//srb.setKinematic(true);
 		this.getMainNode().addControl(srb);
 
 	}

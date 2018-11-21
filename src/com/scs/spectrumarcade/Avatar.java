@@ -27,6 +27,9 @@ public abstract class Avatar extends AbstractPhysicalEntity {
 	
 	
 	public void activateAbility(int num) {
-		abilities.get(1).acivate();
+		IAbility a = abilities.get(1);
+		if (a != null) {
+		a.activate();
+		}
 	}
 }
