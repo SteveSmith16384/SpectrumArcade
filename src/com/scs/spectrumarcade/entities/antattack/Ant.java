@@ -23,12 +23,12 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private long timeUntilNextTurn = 0;
 	private Vector3f turnDir;
 	private long dontMoveUntil = 0;
-	private AntModel geometry;
+	//private AntModel geometry;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
 
-		geometry = new AntModel(_game.getAssetManager());
+		AntModel geometry = new AntModel(_game.getAssetManager());
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
@@ -55,19 +55,16 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void process(float tpfSecs) {
 		if (this.getMainNode().getWorldTranslation().y < -5) {
-			Globals.pe("ANT OFF EDGE");
+			//Globals.pe("ANT OFF EDGE");
 		}
 
 		if (this.dontMoveUntil < System.currentTimeMillis()) {
 			//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 			Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
+			dir.y = 0;
 			Vector3f force = dir.mult(5);
 			//Globals.p("Ant force: " + dir);
-			//this.srb.applyCentralForce(force);
 			this.srb.setLinearVelocity(force);
-			//geometry.walkAnim();
-		} else {
-			//geometry.idleAnim();
 		}
 	}
 
@@ -79,12 +76,12 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			if (timeUntilNextTurn < System.currentTimeMillis()) {
 				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
 				if (NumberFunctions.rnd(1,  2) == 1) {
-					turnDir = new Vector3f(0, 1, 0).multLocal(0.9f);
+					turnDir = new Vector3f(0, 1, 0).multLocal(0.6f);
 				} else {
-					turnDir = new Vector3f(0, -1, 0).multLocal(0.9f);
+					turnDir = new Vector3f(0, -1, 0).multLocal(0.6f);
 				}
 			}
-			Globals.p("Ant collided with " + collidedWith + " and is turning");
+			//Globals.p("Ant collided with " + collidedWith + " and is turning");
 			this.srb.applyTorqueImpulse(turnDir);
 			dontMoveUntil = System.currentTimeMillis() + 1500;
 		}		

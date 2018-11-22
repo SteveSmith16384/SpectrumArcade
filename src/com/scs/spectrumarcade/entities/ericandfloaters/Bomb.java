@@ -72,7 +72,7 @@ public class Bomb extends AbstractPhysicalEntity {
 		r.setLimit(EricAndTheFloatersLevel.SEGMENT_SIZE*2);
 		CollisionResults res = new CollisionResults();
 		int c = game.getRootNode().collideWith(r, res);
-		boolean found = false;
+		//boolean found = false;
 		if (c > 0) {
 			Iterator<CollisionResult> it = res.iterator();
 			while (it.hasNext()) {

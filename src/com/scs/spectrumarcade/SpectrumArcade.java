@@ -36,16 +36,16 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
-import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TurboEspritLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
 	public static final Random rnd = new Random();
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
-	public List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
+	private List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
 	public BulletAppState bulletAppState;
 
 	public Avatar player;
@@ -146,7 +146,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new ArcadeRoom();//AntAttackLevel(this); //TurboEspritLevel(this);//MinedOutLevel(this); //EricAndTheFloatersLevel(this);// SplatLevel();//();//
+		level = new TurboEspritLevel();//EricAndTheFloatersLevel();// AntAttackLevel(); //ArcadeRoom();//MinedOutLevel(); //SplatLevel();//();//
 		level.setGame(this);
 		this.startNewLevel(level);
 	}

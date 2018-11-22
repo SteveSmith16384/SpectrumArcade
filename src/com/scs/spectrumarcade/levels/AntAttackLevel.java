@@ -1,11 +1,8 @@
 package com.scs.spectrumarcade.levels;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.util.List;
 
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
@@ -44,7 +41,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
 		String[] lines = text.split("\n");
 
-		File f = new File("antattack_map.txt");
+		//File f = new File("antattack_map.txt");
 		//int lineNum = 0;
 		for (String line : lines) {
 			//lineNum++;
@@ -69,10 +66,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 */
 
-		for (int i=0 ; i<1 ; i++) {
+		for (int i=0 ; i<50 ; i++) {
 			int x = NumberFunctions.rnd(10, MAP_SIZE-11);
 			int z = NumberFunctions.rnd(10, MAP_SIZE-11);
-			Ant ant = new Ant(game, x, 8+i, z); // Make height unique to stop collisions at start
+			Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
 		}
 

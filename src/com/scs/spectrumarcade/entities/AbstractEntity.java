@@ -50,13 +50,13 @@ public abstract class AbstractEntity implements IEntity, Savable {
 
 	@Override
 	public void write(JmeExporter ex) throws IOException {
-		
+		// Do nothing
 	}
 
 
 	@Override
 	public void read(JmeImporter im) throws IOException {
-		
+		// Do nothing
 	}
 
 }

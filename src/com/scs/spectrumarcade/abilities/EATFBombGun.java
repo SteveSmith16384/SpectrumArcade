@@ -1,6 +1,7 @@
 package com.scs.spectrumarcade.abilities;
 
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ericandfloaters.Bomb;
 
@@ -18,6 +19,7 @@ public class EATFBombGun extends AbstractAbility implements IAbility {
 	@Override
 	public void activate() {
 		if (nextShotTime < System.currentTimeMillis()) {
+			Globals.p("Throwing bomb");
 			nextShotTime = System.currentTimeMillis() + SHOT_INTERVAL;
 			
 			Vector3f pos = game.player.getMainNode().getWorldTranslation();

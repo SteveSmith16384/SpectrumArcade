@@ -46,8 +46,8 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		game.addEntity(machine4);
 		*/
 		
-		Key key = new Key(game, 5, 1, 5);
-		game.addEntity(key);
+		//Key key = new Key(game, 5, 1, 5);
+		//game.addEntity(key);
 		
 		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
 		game.addEntity(mag);

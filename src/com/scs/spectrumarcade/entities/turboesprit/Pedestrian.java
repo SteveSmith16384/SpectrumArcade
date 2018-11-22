@@ -9,18 +9,16 @@ import com.scs.spectrumarcade.models.MinerModel;
 
 public class Pedestrian extends AbstractPhysicalEntity {
 	
-	//private Spatial model;
-	
 	public Pedestrian(SpectrumArcade _game, float x, float z) {
 		super(_game, "Pedestrian");
 		
 		MinerModel model = new MinerModel(game.getAssetManager());
-
 		this.mainNode.attachChild(model);
-		this.mainNode.setLocalTranslation(x, 2f, z);
+		this.mainNode.setLocalTranslation(x, 1f, z);
+		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1f);
-		model.addControl(srb);
+		mainNode.addControl(srb);
 		
 		model.walkAnim();
 	}
@@ -29,9 +27,10 @@ public class Pedestrian extends AbstractPhysicalEntity {
 	@Override
 	public void process(float tpfSecs) {
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		Vector3f force = dir.mult(5);
-		//this.srb.setLinearVelocity(force);
-		Globals.p("Pedestrian pos: " + this.getMainNode().getWorldTranslation());
+		dir.y = 0;
+		Vector3f force = dir.mult(2);
+		this.srb.setLinearVelocity(force);
+		//Globals.p("Pedestrian pos: " + this.getMainNode().getWorldTranslation());
 
 	}
 

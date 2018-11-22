@@ -22,10 +22,12 @@ public class MinerModel extends Node {
 	private int levelCode;
 
 	public MinerModel(AssetManager assetManager) {
+		super("MinerModel");
 		//assetManager = _assetManager;
 
 		Spatial model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AnimatedHuman/Textures/ClothedLightSkin.png");
+		this.attachChild(model);
 
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);
@@ -34,6 +36,7 @@ public class MinerModel extends Node {
 		channel = control.createChannel();
 
 		model.setShadowMode(ShadowMode.Cast);
+		
 	}
 	
 	

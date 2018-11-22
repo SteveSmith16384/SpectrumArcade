@@ -38,7 +38,7 @@ public class TurboEspritAvatar extends PlayerCar {
 	@Override
 	public void setCameraLocation(Camera cam) {
 		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
 	}
 
