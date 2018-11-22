@@ -19,18 +19,18 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
 
-	public ArcadeRoom(SpectrumArcade _game) {
-		super(_game);
-	}
-
-
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
 		game.addEntity(floor);
 		
+		// Back wall
 		Wall wall1 = new Wall(game, 0, 0, 0, MAP_SIZE, 4, .1f, "Textures/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall1);
+
+		// Side wall
+		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/lliella_funinthesun_paper1.jpg", true);
+		game.addEntity(wall2);
 
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);

@@ -22,10 +22,6 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	private static final int MAP_SIZE = 30;
 	private static final int WALL_HEIGHT = 5;
 
-	public SplatLevel(SpectrumArcade _game) {
-		super(_game);
-	}
-
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {

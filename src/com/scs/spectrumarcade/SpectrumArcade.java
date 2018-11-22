@@ -36,9 +36,9 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TurboEspritLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -61,7 +61,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private GameData gameData;
 	private ILevelGenerator level;
 	private boolean[] abilityActivated = new boolean[3];
-	//private int keysRemaining = 0;
 
 	public static void main(String[] args) {
 		try {
@@ -147,7 +146,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new TurboEspritLevel(this);//MinedOutLevel(this); //EricAndTheFloatersLevel(this);// ArcadeRoom(this);//AntAttackLevel(this); //SplatLevel();//();//
+		level = new ArcadeRoom();//AntAttackLevel(this); //TurboEspritLevel(this);//MinedOutLevel(this); //EricAndTheFloatersLevel(this);// SplatLevel();//();//
+		level.setGame(this);
 		this.startNewLevel(level);
 	}
 
@@ -382,7 +382,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public void keyCollected() {
 		this.gameData.numKeys--;
 		if (gameData.numKeys <= 0) {
-			this.startNewLevel(new ArcadeRoom(this));
+			ArcadeRoom room = new ArcadeRoom();
+			room.setGame(this);
+			this.startNewLevel(room);
 		}
 	}
 

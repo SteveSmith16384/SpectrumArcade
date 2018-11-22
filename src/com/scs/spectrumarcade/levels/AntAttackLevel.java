@@ -1,8 +1,11 @@
 package com.scs.spectrumarcade.levels;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.util.List;
 
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
@@ -10,7 +13,6 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -19,27 +21,44 @@ import com.scs.spectrumarcade.entities.antattack.Ant;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 
 import mygame.util.Vector3Int;
+import ssmith.lang.Functions;
 import ssmith.lang.NumberFunctions;
 
 public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE = 30;
+	private static final int MAP_SIZE = 128;
 
-	public AntAttackLevel(SpectrumArcade _game) {
-		super(_game);
+	public AntAttackLevel() {//SpectrumArcade _game) {
+		super();//_game);
 	}
 
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 50, 1, 50, "Textures/white.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/white.png");
 		game.addEntity(floor);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 1f);
 		game.addEntity(terrainUDG);
-		//VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
-		//game.addEntity(terrainPixel);
+		
+		String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
+		String[] lines = text.split("\n");
 
+		File f = new File("antattack_map.txt");
+		//int lineNum = 0;
+		for (String line : lines) {
+			//lineNum++;
+			String[] parts = line.split(",");
+			int x = Integer.parseInt(parts[0]);
+			int y = Integer.parseInt(parts[1]);
+			int z = Integer.parseInt(parts[2]);
+			/*if (y > 8) {
+				int dfg = 36456;
+			}*/
+			terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
+		}
+		
+/*
 		// Border
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
@@ -48,11 +67,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
+*/
 
 		for (int i=0 ; i<1 ; i++) {
-			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
-			int z = NumberFunctions.rnd(2, MAP_SIZE-4);
-			Ant ant = new Ant(game, x, 6+i, z); // Make jeight unique to stop collisions at start
+			int x = NumberFunctions.rnd(10, MAP_SIZE-11);
+			int z = NumberFunctions.rnd(10, MAP_SIZE-11);
+			Ant ant = new Ant(game, x, 8+i, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
 		}
 
@@ -63,6 +83,9 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			Ray r = new Ray(new Vector3f(x, 100, z), new Vector3f(0, -1, 0));
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
+			if (c == 0) {
+				throw new RuntimeException("Something wrong with the map, there should always be a collision");
+			}
 			Vector3f pos = res.getCollision(0).getContactPoint();
 			Key key = new Key(game, pos.x, pos.y + 1.3f, pos.z); // Raise key so ants don't hit it
 			game.addEntity(key);
@@ -95,13 +118,13 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 3f, 2f);
+		return new Vector3f(MAP_SIZE/2, 10f, 2f);
 	}
 
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE/2, 3f, 2f, true);
+		return new WalkingPlayer(game, MAP_SIZE/2, 10f, 2f, true);
 	}
 
 

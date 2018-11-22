@@ -11,6 +11,8 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public interface ILevelGenerator {
 
+	void setGame(SpectrumArcade game);
+	
 	void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException;
 	
 	Vector3f getAvatarStartPos();

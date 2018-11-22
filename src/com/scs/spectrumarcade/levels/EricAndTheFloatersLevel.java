@@ -23,9 +23,6 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	private static final int MAP_SIZE = 30;
 	public static final int SEGMENT_SIZE = 3;
 
-	public EricAndTheFloatersLevel(SpectrumArcade game) {
-		super(game);
-	}
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
