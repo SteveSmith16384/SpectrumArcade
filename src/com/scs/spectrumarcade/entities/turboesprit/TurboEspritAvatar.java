@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities.turboesprit;
 
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -16,6 +17,8 @@ public class TurboEspritAvatar extends PlayerCar {
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
+		
+		game.getCamera().setLocation(camNode.getWorldTranslation()); // todo -re3move
 	}
 
 
@@ -34,7 +37,8 @@ public class TurboEspritAvatar extends PlayerCar {
 	
 	@Override
 	public void setCameraLocation(Camera cam) {
-		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
 	}
 

@@ -19,7 +19,6 @@ public class MinerModel extends Node {
 	private Spatial model;
 	private AnimChannel channel;
 	public boolean isJumping = false;
-	private int currAnimCode = -1;
 	private long jumpEndTime;
 	private int levelCode;
 

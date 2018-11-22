@@ -18,7 +18,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class PlayerCar extends Avatar {
 	
-	private static final boolean SHOW_CAR = false;
+	private static final boolean SHOW_CAR = true;
 
 	public VehicleControl vehicle;
 	private final float accelerationForce = 1000.0f;
@@ -39,7 +39,7 @@ public abstract class PlayerCar extends Avatar {
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
 		CompoundCollisionShape compoundShape = new CompoundCollisionShape();
 		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
-		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
+		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.9f, 0.65f, 1.95f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 
 		//create vehicle node
@@ -65,11 +65,12 @@ public abstract class PlayerCar extends Avatar {
 		/*float yOff = 0.5f;
 		float xOff = 1f;
 		float zOff = 2f;*/
-		float radius = 0.2f;
+		
+		float radius = 0.15f;
 		float restLength = 0.1f;
 		float yOff = 0.2f;
-		float xOff = .5f;
-		float zOff = 1f;
+		float xOff = .4f;
+		float zOff = .7f;
 
 		Cylinder wheelMesh = new Cylinder(16, 16, radius, radius * 0.6f, true);
 
@@ -129,7 +130,7 @@ public abstract class PlayerCar extends Avatar {
 	
 	@Override
 	public void process(float tpfSecs) {
-		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+		//game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
 	

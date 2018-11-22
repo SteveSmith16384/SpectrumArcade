@@ -17,7 +17,7 @@ public class ParkedCar extends AbstractPhysicalEntity {
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1);
+		srb = new RigidBodyControl(400);
 		mainNode.addControl(srb);
 	
 	}

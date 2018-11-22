@@ -30,7 +30,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 		SimpleCity city = new SimpleCity(game);
 		city.setup();
 		
-		Pedestrian pedestrian = new Pedestrian(game, 15, 15);
+		Pedestrian pedestrian = new Pedestrian(game, 25, 25);
 		game.addEntity(pedestrian);
 
 		ParkedCar p = new ParkedCar(game, 17, 1, 17);
