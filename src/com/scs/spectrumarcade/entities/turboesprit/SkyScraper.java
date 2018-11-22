@@ -56,9 +56,4 @@ public class SkyScraper extends AbstractPhysicalEntity {
 	}
 
 
-	@Override
-	public void process(float tpf) {
-	}
-
-
 }

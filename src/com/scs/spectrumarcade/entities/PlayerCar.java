@@ -125,6 +125,14 @@ public abstract class PlayerCar extends Avatar {
 	}
 
 	
+	@Override
+	public void actuallyRemove() {
+		super.actuallyRemove();
+		game.getBulletAppState().getPhysicsSpace().remove(this.vehicle);
+	}
+
+
+
 	protected abstract Node getModel();
 	
 	

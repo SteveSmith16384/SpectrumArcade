@@ -7,9 +7,10 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.texture.Texture;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public class DebuggingSphere extends AbstractPhysicalEntity {
+public class DebuggingSphere extends AbstractPhysicalEntity implements IProcessable {
 
 	public DebuggingSphere(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "DebuggingSphere");

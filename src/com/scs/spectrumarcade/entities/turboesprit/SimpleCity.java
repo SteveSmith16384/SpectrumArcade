@@ -7,6 +7,7 @@ import ssmith.lang.NumberFunctions;
 
 public class SimpleCity {
 
+	private static final int NODE_SECTOR_SIZE = 4;
 	private static final int SKYSCRAPER_WIDTH = 7;
 
 	private static final float WALL_THICKNESS = 3;

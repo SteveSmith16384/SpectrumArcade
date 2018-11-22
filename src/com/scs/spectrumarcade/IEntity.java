@@ -6,5 +6,4 @@ public interface IEntity {
 	
 	void actuallyRemove();
 
-	void process(float tpfSecs);
 }

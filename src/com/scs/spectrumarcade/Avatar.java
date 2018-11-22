@@ -7,7 +7,7 @@ import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
-public abstract class Avatar extends AbstractPhysicalEntity {
+public abstract class Avatar extends AbstractPhysicalEntity implements IProcessable  {
 	
 	private HashMap<Integer, IAbility> abilities = new HashMap<>();
 

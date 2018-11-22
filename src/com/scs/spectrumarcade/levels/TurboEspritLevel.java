@@ -50,7 +50,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.Black;
+		return ColorRGBA.Cyan;
 	}
 
 

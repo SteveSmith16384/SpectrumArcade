@@ -56,9 +56,4 @@ public class Wall extends AbstractPhysicalEntity {
 
 	}
 
-
-	@Override
-	public void process(float tpf) {
-		// Do nothing
-	}
 }

@@ -3,10 +3,11 @@ package com.scs.spectrumarcade.entities;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.models.SimpleWomanModel;
 
-public class SimpleWoman extends AbstractPhysicalEntity {
+public class SimpleWoman extends AbstractPhysicalEntity implements IProcessable  {
 	
 	private Spatial model;
 	

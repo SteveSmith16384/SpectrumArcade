@@ -33,18 +33,20 @@ import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
-import com.scs.spectrumarcade.entities.AbstractEntity;
+import com.scs.spectrumarcade.components.INotifyWhenAdded;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TurboEspritLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
 	public static final Random rnd = new Random();
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
+	public List<IProcessable> entitiesForProcessing = new ArrayList<IProcessable>();
+	private List<IEntity> entitiesToAdd = new LinkedList<IEntity>();
 	private List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
 	public BulletAppState bulletAppState;
 
@@ -56,7 +58,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
 	public boolean started = false;
-
+	private boolean loadingLevel = false;
+	
 	private DirectionalLight sun;
 	private GameData gameData;
 	private ILevelGenerator level;
@@ -146,7 +149,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new TurboEspritLevel();//EricAndTheFloatersLevel();// AntAttackLevel(); //ArcadeRoom();//MinedOutLevel(); //SplatLevel();//();//
+		level = new AntAttackLevel(); //SplatLevel();//TurboEspritLevel();//EricAndTheFloatersLevel();// ArcadeRoom();//MinedOutLevel(); //();//
 		level.setGame(this);
 		this.startNewLevel(level);
 	}
@@ -179,8 +182,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	/** We over-write some navigational key mappings here, so we can
-	 * add physics-controlled walking and jumping: */
 	private void setUpKeys() {
 		inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
 		inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
@@ -207,13 +208,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
-			//this.getBulletAppState().getPhysicsSpace().clearForces();
 
 			gameData.numKeys = 0;
 			
+			loadingLevel = true;
 			level.generateLevel(this);
 			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
 			this.addEntity((AbstractPhysicalEntity)player);
+			loadingLevel = false;
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -223,15 +225,31 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void addEntity(AbstractEntity e) {
+	public void addEntity(IEntity e) {
+		if (!loadingLevel) {
+			this.entitiesToAdd.add(e);
+		} else {
+			this.actuallyAddEntity(e);
+		}
+	}
+	
+	
+	private void actuallyAddEntity(IEntity e) {
 		this.entities.add(e);
 		if (e instanceof AbstractPhysicalEntity) {
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
 			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
 		}
+		if (e instanceof IProcessable) {
+			this.entitiesForProcessing.add((IProcessable)e);
+		}
 		if (e instanceof Key) {
 			gameData.numKeys++;
+		}
+		if (e instanceof INotifyWhenAdded) {
+			INotifyWhenAdded nwa = (INotifyWhenAdded)e;
+			nwa.added();
 		}
 	}
 
@@ -253,9 +271,15 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.actuallyRemoveEntity(e);
 		}
 
+		while (this.entitiesToAdd.size() > 0) {
+			IEntity e = this.entitiesToAdd.remove(0);
+			//this.entities.add(e);
+			actuallyAddEntity(e);
+		}
+
 		level.process(tpfSecs);
 
-		for(IEntity ip : entities) {
+		for(IProcessable ip : this.entitiesForProcessing) {
 			ip.process(tpfSecs);
 		}
 
@@ -376,6 +400,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public void actuallyRemoveEntity(IEntity e) {
 		e.actuallyRemove();
 		this.entities.remove(e);
+		if (e instanceof IProcessable) {
+			this.entitiesForProcessing.remove((IProcessable)e);
+		}
 	}
 
 

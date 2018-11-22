@@ -22,12 +22,5 @@ public class ParkedCar extends AbstractPhysicalEntity {
 	
 	}
 
-	
-	@Override
-	public void process(float tpfSecs) {
-		// Do nothing
-
-	}
-
 
 }

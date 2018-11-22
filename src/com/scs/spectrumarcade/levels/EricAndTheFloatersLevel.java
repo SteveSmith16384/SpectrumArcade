@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.EATFBombGun;
+import com.scs.spectrumarcade.abilities.BombGun_EATF;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
@@ -90,7 +90,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	@Override
 	public Avatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, false);
-		wp.setAbility(1, new EATFBombGun(game));
+		wp.setAbility(1, new BombGun_EATF(game));
 		return wp;
 	}
 

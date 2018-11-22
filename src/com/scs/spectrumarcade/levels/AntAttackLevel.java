@@ -11,6 +11,7 @@ import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
@@ -41,17 +42,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
 		String[] lines = text.split("\n");
 
-		//File f = new File("antattack_map.txt");
-		//int lineNum = 0;
 		for (String line : lines) {
 			//lineNum++;
 			String[] parts = line.split(",");
 			int x = Integer.parseInt(parts[0]);
 			int y = Integer.parseInt(parts[1]);
 			int z = Integer.parseInt(parts[2]);
-			/*if (y > 8) {
-				int dfg = 36456;
-			}*/
 			terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
 		}
 		
@@ -65,8 +61,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 */
+		
+		//game.getRootNode().updateModelBound();
 
-		for (int i=0 ; i<50 ; i++) {
+		for (int i=0 ; i<5 ; i++) {
 			int x = NumberFunctions.rnd(10, MAP_SIZE-11);
 			int z = NumberFunctions.rnd(10, MAP_SIZE-11);
 			Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
@@ -106,12 +104,6 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);*/
 	}
 
-/*
-	@Override
-	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp(new Vector3f(10, 20f, 10f));
-	}
-*/
 
 	@Override
 	public Vector3f getAvatarStartPos() {
@@ -121,7 +113,9 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE/2, 10f, 2f, true);
+		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 10f, 2f, true);
+		wp.setAbility(1, new BombGun_AA(game));
+		return wp;
 	}
 
 

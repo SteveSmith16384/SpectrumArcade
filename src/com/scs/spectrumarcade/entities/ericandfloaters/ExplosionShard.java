@@ -5,25 +5,26 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 import ssmith.lang.NumberFunctions;
 
-public class ExplosionShard extends AbstractPhysicalEntity {
+public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessable {
 
 	public static final float SPEED = 10f;
 	
 	private long removalTime = System.currentTimeMillis() + 3000;
 	
-	public ExplosionShard(SpectrumArcade _game, float x, float y, float z) {
+	public ExplosionShard(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "ExplosionShard");
 
 		Box box1 = new Box(.2f, .2f, .2f);
 		Geometry geometry = new Geometry("BombSphere", box1);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, tex);//);
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);

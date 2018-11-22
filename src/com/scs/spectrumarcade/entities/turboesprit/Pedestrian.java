@@ -3,11 +3,12 @@ package com.scs.spectrumarcade.entities.turboesprit;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.models.MinerModel;
 
-public class Pedestrian extends AbstractPhysicalEntity {
+public class Pedestrian extends AbstractPhysicalEntity implements IProcessable  {
 	
 	public Pedestrian(SpectrumArcade _game, float x, float z) {
 		super(_game, "Pedestrian");
@@ -17,7 +18,7 @@ public class Pedestrian extends AbstractPhysicalEntity {
 		this.mainNode.setLocalTranslation(x, 1f, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(10f);
 		mainNode.addControl(srb);
 		
 		model.walkAnim();

@@ -12,22 +12,24 @@ import com.jme3.scene.shape.Sphere;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.BufferUtils;
+import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
-public class KillingWall extends AbstractPhysicalEntity {
+public class KillingWall extends AbstractPhysicalEntity implements IProcessable  {
 	
-	private static final float SIZE = 4f;
+	private static final float RAD = 8f;
 
 	public KillingWall(SpectrumArcade _game, float x, float z) {
 		super(_game, "KillingWall");
-		
-		float w = SIZE;
-		float h = SIZE;
-		float d = SIZE;
-
-		Mesh sphere = new Sphere(4, 4, 10, true, true);
+		/*
+		float w = RAD;
+		float h = RAD;
+		float d = RAD;
+*/
+		Mesh sphere = new Sphere(10, 10, 10, true, true);
 		Geometry geometry = new Geometry("FloorGeom", sphere);
 
 		TextureKey key3 = new TextureKey("Textures/mm_bricks.png");
@@ -39,7 +41,7 @@ public class KillingWall extends AbstractPhysicalEntity {
 		floorMat.setTexture("DiffuseMap", tex3);
 		geometry.setMaterial(floorMat);
 
-		geometry.setLocalTranslation(w/2, 0, d/2); // Move it into position
+		//geometry.setLocalTranslation(w/2, 0, d/2); // Move it into position
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, 0, z); // Move it into position
@@ -51,7 +53,9 @@ public class KillingWall extends AbstractPhysicalEntity {
 
 	@Override
 	public void process(float tpf) {
-		// todo
+		if (game.player.distance(this) > RAD) {
+			Globals.p("Player toom far away");
+		}
 	}
 
 

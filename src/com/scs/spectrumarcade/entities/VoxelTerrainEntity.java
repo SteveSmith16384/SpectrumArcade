@@ -156,9 +156,4 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	}
 
 
-	@Override
-	public void process(float tpfSecs) {
-		
-	}
-
 }
