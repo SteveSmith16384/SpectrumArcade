@@ -4,7 +4,7 @@ public class Settings {
 	
 	public static final boolean FREE_CAM = false;
 	
-	public static final boolean RECORD_VID = true;
+	public static final boolean RECORD_VID = false;
 	public static final boolean SHOW_DEBUG = false;
 	public static final boolean SHOW_LOGO = false;
 	

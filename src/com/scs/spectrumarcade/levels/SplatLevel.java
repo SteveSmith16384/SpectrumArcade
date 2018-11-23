@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.MapLoader;
@@ -100,6 +101,12 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public Vector3f getAvatarStartPos() {
 		return new Vector3f(2, 3f, 2f);
+	}
+
+
+	@Override
+	public void setInitialCameraDir(Camera cam) {
+		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
 }

@@ -8,6 +8,7 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -63,11 +64,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 */
 		
 		// Add ants
-
-		for (int i=0 ; i<1 ; i++) {
+		for (int i=0 ; i<5 ; i++) {
 			int x = NumberFunctions.rnd(40, MAP_SIZE-40);
 			int z = NumberFunctions.rnd(10, 20);
-			Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
+			Ant ant = new Ant(game, x, 11, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
 		}
 
@@ -134,6 +134,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public String getHUDText() {
 		return "";
+	}
+
+
+	@Override
+	public void setInitialCameraDir(Camera cam) {
+		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
 }

@@ -4,10 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
@@ -16,6 +15,7 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.entities.minedout.Fence;
+import com.scs.spectrumarcade.entities.minedout.SquareIndicator;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
@@ -67,6 +67,8 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(key);
 		}
 
+		SquareIndicator si = new SquareIndicator(game);
+		game.addEntity(si);
 	}
 
 
@@ -138,6 +140,12 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			// Do nothing
 		}
 		return "There are " + count + " mines next to you";
+	}
+
+
+	@Override
+	public void setInitialCameraDir(Camera cam) {
+		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
 }

@@ -1,14 +1,11 @@
 package com.scs.spectrumarcade;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.prefs.BackingStoreException;
 
-import com.aurellem.capture.Capture;
-import com.aurellem.capture.IsoTimer;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
@@ -36,6 +33,7 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -138,11 +136,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new ArcadeRoom();//AntAttackLevel(); //SplatLevel();//TurboEspritLevel();//EricAndTheFloatersLevel();// MinedOutLevel(); //();//
+		level = new EricAndTheFloatersLevel();//MinedOutLevel(); //AntAttackLevel(); //ArcadeRoom();//SplatLevel();//TurboEspritLevel();// ();//
 		level.setGame(this);
 		this.startNewLevel(level);
 		
-		File video, audio;
+		//File video, audio;
 		if (Settings.RECORD_VID) {
 			/*app.setTimer(new IsoTimer(60));
 			video = File.createTempFile("JME-video", ".avi");
@@ -220,6 +218,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.addEntity((AbstractPhysicalEntity)player);
 			loadingLevel = false;
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
+			player.setCameraLocation(cam); // Ready to set direction
+			level.setInitialCameraDir(cam);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

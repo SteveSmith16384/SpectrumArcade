@@ -27,10 +27,10 @@ public class WalkingPlayer extends Avatar {
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
+	
 	//Temporary vectors used on each frame.
 	private Vector3f camDir = new Vector3f();
 	private Vector3f camLeft = new Vector3f();
-
 
 	// Footsteps
 	private List<AudioNode> audio_node_footsteps = new ArrayList<>();

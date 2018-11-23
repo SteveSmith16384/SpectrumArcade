@@ -30,7 +30,7 @@ public class AntModel extends Node {
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);
 		
-		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(1, 0, 0)); // Point model fwds
+		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(-1, 0, 0)); // Point model fwds
 
 		AnimControl control = JMEModelFunctions.getNodeWithControls("Sphere (Node)", (Node)model);
 		channel = control.createChannel();

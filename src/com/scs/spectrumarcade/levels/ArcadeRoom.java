@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ArcadeMachine;
@@ -82,6 +83,12 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public String getHUDText() {
 		return "";
+	}
+
+
+	@Override
+	public void setInitialCameraDir(Camera cam) {
+		cam.lookAt(cam.getLocation().add(new Vector3f(-1, 0, -1)), Vector3f.UNIT_Y);
 	}
 
 }

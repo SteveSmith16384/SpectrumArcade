@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 
@@ -24,5 +25,7 @@ public interface ILevelGenerator {
 	void process(float tpfSecs);
 	
 	String getHUDText();
+	
+	void setInitialCameraDir(Camera cam);
 	
 }
