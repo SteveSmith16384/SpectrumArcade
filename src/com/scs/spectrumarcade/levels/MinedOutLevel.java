@@ -68,13 +68,6 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		}
 
 	}
-	/*
-	@Override
-	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp(new Vector3f(MAP_SIZE/2, 3f, 3f));
-
-	}
-	 */
 
 
 	@Override

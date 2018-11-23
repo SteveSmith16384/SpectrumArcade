@@ -64,7 +64,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
 				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.2f,  .2f);
 				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
-				ExplosionShard shard = new ExplosionShard(game, x, y, z, "Textures/ericwall.png");
+				ExplosionShard shard = new ExplosionShard(game, x, y, z, .2f, "Textures/ericwall.png");
 				game.addEntity(shard);
 			}
 			this.markForRemoval();

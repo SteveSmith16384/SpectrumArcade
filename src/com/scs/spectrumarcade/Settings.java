@@ -4,7 +4,7 @@ public class Settings {
 	
 	public static final boolean FREE_CAM = false;
 	
-	public static final boolean RECORD_VID = false;
+	public static final boolean RECORD_VID = true;
 	public static final boolean SHOW_DEBUG = false;
 	public static final boolean SHOW_LOGO = false;
 	
@@ -16,7 +16,7 @@ public class Settings {
 	public static final String NAME = "Advanced Spectrum Arcade Simulator";
 	
 	// Player dimensions
-	public static final float PLAYER_HEIGHT = 1.5f;
+	public static final float PLAYER_HEIGHT = 1.7f;
 	public static final float PLAYER_RAD = .35f;
 	
 	// User Data

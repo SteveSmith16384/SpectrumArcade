@@ -20,7 +20,7 @@ public class Magazine extends AbstractPhysicalEntity {
 		
 		float w = 0.35f;
 		float h = 0.45f;
-		float d = 0.03f;
+		float d = 0.04f;
 
 		Box box1 = new Box(w/2, h/2, d/2);
 
@@ -41,7 +41,7 @@ public class Magazine extends AbstractPhysicalEntity {
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 
-		srb = new RigidBodyControl(2);
+		srb = new RigidBodyControl(20);
 		mainNode.addControl(srb);
 	}
 

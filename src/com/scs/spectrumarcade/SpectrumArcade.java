@@ -33,10 +33,8 @@ import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
-import com.scs.spectrumarcade.components.INotifyWhenAdded;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
-import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
@@ -83,15 +81,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			SpectrumArcade app = new SpectrumArcade();
 			app.setSettings(settings);
 			//app.setPauseOnLostFocus(true);
-
-			File video, audio;
-			if (Settings.RECORD_VID) {
-				app.setTimer(new IsoTimer(60));
-				video = File.createTempFile("JME-water-video", ".avi");
-				audio = File.createTempFile("JME-water-audio", ".wav");
-				Capture.captureVideo(app, video);
-				Capture.captureAudio(app, audio);
-			}
 
 			app.start();
 
@@ -149,9 +138,23 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new AntAttackLevel(); //SplatLevel();//TurboEspritLevel();//EricAndTheFloatersLevel();// ArcadeRoom();//MinedOutLevel(); //();//
+		level = new ArcadeRoom();//AntAttackLevel(); //SplatLevel();//TurboEspritLevel();//EricAndTheFloatersLevel();// MinedOutLevel(); //();//
 		level.setGame(this);
 		this.startNewLevel(level);
+		
+		File video, audio;
+		if (Settings.RECORD_VID) {
+			/*app.setTimer(new IsoTimer(60));
+			video = File.createTempFile("JME-video", ".avi");
+			audio = File.createTempFile("JME-audio", ".wav");
+			Capture.captureVideo(app, video);
+			Capture.captureAudio(app, audio);*/
+			VideoRecorderAppState video_recorder = new VideoRecorderAppState();
+			this.getStateManager().attach(video_recorder);
+
+		}
+
+
 	}
 
 
@@ -247,10 +250,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof Key) {
 			gameData.numKeys++;
 		}
-		if (e instanceof INotifyWhenAdded) {
+		/*if (e instanceof INotifyWhenAdded) {
 			INotifyWhenAdded nwa = (INotifyWhenAdded)e;
 			nwa.added();
-		}
+		}*/
 	}
 
 

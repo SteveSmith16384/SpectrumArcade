@@ -32,7 +32,6 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 
 		srb = new RigidBodyControl(0);
 		this.mainNode.addControl(srb);
-		//srb.setKinematic(true);
 		this.getMainNode().addControl(srb);
 
 	}
@@ -40,11 +39,6 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 
 	@Override
 	public void process(float tpfSecs) {
-		/*rotDegrees += (tpfSecs * 0.005f);
-		while (rotDegrees > 360) {
-			rotDegrees -= 360;
-		}*/
-		//float rads = (float)Math.toRadians((tpfSecs * 1));
 		this.getMainNode().rotate(0, tpfSecs*2, 0);
 
 	}
@@ -52,7 +46,6 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 
 	@Override
 	public void collected(WalkingPlayer avatar) {
-		Globals.p("Key collected");
 		game.keyCollected();
 	}
 

@@ -19,9 +19,10 @@ Arcade Machine: https://free3d.com/3d-model/arcade-machine-cabinet-41196.html
 VW Corradon by rohezal - https://opengameart.org/content/car-vw-corradon
 Spider by https://opengameart.org/content/spider-animated
 Key by https://opengameart.org/content/antique-key
-Other car Models by Quaterius
-AnimatedHuman by Quaterius
-RocksFlowersGrassPack by Quaterius
+Other car Models by Quaternius
+AnimatedHuman by Quaternius
+RocksFlowersGrassPack by Quaternius
+Mage by Clement Wu, Nikolaus & Botanic (taken from https://opengameart.org/content/animated-mage)
 
 
 ## LICENCES

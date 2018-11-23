@@ -35,19 +35,14 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);
 
-		ArcadeMachine machine3 = new ArcadeMachine(game, 6, 0, 2, "ArcadeMachine_EricAndTheFloaters", EricAndTheFloatersLevel.class);
+		ArcadeMachine machine3 = new ArcadeMachine(game, 4, 0, 2, "ArcadeMachine_EricAndTheFloaters", EricAndTheFloatersLevel.class);
 		game.addEntity(machine3);
-/*
-		ArcadeMachine machine2 = new ArcadeMachine(game, 4, 0, 2, SplatLevel.class);
+
+		ArcadeMachine machine2 = new ArcadeMachine(game, 6, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
 		game.addEntity(machine2);
 
-
-		ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, MinedOutLevel.class);
-		game.addEntity(machine4);
-		*/
-		
-		//Key key = new Key(game, 5, 1, 5);
-		//game.addEntity(key);
+		//ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, "ArcadeMachine_MinedOut", MinedOutLevel.class);
+		//game.addEntity(machine4);
 		
 		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
 		game.addEntity(mag);

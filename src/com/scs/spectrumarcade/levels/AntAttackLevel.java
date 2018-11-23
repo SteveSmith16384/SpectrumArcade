@@ -62,19 +62,19 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
 */
 		
-		//game.getRootNode().updateModelBound();
+		// Add ants
 
-		for (int i=0 ; i<5 ; i++) {
-			int x = NumberFunctions.rnd(10, MAP_SIZE-11);
-			int z = NumberFunctions.rnd(10, MAP_SIZE-11);
+		for (int i=0 ; i<1 ; i++) {
+			int x = NumberFunctions.rnd(40, MAP_SIZE-40);
+			int z = NumberFunctions.rnd(10, 20);
 			Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
 		}
 
 		// Add keys
 		for (int i=0 ; i<5 ; i++) {
-			int x = NumberFunctions.rnd(2, MAP_SIZE-4);
-			int z = NumberFunctions.rnd(2, MAP_SIZE-4);
+			int x = NumberFunctions.rnd(3, MAP_SIZE-4);
+			int z = NumberFunctions.rnd(3, MAP_SIZE-4);
 			Ray r = new Ray(new Vector3f(x, 100, z), new Vector3f(0, -1, 0));
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
@@ -107,13 +107,13 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 10f, 2f);
+		return new Vector3f(MAP_SIZE/2, 2f, 3f);
 	}
 
 	
 	@Override
 	public Avatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 10f, 2f, true);
+		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true);
 		wp.setAbility(1, new BombGun_AA(game));
 		return wp;
 	}

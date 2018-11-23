@@ -10,8 +10,6 @@ import com.scs.spectrumarcade.models.ArcadeMachineModel;
 
 public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOfCollision {
 
-	public static final float START_HEALTH = 5f;
-
 	private Class<? extends ILevelGenerator> level;
 	
 	public ArcadeMachine(SpectrumArcade _game, float x, float y, float z, String folder, Class<? extends ILevelGenerator> _level) {

@@ -17,7 +17,6 @@ import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.components.INotifyWhenAdded;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
@@ -26,7 +25,7 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 import ssmith.lang.NumberFunctions;
 
-public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, INotifyWhenAdded {
+public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 
 	public static final float SPEED = 10f;
 
@@ -48,9 +47,9 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, INo
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(.1f);
 		mainNode.addControl(srb);
-
+		
 	}
 
 
@@ -64,11 +63,11 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, INo
 			}
 
 			// Shards
-			for (int i=0 ; i<5 ; i++) {
+			for (int i=0 ; i<10 ; i++) {
 				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
 				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.2f,  .2f);
 				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
-				ExplosionShard shard = new ExplosionShard(game, x, y, z, "Textures/antattack.png");
+				ExplosionShard shard = new ExplosionShard(game, x, y, z, .1f, "Textures/antattack.png");
 				game.addEntity(shard);
 			}
 			this.markForRemoval();
@@ -112,16 +111,6 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, INo
 				}
 			}
 		}		
-	}
-
-
-	@Override
-	public void added() {
-		Vector3f force = game.getCamera().getDirection().mult(20);
-		force.y = 0;
-		srb.applyCentralForce(force);
-		Globals.p("Force=" + force);
-		
 	}
 
 

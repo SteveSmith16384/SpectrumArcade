@@ -2,6 +2,7 @@ package com.scs.spectrumarcade.entities.antattack;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -91,8 +92,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
+		onFloor = true;
 		if (collidedWith instanceof FloorOrCeiling) {
-			onFloor = true;
+			// Do nothing
 		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ant) {
 			this.srb.setLinearVelocity(Vector3f.ZERO);
 			if (timeUntilNextTurn < System.currentTimeMillis()) {
@@ -106,11 +108,13 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			//Globals.p("Ant collided with " + collidedWith + " and is turning");
 			this.srb.applyTorqueImpulse(turnDir);
 			dontMoveUntil = System.currentTimeMillis() + 1500;
+			dontMoveTowardsPlayerUntil = System.currentTimeMillis() + 4000;
 		}
 	}
 
 	
 	public void hitByBomb() {
+		Globals.p("Ant hit!");
 		this.srb.applyTorqueImpulse(new Vector3f(0, 1, 0).multLocal(1f));
 		dontMoveTowardsPlayerUntil = System.currentTimeMillis() + 10000;
 	}

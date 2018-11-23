@@ -18,10 +18,10 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 	
 	private long removalTime = System.currentTimeMillis() + 3000;
 	
-	public ExplosionShard(SpectrumArcade _game, float x, float y, float z, String tex) {
+	public ExplosionShard(SpectrumArcade _game, float x, float y, float z, float size, String tex) {
 		super(_game, "ExplosionShard");
 
-		Box box1 = new Box(.2f, .2f, .2f);
+		Box box1 = new Box(size, size, size);
 		Geometry geometry = new Geometry("BombSphere", box1);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, tex);//);
