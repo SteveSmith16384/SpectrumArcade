@@ -15,18 +15,19 @@ public class MinerModel extends Node {
 	private static final float MODEL_WIDTH = 0.6f;
 	private static final float MODEL_DEPTH = 0.6f;
 
-	private AssetManager assetManager;
-	private Spatial model;
+	//private AssetManager assetManager;
+	//private Spatial model;
 	private AnimChannel channel;
-	public boolean isJumping = false;
-	private long jumpEndTime;
+	//public boolean isJumping = false;
 	private int levelCode;
 
-	public MinerModel(AssetManager _assetManager) {
-		assetManager = _assetManager;
+	public MinerModel(AssetManager assetManager) {
+		super("MinerModel");
+		//assetManager = _assetManager;
 
-		model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, MinerTexture.getTexture(levelCode));
+		Spatial model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AnimatedHuman/Textures/ClothedLightSkin.png");
+		this.attachChild(model);
 
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);
@@ -35,6 +36,7 @@ public class MinerModel extends Node {
 		channel = control.createChannel();
 
 		model.setShadowMode(ShadowMode.Cast);
+		
 	}
 	
 	

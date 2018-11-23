@@ -41,10 +41,5 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 		return 1;
 	}
 
-	@Override
-	public void process(float tpfSecs) {
-		// Do nothing
-
-	}
 
 }

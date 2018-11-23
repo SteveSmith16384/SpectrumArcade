@@ -17,10 +17,6 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	private TurboEspritAvatar car;
 	
-	public TurboEspritLevel(SpectrumArcade _game) {
-		super(_game);
-	}
-
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
@@ -54,7 +50,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.Black;
+		return ColorRGBA.Cyan;
 	}
 
 

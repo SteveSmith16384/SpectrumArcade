@@ -30,17 +30,13 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 
 	}
 
-	@Override
-	public void process(float tpfSecs) {
-		// Do nothing
-		
-	}
-
+	
 	@Override
 	public void notifiedOfCollision(IEntity collidedWith) {
 		if (collidedWith == game.player) {
 			try {
 				ILevelGenerator object = level.newInstance();
+				object.setGame(game);
 				this.game.startNewLevel(object);
 			} catch (Exception e) {
 				e.printStackTrace();

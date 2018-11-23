@@ -46,7 +46,8 @@ public class Wall extends AbstractPhysicalEntity {
 		geometry.setLocalTranslation(w/2, h/2, d/2);
 
 		this.mainNode.attachChild(geometry);
-		mainNode.setLocalTranslation(x, yBottom+h, z); // Move it into position
+
+		mainNode.setLocalTranslation(x, yBottom, z); // Move it into position
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
@@ -55,9 +56,4 @@ public class Wall extends AbstractPhysicalEntity {
 
 	}
 
-
-	@Override
-	public void process(float tpf) {
-		// Do nothing
-	}
 }

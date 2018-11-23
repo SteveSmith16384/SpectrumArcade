@@ -18,7 +18,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class PlayerCar extends Avatar {
 	
-	private static final boolean SHOW_CAR = true;
+	private static final boolean SHOW_CAR = false;
 
 	public VehicleControl vehicle;
 	private final float accelerationForce = 1000.0f;
@@ -125,12 +125,20 @@ public abstract class PlayerCar extends Avatar {
 	}
 
 	
+	@Override
+	public void actuallyRemove() {
+		super.actuallyRemove();
+		game.getBulletAppState().getPhysicsSpace().remove(this.vehicle);
+	}
+
+
+
 	protected abstract Node getModel();
 	
 	
 	@Override
 	public void process(float tpfSecs) {
-		//game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+		//Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
 	}
 
 	

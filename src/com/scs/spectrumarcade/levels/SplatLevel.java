@@ -11,8 +11,9 @@ import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
+import com.scs.spectrumarcade.entities.splat.KillingWall;
 import com.scs.spectrumarcade.entities.splat.PoisonousGrass;
 
 import mygame.util.Vector3Int;
@@ -22,10 +23,8 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	private static final int MAP_SIZE = 30;
 	private static final int WALL_HEIGHT = 5;
 
-	public SplatLevel(SpectrumArcade _game) {
-		super(_game);
-	}
-
+	private KillingWall killingWall;
+	
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
@@ -56,7 +55,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 				}
 			}
 		}
-		terrainUDG.addArrayRange_Blocks(BlockCodes.SPLAT, new Vector3Int(2, 0, 2), heightMap);
+		//terrainUDG.addArrayRange_Blocks(BlockCodes.SPLAT, new Vector3Int(2, 0, 2), heightMap);
 
 		// Load plants
 		for (int z=0 ; z<map[0].length ; z++) {
@@ -68,14 +67,12 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 				}
 			}
 		}
+		
+		this.killingWall = new KillingWall(game, 2, 2);
+		game.addEntity(killingWall);
 	}
 
-/*
-	@Override
-	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp();
-	}
-*/
+
 	@Override
 	public Avatar createAndPositionAvatar() {
 		return new WalkingPlayer(game, 2, 3, 2f, true);
@@ -91,7 +88,6 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		// Todo - move killing wall
 	}
 
 

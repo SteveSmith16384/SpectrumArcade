@@ -18,9 +18,9 @@ public class Magazine extends AbstractPhysicalEntity {
 	public Magazine(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "Magazine");
 		
-		float w = 0.3f;
-		float h = 0.35f;
-		float d = 0.02f;
+		float w = 0.35f;
+		float h = 0.45f;
+		float d = 0.03f;
 
 		Box box1 = new Box(w/2, h/2, d/2);
 
@@ -45,10 +45,5 @@ public class Magazine extends AbstractPhysicalEntity {
 		mainNode.addControl(srb);
 	}
 
-
-	@Override
-	public void process(float tpf) {
-		// Do nothing
-	}
 
 }

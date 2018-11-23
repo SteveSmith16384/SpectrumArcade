@@ -6,8 +6,15 @@ public abstract class AbstractLevel {
 	
 	protected SpectrumArcade game;
 
-	public AbstractLevel(SpectrumArcade _game) {
+	public AbstractLevel() {
+		// Need this for reflection!
+	}
+
+	
+	public void setGame(SpectrumArcade _game) {
 		game = _game;
 	}
+	
+	
 
 }

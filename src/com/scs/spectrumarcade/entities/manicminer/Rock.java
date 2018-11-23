@@ -46,10 +46,4 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 	}
 
 
-	@Override
-	public void process(float tpfSecs) {
-		// Do nothing
-
-	}
-
 }

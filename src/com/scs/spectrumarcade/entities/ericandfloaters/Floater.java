@@ -8,6 +8,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
+import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
@@ -18,22 +19,25 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 import ssmith.util.RealtimeInterval;
 
-public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision {
+public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
 	public static final float SPEED = 10f;
-	public static final long TURN_INTERVAL = 4000;
+	public static final long TURN_INTERVAL = 2000;
 
+	private Geometry geometry;
 	private Vector3f dir;
-	private long timeUntilNextTurn = 0;
-	
+	private long timeUntilNextTurn = 0;	
 	private Vector3f prevPos;
 	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
+	
+	private boolean killed = false;
+	private long timeToRemove = 0;
 	
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
 		Mesh sphere = new Sphere(8, 8, EricAndTheFloatersLevel.SEGMENT_SIZE/3, true, false);
-		Geometry geometry = new Geometry("FloaterSphere", sphere);
+		geometry = new Geometry("FloaterSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
 
@@ -41,7 +45,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1);
+		srb = new RigidBodyControl(2);
 		mainNode.addControl(srb);
 
 		dir = JMEAngleFunctions.getRandomDirection_4();
@@ -53,6 +57,14 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 	@Override
 	public void process(float tpfSecs) {
+		if (killed) {
+			// todo - shrink
+			if (this.timeToRemove < System.currentTimeMillis()) {
+				this.markForRemoval();
+			}
+			return;
+		}
+		
 		if (checkPosInterval.hitInterval()) {
 			if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
 				dir = dir.mult(-1);//JMEAngleFunctions.getRandomDirection_8();
@@ -67,7 +79,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		//Globals.p("Floater pos: " + this.getMainNode().getWorldTranslation());
 		Vector3f force = dir.mult(SPEED);
 		//Globals.p("Floater force: " + dir);
-		//this.srb.applyCentralForce(force);
 		this.srb.setLinearVelocity(force);
 	}
 
@@ -84,6 +95,14 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			//Globals.p("Floater collided with " + collidedWith + " and is turning");
 		}		*/
 	}
-
+	
+	
+	public void killed() {
+		if (killed) {
+			return;
+		}
+		killed = true;
+		this.timeToRemove = System.currentTimeMillis() + 3000; 
+	}
 
 }

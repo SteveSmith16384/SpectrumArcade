@@ -18,12 +18,6 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	private static final int MAP_DEPTH = 5;
 
-	public ManicMinerCentralCavern(SpectrumArcade game) {
-		super(game);
-
-	}
-
-
 	@Override
 	public void generateLevel(SpectrumArcade game) {
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);

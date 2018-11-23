@@ -59,10 +59,4 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 	}
 
 
-	@Override
-	public void process(float tpf) {
-		// Do nothing
-	}
-
-
 }

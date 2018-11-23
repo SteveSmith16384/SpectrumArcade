@@ -30,10 +30,6 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private RealtimeInterval checkMinesInt = new RealtimeInterval(1000);
 	
-	public MinedOutLevel(SpectrumArcade _game) {
-		super(_game);
-	}
-
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
