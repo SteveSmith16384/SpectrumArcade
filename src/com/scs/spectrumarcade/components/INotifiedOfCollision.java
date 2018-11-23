@@ -4,6 +4,6 @@ import com.scs.spectrumarcade.IEntity;
 
 public interface INotifiedOfCollision {
 
-	public void notifiedOfCollision(IEntity collidedWith);
+	public void notifiedOfCollision(IEntity collidedWith); // todo - phys entity
 
 }

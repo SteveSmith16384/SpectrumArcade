@@ -36,7 +36,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
-		Mesh sphere = new Sphere(8, 8, EricAndTheFloatersLevel.SEGMENT_SIZE/3, true, false);
+		Mesh sphere = new Sphere(8, 8, EricAndTheFloatersLevel.SEGMENT_SIZE*.4f, true, false);
 		geometry = new Geometry("FloaterSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");

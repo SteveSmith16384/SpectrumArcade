@@ -14,6 +14,7 @@ import com.scs.spectrumarcade.abilities.BombGun_EATF;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
+import com.scs.spectrumarcade.entities.ericandfloaters.DestroyableWall;
 import com.scs.spectrumarcade.entities.ericandfloaters.Floater;
 
 import mygame.util.Vector3Int;
@@ -24,7 +25,8 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	private static final int MAP_SIZE = 30;
 	public static final int SEGMENT_SIZE = 3;
 
-
+	private VoxelTerrainEntity terrainUDG; // todo - delete
+	
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
@@ -34,7 +36,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 		int gridSize = MAP_SIZE/SEGMENT_SIZE;
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
 		game.addEntity(terrainUDG);
 
 		//  outer walls
@@ -53,15 +55,23 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 						terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_SOLID);
 					} else {
 						if (NumberFunctions.rnd(1,  6) == 1) {
-							terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
+							//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
+							//DestroyableWall dw = new DestroyableWall(game, xGrid, zGrid);
+							//game.addEntity(dw);
 						} else if (NumberFunctions.rnd(1,  8) == 1) {
 							Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
-							game.addEntity(f);
+							//game.addEntity(f);
 						}
 					}
 				}
 			}			
 		}
+		
+		DestroyableWall dw = new DestroyableWall(game, 1, 3);
+		game.addEntity(dw);
+
+		DestroyableWall dw2 = new DestroyableWall(game, 5, 1);
+		game.addEntity(dw2);
 
 /*
 		// Floaters

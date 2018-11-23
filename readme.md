@@ -14,7 +14,7 @@ Written by Steve Smith ( http://twitter.com/stephencsmith/ )
 All games copyrights owned by their respective owners.
 
 
-### MODEL CREDITS
+### OTHER CREDITS
 Arcade Machine: https://free3d.com/3d-model/arcade-machine-cabinet-41196.html
 VW Corradon by rohezal - https://opengameart.org/content/car-vw-corradon
 Spider by https://opengameart.org/content/spider-animated
@@ -22,6 +22,7 @@ Key by https://opengameart.org/content/antique-key
 Other car Models by Quaternius
 AnimatedHuman by Quaternius
 RocksFlowersGrassPack by Quaternius
+Gauntlet maps taken from https://github.com/jakesgordon/javascript-gauntlet
 Mage by Clement Wu, Nikolaus & Botanic (taken from https://opengameart.org/content/animated-mage)
 
 

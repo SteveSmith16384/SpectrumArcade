@@ -33,7 +33,7 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);
 		
-		Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(10);
+		Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(15);
 		srb.applyCentralForce(dir);
 
 	}

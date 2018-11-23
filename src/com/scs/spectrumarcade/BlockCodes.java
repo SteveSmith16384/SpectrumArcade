@@ -29,7 +29,7 @@ public class BlockCodes {
 	public static final int SPLAT = 9;
 	public static final int RED_FLOOR_PXL = 10;
 	public static final int EATF_SOLID = 11;
-	public static final int EATF_WEAK = 12;
+	public static final int EATF_WEAK = 12; // todo - not required
 	public static final int EATF_OUTER_WALL = 13;
 	public static final int MINED_OUT_FRESH = 14;
 	public static final int MINED_OUT_WALKED_ON = 15;

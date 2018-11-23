@@ -136,7 +136,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new EricAndTheFloatersLevel();//MinedOutLevel(); //AntAttackLevel(); //ArcadeRoom();//SplatLevel();//TurboEspritLevel();// ();//
+		level = new EricAndTheFloatersLevel();//GauntletLevel();//MinedOutLevel(); //AntAttackLevel(); //ArcadeRoom();//SplatLevel();//TurboEspritLevel();// ();//
 		level.setGame(this);
 		this.startNewLevel(level);
 		

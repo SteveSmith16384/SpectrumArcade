@@ -56,6 +56,8 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 			for (IEntity e : game.entities) {
 				if (e instanceof Floater) {
 					checkForHitFloaters((Floater)e);
+				} else if (e instanceof DestroyableWall) {
+					checkForHitFloaters((DestroyableWall)e);
 				}
 			}
 
@@ -64,7 +66,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
 				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.2f,  .2f);
 				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
-				ExplosionShard shard = new ExplosionShard(game, x, y, z, .2f, "Textures/ericwall.png");
+				ExplosionShard shard = new ExplosionShard(game, x, y, z, .4f, "Textures/ericwall.png");
 				game.addEntity(shard);
 			}
 			this.markForRemoval();
@@ -72,7 +74,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 	}
 
 
-	private void checkForHitFloaters(Floater f) {		
+	private void checkForHitFloaters(AbstractPhysicalEntity f) {		
 		Ray r = new Ray(this.mainNode.getWorldTranslation(), f.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
 		r.setLimit(EricAndTheFloatersLevel.SEGMENT_SIZE*2);
 		CollisionResults res = new CollisionResults();
