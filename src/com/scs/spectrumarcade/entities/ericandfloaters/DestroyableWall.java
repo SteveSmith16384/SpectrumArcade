@@ -1,16 +1,15 @@
 package com.scs.spectrumarcade.entities.ericandfloaters;
 
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.jme3.texture.Texture;
+import com.jme3.texture.Texture.MagFilter;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
-
-import ssmith.lang.NumberFunctions;
 
 public class DestroyableWall extends AbstractPhysicalEntity {
 
@@ -20,7 +19,8 @@ public class DestroyableWall extends AbstractPhysicalEntity {
 		Box box1 = new Box(EricAndTheFloatersLevel.SEGMENT_SIZE/2f, EricAndTheFloatersLevel.SEGMENT_SIZE/2f, EricAndTheFloatersLevel.SEGMENT_SIZE/2f);
 		Geometry geometry = new Geometry("DestroyableWall", box1);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/ericwall.png");
+		Texture tex = JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/ericwall.png");
+		tex.setMagFilter(MagFilter.Nearest);
 		geometry.setLocalTranslation(EricAndTheFloatersLevel.SEGMENT_SIZE/2, EricAndTheFloatersLevel.SEGMENT_SIZE/2, EricAndTheFloatersLevel.SEGMENT_SIZE/2);
 		//geometry.getMaterial().setParam(arg0, arg1, arg2);
 		this.mainNode.attachChild(geometry);

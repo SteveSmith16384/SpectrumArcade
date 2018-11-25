@@ -23,12 +23,14 @@ import ssmith.util.RealtimeInterval;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final boolean SHOW_MINES = true;
+	private static final boolean SHOW_MINES = false;
 	private static final int MAP_SIZE = 30;
+	private static final int NUM_MINES = 0;
+	private static final int NUM_KEYS = 0;
 	
 	private boolean[][] mines = new boolean[MAP_SIZE][MAP_SIZE];
 	private VoxelTerrainEntity terrainUDG;
-	private RealtimeInterval checkMinesInt = new RealtimeInterval(1000);
+	private RealtimeInterval checkMinesInt = new RealtimeInterval(100);
 	
 
 	@Override
@@ -39,7 +41,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG.addRectRange_Blocks(BlockCodes.MINED_OUT_FRESH, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
 
 		// choose mines
-		for (int i=0 ; i<30 ; i++) {
+		for (int i=0 ; i<NUM_MINES ; i++) {
 			int x = NumberFunctions.rnd(1, MAP_SIZE-2);
 			int z = NumberFunctions.rnd(3, MAP_SIZE-2);
 			mines[x][z] = true;
@@ -53,14 +55,14 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		for (int z=0; z<MAP_SIZE ; z++) {
 			for (int x=0; x<MAP_SIZE ; x++) {
 				if (x == 0 || z == 0 || x == MAP_SIZE-1 || z == MAP_SIZE-1) {
-					Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 9);
+					Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 90);
 					game.addEntity(f);
 				}
 			}
 		}
 
 		// Add keys
-		for (int i=0 ; i<5 ; i++) {
+		for (int i=0 ; i<NUM_KEYS ; i++) {
 			int x = NumberFunctions.rnd(3, MAP_SIZE-4);
 			int z = NumberFunctions.rnd(3, MAP_SIZE-4);
 			Key key = new Key(game, x, 1.3f, z);

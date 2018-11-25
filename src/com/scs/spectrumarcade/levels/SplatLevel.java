@@ -56,7 +56,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 				}
 			}
 		}
-		//terrainUDG.addArrayRange_Blocks(BlockCodes.SPLAT, new Vector3Int(2, 0, 2), heightMap);
+		terrainUDG.addArrayRange_Blocks(BlockCodes.SPLAT, new Vector3Int(2, 0, 2), heightMap);
 
 		// Load plants
 		for (int z=0 ; z<map[0].length ; z++) {
@@ -70,15 +70,20 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 		}
 		
 		this.killingWall = new KillingWall(game, 2, 2);
-		game.addEntity(killingWall);
+		//game.addEntity(killingWall);
 	}
 
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 2, 3, 2f, true);
+		return new WalkingPlayer(game, 5, 3, 5f, true);
 	}
 
+
+	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(5, 3f, 5f);
+	}
 
 
 	@Override
@@ -95,12 +100,6 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public String getHUDText() {
 		return "";
-	}
-
-
-	@Override
-	public Vector3f getAvatarStartPos() {
-		return new Vector3f(2, 3f, 2f);
 	}
 
 

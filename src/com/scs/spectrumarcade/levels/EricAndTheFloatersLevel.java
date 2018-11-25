@@ -56,23 +56,23 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 					} else {
 						if (NumberFunctions.rnd(1,  6) == 1) {
 							//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
-							//DestroyableWall dw = new DestroyableWall(game, xGrid, zGrid);
-							//game.addEntity(dw);
+							DestroyableWall dw = new DestroyableWall(game, xGrid, zGrid);
+							game.addEntity(dw);
 						} else if (NumberFunctions.rnd(1,  8) == 1) {
 							Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
-							//game.addEntity(f);
+							game.addEntity(f);
 						}
 					}
 				}
 			}			
 		}
-		
+		/*
 		DestroyableWall dw = new DestroyableWall(game, 1, 3);
 		game.addEntity(dw);
 
 		DestroyableWall dw2 = new DestroyableWall(game, 5, 1);
 		game.addEntity(dw2);
-
+*/
 /*
 		// Floaters
 		for (int i=0 ; i<1 ; i++) {

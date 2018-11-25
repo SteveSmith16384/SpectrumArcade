@@ -89,7 +89,7 @@ public class JMEModelFunctions {
 	}
 
 
-	public static void setTextureOnSpatial(AssetManager assetManager, Spatial spatial, String tex) {
+	public static Texture setTextureOnSpatial(AssetManager assetManager, Spatial spatial, String tex) {
 		TextureKey key3 = new TextureKey(tex);
 		key3.setGenerateMips(true);
 		Texture tex3 = assetManager.loadTexture(key3);
@@ -98,6 +98,8 @@ public class JMEModelFunctions {
 		Material material = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
 		material.setTexture("DiffuseMap", tex3);
 		setMaterialOnSpatial(spatial, material);
+		
+		return tex3;
 	}
 
 
