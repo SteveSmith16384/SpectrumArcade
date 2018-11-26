@@ -20,7 +20,7 @@ import mygame.util.Vector3Int;
 
 public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE = 30;
+	private static final int MAP_SIZE = 60;
 
 	private VoxelTerrainEntity terrainUDG;
 
@@ -39,19 +39,18 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
-
 	}
 
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 3f, 2f);
+		return new Vector3f(MAP_SIZE/2, 2f, MAP_SIZE/2);
 	}
 
 
 	@Override
 	public Avatar createAndPositionAvatar() {
-		return new StockCarAvatar(game, MAP_SIZE/2, 3f, 2f);
+		return new StockCarAvatar(game, MAP_SIZE/2, 2f, MAP_SIZE/2);
 	}
 
 
@@ -75,7 +74,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
-		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
+		//cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
 }

@@ -4,10 +4,9 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.entities.PlayerCar;
 import com.scs.spectrumarcade.models.VWCorradon;
 
-public class TurboEspritAvatar extends PlayerCar {
+public class TurboEspritAvatar extends AbstractTurboEspritCar {
 	
 	private Node camNode;
 

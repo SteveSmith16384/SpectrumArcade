@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities;
+package com.scs.spectrumarcade.entities.turboesprit;
 
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
@@ -16,7 +16,7 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public abstract class PlayerCar extends Avatar {
+public abstract class AbstractTurboEspritCar extends Avatar {
 	
 	private static final boolean SHOW_CAR = false;
 
@@ -27,7 +27,7 @@ public abstract class PlayerCar extends Avatar {
 	private float accelerationValue = 0;
 
 	
-	public PlayerCar(SpectrumArcade _game, float x, float y, float z) {
+	public AbstractTurboEspritCar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "PlayerCar");
 
 		Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
@@ -126,7 +126,6 @@ public abstract class PlayerCar extends Avatar {
 		super.actuallyRemove();
 		game.getBulletAppState().getPhysicsSpace().remove(this.vehicle);
 	}
-
 
 
 	protected abstract Node getModel();

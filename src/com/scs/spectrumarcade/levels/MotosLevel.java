@@ -138,8 +138,8 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		boolean any = false;
 		for (IEntity e : game.entities) {
 			if (e instanceof AbstractMotosEnemyBall) {
-				AbstractMotosEnemyBall m = (AbstractMotosEnemyBall)e;
-				if (!m.isMarkedForRemoval()) {
+				AbstractMotosEnemyBall enemy = (AbstractMotosEnemyBall)e;
+				if (!enemy.isMarkedForRemoval()) {
 					any = true;
 					break;
 				}
