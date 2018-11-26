@@ -18,35 +18,44 @@ import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class AbstractEntity implements IEntity, Savable {
-	
+
 	protected SpectrumArcade game;
 	public String name;
+	protected boolean markedForRemoval = false;
 
 	public AbstractEntity(SpectrumArcade _game, String _name) {
 		super();
-		
+
 		this.game = _game;
 		name = _name;
 
 	}
 
-	
+
 	/**
 	 * Since the root_node contains everything including the (invisible) left & right nodes, this method is for getting the actual visible Geometry.
 	 * 
 	 */
 	//public abstract Spatial getGeometry();
-	
+
 	public void markForRemoval() {
-		game.markEntityForRemoval(this);
+		if (!markedForRemoval) {
+			markedForRemoval = true;
+			game.markEntityForRemoval(this);
+		}
 	}
 
 
+	public boolean isMarkedForRemoval() {
+		return markedForRemoval;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Entity:" + name;
 	}
-	
+
 
 	@Override
 	public void write(JmeExporter ex) throws IOException {

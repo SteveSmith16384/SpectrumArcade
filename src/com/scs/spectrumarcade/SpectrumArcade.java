@@ -136,7 +136,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new MotosLevel();//SplatLevel();//MinedOutLevel(); //GauntletLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //ArcadeRoom();//TurboEspritLevel();//
+		level = new MotosLevel();//StockCarChamp3DLevel();//SplatLevel();//MinedOutLevel(); //GauntletLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //ArcadeRoom();//TurboEspritLevel();//
 		level.setGame(this);
 		this.startNewLevel(level);
 		
@@ -309,7 +309,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (this.game_over == false) {
 			player.onAction(binding, isPressed, tpf);
 			if (binding.equals("Ability1")) {
-				//player.activateAbility(1); // todo - in main game thread!
 				abilityActivated[1] = isPressed;
 			} else if (binding.equals(Settings.KEY_RECORD)) {
 				if (isPressed) {
@@ -425,6 +424,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	
 	
 	public void playerKilled() {
+		player.srb.clearForces();
 		player.warp(level.getAvatarStartPos());
 	}
 }

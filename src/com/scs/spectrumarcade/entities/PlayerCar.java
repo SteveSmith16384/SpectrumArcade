@@ -45,7 +45,7 @@ public abstract class PlayerCar extends Avatar {
 		Node vehicleNode = this.mainNode;// new Node("vehicleNode");
 		vehicle = new VehicleControl(compoundShape, 400);
 		vehicleNode.addControl(vehicle);
-
+		
 		//setting suspension values for wheels, this can be a bit tricky
 		//see also https://docs.google.com/Doc?docid=0AXVUZ5xw6XpKZGNuZG56a3FfMzU0Z2NyZnF4Zmo&hl=en
 		float stiffness = 60.0f;//200=f1 car
@@ -56,14 +56,11 @@ public abstract class PlayerCar extends Avatar {
 		vehicle.setSuspensionStiffness(stiffness);
 		vehicle.setMaxSuspensionForce(10000.0f);
 
+		//vehicle.setFrictionSlip(.9f); // todo - param
+
 		//Create four wheels and add them at their locations
 		Vector3f wheelDirection = new Vector3f(0, -1, 0); // was 0, -1, 0
 		Vector3f wheelAxle = new Vector3f(-1, 0, 0); // was -1, 0, 0
-		/*float radius = 0.5f;
-		float restLength = 0.3f;
-		/*float yOff = 0.5f;
-		float xOff = 1f;
-		float zOff = 2f;*/
 		
 		float radius = 0.15f;
 		float restLength = 0.1f;

@@ -1,9 +1,9 @@
 package com.scs.spectrumarcade.components;
 
-import com.scs.spectrumarcade.IEntity;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public interface INotifiedOfCollision {
 
-	public void notifiedOfCollision(IEntity collidedWith); // todo - phys entity
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith);
 
 }

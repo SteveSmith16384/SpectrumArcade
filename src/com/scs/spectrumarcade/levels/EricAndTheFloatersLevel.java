@@ -25,7 +25,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	private static final int MAP_SIZE = 30;
 	public static final int SEGMENT_SIZE = 3;
 
-	private VoxelTerrainEntity terrainUDG; // todo - delete
+	//private VoxelTerrainEntity terrainUDG; // todo - delete
 	
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
@@ -36,7 +36,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 		int gridSize = MAP_SIZE/SEGMENT_SIZE;
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
 		game.addEntity(terrainUDG);
 
 		//  outer walls

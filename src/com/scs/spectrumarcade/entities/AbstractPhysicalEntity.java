@@ -1,16 +1,8 @@
 package com.scs.spectrumarcade.entities;
 
-import java.util.Iterator;
-
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.collision.CollisionResult;
-import com.jme3.collision.CollisionResults;
-import com.jme3.collision.UnsupportedCollisionException;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 

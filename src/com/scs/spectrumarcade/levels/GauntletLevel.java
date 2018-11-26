@@ -19,7 +19,7 @@ import com.scs.spectrumarcade.abilities.GauntletAxeThrower;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
-import com.scs.spectrumarcade.entities.gauntlet.Ghost;
+import com.scs.spectrumarcade.entities.gauntlet.Ghost_Gauntlet;
 
 import mygame.util.Vector3Int;
 
@@ -76,7 +76,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 		
 		for (int z=5 ; z<10 ; z++) {
 			for (int x=5 ; x<10 ; x++) {
-				Ghost g = new Ghost(game, x, z);
+				Ghost_Gauntlet g = new Ghost_Gauntlet(game, x, z);
 				game.addEntity(g);
 			}
 		}

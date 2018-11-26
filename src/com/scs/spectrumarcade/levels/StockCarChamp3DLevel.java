@@ -11,13 +11,14 @@ import com.scs.spectrumarcade.Avatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.minedout.Fence;
-import com.scs.spectrumarcade.entities.stockcarracer.StockCarAvatar;
+import com.scs.spectrumarcade.entities.stockcarchamp.StockCarAvatar;
 
 import mygame.util.Vector3Int;
 
-public class StockCarRacer3D extends AbstractLevel implements ILevelGenerator {
+public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 30;
 
@@ -26,20 +27,18 @@ public class StockCarRacer3D extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/white.png");
+		game.addEntity(floor);
+
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
-		terrainUDG.addRectRange_Blocks(BlockCodes.MINED_OUT_FRESH, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
+		// Border
+		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
+		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
+		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
+		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
-		// add fence
-		for (int z=0; z<MAP_SIZE ; z++) {
-			for (int x=0; x<MAP_SIZE ; x++) {
-				if (x == 0 || z == 0 || x == MAP_SIZE-1 || z == MAP_SIZE-1) {
-					Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 90);
-					game.addEntity(f);
-				}
-			}
-		}
 
 	}
 
@@ -64,6 +63,7 @@ public class StockCarRacer3D extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		// Do nothing
 	}
 
 

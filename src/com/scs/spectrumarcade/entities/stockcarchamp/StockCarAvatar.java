@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities.stockcarracer;
+package com.scs.spectrumarcade.entities.stockcarchamp;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -14,18 +14,18 @@ public class StockCarAvatar extends PlayerCar {
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, x, y, z);
 		
+		//super.vehicle.setFrictionSlip(.1f);
+		
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
-		
-		//game.getCamera().setLocation(camNode.getWorldTranslation()); // todo -re3move
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
 		super.process(tpfSecs);
-		//Globals.p("Esprit pos: " + this.getMainNode().getWorldTranslation());
+		//Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
 	}
 
 

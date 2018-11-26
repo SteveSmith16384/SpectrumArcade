@@ -99,7 +99,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "SPLAT!";
 	}
 
 

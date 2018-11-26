@@ -88,7 +88,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 				turnAwayFromPlayer();
 				break;
 			default:
-				throw new RuntimeException("Todo");
+				throw new RuntimeException("Unknown mode: " + mode);
 			}
 
 			/*
@@ -143,7 +143,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 
 	@Override
-	public void notifiedOfCollision(IEntity collidedWith) {
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling) {
 			onFloor = true;
 			// Do nothing
@@ -193,7 +193,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			this.timeUntilNextMode = System.currentTimeMillis() + 10000;
 			break;
 		default:
-			throw new RuntimeException("Todo");
+			throw new RuntimeException("Unknown mode: " + mode);
 		}
 	}
 }

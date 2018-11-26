@@ -58,7 +58,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	@Override
 	public void process(float tpfSecs) {
 		if (killed) {
-			// todo - shrink
 			if (this.timeToRemove < System.currentTimeMillis()) {
 				this.markForRemoval();
 			}
@@ -90,7 +89,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 
 	@Override
-	public void notifiedOfCollision(IEntity collidedWith) {
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		/*if (collidedWith instanceof FloorOrCeiling == false) {
 			//Globals.p("Floater collided with " + collidedWith + " and is turning");
 		}		*/

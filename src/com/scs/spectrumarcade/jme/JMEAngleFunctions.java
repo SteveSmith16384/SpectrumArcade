@@ -170,7 +170,7 @@ public class JMEAngleFunctions {
 
 
 	// This function hasn't been tested
-	public static void turnLeft(Spatial spatial){
+	public static void turnSpatialLeft(Spatial spatial){
 		//Vector3f direction = new Vector3f(0, 0, 1);
 		Quaternion rotateLeft = new Quaternion().fromAngleAxis(FastMath.HALF_PI, Vector3f.UNIT_Y);
 		spatial.rotate(rotateLeft);
@@ -210,12 +210,31 @@ public class JMEAngleFunctions {
 	}
 
 
-	public static Vector3f turnRight(Vector3f v) {
+	public static Vector3f turnLeft(Vector3f v) {
 		Vector3f v2 = v.normalize();
 		//float z = v.z;
 		v2.x += 1;
 		v2.y = v.y;
 		v2.z = v.z - 1;
+
+		if (v2.x > 1) {
+			v2.x = 0;
+			v2.z -= 1;
+		} else if (v2.z < -1) {
+			v2.x -= 1;
+			v2.z = 1;
+		}
+
+		return v2;
+	}
+
+
+	public static Vector3f turnRight(Vector3f v) {
+		Vector3f v2 = v.normalize();
+		//float z = v.z;
+		v2.x -= 1;
+		v2.y = v.y;
+		v2.z = v.z + 1;
 
 		if (v2.x > 1) {
 			v2.x = 0;

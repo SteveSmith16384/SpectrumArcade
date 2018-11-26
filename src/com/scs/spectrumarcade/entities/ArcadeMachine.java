@@ -30,7 +30,7 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 
 	
 	@Override
-	public void notifiedOfCollision(IEntity collidedWith) {
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith == game.player) {
 			try {
 				ILevelGenerator object = level.newInstance();

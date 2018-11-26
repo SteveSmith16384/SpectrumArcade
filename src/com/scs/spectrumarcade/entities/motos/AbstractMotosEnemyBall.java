@@ -17,52 +17,72 @@ import com.scs.spectrumarcade.levels.MotosLevel;
 public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity implements INotifiedOfCollision, IProcessable {
 
 	private Vector3f turnDir = new Vector3f();
-
-	public AbstractMotosEnemyBall(SpectrumArcade _game, String name, float x, float z, float rad, float mass) {
+	private float force;
+	private float turnSpeed;
+	private MotosLevel level;
+	
+	public AbstractMotosEnemyBall(SpectrumArcade _game, MotosLevel _level, String name, float x, float z, float rad, float mass, float _force, float _turnSpeed) {
 		super(_game, name);
 
-		Mesh sphere = new Sphere(8, 8, 2, true, false);
-		Geometry geometry = new Geometry("MotosPlayerEntitySphere", sphere);
+		force = _force;
+		turnSpeed = _turnSpeed;
+		level = _level;
+		
+		Mesh sphere = new Sphere(16, 16, rad, true, false);
+		Geometry geometry = new Geometry("AbstractMotosEnemyBall", sphere);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
 		this.mainNode.attachChild(geometry);
-		mainNode.setLocalTranslation(x, MotosLevel.SEGMENT_SIZE + rad+0.1f, z);
+		//mainNode.setLocalTranslation(x, MotosLevel.SEGMENT_SIZE + rad+0.1f, z);
+		mainNode.setLocalTranslation(x, 10, z);
 		mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(mass);
 		mainNode.addControl(srb);
+		
+		srb.setFriction(1f);  // todo - make param
 	}
 
 
 	@Override
-	public void notifiedOfCollision(IEntity collidedWith) {
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		// Make sound
 	}
 	
 
 	@Override
 	public void process(float tpfSecs) {
-		turnTowardsPlayer();		
+		//turnTowardsPlayer();
 
-		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		Vector3f force = dir.mult(2);
+		//Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
+		//Vector3f forceDir = dir.mult(15);
 		//Globals.p("Ant force: " + dir);
-		this.srb.applyCentralForce(force);
+
+		Vector3f dir = game.getCamera().getLocation().subtract(this.getMainNode().getWorldTranslation());
+		Vector3f forceDir = dir.mult(force);
+
+		this.srb.applyCentralForce(forceDir);
+		
+		if (this.getMainNode().getWorldTranslation().y < -10) {
+			this.markForRemoval();
+			level.checkIfAllBaddiesDead();
+		}
+
 	}
 	
+	/*
 	private void turnTowardsPlayer() {
 		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		if (leftDist > rightDist) {
-			turnDir.set(0, 1, 0).multLocal(1.7f);
+			turnDir.set(0, 1, 0).multLocal(turnSpeed); // todo - make param
 		} else {
-			turnDir.set(0, -1, 0).multLocal(1.7f);
+			turnDir.set(0, -1, 0).multLocal(turnSpeed); // todo - make param
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
-
-
+*/
 
 
 }

@@ -88,7 +88,7 @@ public class SimpleCity {
 		CreateFloor(x+2, PATH_THICKNESS, z+SKYSCRAPER_WIDTH+3, SKYSCRAPER_WIDTH+1, FLOOR_THICKNESS, 1, sidewalktex); // bottom x
 		CreateFloor(x+2, PATH_THICKNESS, z+3, 1, FLOOR_THICKNESS, SKYSCRAPER_WIDTH, sidewalktex); // Left x
 
-		int i = NumberFunctions.rnd(1, 1); // todo - was 4
+		int i = NumberFunctions.rnd(1, 4);
 		if (i == 1) {
 			// Grass area
 			String grasstex = "Textures/grass.jpg";

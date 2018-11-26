@@ -16,31 +16,26 @@ import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class Ghost extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
+public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
 	private Vector3f turnDir = new Vector3f();
 
-	public Ghost(SpectrumArcade _game, float x, float z) {
+	public Ghost_Gauntlet(SpectrumArcade _game, float x, float z) {
 		super(_game, "Ghost");
 
 		Box box = new Box(.2f, .5f, .2f);
-		Geometry geometry = new Geometry("FloaterSphere", box);
-		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
+		Geometry geometry = new Geometry("GhostBox", box);
+		//geometry.setShadowMode(ShadowMode.CastAndReceive);
+		//JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
 		geometry.setLocalTranslation(0,  .5f, 0);
+		
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, 0, z);
 		mainNode.updateModelBound();
 
-		//Vector3f dir = JMEAngleFunctions.getRandomDirection_8();
-		//JMEAngleFunctions.rotateToWorldDirection(this.mainNode, dir);
-
 		srb = new RigidBodyControl(1f);
 		mainNode.addControl(srb);
-		//srb.setAngularDamping(0.8f);
-		//srb.setFriction(.6f);
-		//srb.setRestitution(0);
 	}
 
 
@@ -85,10 +80,10 @@ public class Ghost extends AbstractPhysicalEntity implements ICausesHarmOnContac
 
 
 	@Override
-	public void notifiedOfCollision(IEntity collidedWith) {
+	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling) {
 			// Do nothing
-		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ghost) {
+		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ghost_Gauntlet) {
 		}
 	}
 
