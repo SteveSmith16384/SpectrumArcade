@@ -1,12 +1,7 @@
 package com.scs.spectrumarcade;
 
-import com.atr.jme.font.TrueTypeFont;
-import com.atr.jme.font.TrueTypeMesh;
-import com.atr.jme.font.asset.TrueTypeKeyMesh;
-import com.atr.jme.font.asset.TrueTypeLoader;
-import com.atr.jme.font.shape.TrueTypeContainer;
-import com.atr.jme.font.util.StringContainer;
-import com.atr.jme.font.util.Style;
+import com.jme3.font.BitmapFont;
+import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.ColorRGBA;
@@ -30,20 +25,23 @@ public class HUD extends Node {
 	private boolean process_damage_box;
 	private SpectrumArcade game;
 
-	private TrueTypeContainer textArea; 
+	private BitmapText textArea; 
 
 	public HUD(SpectrumArcade _game, Camera _cam) { 
 		super("HUD");
 
 		game = _game;
 		cam = _cam;
-
+/*
 		_game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
 		float fontSize = cam.getWidth() / 40; 
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
 		TrueTypeKeyMesh ttkLarge = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize*2);
-		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);
+		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/
+		
+        BitmapFont font = game.getAssetManager().loadFont("Interface/Fonts/Console.fnt");
+
 		float lineSpacing = cam.getHeight() / 30;
 
 		super.setLocalTranslation(0, 0, 0);
@@ -52,7 +50,8 @@ public class HUD extends Node {
 
 		float xPos = cam.getWidth() * .7f;
 
-		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
+		textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
+		textArea.setColor(ColorRGBA.White);
 		textArea.setLocalTranslation(10, (int)(cam.getHeight()*.9f), 0);
 		this.attachChild(textArea);
 
@@ -99,7 +98,7 @@ public class HUD extends Node {
 		//StringBuilder str = new StringBuilder();
 		//str.append(game.getHUDText());
 		this.textArea.setText(game.getHUDText());
-		this.textArea.updateGeometry();
+		//this.textArea.updateGeometry();
 	}
 
 

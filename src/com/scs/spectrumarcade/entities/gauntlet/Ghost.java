@@ -18,7 +18,6 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class Ghost extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
-
 	private Vector3f turnDir = new Vector3f();
 
 	public Ghost(SpectrumArcade _game, float x, float z) {

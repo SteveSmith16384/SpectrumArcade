@@ -22,7 +22,7 @@ public class GenerateSATextureSheet {
 		String[][] tiles = {
 				{"mm_bricks.png", "redfloor_pxl.png", "conveyor_top.png", "exit.png", "greensun.jpg", "fence.png", "conveyor_side.png", "black.png"}, 
 				{"antattack.png", "splat_wall.png", "ericwall.png", "ericwall2.png", "minedout_cyan.png", "redfloor_udg.png", "ericouterwall.png", "white.png"},
-				{""}
+				{"motos_cyan.png", "motos_magenta.png", "motos_white.png", "motos_yellow.png"}
 		}; // Keep these in the same order!
 
 		TextureSheetGenerator gen = new TextureSheetGenerator();

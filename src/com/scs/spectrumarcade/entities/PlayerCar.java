@@ -25,7 +25,6 @@ public abstract class PlayerCar extends Avatar {
 	private final float brakeForce = 100.0f;
 	private float steeringValue = 0;
 	private float accelerationValue = 0;
-	//private Vector3f jumpForce = new Vector3f(0, 3000, 0);
 
 	
 	public PlayerCar(SpectrumArcade _game, float x, float y, float z) {

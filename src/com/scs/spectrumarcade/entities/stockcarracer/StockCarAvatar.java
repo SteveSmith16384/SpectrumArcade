@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities.turboesprit;
+package com.scs.spectrumarcade.entities.stockcarracer;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -7,11 +7,11 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.PlayerCar;
 import com.scs.spectrumarcade.models.VWCorradon;
 
-public class TurboEspritAvatar extends PlayerCar {
+public class StockCarAvatar extends PlayerCar {
 	
 	private Node camNode;
 
-	public TurboEspritAvatar(SpectrumArcade _game, float x, float y, float z) {
+	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, x, y, z);
 		
 		camNode = new Node("CameraNode");

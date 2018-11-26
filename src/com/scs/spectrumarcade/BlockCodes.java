@@ -11,6 +11,10 @@ import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
 import com.scs.spectrumarcade.blocks.MinedOutPlain;
 import com.scs.spectrumarcade.blocks.MinedOutWalkedOn;
+import com.scs.spectrumarcade.blocks.MotosCyanBlock;
+import com.scs.spectrumarcade.blocks.MotosMagentaBlock;
+import com.scs.spectrumarcade.blocks.MotosWhiteBlock;
+import com.scs.spectrumarcade.blocks.MotosYellowBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.SplatBlock;
@@ -33,6 +37,10 @@ public class BlockCodes {
 	public static final int EATF_OUTER_WALL = 13;
 	public static final int MINED_OUT_FRESH = 14;
 	public static final int MINED_OUT_WALKED_ON = 15;
+	public static final int MOTOS_WHITE = 16;
+	public static final int MOTOS_CYAN = 17;
+	public static final int MOTOS_MAGENTA = 18;
+	public static final int MOTOS_YELLOW = 19;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -50,6 +58,10 @@ public class BlockCodes {
 		case EATF_OUTER_WALL: return EATFOuterWall.class;
 		case MINED_OUT_FRESH: return MinedOutPlain.class;
 		case MINED_OUT_WALKED_ON: return MinedOutWalkedOn.class;
+		case MOTOS_WHITE: return MotosWhiteBlock.class;
+		case MOTOS_CYAN: return MotosCyanBlock.class;
+		case MOTOS_MAGENTA: return MotosMagentaBlock.class;
+		case MOTOS_YELLOW: return MotosYellowBlock.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

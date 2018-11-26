@@ -14,7 +14,6 @@ import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.Magazine;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.Wall;
-import com.scs.spectrumarcade.entities.manicminer.Key;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
@@ -32,6 +31,8 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		// Side wall
 		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall2);
+		
+		// Arcade machines
 
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);
@@ -42,8 +43,11 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine2 = new ArcadeMachine(game, 6, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
 		game.addEntity(machine2);
 
-		//ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, "ArcadeMachine_MinedOut", MinedOutLevel.class);
-		//game.addEntity(machine4);
+		ArcadeMachine machine4 = new ArcadeMachine(game, 8, 0, 2, "ArcadeMachine_MinedOut", MinedOutLevel.class);
+		game.addEntity(machine4);
+		
+		ArcadeMachine machine5 = new ArcadeMachine(game, 10, 0, 2, "ArcadeMachine_Motos", MotosLevel.class);
+		game.addEntity(machine5);
 		
 		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
 		game.addEntity(mag);

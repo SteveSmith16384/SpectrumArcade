@@ -9,6 +9,7 @@ import com.jme3.math.Ray;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.IEntity;
@@ -60,7 +61,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 					checkForHitFloaters((DestroyableWall)e);
 				}
 			}
-
+/*
 			// Shards
 			for (int i=0 ; i<5 ; i++) {
 				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
@@ -68,14 +69,15 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
 				ExplosionShard shard = new ExplosionShard(game, x, y, z, .4f, "Textures/ericwall.png");
 				game.addEntity(shard);
-			}
+			}*/
+			this.explosion(this.getMainNode());
 			this.markForRemoval();
 		}
 	}
 
 
-	private void checkForHitFloaters(AbstractPhysicalEntity f) {		
-		Ray r = new Ray(this.mainNode.getWorldTranslation(), f.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
+	private void checkForHitFloaters(AbstractPhysicalEntity entity) {		
+		Ray r = new Ray(this.mainNode.getWorldTranslation(), entity.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
 		r.setLimit(EricAndTheFloatersLevel.SEGMENT_SIZE*2);
 		CollisionResults res = new CollisionResults();
 		int c = game.getRootNode().collideWith(r, res);
@@ -98,8 +100,9 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 					AbstractPhysicalEntity pe = (AbstractPhysicalEntity)s.getUserData(Settings.ENTITY);
 					if (pe == this) {
 						// Continue - ignore bomb
-					} else if (pe == f) {
-						f.markForRemoval();
+					} else if (pe == entity) {
+						entity.markForRemoval();
+						this.explosion(entity.getMainNode());
 						break;
 					} else if (pe instanceof VoxelTerrainEntity) {
 						// Stop checking
@@ -112,5 +115,18 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 		}		
 	}
 
+	
+	private void explosion(Node node) {
+		// Shards
+		for (int i=0 ; i<5 ; i++) {
+			float x = node.getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
+			float y = node.getWorldTranslation().y + NumberFunctions.rndFloat(-.2f,  .2f);
+			float z = node.getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
+			ExplosionShard shard = new ExplosionShard(game, x, y, z, .4f, "Textures/ericwall.png");
+			game.addEntity(shard);
+		}
+		this.markForRemoval();
+
+	}
 
 }

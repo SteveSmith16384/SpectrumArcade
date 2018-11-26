@@ -117,9 +117,6 @@ public class WalkingPlayer extends Avatar {
 			} else {
 				//time_until_next_footstep_sfx = 0;
 			}
-		} else {
-			if (game.hasPlayerWon() == false) {
-			}
 		}
 
 	}
@@ -148,7 +145,7 @@ public class WalkingPlayer extends Avatar {
 
 	@Override
 	public void warp(Vector3f v) {
-		playerControl.warp(v);		
+		playerControl.warp(v);
 	}
 
 
@@ -156,9 +153,9 @@ public class WalkingPlayer extends Avatar {
 	public void setCameraLocation(Camera cam) {
 		Vector3f vec = getMainNode().getWorldTranslation();
 		if (!Settings.FREE_CAM) {
-			cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+			cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
 		} else {
-			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
 		}
 
 	}
