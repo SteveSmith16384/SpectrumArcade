@@ -24,7 +24,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private static final int MAP_SIZE_BLOCKS = 22;
 	public static final int SEGMENT_SIZE = 2;
 
-	private int levelNum = 2;
+	private int levelNum = 1;
 	private VoxelTerrainEntity terrainUDG; // todo - delete
 	private int boardsSizeActual;
 
@@ -83,11 +83,13 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(mse);
 			MotosSimpleEnemy mse2 = new MotosSimpleEnemy(game, this, boardsSizeActual * .75f, boardsSizeActual * .75f);
 			game.addEntity(mse2);
+			MotosSimpleEnemy mse3 = new MotosSimpleEnemy(game, this, boardsSizeActual * .75f, boardsSizeActual /4);
+			game.addEntity(mse3);
 			break;
 
 		case 2:
-			MotosHeavyEnemy mse3 = new MotosHeavyEnemy(game, this, boardsSizeActual/4, boardsSizeActual/4);
-			game.addEntity(mse3);
+			MotosHeavyEnemy mseb3 = new MotosHeavyEnemy(game, this, boardsSizeActual/4, boardsSizeActual/4);
+			game.addEntity(mseb3);
 			break;
 
 
