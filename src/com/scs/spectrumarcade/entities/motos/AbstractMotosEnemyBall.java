@@ -16,16 +16,14 @@ import com.scs.spectrumarcade.levels.MotosLevel;
 
 public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity implements INotifiedOfCollision, IProcessable {
 
-	private Vector3f turnDir = new Vector3f();
 	private float force;
-	private float turnSpeed;
+	//private float turnSpeed;
 	private MotosLevel level;
 	
-	public AbstractMotosEnemyBall(SpectrumArcade _game, MotosLevel _level, String name, float x, float z, float rad, float mass, float _force, float _turnSpeed) {
+	public AbstractMotosEnemyBall(SpectrumArcade _game, MotosLevel _level, String name, float x, float z, float rad, float mass, float _force) {
 		super(_game, name);
 
 		force = _force;
-		turnSpeed = _turnSpeed;
 		level = _level;
 		
 		Mesh sphere = new Sphere(16, 16, rad, true, false);

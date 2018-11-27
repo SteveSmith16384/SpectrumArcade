@@ -170,7 +170,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	}
 
-
+/*
 	@Override
 	public void setAbility(int num, IAbility a) {
 		// TODO Auto-generated method stub
@@ -183,7 +183,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 
 	@Override
 	public void clearForces() {

@@ -1,6 +1,7 @@
 package com.scs.spectrumarcade;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -30,6 +31,7 @@ import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
+import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
@@ -59,6 +61,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private DirectionalLight sun;
 	private GameData gameData;
 	private ILevelGenerator level;
+
+	private HashMap<Integer, IAbility> abilities = new HashMap<>();
 	private boolean[] abilityActivated = new boolean[3];
 
 	public static void main(String[] args) {
@@ -270,7 +274,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		for (int i=1 ; i<=2 ; i++) {
 			if (this.abilityActivated[i]) {
-				a.activateAbility(i);
+				activateAbility(i);
 			}
 		}
 		
@@ -436,4 +440,16 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		a.clearForces();
 		a.warp(level.getAvatarStartPos());
 	}
-}
+
+
+	public void setAbility(int num, IAbility a) {
+		this.abilities.put(num, a);
+	}
+
+
+	public void activateAbility(int num) {
+		IAbility a = abilities.get(1);
+		if (a != null) {
+			a.activate();
+		}
+	}}

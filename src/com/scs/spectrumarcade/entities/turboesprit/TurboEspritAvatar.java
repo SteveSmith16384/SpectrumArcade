@@ -41,7 +41,7 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		
 	}
 
-
+/*
 	@Override
 	public void setAbility(int num, IAbility a) {
 		// TODO Auto-generated method stub
@@ -54,7 +54,7 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		// TODO Auto-generated method stub
 		
 	}
-
+*/
 
 	@Override
 	public void clearForces() {

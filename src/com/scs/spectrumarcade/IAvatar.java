@@ -20,9 +20,9 @@ public interface IAvatar extends IProcessable {//extends AbstractPhysicalEntity 
 
 	void setCameraLocation(Camera cam);
 	
-	void setAbility(int num, IAbility a);
+	//void setAbility(int num, IAbility a);
 	
-	void activateAbility(int num);
+	//void activateAbility(int num);
 	
 /*
 	public void setAbility(int num, IAbility a) {

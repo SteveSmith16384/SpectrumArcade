@@ -114,7 +114,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true);
-		wp.setAbility(1, new BombGun_AA(game));
+		game.setAbility(1, new BombGun_AA(game));
 		return wp;
 	}
 

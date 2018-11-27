@@ -40,10 +40,10 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		int map[][] = MapLoader.loadMap("maps/stockcarchamp1.csv");
 		int MAP_SIZE = map.length;
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/road2.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE*2, 1, MAP_SIZE*2, "Textures/road2.png");
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 2f);
 		game.addEntity(terrainUDG);
 		
 

@@ -9,6 +9,8 @@ import com.scs.spectrumarcade.blocks.EATFSolidBlock;
 import com.scs.spectrumarcade.blocks.EATFWeakBlock;
 import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
+import com.scs.spectrumarcade.blocks.GauntletDoor;
+import com.scs.spectrumarcade.blocks.GauntletWall;
 import com.scs.spectrumarcade.blocks.MinedOutPlain;
 import com.scs.spectrumarcade.blocks.MinedOutWalkedOn;
 import com.scs.spectrumarcade.blocks.MotosCyanBlock;
@@ -43,6 +45,8 @@ public class BlockCodes {
 	public static final int MOTOS_MAGENTA = 18;
 	public static final int MOTOS_YELLOW = 19;
 	public static final int STOCK_CAR_WALL_CYAN = 20;
+	public static final int GAUNTLET_WALL = 21;
+	public static final int GAUNTLET_DOOR = 22;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -65,6 +69,8 @@ public class BlockCodes {
 		case MOTOS_MAGENTA: return MotosMagentaBlock.class;
 		case MOTOS_YELLOW: return MotosYellowBlock.class;
 		case STOCK_CAR_WALL_CYAN: return StockCarWallCyan.class;
+		case GAUNTLET_WALL: return GauntletWall.class;
+		case GAUNTLET_DOOR: return GauntletDoor.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

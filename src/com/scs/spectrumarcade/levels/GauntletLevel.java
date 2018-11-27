@@ -51,12 +51,13 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 				switch (col) {
 				case -12566528: // Wall
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.EATF_SOLID);
-					terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
+					terrainUDG.addRectRange_Blocks(BlockCodes.GAUNTLET_WALL, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
 					break;
 				case -6258592: // floor					
 					break;
 				case -4145152: // door?
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.EATF_WEAK);
+					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.GAUNTLET_DOOR);
+					terrainUDG.addRectRange_Blocks(BlockCodes.GAUNTLET_DOOR, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
 					break;
 				case -16744448: // Monster gen?
 					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.ANT_ATTACK);
@@ -98,7 +99,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, true);
-		wp.setAbility(1, new GauntletAxeThrower(game));
+		game.setAbility(1, new GauntletAxeThrower(game));
 		return wp;
 	}
 

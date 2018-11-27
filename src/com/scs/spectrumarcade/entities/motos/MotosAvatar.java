@@ -104,21 +104,19 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 		cam.setLocation(camPos);
 
 	}
-
+/*
 
 	@Override
 	public void setAbility(int num, IAbility a) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void activateAbility(int num) {
-		// TODO Auto-generated method stub
 		
 	}
-
+*/
 
 	@Override
 	public void clearForces() {
