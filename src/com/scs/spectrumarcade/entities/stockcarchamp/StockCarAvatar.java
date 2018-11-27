@@ -42,7 +42,7 @@ public class StockCarAvatar extends Avatar {
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
 		CompoundCollisionShape compoundShape = new CompoundCollisionShape();
 		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
-		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.75f));
+		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.45f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 
 		//create vehicle node
@@ -80,8 +80,7 @@ public class StockCarAvatar extends Avatar {
 		VehicleWheel w1 = vehicle.addWheel(node1, new Vector3f(-xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
 		if (Settings.TRY_SKIDDING) {
-			w1.setFrictionSlip(8f);
-			//vehicle.setFrictionSlip(5.9f); // todo - param
+			w1.setFrictionSlip(4f);
 		}
 
 		Node node2 = new Node("wheel 2 node");
@@ -92,8 +91,7 @@ public class StockCarAvatar extends Avatar {
 		VehicleWheel w2 = vehicle.addWheel(node2, new Vector3f(xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
 		if (Settings.TRY_SKIDDING) {
-			w2.setFrictionSlip(8f);
-			//vehicle.setFrictionSlip(5.9f); // todo - param
+			w2.setFrictionSlip(4f);
 		}
 		
 
@@ -106,8 +104,7 @@ public class StockCarAvatar extends Avatar {
 		VehicleWheel w3 = vehicle.addWheel(node3, new Vector3f(-xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
 		if (Settings.TRY_SKIDDING) {
-			w3.setFrictionSlip(.7f);
-			//vehicle.setFrictionSlip(5.9f); // todo - param
+			w3.setFrictionSlip(8f);
 		}
 
 		Node node4 = new Node("wheel 4 node");
@@ -118,8 +115,7 @@ public class StockCarAvatar extends Avatar {
 		VehicleWheel w4 = vehicle.addWheel(node4, new Vector3f(xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
 		if (Settings.TRY_SKIDDING) {
-			w4.setFrictionSlip(.7f);
-			//vehicle.setFrictionSlip(5.9f); // todo - param
+			w4.setFrictionSlip(8f);
 		}
 
 		vehicleNode.attachChild(node1);
@@ -217,8 +213,8 @@ public class StockCarAvatar extends Avatar {
 	@Override
 	public void setCameraLocation(Camera cam) {
 		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
-		
+		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+		cam.setLocation(new Vector3f(10, 10, 10));
 	}
 
 

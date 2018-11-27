@@ -8,7 +8,7 @@ import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public abstract class Avatar extends AbstractPhysicalEntity implements IProcessable  {
-	
+
 	private HashMap<Integer, IAbility> abilities = new HashMap<>();
 
 	public Avatar(SpectrumArcade _game, String _name) {
@@ -16,20 +16,20 @@ public abstract class Avatar extends AbstractPhysicalEntity implements IProcessa
 	}
 
 	public abstract void onAction(String binding, boolean isPressed, float tpf);
-	
+
 	public abstract void warp(Vector3f vec);
-	
+
 	public abstract void setCameraLocation(Camera cam);
-	
+
 	public void setAbility(int num, IAbility a) {
 		this.abilities.put(num, a);
 	}
-	
-	
+
+
 	public void activateAbility(int num) {
 		IAbility a = abilities.get(1);
 		if (a != null) {
-		a.activate();
+			a.activate();
 		}
 	}
 }
