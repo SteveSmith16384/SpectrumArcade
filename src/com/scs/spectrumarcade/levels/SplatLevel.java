@@ -28,7 +28,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	
 
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 50, 1, 50, "Textures/white.png");
 		game.addEntity(floor);
 

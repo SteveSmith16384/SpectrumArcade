@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.stockcarchamp;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.control.VehicleControl;
+import com.jme3.bullet.objects.VehicleWheel;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
@@ -14,7 +15,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
 import com.scs.spectrumarcade.Avatar;
-import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.models.VWCorradon;
 
@@ -29,7 +30,6 @@ public class StockCarAvatar extends Avatar {
 	private float steeringValue = 0;
 	private float accelerationValue = 0;
 
-	
 
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "StockCarAvatar");
@@ -42,15 +42,13 @@ public class StockCarAvatar extends Avatar {
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
 		CompoundCollisionShape compoundShape = new CompoundCollisionShape();
 		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
-		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.9f, 0.65f, 1.95f));
+		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.75f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 
 		//create vehicle node
 		Node vehicleNode = this.mainNode;// new Node("vehicleNode");
 		vehicle = new VehicleControl(compoundShape, 400);
 		vehicleNode.addControl(vehicle);
-		
-		//vehicle.setFrictionSlip(.9f); // todo - param
 		
 		//setting suspension values for wheels, this can be a bit tricky
 		//see also https://docs.google.com/Doc?docid=0AXVUZ5xw6XpKZGNuZG56a3FfMzU0Z2NyZnF4Zmo&hl=en
@@ -79,32 +77,50 @@ public class StockCarAvatar extends Avatar {
 		node1.attachChild(wheels1);
 		wheels1.rotate(0, FastMath.HALF_PI, 0);
 		wheels1.setMaterial(mat);
-		vehicle.addWheel(node1, new Vector3f(-xOff, yOff, zOff),
+		VehicleWheel w1 = vehicle.addWheel(node1, new Vector3f(-xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
+		if (Settings.TRY_SKIDDING) {
+			w1.setFrictionSlip(8f);
+			//vehicle.setFrictionSlip(5.9f); // todo - param
+		}
 
 		Node node2 = new Node("wheel 2 node");
 		Geometry wheels2 = new Geometry("wheel 2", wheelMesh);
 		node2.attachChild(wheels2);
 		wheels2.rotate(0, FastMath.HALF_PI, 0);
 		wheels2.setMaterial(mat);
-		vehicle.addWheel(node2, new Vector3f(xOff, yOff, zOff),
+		VehicleWheel w2 = vehicle.addWheel(node2, new Vector3f(xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
+		if (Settings.TRY_SKIDDING) {
+			w2.setFrictionSlip(8f);
+			//vehicle.setFrictionSlip(5.9f); // todo - param
+		}
+		
+
 
 		Node node3 = new Node("wheel 3 node");
 		Geometry wheels3 = new Geometry("wheel 3", wheelMesh);
 		node3.attachChild(wheels3);
 		wheels3.rotate(0, FastMath.HALF_PI, 0);
 		wheels3.setMaterial(mat);
-		vehicle.addWheel(node3, new Vector3f(-xOff, yOff, -zOff),
+		VehicleWheel w3 = vehicle.addWheel(node3, new Vector3f(-xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
+		if (Settings.TRY_SKIDDING) {
+			w3.setFrictionSlip(.7f);
+			//vehicle.setFrictionSlip(5.9f); // todo - param
+		}
 
 		Node node4 = new Node("wheel 4 node");
 		Geometry wheels4 = new Geometry("wheel 4", wheelMesh);
 		node4.attachChild(wheels4);
 		wheels4.rotate(0, FastMath.HALF_PI, 0);
 		wheels4.setMaterial(mat);
-		vehicle.addWheel(node4, new Vector3f(xOff, yOff, -zOff),
+		VehicleWheel w4 = vehicle.addWheel(node4, new Vector3f(xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
+		if (Settings.TRY_SKIDDING) {
+			w4.setFrictionSlip(.7f);
+			//vehicle.setFrictionSlip(5.9f); // todo - param
+		}
 
 		vehicleNode.attachChild(node1);
 		vehicleNode.attachChild(node2);
@@ -123,8 +139,6 @@ public class StockCarAvatar extends Avatar {
 		
 		this.mainNode.attachChild(new VWCorradon(game.getAssetManager()));
 		
-		//super.vehicle.setFrictionSlip(.1f);
-		
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
@@ -133,8 +147,7 @@ public class StockCarAvatar extends Avatar {
 
 	@Override
 	public void process(float tpfSecs) {
-		//super.process(tpfSecs);
-		Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
+		//Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
 	}
 
 

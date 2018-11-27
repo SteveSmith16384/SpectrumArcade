@@ -25,17 +25,22 @@ import mygame.util.Vector3Int;
 
 public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
+	private static final int WALL_HEIGHT = 4;
+	
 	public GauntletLevel() {
 		super();
 	}
 
 
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		BufferedImage image = ImageIO.read(new File("gauntlet_level1.png"));
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/black.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png");
 		game.addEntity(floor);
+
+		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png");
+		game.addEntity(ceiling);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 1f);
 		game.addEntity(terrainUDG);
@@ -44,8 +49,9 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 			for (int x=0 ; x<image.getHeight() ; x++) {
 				int col = image.getRGB(x, z);
 				switch (col) {
-				case -12566528:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.EATF_SOLID);
+				case -12566528: // Wall
+					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.EATF_SOLID);
+					terrainUDG.addRectRange_Blocks(BlockCodes.EATF_SOLID, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
 					break;
 				case -6258592: // floor					
 					break;

@@ -20,7 +20,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	private static final int MAP_SIZE = 30;
 
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
 		game.addEntity(floor);
 		
@@ -32,8 +32,10 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall2);
 		
-		// Arcade machines
+		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
+		game.addEntity(mag);
 
+		// Arcade machines
 		ArcadeMachine machine = new ArcadeMachine(game, 2, 0, 2, "ArcadeMachine_AntAttack", AntAttackLevel.class);
 		game.addEntity(machine);
 
@@ -49,8 +51,12 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine5 = new ArcadeMachine(game, 10, 0, 2, "ArcadeMachine_Motos", MotosLevel.class);
 		game.addEntity(machine5);
 		
-		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
-		game.addEntity(mag);
+		ArcadeMachine machine6 = new ArcadeMachine(game, 12, 0, 2, "ArcadeMachine_StockCar", StockCarChamp3DLevel.class);
+		game.addEntity(machine6);
+		
+		ArcadeMachine machine7 = new ArcadeMachine(game, 14, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
+		game.addEntity(machine7);
+		
 	}
 
 /*

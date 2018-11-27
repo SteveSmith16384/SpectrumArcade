@@ -29,7 +29,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private int boardsSizeActual;
 
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
 		int gridSize = MAP_SIZE_BLOCKS;
 

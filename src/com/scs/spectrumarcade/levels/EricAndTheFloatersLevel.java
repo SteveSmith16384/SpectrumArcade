@@ -28,7 +28,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	//private VoxelTerrainEntity terrainUDG; // todo - delete
 	
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
 		game.addEntity(floor);
 		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, SEGMENT_SIZE+1, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");

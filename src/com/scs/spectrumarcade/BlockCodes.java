@@ -18,6 +18,7 @@ import com.scs.spectrumarcade.blocks.MotosYellowBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.SplatBlock;
+import com.scs.spectrumarcade.blocks.StockCarWallCyan;
 
 import mygame.blocks.IBlock;
 
@@ -41,6 +42,7 @@ public class BlockCodes {
 	public static final int MOTOS_CYAN = 17;
 	public static final int MOTOS_MAGENTA = 18;
 	public static final int MOTOS_YELLOW = 19;
+	public static final int STOCK_CAR_WALL_CYAN = 20;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -62,6 +64,7 @@ public class BlockCodes {
 		case MOTOS_CYAN: return MotosCyanBlock.class;
 		case MOTOS_MAGENTA: return MotosMagentaBlock.class;
 		case MOTOS_YELLOW: return MotosYellowBlock.class;
+		case STOCK_CAR_WALL_CYAN: return StockCarWallCyan.class;
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

@@ -34,7 +34,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.MinedOutLevel;
+import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -136,9 +136,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new MinedOutLevel(); //MotosLevel();//StockCarChamp3DLevel();//TurboEspritLevel();//SplatLevel();//GauntletLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //ArcadeRoom();//
+		level = new StockCarChamp3DLevel();//GauntletLevel();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //ArcadeRoom();//
 		level.setGame(this);
-		this.startNewLevel(level);
+		this.startNewLevel(level, 1);
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -190,6 +190,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
 		inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
 		inputManager.addMapping(Settings.KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
+		inputManager.addMapping(Settings.KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
 
 		inputManager.addListener(this, "Left");
 		inputManager.addListener(this, "Right");
@@ -197,6 +198,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
 		inputManager.addListener(this, Settings.KEY_RECORD);
+		inputManager.addListener(this, Settings.KEY_RETURN_TO_ARCADE);
 
 		inputManager.addMapping("Ability1", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 		inputManager.addListener(this, "Ability1");
@@ -204,7 +206,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void startNewLevel(ILevelGenerator level) {
+	public void startNewLevel(ILevelGenerator level, int levelNum) {
 		try {
 			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
@@ -213,7 +215,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			gameData.numKeys = 0;
 			
 			loadingLevel = true;
-			level.generateLevel(this);
+			level.generateLevel(this, levelNum);
 			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
 			this.addEntity((AbstractPhysicalEntity)player);
 			loadingLevel = false;
@@ -325,6 +327,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 						video_recorder = null;
 					}
 				}
+			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
+				this.startNewLevel(new ArcadeRoom(), -1);
 			}
 		}
 	}
@@ -413,7 +417,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (gameData.numKeys <= 0) {
 			ArcadeRoom room = new ArcadeRoom();
 			room.setGame(this);
-			this.startNewLevel(room);
+			this.startNewLevel(room, -1);
 		}
 	}
 

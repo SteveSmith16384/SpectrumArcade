@@ -34,7 +34,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	
 
 	@Override
-	public void generateLevel(SpectrumArcade game) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 1f);
 		game.addEntity(terrainUDG);
 

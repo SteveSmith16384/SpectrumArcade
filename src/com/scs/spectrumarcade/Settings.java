@@ -3,9 +3,10 @@ package com.scs.spectrumarcade;
 public class Settings {
 	
 	public static final boolean FREE_CAM = false;
+	public static final boolean TRY_SKIDDING = true;
 	
 	public static final boolean RECORD_VID = false;
-	public static final boolean SHOW_DEBUG = false;
+	//public static final boolean SHOW_DEBUG = false;
 	public static final boolean SHOW_LOGO = false;
 	
 
@@ -24,5 +25,6 @@ public class Settings {
 	
 	// Key codes
 	public static final String KEY_RECORD = "record";
+	public static final String KEY_RETURN_TO_ARCADE = "return";
 
 }

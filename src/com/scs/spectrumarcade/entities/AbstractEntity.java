@@ -21,7 +21,7 @@ public abstract class AbstractEntity implements IEntity, Savable {
 
 	protected SpectrumArcade game;
 	public String name;
-	protected boolean markedForRemoval = false;
+	private boolean markedForRemoval = false;
 
 	public AbstractEntity(SpectrumArcade _game, String _name) {
 		super();

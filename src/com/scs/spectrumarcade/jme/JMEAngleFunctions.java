@@ -212,10 +212,9 @@ public class JMEAngleFunctions {
 
 	public static Vector3f turnLeft(Vector3f v) {
 		Vector3f v2 = v.normalize();
-		//float z = v.z;
 		v2.x += 1;
 		v2.y = v.y;
-		v2.z = v.z - 1;
+		v2.z -= 1;
 
 		if (v2.x > 1) {
 			v2.x = 0;
@@ -231,10 +230,9 @@ public class JMEAngleFunctions {
 
 	public static Vector3f turnRight(Vector3f v) {
 		Vector3f v2 = v.normalize();
-		//float z = v.z;
-		v2.x -= 1;
+		v2.x += 1;
 		v2.y = v.y;
-		v2.z = v.z + 1;
+		v2.z -= 1;
 
 		if (v2.x > 1) {
 			v2.x = 0;

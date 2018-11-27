@@ -74,6 +74,11 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 					geom.addControl(control);
 					//control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
+					
+					if (Settings.TRY_SKIDDING) {
+						//control.setFriction(.1f);
+					}
+
 				}
 				control.setCollisionShape(new MeshCollisionShape(geom.getMesh()));
 			}

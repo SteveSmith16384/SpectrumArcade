@@ -2,11 +2,10 @@ package com.scs.spectrumarcade.entities.gauntlet;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
@@ -14,23 +13,31 @@ import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
-import com.scs.spectrumarcade.jme.JMEModelFunctions;
+import com.scs.spectrumarcade.jme.AbstractBillboard;
 
 public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
+	private static final float WIDTH = 0.5f;
+	private static final float HEIGHT = 1f;
+	
 	private Vector3f turnDir = new Vector3f();
-
+	private AbstractBillboard ab;
+	
 	public Ghost_Gauntlet(SpectrumArcade _game, float x, float z) {
 		super(_game, "Ghost");
 
-		Box box = new Box(.2f, .5f, .2f);
+		Box box = new Box(WIDTH/2, HEIGHT/2, WIDTH/2);
 		Geometry geometry = new Geometry("GhostBox", box);
 		//geometry.setShadowMode(ShadowMode.CastAndReceive);
 		//JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
-		geometry.setLocalTranslation(0,  .5f, 0);
-		
-
+		geometry.setCullHint(CullHint.Always);
+		geometry.setLocalTranslation(0, .5f, 0);
 		this.mainNode.attachChild(geometry);
+		
+		ab = new AbstractBillboard(game.getAssetManager(), "Textures/skeleton-ghost.png", WIDTH, HEIGHT);
+		ab.setLocalTranslation(0, .5f, 0);
+		this.mainNode.attachChild(ab);
+
 		mainNode.setLocalTranslation(x, 0, z);
 		mainNode.updateModelBound();
 
@@ -50,11 +57,12 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("GHOST OFF EDGE");
+			this.markForRemoval();
 		}
-
 
 		turnTowardsPlayer();
 		moveFwds();
+		ab.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
 

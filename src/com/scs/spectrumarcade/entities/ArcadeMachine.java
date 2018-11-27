@@ -35,7 +35,7 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 			try {
 				ILevelGenerator object = level.newInstance();
 				object.setGame(game);
-				this.game.startNewLevel(object);
+				this.game.startNewLevel(object, 1); // todo - select level num
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
