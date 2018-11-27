@@ -12,11 +12,11 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
-import com.scs.spectrumarcade.Avatar;
-import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
-public abstract class AbstractTurboEspritCar extends Avatar {
+public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity implements IAvatar {
 	
 	private static final boolean SHOW_CAR = false;
 
@@ -130,12 +130,12 @@ public abstract class AbstractTurboEspritCar extends Avatar {
 
 	protected abstract Node getModel();
 	
-	
+	/*
 	@Override
 	public void process(float tpfSecs) {
 		//Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
 	}
-
+*/
 	
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {

@@ -9,7 +9,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
@@ -112,7 +112,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	
 	@Override
-	public Avatar createAndPositionAvatar() {
+	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true);
 		wp.setAbility(1, new BombGun_AA(game));
 		return wp;

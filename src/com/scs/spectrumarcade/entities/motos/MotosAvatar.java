@@ -7,12 +7,14 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.IAbility;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 
-public class MotosAvatar extends Avatar {
+public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 
 	private static final float FORCE = 15f;
 
@@ -101,6 +103,26 @@ public class MotosAvatar extends Avatar {
 		camPos.set(getMainNode().getWorldTranslation());
 		cam.setLocation(camPos);
 
+	}
+
+
+	@Override
+	public void setAbility(int num, IAbility a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void activateAbility(int num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void clearForces() {
+		srb.clearForces();
 	}
 
 }

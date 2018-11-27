@@ -4,6 +4,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.models.VWCorradon;
 
 public class TurboEspritAvatar extends AbstractTurboEspritCar {
@@ -23,7 +24,6 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 
 	@Override
 	public void process(float tpfSecs) {
-		super.process(tpfSecs);
 		//Globals.p("Esprit pos: " + this.getMainNode().getWorldTranslation());
 	}
 
@@ -39,6 +39,26 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
+	}
+
+
+	@Override
+	public void setAbility(int num, IAbility a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void activateAbility(int num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void clearForces() {
+		vehicle.clearForces();
 	}
 
 

@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
@@ -73,7 +73,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	
 	@Override
-	public Avatar createAndPositionAvatar() {
+	public IAvatar createAndPositionAvatar() {
 		return new WalkingPlayer(game, 10, 3, 10f, true);
 	}
 

@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 
 public interface ILevelGenerator {
@@ -18,7 +18,7 @@ public interface ILevelGenerator {
 	
 	Vector3f getAvatarStartPos();
 	
-	Avatar createAndPositionAvatar();
+	IAvatar createAndPositionAvatar();
 	
 	ColorRGBA getBackgroundColour();
 	

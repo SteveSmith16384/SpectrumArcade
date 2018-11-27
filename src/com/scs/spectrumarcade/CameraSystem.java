@@ -30,7 +30,7 @@ public class CameraSystem {//extends AbstractSystem {
 	}
 
 
-	public void process(Camera cam, Avatar avatar) {
+	public void process(Camera cam, AbstractPhysicalEntity avatar) {
 		if (!followCam) {
 			// Position camera at node
 			Vector3f vec = avatar.getMainNode().getWorldTranslation();

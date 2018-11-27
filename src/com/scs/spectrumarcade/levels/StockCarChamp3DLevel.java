@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.MapLoader;
@@ -70,7 +70,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 
 	@Override
-	public Avatar createAndPositionAvatar() {
+	public IAvatar createAndPositionAvatar() {
 		return new StockCarAvatar(game, 5, 2f, 5);
 	}
 

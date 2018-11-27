@@ -11,11 +11,12 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.IAbility;
 
-public class WalkingPlayer extends Avatar {
+public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
@@ -168,5 +169,26 @@ public class WalkingPlayer extends Avatar {
 		}
 
 	}
+
+
+	@Override
+	public void setAbility(int num, IAbility a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void activateAbility(int num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void clearForces() {
+		//playerControl.clearForces();
+	}
+
 
 }

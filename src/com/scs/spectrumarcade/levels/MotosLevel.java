@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -106,7 +106,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 
 	@Override
-	public Avatar createAndPositionAvatar() {
+	public IAvatar createAndPositionAvatar() {
 		float pos = boardsSizeActual / 2;
 		MotosAvatar wp = new MotosAvatar(game, pos, 4f, pos);
 		return wp;

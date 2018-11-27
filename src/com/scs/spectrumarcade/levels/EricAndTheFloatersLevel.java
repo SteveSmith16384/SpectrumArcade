@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_EATF;
@@ -99,7 +99,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 	
 	@Override
-	public Avatar createAndPositionAvatar() {
+	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, false);
 		wp.setAbility(1, new BombGun_EATF(game));
 		return wp;

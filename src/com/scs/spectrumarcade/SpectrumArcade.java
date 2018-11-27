@@ -46,7 +46,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
 	public BulletAppState bulletAppState;
 
-	public Avatar player;
+	public AbstractPhysicalEntity player;
 
 	private SpotLight spotlight;
 	private HUD hud;
@@ -216,11 +216,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			
 			loadingLevel = true;
 			level.generateLevel(this, levelNum);
-			player = level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
+			player = (AbstractPhysicalEntity)level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
 			this.addEntity((AbstractPhysicalEntity)player);
 			loadingLevel = false;
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
-			player.setCameraLocation(cam); // Ready to set direction
+			IAvatar a = (IAvatar)player;
+			a.setCameraLocation(cam); // Ready to set direction
 			level.setInitialCameraDir(cam);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -261,13 +262,15 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void simpleUpdate(float tpfSecs) {
+		IAvatar a = (IAvatar)player;
+
 		if (tpfSecs > 1f) {
 			tpfSecs = 1f;
 		}
 
 		for (int i=1 ; i<=2 ; i++) {
 			if (this.abilityActivated[i]) {
-				this.player.activateAbility(i);
+				a.activateAbility(i);
 			}
 		}
 		
@@ -295,7 +298,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
 		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
-		player.setCameraLocation(cam);
+		a.setCameraLocation(cam);
 
 		if (spotlight != null) {
 			this.spotlight.setPosition(cam.getLocation());
@@ -307,9 +310,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void onAction(String binding, boolean isPressed, float tpf) {
+		IAvatar a = (IAvatar)player;
 		// DO NOT DO ANY ACTUAL ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
 		if (this.game_over == false) {
-			player.onAction(binding, isPressed, tpf);
+			a.onAction(binding, isPressed, tpf);
 			if (binding.equals("Ability1")) {
 				abilityActivated[1] = isPressed;
 			} else if (binding.equals(Settings.KEY_RECORD)) {
@@ -428,7 +432,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	
 	
 	public void playerKilled() {
-		player.srb.clearForces();
-		player.warp(level.getAvatarStartPos());
+		IAvatar a = (IAvatar)player;
+		a.clearForces();
+		a.warp(level.getAvatarStartPos());
 	}
 }

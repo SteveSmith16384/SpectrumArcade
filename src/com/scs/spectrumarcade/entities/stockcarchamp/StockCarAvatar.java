@@ -14,12 +14,14 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
-import com.scs.spectrumarcade.Avatar;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.IAbility;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.models.VWCorradon;
 
-public class StockCarAvatar extends Avatar {
+public class StockCarAvatar extends AbstractPhysicalEntity implements IAvatar {
 	
 	private Node camNode;
 	private static final boolean SHOW_CAR = true;
@@ -215,6 +217,26 @@ public class StockCarAvatar extends Avatar {
 		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		cam.setLocation(new Vector3f(10, 10, 10));
+	}
+
+	
+	@Override
+	public void setAbility(int num, IAbility a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	@Override
+	public void activateAbility(int num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void clearForces() {
+		vehicle.clearForces();
 	}
 
 

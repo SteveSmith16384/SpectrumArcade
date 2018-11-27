@@ -24,29 +24,29 @@ public class CollisionLogic {
 			anoc.notifiedOfCollision(a);
 		}
 
-		if (a instanceof WalkingPlayer && b instanceof IPlayerCollectable) {
-			Player_Collectable(game, (WalkingPlayer)a, (IPlayerCollectable)b);
+		if (a instanceof IAvatar && b instanceof IPlayerCollectable) {
+			Player_Collectable(game, (IAvatar)a, (IPlayerCollectable)b);
 		}
-		if (a instanceof IPlayerCollectable && b instanceof WalkingPlayer) {
-			Player_Collectable(game, (WalkingPlayer)b, (IPlayerCollectable)a);
+		if (a instanceof IPlayerCollectable && b instanceof IAvatar) {
+			Player_Collectable(game, (IAvatar)b, (IPlayerCollectable)a);
 		}
 
-		if (a instanceof WalkingPlayer && b instanceof ICausesHarmOnContact) {
-			Player_Harm(game, (WalkingPlayer)a, (ICausesHarmOnContact)b);
+		if (a instanceof IAvatar && b instanceof ICausesHarmOnContact) {
+			Player_Harm(game, (IAvatar)a, (ICausesHarmOnContact)b);
 		}
-		if (a instanceof ICausesHarmOnContact && b instanceof WalkingPlayer) {
-			Player_Harm(game, (WalkingPlayer)b, (ICausesHarmOnContact)a);
+		if (a instanceof ICausesHarmOnContact && b instanceof IAvatar) {
+			Player_Harm(game, (IAvatar)b, (ICausesHarmOnContact)a);
 		}
 	}
 	
 	
-	private static void Player_Collectable(SpectrumArcade game, WalkingPlayer player, IPlayerCollectable col) {
+	private static void Player_Collectable(SpectrumArcade game, IAvatar player, IPlayerCollectable col) {
 		col.collected(player);
 		col.markForRemoval();
 	}
 	
 	
-	private static void Player_Harm(SpectrumArcade game, WalkingPlayer player, ICausesHarmOnContact col) {
+	private static void Player_Harm(SpectrumArcade game, IAvatar player, ICausesHarmOnContact col) {
 		game.playerKilled();
 	}
 	

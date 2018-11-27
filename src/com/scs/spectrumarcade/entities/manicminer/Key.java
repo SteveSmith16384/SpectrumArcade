@@ -3,12 +3,11 @@ package com.scs.spectrumarcade.entities.manicminer;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
-import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IPlayerCollectable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, IProcessable  {
@@ -45,7 +44,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 
 
 	@Override
-	public void collected(WalkingPlayer avatar) {
+	public void collected(IAvatar avatar) {
 		game.keyCollected();
 	}
 
