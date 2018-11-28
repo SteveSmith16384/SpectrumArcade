@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class GauntletWall extends AbstractBlock {
 
 	public GauntletWall() {
-		super(4, 1);
+		super(8, 0);
 	}
 
 }

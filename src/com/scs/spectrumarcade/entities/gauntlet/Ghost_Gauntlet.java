@@ -3,38 +3,42 @@ package com.scs.spectrumarcade.entities.gauntlet;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
-import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
-import com.scs.spectrumarcade.jme.AbstractBillboard;
+import com.scs.spectrumarcade.jme.JMEModelFunctions;
+import com.scs.spectrumarcade.models.GauntletGhostModel;
 
-public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
+public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, IProcessable {
+
+	private static final boolean SHOW_GHOST_BOXES = true;
 
 	private static final float WIDTH = 0.5f;
 	private static final float HEIGHT = 1f;
-	
+
 	private Vector3f turnDir = new Vector3f();
-	private AbstractBillboard ab;
-	
+	private Spatial ab;
+
 	public Ghost_Gauntlet(SpectrumArcade _game, float x, float z) {
 		super(_game, "Ghost");
 
 		Box box = new Box(WIDTH/2, HEIGHT/2, WIDTH/2);
 		Geometry geometry = new Geometry("GhostBox", box);
-		//geometry.setShadowMode(ShadowMode.CastAndReceive);
-		//JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
-		geometry.setCullHint(CullHint.Always);
+		if (!SHOW_GHOST_BOXES) {
+			geometry.setCullHint(CullHint.Always);
+		} else {
+			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/white.png");
+		}
 		geometry.setLocalTranslation(0, .5f, 0);
 		this.mainNode.attachChild(geometry);
-		
-		ab = new AbstractBillboard(game.getAssetManager(), "Textures/skeleton-ghost.png", WIDTH, HEIGHT);
+
+		//ab = new AbstractBillboard(game.getAssetManager(), "Textures/skeleton-ghost.png", WIDTH, HEIGHT);
+		ab = new GauntletGhostModel(game.getAssetManager());
 		ab.setLocalTranslation(0, .5f, 0);
 		this.mainNode.attachChild(ab);
 
@@ -85,15 +89,5 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
-
-
-	@Override
-	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
-		if (collidedWith instanceof FloorOrCeiling) {
-			// Do nothing
-		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ghost_Gauntlet) {
-		}
-	}
-
 
 }

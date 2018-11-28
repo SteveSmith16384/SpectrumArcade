@@ -31,7 +31,7 @@ public class Wall extends AbstractPhysicalEntity {
 			}));
 		}
 
-		Geometry geometry = new Geometry("FloorGeom", box1);
+		Geometry geometry = new Geometry("WallGeom", box1);
 		geometry.setShadowMode(ShadowMode.Receive);
 
 		TextureKey key3 = new TextureKey(tex);

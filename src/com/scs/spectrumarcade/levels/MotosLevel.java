@@ -7,8 +7,8 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -16,20 +16,27 @@ import com.scs.spectrumarcade.entities.motos.AbstractMotosEnemyBall;
 import com.scs.spectrumarcade.entities.motos.MotosAvatar;
 import com.scs.spectrumarcade.entities.motos.MotosHeavyEnemy;
 import com.scs.spectrumarcade.entities.motos.MotosSimpleEnemy;
+import com.scs.spectrumarcade.entities.motos.MotosSuperHeavyEnemy;
 
 import mygame.util.Vector3Int;
+import ssmith.util.RealtimeInterval;
 
 public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE_BLOCKS = 22;
 	public static final int SEGMENT_SIZE = 2;
+	public static final float FALL_DIST = -20f;
 
-	private int levelNum = 1;
-	private VoxelTerrainEntity terrainUDG; // todo - delete
+	private int levelNum;
+	private VoxelTerrainEntity terrainUDG;
 	private int boardsSizeActual;
+	private RealtimeInterval checkEndfLevelInt = new RealtimeInterval(4000);
+	
 
 	@Override
-	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		levelNum = _levelNum;
+
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
 		int gridSize = MAP_SIZE_BLOCKS;
 
@@ -78,7 +85,6 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private void addBaddies() {
 		switch (levelNum) {
 		case 1:
-			// Baddies
 			MotosSimpleEnemy mse = new MotosSimpleEnemy(game, this, boardsSizeActual/4, boardsSizeActual/4);
 			game.addEntity(mse);
 			MotosSimpleEnemy mse2 = new MotosSimpleEnemy(game, this, boardsSizeActual * .75f, boardsSizeActual * .75f);
@@ -92,7 +98,13 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(mseb3);
 			break;
 
+		case 3:
+			MotosSuperHeavyEnemy mssb3 = new MotosSuperHeavyEnemy(game, this, boardsSizeActual/4, boardsSizeActual/4);
+			game.addEntity(mssb3);
+			break;
 
+		default:
+			throw new RuntimeException("No such level: " + this.levelNum);
 		}
 
 	}
@@ -122,6 +134,9 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		if (checkEndfLevelInt.hitInterval()) {
+			this.checkIfAllBaddiesDead();
+		}
 	}
 
 
@@ -133,6 +148,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
+		// Do nothing
 	}
 
 
@@ -148,8 +164,11 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 			}
 		}
 		if (!any) {
-			this.levelNum++;
-			this.addBaddies();
+			if (this.game.player.getMainNode().getWorldTranslation().y > -1) { //Check player not fallen off edge
+				this.levelNum++;
+				game.setLevel(this.getClass(), levelNum);
+				this.addBaddies();
+			}
 		}
 	}
 }

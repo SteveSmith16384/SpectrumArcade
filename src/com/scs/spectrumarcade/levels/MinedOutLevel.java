@@ -27,11 +27,11 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	private static final int MAP_SIZE = 30;
 	private static final int NUM_MINES = 0;
 	private static final int NUM_KEYS = 0;
-	
+
 	private boolean[][] mines = new boolean[MAP_SIZE][MAP_SIZE];
 	private VoxelTerrainEntity terrainUDG;
 	private RealtimeInterval checkMinesInt = new RealtimeInterval(100);
-	
+
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -55,8 +55,10 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		for (int z=0; z<MAP_SIZE ; z++) {
 			for (int x=0; x<MAP_SIZE ; x++) {
 				if (x == 0 || z == 0 || x == MAP_SIZE-1 || z == MAP_SIZE-1) {
-					Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 90);
-					game.addEntity(f);
+					if (x != MAP_SIZE-1 || z != MAP_SIZE/2) { // No fence at exit
+						Fence f = new Fence(game, x, z, (z == 0 || z == MAP_SIZE-1) ? 0 : 90);
+						game.addEntity(f);
+					}
 				}
 			}
 		}
@@ -79,7 +81,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		return new Vector3f(MAP_SIZE/2, 3f, 2f);
 	}
 
-	
+
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		return new WalkingPlayer(game, MAP_SIZE/2, 3f, 2f, false);
@@ -95,14 +97,14 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void process(float tpfSecs) {
 		if (checkMinesInt.hitInterval()) {
-		Vector3f pos = game.player.getMainNode().getWorldTranslation();
-		int x = (int)pos.x;
-		int z = (int)pos.z;
-		if (mines[x][z]) {
-			Globals.p("You have stood on a mine!");
-		} else {
-			this.terrainUDG.addBlock_Block(new Vector3Int((int)pos.x, 0, (int)pos.z), BlockCodes.MINED_OUT_WALKED_ON);
-		}
+			Vector3f pos = game.player.getMainNode().getWorldTranslation();
+			int x = (int)pos.x;
+			int z = (int)pos.z;
+			if (mines[x][z]) {
+				Globals.p("You have stood on a mine!");
+			} else {
+				this.terrainUDG.addBlock_Block(new Vector3Int((int)pos.x, 0, (int)pos.z), BlockCodes.MINED_OUT_WALKED_ON);
+			}
 		}
 	}
 

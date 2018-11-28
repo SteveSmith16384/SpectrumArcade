@@ -12,8 +12,9 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 	
 	private Node camNode;
 
-	protected final float accelerationForce = 1000.0f;
-	protected final float brakeForce = 100.0f;
+	protected static final float accelerationForce = 1000.0f;
+	protected static final float brakeForce = 100.0f;
+	
 	protected float steeringValue = 0;
 	protected float accelerationValue = 0;
 

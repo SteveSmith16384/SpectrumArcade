@@ -17,7 +17,7 @@ public class ThrowingAxe extends AbstractPhysicalEntity implements IProcessable,
 
 	public static final float SPEED = 10f;
 
-	private long removeTime = System.currentTimeMillis() + 3000;
+	private long removeTime = System.currentTimeMillis() + 4000;
 
 	public ThrowingAxe(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "ThrowingAxe");
@@ -35,7 +35,7 @@ public class ThrowingAxe extends AbstractPhysicalEntity implements IProcessable,
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(.1f);
+		srb = new RigidBodyControl(1f);
 		mainNode.addControl(srb);
 		srb.setGravity(new Vector3f());
 	}

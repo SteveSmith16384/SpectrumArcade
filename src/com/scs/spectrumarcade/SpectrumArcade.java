@@ -140,9 +140,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 
-		level = new StockCarChamp3DLevel();//GauntletLevel();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //ArcadeRoom();//
+		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //
 		level.setGame(this);
-		this.startNewLevel(level, 1);
+		int levelNum = gameData.getLevelNum(level.getClass());
+		this.startNewLevel(level, levelNum);
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -155,8 +156,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getStateManager().attach(video_recorder);
 
 		}
-
-
 	}
 
 
@@ -216,7 +215,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
 
-			gameData.numKeys = 0;
+			//gameData.numKeys = 0;
 			
 			loadingLevel = true;
 			level.generateLevel(this, levelNum);
@@ -431,7 +430,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public String getHUDText() {
-		return "keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
+		return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
 	}
 	
 	
@@ -452,4 +451,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (a != null) {
 			a.activate();
 		}
-	}}
+	}
+	
+
+	public void setLevel(Class<? extends ILevelGenerator> clazz, int levelNum) {
+		gameData.setLevel(clazz, levelNum);
+	}
+
+}

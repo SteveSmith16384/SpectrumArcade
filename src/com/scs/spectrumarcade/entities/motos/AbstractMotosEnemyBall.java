@@ -62,7 +62,7 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 
 		this.srb.applyCentralForce(forceDir);
 		
-		if (this.getMainNode().getWorldTranslation().y < -10) {
+		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			this.markForRemoval();
 			level.checkIfAllBaddiesDead();
 		}

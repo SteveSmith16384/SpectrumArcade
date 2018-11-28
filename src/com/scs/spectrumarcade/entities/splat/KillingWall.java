@@ -30,7 +30,7 @@ public class KillingWall extends AbstractPhysicalEntity implements IProcessable 
 		float d = RAD;
 */
 		Mesh sphere = new Sphere(10, 10, 10, true, true);
-		Geometry geometry = new Geometry("FloorGeom", sphere);
+		Geometry geometry = new Geometry("KillingWallGeom", sphere);
 
 		TextureKey key3 = new TextureKey("Textures/mm_bricks.png");
 		key3.setGenerateMips(true);

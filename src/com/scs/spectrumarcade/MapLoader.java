@@ -21,10 +21,14 @@ public class MapLoader {
 			for (int x=0 ; x<tokens.length ; x++) {
 				String cell = tokens[x];
 				int val = Integer.parseInt(cell);
-				mapCode[x][lineNum-1] = val;
+				try {
+					mapCode[x][lineNum-1] = val;
+				} catch (ArrayIndexOutOfBoundsException ex) { // todo - remove this
+
+				}
 			}
 		}
-		
+
 		return mapCode;
 	}
 }

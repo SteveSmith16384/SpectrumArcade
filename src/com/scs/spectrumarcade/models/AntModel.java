@@ -14,8 +14,7 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 // SpiderStand, SpiderWalk
 public class AntModel extends Node {
 
-	public static final float MODEL_WIDTH = 2.2f;
-	public static final float MODEL_HEIGHT = 0.7f;
+	private static final float MODEL_HEIGHT = 0.7f;
 
 	// Anim
 	private AnimChannel channel;

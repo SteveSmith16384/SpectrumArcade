@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class GauntletDoor extends AbstractBlock {
 
 	public GauntletDoor() {
-		super(4, 1);
+		super(9, 0);
 	}
 
 }

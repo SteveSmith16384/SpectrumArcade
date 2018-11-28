@@ -25,10 +25,12 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	private static final int MAP_SIZE = 30;
 	public static final int SEGMENT_SIZE = 3;
 
-	//private VoxelTerrainEntity terrainUDG; // todo - delete
+	private int levelNum;
 	
 	@Override
-	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		levelNum = _levelNum;
+		
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
 		game.addEntity(floor);
 		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, SEGMENT_SIZE+1, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
@@ -58,7 +60,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 							//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.EATF_WEAK);
 							DestroyableWall dw = new DestroyableWall(game, xGrid, zGrid);
 							game.addEntity(dw);
-						} else if (NumberFunctions.rnd(1,  8) == 1) {
+						} else if (NumberFunctions.rnd(1,  8) <= levelNum) {
 							Floater f = new Floater(game, xGrid * SEGMENT_SIZE, 2f, zGrid*SEGMENT_SIZE);
 							game.addEntity(f);
 						}
@@ -121,7 +123,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "Level " + this.levelNum;
 	}
 
 

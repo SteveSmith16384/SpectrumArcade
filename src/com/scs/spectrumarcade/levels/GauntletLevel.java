@@ -20,21 +20,26 @@ import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.gauntlet.Ghost_Gauntlet;
+import com.scs.spectrumarcade.entities.manicminer.Key;
 
 import mygame.util.Vector3Int;
 
 public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int WALL_HEIGHT = 4;
-	
+
+	private int levelNum;
+
 	public GauntletLevel() {
 		super();
 	}
 
 
 	@Override
-	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		BufferedImage image = ImageIO.read(new File("gauntlet_level1.png"));
+	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		levelNum = _levelNum;
+
+		BufferedImage image = ImageIO.read(new File("gauntlet_level" + levelNum + ".png"));
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png");
 		game.addEntity(floor);
@@ -63,12 +68,17 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.ANT_ATTACK);
 					break;
 				case -16715776: //treasure?
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.CONVEYOR);
 					break;
 				case -16744336: // food?
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
 					break;
 				case -1048576: // dunno
+					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.);
 					break;
 				case -16744352: // dunno
+					Key key = new Key(game, x, 1, z);
+					game.addEntity(key);
 					break;
 				case -16744368: // dunno
 					break;
@@ -80,7 +90,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
 			}
 		}
-		
+
 		for (int z=5 ; z<10 ; z++) {
 			for (int x=5 ; x<10 ; x++) {
 				Ghost_Gauntlet g = new Ghost_Gauntlet(game, x, z);

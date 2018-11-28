@@ -35,7 +35,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
 		CompoundCollisionShape compoundShape = new CompoundCollisionShape();
 		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
-		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.45f));
+		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.25f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 		
 		//create vehicle node
@@ -86,8 +86,6 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		if (Settings.TRY_SKIDDING) {
 			w2.setFrictionSlip(3f);
 		}
-
-
 
 		Node node3 = new Node("wheel 3 node");
 		Geometry wheels3 = new Geometry("wheel 3", wheelMesh);

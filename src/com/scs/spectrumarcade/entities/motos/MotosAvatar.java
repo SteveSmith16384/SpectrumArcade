@@ -13,6 +13,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
+import com.scs.spectrumarcade.levels.MotosLevel;
 
 public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 
@@ -64,7 +65,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 
 		}
 
-		if (this.getMainNode().getWorldTranslation().y < -10) {
+		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			game.playerKilled();
 		}
 	}

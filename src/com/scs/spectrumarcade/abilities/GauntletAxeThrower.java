@@ -26,15 +26,14 @@ public class GauntletAxeThrower extends AbstractAbility implements IAbility {
 			Vector3f pos = game.player.getMainNode().getWorldTranslation().clone();
 			pos.y += Settings.PLAYER_HEIGHT;
 			pos.addLocal(game.getCamera().getDirection().mult(2));
-			ThrowingAxe bomb = new ThrowingAxe(game, pos.x, pos.y, pos.z);
-			game.addEntity(bomb);
+			
+			ThrowingAxe axe = new ThrowingAxe(game, pos.x, pos.y, pos.z);
+			game.addEntity(axe);
 
 			Vector3f force = game.getCamera().getDirection().mult(10);
 			//force.y = 0;
-			//srb.applyCentralForce(force);
-			bomb.srb.setLinearVelocity(force);
-			Globals.p("Force=" + force);
-
+			axe.srb.setLinearVelocity(force);
+			//Globals.p("Force=" + force);
 
 		}
 	}

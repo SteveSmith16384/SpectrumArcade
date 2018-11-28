@@ -41,14 +41,14 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		super.getViewPort().setBackgroundColor(ColorRGBA.Black);
 
 		setupLight();
-/*
+		/*
 		Spatial model = assetManager.loadModel("Models/ArcadeMachine_AntAttack/Arcade.obj");
-		model.scale(.01f);
-		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/RaceCarTexture.png");*/
-		Spatial model = assetManager.loadModel("Models/car2/car2.obj");
-		model.scale(.01f);
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/car2/corradon.png");
+		model.scale(.01f);*/
+		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
+		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
+		Spatial model = assetManager.loadModel("Models/ManCover/ManCover.obj");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/ManCover/MB_ManCoverTexturb.png");
 		String animNode = "Peau(ZOMBIE) (Node)";
 		String animToUse = "Rig(Zombie)Action";
 
@@ -57,7 +57,7 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 			SpectrumArcade.p("Listing anims:");
 			JMEModelFunctions.listAllAnimations((Node)model);
 			SpectrumArcade.p("Finished listing anims");
-			
+
 			control = JMEModelFunctions.getNodeWithControls(animNode, (Node)model);
 			if (control != null) {
 				control.addListener(this);
@@ -87,7 +87,8 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		this.flyCam.setMoveSpeed(12f);
 
 		fpp = new FilterPostProcessor(assetManager);
-		viewPort.addProcessor(fpp);	}
+		viewPort.addProcessor(fpp);	
+	}
 
 
 	private void setupLight() {
