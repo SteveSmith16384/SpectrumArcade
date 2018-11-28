@@ -14,15 +14,12 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 // SpiderStand, SpiderWalk
 public class AntModel extends Node {
 
-	private static final float MODEL_HEIGHT = 0.7f;
+	private static final float MODEL_HEIGHT = 0.4f;
 
 	// Anim
 	private AnimChannel channel;
-	//private int currAnimCode = -1;
 
 	public AntModel(AssetManager assetManager) {
-		//assetManager = _assetManager;
-
 		Spatial model = assetManager.loadModel("Models/spider/Spider.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/spider/Spider.png");
 		model.setShadowMode(ShadowMode.CastAndReceive);

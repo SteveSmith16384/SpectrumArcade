@@ -57,13 +57,16 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private VideoRecorderAppState video_recorder;
 	public boolean started = false;
 	private boolean loadingLevel = false;
-	
+
 	private DirectionalLight sun;
-	private GameData gameData;
+	public GameData gameData;
 	private ILevelGenerator level;
 
 	private HashMap<Integer, IAbility> abilities = new HashMap<>();
 	private boolean[] abilityActivated = new boolean[3];
+
+	private Class<? extends ILevelGenerator> nextLevel;
+	private int nextLevelNum;
 
 	public static void main(String[] args) {
 		try {
@@ -134,16 +137,18 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.viewPort.addProcessor(dlsr);
 
 		gameData = new GameData();
-		
+
 		hud = new HUD(this, cam);
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
-
+/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //
 		level.setGame(this);
 		int levelNum = gameData.getLevelNum(level.getClass());
 		this.startNewLevel(level, levelNum);
+*/
+		this.setNextLevel(ArcadeRoom.class, -1);
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -209,17 +214,18 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void startNewLevel(ILevelGenerator level, int levelNum) {
+	private void startNewLevel(ILevelGenerator level, int levelNum) {
 		try {
 			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
+			this.entities.clear();
+			this.entitiesToAdd.clear();
+			this.entitiesToRemove.clear();
 
-			//gameData.numKeys = 0;
-			
 			loadingLevel = true;
 			level.generateLevel(this, levelNum);
-			player = (AbstractPhysicalEntity)level.createAndPositionAvatar();//.moveAvatarToStartPosition(player);
+			player = (AbstractPhysicalEntity)level.createAndPositionAvatar();
 			this.addEntity((AbstractPhysicalEntity)player);
 			loadingLevel = false;
 			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
@@ -241,8 +247,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.actuallyAddEntity(e);
 		}
 	}
-	
-	
+
+
 	private void actuallyAddEntity(IEntity e) {
 		this.entities.add(e);
 		if (e instanceof AbstractPhysicalEntity) {
@@ -265,10 +271,19 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void simpleUpdate(float tpfSecs) {
-		IAvatar a = (IAvatar)player;
-
 		if (tpfSecs > 1f) {
 			tpfSecs = 1f;
+		}
+
+		if (this.nextLevel != null) {
+			try {
+				level = nextLevel.newInstance();
+				level.setGame(this);
+				this.startNewLevel(level, this.nextLevelNum);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			this.nextLevel = null;
 		}
 
 		for (int i=1 ; i<=2 ; i++) {
@@ -276,7 +291,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				activateAbility(i);
 			}
 		}
-		
+
 		while (this.entitiesToRemove.size() > 0) {
 			IEntity e = this.entitiesToRemove.remove(0);
 			this.actuallyRemoveEntity(e);
@@ -301,6 +316,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		 */
 		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
 		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
+		IAvatar a = (IAvatar)player;
 		a.setCameraLocation(cam);
 
 		if (spotlight != null) {
@@ -335,7 +351,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 					}
 				}
 			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
-				this.startNewLevel(new ArcadeRoom(), -1);
+				// this.startNewLevel(new ArcadeRoom(), -1);
+				this.setNextLevel(ArcadeRoom.class, -1);
 			}
 		}
 	}
@@ -432,8 +449,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public String getHUDText() {
 		return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
 	}
-	
-	
+
+
 	public void playerKilled() {
 		IAvatar a = (IAvatar)player;
 		a.clearForces();
@@ -452,10 +469,18 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			a.activate();
 		}
 	}
-	
+
 
 	public void setLevel(Class<? extends ILevelGenerator> clazz, int levelNum) {
 		gameData.setLevel(clazz, levelNum);
 	}
 
+
+	public void setNextLevel(Class<? extends ILevelGenerator> clazz, int levelNum) {
+		//gameData.setLevel(clazz, levelNum);
+		this.setLevel(clazz, levelNum);
+		
+		this.nextLevel = clazz;
+		this.nextLevelNum = levelNum;
+	}
 }

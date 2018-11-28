@@ -22,7 +22,7 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 	private static final float HEIGHT = 1f;
 
 	private Vector3f turnDir = new Vector3f();
-	private Spatial ab;
+	private Spatial ghostModel;
 
 	public Ghost_Gauntlet(SpectrumArcade _game, float x, float z) {
 		super(_game, "Ghost");
@@ -38,9 +38,9 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 		this.mainNode.attachChild(geometry);
 
 		//ab = new AbstractBillboard(game.getAssetManager(), "Textures/skeleton-ghost.png", WIDTH, HEIGHT);
-		ab = new GauntletGhostModel(game.getAssetManager());
-		ab.setLocalTranslation(0, .5f, 0);
-		this.mainNode.attachChild(ab);
+		ghostModel = new GauntletGhostModel(game.getAssetManager());
+		ghostModel.setLocalTranslation(0, .5f, 0);
+		this.mainNode.attachChild(ghostModel);
 
 		mainNode.setLocalTranslation(x, 0, z);
 		mainNode.updateModelBound();
@@ -66,7 +66,7 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 
 		turnTowardsPlayer();
 		moveFwds();
-		ab.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+		ghostModel.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
 

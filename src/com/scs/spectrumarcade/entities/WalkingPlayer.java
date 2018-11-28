@@ -21,8 +21,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
 	// Our movement speed
-	private static final float speed = 3f;
-	private static final float strafeSpeed = 3f;
+	private static final float speed = 4f;
+	private static final float strafeSpeed = 4f;
 
 	private Geometry playerGeometry;
 	public BetterCharacterControl playerControl;

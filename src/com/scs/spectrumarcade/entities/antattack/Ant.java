@@ -23,10 +23,10 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private static final int MODE_TURNING = 2;
 	private static final int MODE_AWAY_FROM_PLAYER = 3;
 
-	private static final long TURN_INTERVAL = 2000;
+	//private static final long TURN_INTERVAL = 2000;
 
 	private Vector3f turnDir = new Vector3f();
-	private long timeUntilNextTurn = 0;
+	//private long timeUntilNextTurn = 0;
 	private long timeUntilNextMode = 0;
 	private int mode = -1;
 	private boolean onFloor = false;
@@ -112,7 +112,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private void moveFwds() {
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		//dir.y = -.1f;
-		Vector3f force = dir.mult(2);
+		Vector3f force = dir.mult(4);
 		//Globals.p("Ant force: " + dir);
 		this.srb.setLinearVelocity(force); // todo - need this every frame?
 	}
@@ -122,9 +122,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		if (leftDist > rightDist) {
-			turnDir.set(0, 1, 0).multLocal(1.7f);
+			turnDir.set(0, 1, 0).multLocal(1.5f);
 		} else {
-			turnDir.set(0, -1, 0).multLocal(1.7f);
+			turnDir.set(0, -1, 0).multLocal(1.5f);
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
@@ -134,9 +134,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		if (leftDist < rightDist) {
-			turnDir.set(0, 1, 0).multLocal(1.7f);
+			turnDir.set(0, 1, 0).multLocal(1.5f);
 		} else {
-			turnDir.set(0, -1, 0).multLocal(1.7f);
+			turnDir.set(0, -1, 0).multLocal(1.5f);
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
@@ -186,7 +186,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			break;
 		case MODE_TURNING:
 			this.srb.setLinearVelocity(new Vector3f());
-			this.timeUntilNextMode = System.currentTimeMillis() + 2000; 
+			this.timeUntilNextMode = System.currentTimeMillis() + 1500; 
 			break;
 		case MODE_AWAY_FROM_PLAYER:
 			moveFwds();

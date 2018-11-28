@@ -36,9 +36,10 @@ public class ArcadeMachine extends AbstractPhysicalEntity implements INotifiedOf
 		if (collidedWith == game.player) {
 			try {
 				room.lastPos = game.player.getMainNode().getWorldTranslation();
-				ILevelGenerator object = level.newInstance();
-				object.setGame(game);
-				this.game.startNewLevel(object, 1); // todo - select level num
+				//todo ILevelGenerator object = level.newInstance();
+				//object.setGame(game);
+				//this.game.startNewLevel(object, 1); // todo - select level num
+				game.setNextLevel(level, game.gameData.getLevelNum(level));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

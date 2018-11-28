@@ -166,6 +166,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		if (!any) {
 			if (this.game.player.getMainNode().getWorldTranslation().y > -1) { //Check player not fallen off edge
 				this.levelNum++;
+				// Restart in-place
 				game.setLevel(this.getClass(), levelNum);
 				this.addBaddies();
 			}
