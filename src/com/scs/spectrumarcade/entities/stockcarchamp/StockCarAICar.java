@@ -73,11 +73,11 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 	}
 
 
-	private boolean canSeeWaypoint(Vector3f o) {
+	private boolean canSeeWaypoint(Vector3f o) { // Ray is from the waypoint to the car
 		Ray r = new Ray(o, this.getMainNode().getWorldTranslation().add(0,  .5f,  0).subtract(o).normalizeLocal());
 		//Ray r = new Ray(o, o.subtract(this.getMainNode().getWorldTranslation()).normalizeLocal());
 		r.setLimit(this.getMainNode().getWorldTranslation().subtract(o).length());
-		CollisionResults res = new CollisionResults();
+		CollisionResults res = new CollisionResults(); //level.terrainUDG.getMainNode().getWorldBound();
 		int c = game.getRootNode().collideWith(r, res);
 		if (c > 0) {
 			Iterator<CollisionResult> it = res.iterator();

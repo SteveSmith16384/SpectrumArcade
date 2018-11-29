@@ -25,7 +25,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	private static final int SQ_SIZE = 2;
 
-	private VoxelTerrainEntity terrainUDG;
+	public VoxelTerrainEntity terrainUDG;
 	private List<Point> startPos = new ArrayList<>();
 	public Vector3f[] waypoints = new Vector3f[4];
 
@@ -48,9 +48,9 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE*SQ_SIZE, 1, MAP_SIZE*SQ_SIZE, "Textures/road2.png");
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, SQ_SIZE);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, MAP_SIZE+1, SQ_SIZE);
 		game.addEntity(terrainUDG);
-/*
+
 		for (int z=0 ; z<map[0].length ; z++) {
 			for (int x=0 ; x<map.length ; x++) {
 				try {
@@ -68,7 +68,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 				}
 			}
 		}
-*/
+
 		// Create AI cars
 		for (int i=0 ; i<1 ; i++) {
 			Point p = this.startPos.get(i+1);

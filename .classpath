@@ -105,5 +105,10 @@
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/vecmath.jar"/>
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/xpp3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jme3-blender"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jme3-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jme3-desktop"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jme3-effects"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jme3-lwjgl3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

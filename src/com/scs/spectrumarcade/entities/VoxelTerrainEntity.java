@@ -17,23 +17,28 @@ import mygame.util.Vector3Int;
 
 public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
-	private static final int CHUNK_SIZE = 16;
+	//private static final int CHUNK_SIZE = 16;
 
 	public BlockTerrainControl blocks;
 	private float blockSize;
 	private int worldSizeBlocks;
 
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize) {
+		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize);
+	}
+	
+	
+	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, int chunkSize, float _blockSize) {
 		super(_game, "VoxelTerrainEntity");
 
 		worldSizeBlocks = _worldSizeBlocks;
 		blockSize = _blockSize;
 
 		final BlockSettings blockSettings = new BlockSettings();
-		blockSettings.setChunkSize(new Vector3Int(CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE));
+		blockSettings.setChunkSize(new Vector3Int(chunkSize, chunkSize, chunkSize));
 		blockSettings.setBlockSize(blockSize);
 		blockSettings.setMaterial(game.getAssetManager().loadMaterial("Materials/BlockTexture.j3m"));
-		int s = worldSizeBlocks / CHUNK_SIZE;
+		int s = (int)Math.ceil(worldSizeBlocks / chunkSize);
 		blockSettings.setWorldSizeInChunks(new Vector3Int(s+1, s+1, s+1));
 		blockSettings.setViewDistance(200f);
 		blockSettings.texturesPerSheet = Settings.TEX_PER_SHEET;
@@ -77,7 +82,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
 
 	public void removeBlock(Vector3Int pos) {
-		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);//, false);
+		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);
 		//Globals.p("Removing block at " + blockPosition);
 		blocks.removeBlock(blockPosition);
 
@@ -85,7 +90,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
 
 	public void addBlock_Actual(Vector3Int pos, int blockType) {
-		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);//, false);
+		Vector3Int blockPosition = blocks.getPointedBlockLocation(pos);
 		//Globals.p("Adding block at " + blockPosition);
 		blocks.setBlock(blockPosition, BlockCodes.getClassFromCode(blockType));
 
