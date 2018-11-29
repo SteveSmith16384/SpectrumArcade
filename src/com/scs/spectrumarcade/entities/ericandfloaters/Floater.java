@@ -7,7 +7,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
@@ -17,6 +16,7 @@ import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
+import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
 public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
@@ -29,10 +29,13 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	private long timeUntilNextTurn = 0;	
 	private Vector3f prevPos;
 	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
-	
+
 	private boolean killed = false;
 	private long timeToRemove = 0;
-	
+
+	private boolean isAngry = false;
+	private RealtimeInterval checkAngerInterval = new RealtimeInterval(3000);
+
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
@@ -49,7 +52,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		mainNode.addControl(srb);
 
 		dir = JMEAngleFunctions.getRandomDirection_4();
-		
+
 		prevPos = new Vector3f(x, y, z);
 
 	}
@@ -63,18 +66,32 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			}
 			return;
 		}
-		
-		if (checkPosInterval.hitInterval()) {
-			if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
-				dir = dir.mult(-1);//JMEAngleFunctions.getRandomDirection_8();
-				Globals.p("Floater stuck, changing dir "  + dir);
+
+		if (!isAngry) {
+			if (checkPosInterval.hitInterval()) {
+				if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+					dir = dir.mult(-1);//JMEAngleFunctions.getRandomDirection_8();
+					Globals.p("Floater stuck, changing dir "  + dir);
+				}
+				prevPos.set(this.mainNode.getWorldTranslation());
 			}
-			prevPos.set(this.mainNode.getWorldTranslation());
+			if (timeUntilNextTurn < System.currentTimeMillis()) {
+				dir = JMEAngleFunctions.getRandomDirection_4();//.mult(0.5f);
+				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
+			}
+			if (NumberFunctions.rnd(1, 100) == 1) {
+				this.isAngry = true;
+				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater_red.png");
+				checkAngerInterval.restartTimer();
+			}
+		} else {
+			this.dir = game.player.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation().normalizeLocal());
+			if (checkAngerInterval.hitInterval()) {
+				this.isAngry = false;
+				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
+			}
 		}
-		if (timeUntilNextTurn < System.currentTimeMillis()) {
-			dir = JMEAngleFunctions.getRandomDirection_4();//.mult(0.5f);
-			timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
-		}
+
 		//Globals.p("Floater pos: " + this.getMainNode().getWorldTranslation());
 		Vector3f force = dir.mult(SPEED);
 		//Globals.p("Floater force: " + dir);
@@ -94,8 +111,8 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			//Globals.p("Floater collided with " + collidedWith + " and is turning");
 		}		*/
 	}
-	
-	
+
+
 	public void killed() {
 		if (killed) {
 			return;

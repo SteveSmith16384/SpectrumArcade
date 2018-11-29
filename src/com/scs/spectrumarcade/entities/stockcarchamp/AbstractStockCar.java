@@ -24,8 +24,8 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	public VehicleControl vehicle;
 
 
-	public AbstractStockCar(SpectrumArcade _game, float x, float y, float z) {
-		super(_game, "AbstractStockCar");
+	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z) {
+		super(_game, name);
 
 		Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		mat.getAdditionalRenderState().setWireframe(true);

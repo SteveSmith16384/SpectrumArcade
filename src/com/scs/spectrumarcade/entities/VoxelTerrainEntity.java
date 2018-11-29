@@ -7,16 +7,6 @@ import com.jme3.scene.Geometry;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.blocks.AntAttackBlock;
-import com.scs.spectrumarcade.blocks.BrickBlock;
-import com.scs.spectrumarcade.blocks.ConveyorBlock;
-import com.scs.spectrumarcade.blocks.DebugBlock;
-import com.scs.spectrumarcade.blocks.EATFSolidBlock;
-import com.scs.spectrumarcade.blocks.ExitBlock;
-import com.scs.spectrumarcade.blocks.FenceBlock;
-import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
-import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
-import com.scs.spectrumarcade.blocks.SplatBlock;
 import com.scs.spectrumarcade.misc.FibonacciSequence;
 
 import mygame.BlockSettings;
@@ -74,7 +64,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 					geom.addControl(control);
 					//control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
-					
+
 					if (Settings.TRY_SKIDDING) {
 						//control.setFriction(.1f);
 					}

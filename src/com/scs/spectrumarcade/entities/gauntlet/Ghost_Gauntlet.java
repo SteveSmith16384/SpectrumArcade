@@ -60,7 +60,7 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 	public void process(float tpfSecs) {
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
-			Globals.pe("GHOST OFF EDGE");
+			//Globals.pe("GHOST OFF EDGE");
 			this.markForRemoval();
 		}
 

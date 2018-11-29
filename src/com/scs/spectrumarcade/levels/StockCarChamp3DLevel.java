@@ -50,8 +50,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, SQ_SIZE);
 		game.addEntity(terrainUDG);
-
-		// Create heightmap
+/*
 		for (int z=0 ; z<map[0].length ; z++) {
 			for (int x=0 ; x<map.length ; x++) {
 				try {
@@ -69,7 +68,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 				}
 			}
 		}
-
+*/
 		// Create AI cars
 		for (int i=0 ; i<1 ; i++) {
 			Point p = this.startPos.get(i+1);

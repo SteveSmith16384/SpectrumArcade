@@ -14,6 +14,41 @@ import ssmith.lang.NumberFunctions;
  */
 public class JMEAngleFunctions {
 
+	public static void main(String[] args) {
+		try {
+			// Run unit tests
+			
+			// Test turn right
+			Vector3f v2 = new Vector3f(0, 0, 1);
+			Vector3f vRight = turnRight(v2);
+			if (vRight.x == 1 && vRight.y == 0 && vRight.z == 0) {
+				p("Passed");
+			} else {
+				throw new RuntimeException("Failed");
+			}
+			v2 = new Vector3f(1, 0, 0);
+			vRight = turnRight(v2);
+			if (vRight.x == 0 && vRight.y == 0 && vRight.z == 1) {
+				p("Passed");
+			} else {
+				throw new RuntimeException("Failed");
+			}
+			
+			// Test turn left
+			Vector3f v = new Vector3f(0, 0, 1);
+			Vector3f vLeft = turnLeft(v);
+			if (vLeft.x == -1 && vLeft.y == 0 && vLeft.z == 0) {
+				p("Passed");
+			} else {
+				throw new RuntimeException("Failed");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 	private JMEAngleFunctions() {
 
 	}
@@ -170,9 +205,9 @@ public class JMEAngleFunctions {
 
 
 	// This function hasn't been tested
-	public static void turnSpatialLeft(Spatial spatial){
-		//Vector3f direction = new Vector3f(0, 0, 1);
-		Quaternion rotateLeft = new Quaternion().fromAngleAxis(FastMath.HALF_PI, Vector3f.UNIT_Y);
+	public static void turnSpatialLeft(Spatial spatial, float angdeg) {
+		double ang = Math.toRadians(angdeg);
+		Quaternion rotateLeft = new Quaternion().fromAngleAxis((float)ang, Vector3f.UNIT_Y);
 		spatial.rotate(rotateLeft);
 		//rotateLeft.mult(direction, direction);
 		//system
@@ -210,24 +245,26 @@ public class JMEAngleFunctions {
 	}
 
 
+	// I don't think this works in all directions!
 	public static Vector3f turnLeft(Vector3f v) {
 		Vector3f v2 = v.normalize();
-		v2.x += 1;
+		v2.x -= 1;
 		v2.y = v.y;
-		v2.z -= 1;
+		v2.z = v.z + 1;
 
-		if (v2.x > 1) {
-			v2.x = 0;
-			v2.z -= 1;
-		} else if (v2.z < -1) {
+		if (v2.z > 1) {
+			v2.z = 0;
 			v2.x -= 1;
-			v2.z = 1;
+		} else if (v2.x < -1) {
+			v2.x = 1;
+			v2.z -= 1;
 		}
 
 		return v2;
 	}
 
 
+	// I don't think this works in all directions!
 	public static Vector3f turnRight(Vector3f v) {
 		Vector3f v2 = v.normalize();
 		v2.x += 1;
@@ -238,10 +275,17 @@ public class JMEAngleFunctions {
 			v2.x = 0;
 			v2.z -= 1;
 		} else if (v2.z < -1) {
-			v2.x -= 1;
 			v2.z = 1;
+			v2.x -= 1;
 		}
 
 		return v2;
 	}
+
+
+	private static void p(String s) {
+		System.out.println(s);
+	}
+
+
 }

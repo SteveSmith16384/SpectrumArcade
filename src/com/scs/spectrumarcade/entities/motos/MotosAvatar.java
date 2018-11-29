@@ -53,13 +53,13 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 				this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE*2));
 			}
 			if (left) {
-				Vector3f dir = game.getCamera().getDirection();
-				dir = JMEAngleFunctions.turnLeft(dir);
+				Vector3f dir = game.getCamera().getLeft();
+				//dir = JMEAngleFunctions.turnLeft(dir);
 				this.srb.applyCentralForce(dir.mult(FORCE));
 			}
 			if (right) {
-				Vector3f dir = game.getCamera().getDirection();
-				dir = JMEAngleFunctions.turnRight(dir);
+				Vector3f dir = game.getCamera().getLeft().mult(-1);
+				//dir = JMEAngleFunctions.turnRight(dir);
 				this.srb.applyCentralForce(dir.mult(FORCE));
 			}
 

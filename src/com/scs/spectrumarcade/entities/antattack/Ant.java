@@ -1,10 +1,12 @@
 package com.scs.spectrumarcade.entities.antattack;
 
+import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
@@ -22,14 +24,13 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private static final int MODE_FWDS = 1;
 	private static final int MODE_TURNING = 2;
 	private static final int MODE_AWAY_FROM_PLAYER = 3;
-
-	//private static final long TURN_INTERVAL = 2000;
+	
+	private static final float TURN_SPEED = 1f;
 
 	private Vector3f turnDir = new Vector3f();
-	//private long timeUntilNextTurn = 0;
 	private long timeUntilNextMode = 0;
 	private int mode = -1;
-	private boolean onFloor = false;
+	public BetterCharacterControl playerControl;
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -42,12 +43,18 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		Vector3f dir = JMEAngleFunctions.getRandomDirection_8();
 		JMEAngleFunctions.rotateToWorldDirection(this.mainNode, dir);
 
+		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
+		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
+		playerControl.setGravity(new Vector3f(0, 1f, 0));
+		this.getMainNode().addControl(playerControl);
+
+		/*
 		srb = new RigidBodyControl(10f);
 		mainNode.addControl(srb);
 		srb.setAngularDamping(0.8f);
 		srb.setFriction(.6f);
 		srb.setRestitution(0);
-
+		 */
 		geometry.walkAnim();
 
 		this.setMode(MODE_TOWARDS_PLAYER);
@@ -73,48 +80,35 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			}
 		}
 
-		if (this.onFloor) {
-			switch (mode) {
-			case MODE_TOWARDS_PLAYER:
-				moveFwds();
-				turnTowardsPlayer();
-				break;
-			case MODE_FWDS:
-				moveFwds();
-				break;
-			case MODE_TURNING:
-				break;
-			case MODE_AWAY_FROM_PLAYER:
-				turnAwayFromPlayer();
-				break;
-			default:
-				throw new RuntimeException("Unknown mode: " + mode);
-			}
-
-			/*
-			if (this.dontMoveUntil < System.currentTimeMillis()) {
-				if (dontMoveTowardsPlayerUntil < System.currentTimeMillis()) {
-					turnTowardsPlayer();
-				}
-				// Walk forwards
-				Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-				//dir.y = -.1f;
-				Vector3f force = dir.mult(2);
-				//Globals.p("Ant force: " + dir);
-				this.srb.setLinearVelocity(force);
-			}*/
-		} else {
-			this.srb.applyCentralForce(new Vector3f(100, 0, 10)); // push them onto floor
+		switch (mode) {
+		case MODE_TOWARDS_PLAYER:
+			turnTowardsPlayer();
+			moveFwds();
+			break;
+		case MODE_FWDS:
+			moveFwds();
+			break;
+		case MODE_TURNING:
+			break;
+		case MODE_AWAY_FROM_PLAYER:
+			turnAwayFromPlayer();
+			break;
+		default:
+			throw new RuntimeException("Unknown mode: " + mode);
 		}
 	}
 
 
 	private void moveFwds() {
+		/*
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		//dir.y = -.1f;
 		Vector3f force = dir.mult(4);
 		//Globals.p("Ant force: " + dir);
-		this.srb.setLinearVelocity(force); // todo - need this every frame?
+		this.srb.setLinearVelocity(force); // todo - need this every frame?*/
+		Vector3f walkDirection = this.mainNode.getWorldRotation().getRotationColumn(2);
+		playerControl.setWalkDirection(walkDirection);
+
 	}
 
 
@@ -122,9 +116,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		if (leftDist > rightDist) {
-			turnDir.set(0, 1, 0).multLocal(1.5f);
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, TURN_SPEED);
 		} else {
-			turnDir.set(0, -1, 0).multLocal(1.5f);
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
@@ -134,9 +128,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
 		if (leftDist < rightDist) {
-			turnDir.set(0, 1, 0).multLocal(1.5f);
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, TURN_SPEED);
 		} else {
-			turnDir.set(0, -1, 0).multLocal(1.5f);
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
 		this.srb.applyTorqueImpulse(turnDir);
 	}
@@ -145,7 +139,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling) {
-			onFloor = true;
 			// Do nothing
 		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ant) {
 			this.srb.setLinearVelocity(Vector3f.ZERO);
@@ -196,4 +189,16 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			throw new RuntimeException("Unknown mode: " + mode);
 		}
 	}
+
+
+	@Override
+	public void actuallyRemove() {
+		super.actuallyRemove();
+		if (playerControl != null) {
+			this.game.bulletAppState.getPhysicsSpace().remove(this.playerControl);
+		}
+
+	}
+
+
 }

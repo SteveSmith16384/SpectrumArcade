@@ -33,8 +33,10 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 		
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
 		game.addEntity(floor);
-		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, SEGMENT_SIZE+1, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
-		game.addEntity(ceiling); // ceiling.getMainNode().getWorldBound() 
+		
+		// No ceiling so we can view from above
+		//FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, SEGMENT_SIZE+1, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
+		//game.addEntity(ceiling); // ceiling.getMainNode().getWorldBound() 
 
 		int gridSize = MAP_SIZE/SEGMENT_SIZE;
 

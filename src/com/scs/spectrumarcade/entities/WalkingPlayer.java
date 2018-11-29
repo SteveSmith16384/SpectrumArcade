@@ -28,7 +28,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
-	
+
 	//Temporary vectors used on each frame.
 	private Vector3f camDir = new Vector3f();
 	private Vector3f camLeft = new Vector3f();
@@ -56,7 +56,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		// Radius and Height determine the size of the collision bubble
 		// Weight determines how much gravity effects the control
 		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
-		// set basic physical properties:
 		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
@@ -108,7 +107,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 					} catch (Exception ex) {
 						// No speakers?
 					}
-					//SCPGame.p("Footstep " + next_footstep_sound);
 					next_footstep_sound++;
 					if (next_footstep_sound >= audio_node_footsteps.size()) {
 						next_footstep_sound = 0;
@@ -161,6 +159,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	}
 
+
 	@Override
 	public void actuallyRemove() {
 		super.actuallyRemove();
@@ -170,20 +169,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	}
 
-/*
-	@Override
-	public void setAbility(int num, IAbility a) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void activateAbility(int num) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
 
 	@Override
 	public void clearForces() {

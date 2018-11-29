@@ -148,7 +148,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		int levelNum = gameData.getLevelNum(level.getClass());
 		this.startNewLevel(level, levelNum);
 */
-		this.setNextLevel(ArcadeRoom.class, -1);
+		this.setNextLevel(StockCarChamp3DLevel.class, 1);
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -453,8 +453,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	public void playerKilled() {
 		IAvatar a = (IAvatar)player;
-		a.clearForces();
 		a.warp(level.getAvatarStartPos());
+		a.clearForces();
 	}
 
 

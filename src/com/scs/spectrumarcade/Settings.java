@@ -2,13 +2,12 @@ package com.scs.spectrumarcade;
 
 public class Settings {
 	
+	public static final boolean TEST_ANT_AI = true;
 	public static final boolean FREE_CAM = false;
 	public static final boolean TRY_SKIDDING = true;
 	
 	public static final boolean RECORD_VID = false;
-	//public static final boolean SHOW_DEBUG = false;
 	public static final boolean SHOW_LOGO = false;
-	
 
 	public static final String VERSION = "0.01";
 

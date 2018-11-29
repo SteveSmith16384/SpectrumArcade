@@ -10,6 +10,7 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
@@ -39,32 +40,34 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 1f);
 		game.addEntity(terrainUDG);
-		
-		String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
-		String[] lines = text.split("\n");
 
-		for (String line : lines) {
-			//lineNum++;
-			String[] parts = line.split(",");
-			int x = Integer.parseInt(parts[0]);
-			int y = Integer.parseInt(parts[1]);
-			int z = Integer.parseInt(parts[2]);
-			terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
+		if (Settings.TEST_ANT_AI) {
+			// Border
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
+
+			// Platform
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(64, 0, 5), new Vector3Int(10, 1, 10));
+
+		} else {
+			String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
+			String[] lines = text.split("\n");
+
+			for (String line : lines) {
+				//lineNum++;
+				String[] parts = line.split(",");
+				int x = Integer.parseInt(parts[0]);
+				int y = Integer.parseInt(parts[1]);
+				int z = Integer.parseInt(parts[2]);
+				terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
+			}
+
+
 		}
-		
-/*
-		// Border
-		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-
-		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(2, 0, 2), MapLoader.loadMap("maps/antattack_amphi.csv"));
-		terrainUDG.addArrayRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(12, 0, 12), MapLoader.loadMap("maps/antattack_pyramid.csv"));
-*/
-		
 		// Add ants
-		for (int i=0 ; i<5 ; i++) {
+		for (int i=0 ; i<(Settings.TEST_ANT_AI?1:5) ; i++) {
 			int x = NumberFunctions.rnd(40, MAP_SIZE-40);
 			int z = NumberFunctions.rnd(10, 20);
 			Ant ant = new Ant(game, x, 11, z); // Make height unique to stop collisions at start
@@ -85,8 +88,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			Key key = new Key(game, pos.x, pos.y + 1.3f, pos.z); // Raise key so ants don't hit it
 			game.addEntity(key);
 		}
-		
-		
+
+
 		// Show all blocks for debugging
 		/*terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
 		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
@@ -110,7 +113,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		return new Vector3f(MAP_SIZE/2, 2f, 3f);
 	}
 
-	
+
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true);
