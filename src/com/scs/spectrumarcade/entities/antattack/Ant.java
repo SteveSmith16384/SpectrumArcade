@@ -152,7 +152,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			/*if (timeUntilNextTurn < System.currentTimeMillis()) {
 				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
 				if (NumberFunctions.rnd(1,  2) == 1) {*/
-			turnDir.set(0, 1, 0).multLocal(7.6f);
+			turnDir.set(0, 1, 0).multLocal(2);//7.6f);
 			/*} else {
 					turnDir = new Vector3f(0, -1, 0).multLocal(2.6f);
 				}
@@ -182,11 +182,11 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			break;
 		case MODE_FWDS:
 			moveFwds();
-			this.timeUntilNextMode = System.currentTimeMillis() + 5000;
+			this.timeUntilNextMode = System.currentTimeMillis() + 3000;//5000;
 			break;
 		case MODE_TURNING:
 			this.srb.setLinearVelocity(new Vector3f());
-			this.timeUntilNextMode = System.currentTimeMillis() + 1500; 
+			this.timeUntilNextMode = System.currentTimeMillis() + 1000;//1500; 
 			break;
 		case MODE_AWAY_FROM_PLAYER:
 			moveFwds();
