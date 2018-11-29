@@ -7,6 +7,7 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -19,11 +20,14 @@ import ssmith.util.RealtimeInterval;
 
 public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
-	private StockCarChamp3DLevel level;
-	private RealtimeInterval checkNodesInt = new RealtimeInterval(2000);
+	private final static float accelerationForce = 1000.0f;
 
-	protected final static float accelerationForce = 1000.0f;
-	protected final float brakeForce = 100.0f;
+	private StockCarChamp3DLevel level;
+	private RealtimeInterval checkNodesInt = new RealtimeInterval(200);
+
+	private boolean reversing = false;
+	private Vector3f prevPos = new Vector3f();
+	private long reverseUntil;
 
 	public StockCarAICar(SpectrumArcade _game, StockCarChamp3DLevel _level, float x, float y, float z) {
 		super(_game, "StockCarAICar", x, y, z);
@@ -36,27 +40,62 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 	public void process(float tpfSecs) {
 		if (checkNodesInt.hitInterval()) {
 
-			//this.canSeeWaypoint(new Vector3f(this.getMainNode().getWorldTranslation()).add(.01f, 0, 0)); // todo - delete
-			//this.canSeeWaypoint(game.player.getMainNode().getWorldTranslation()); // todo - delete
-
-			// Get highest node we can see
-			Vector3f[] waypoints = level.waypoints;
-			//for (int i=waypoints.length-1; i>=0 ; i--) { // todo -
-			int i=0;
-			if (this.canSeeWaypoint(waypoints[i])) {
-				turnTowardsPoint(waypoints[i]);
-				vehicle.accelerate(accelerationForce);
-				//break;
+			if (!reversing) {
+				// Get highest node we can see, starting with the last one
+				boolean found = false;
+				Vector3f[] waypoints = level.waypoints;
+				for (int i=waypoints.length-1; i>=0 ; i--) {
+					if (this.isValidWaypoint(i)) {
+						// If we can see the last waypoint, check if we can see the first
+						if (i == waypoints.length-1) {
+							if (this.isValidWaypoint(0)) {
+								Globals.p("Going to the first waypoint");
+								i = 0;
+							}
+						}
+						turnTowardsPoint(waypoints[i]);
+						vehicle.accelerate(accelerationForce);
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					Globals.p("Can't see any waypoints!");
+				}
+				
+				if (prevPos.distance(this.mainNode.getWorldTranslation()) < 0.1f) {
+					Globals.p("Stuck!  Reversing...");
+					this.reversing = true;
+					this.reverseUntil = System.currentTimeMillis() + 3000;
+				}
+				
+			} else {
+				if (this.reverseUntil < System.currentTimeMillis()) {
+					this.reversing = false;
+				}
+				vehicle.accelerate(-accelerationForce);
 			}
-			//}
-
 		}
+	}
+
+
+	private boolean isValidWaypoint(int i) {
+		Vector3f pos = level.waypoints[i];
+		if (this.canSeeWaypoint(pos)) {
+			float ang = JMEAngleFunctions.getAngleBetween(this.getMainNode(), pos);
+			if (ang < Math.PI/2) { // It's on front of us
+				Globals.p("AI can see waypoint " + i);
+				return true;
+			}
+		}
+		return false;
 	}
 
 
 	private void turnTowardsPoint(Vector3f o) {
 		float ang = JMEAngleFunctions.getAngleBetween(this.getMainNode(), o);
 		if (ang > Math.PI/2) { // It's behind us!
+			Globals.p("Waypoint is behind AI!");
 			vehicle.steer(1f);
 		} else {
 			float leftDist = this.leftNode.getWorldTranslation().distance(o); 
@@ -64,9 +103,11 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 			float diff = Math.abs(leftDist - rightDist);
 			if (diff != 0) {
 				if (leftDist > rightDist) { // Turn right
-					vehicle.steer(-.5f);
+					Globals.p("Steering right");
+					vehicle.steer(.4f);
 				} else { // Turn left
-					vehicle.steer(.5f);
+					Globals.p("Steering left");
+					vehicle.steer(-.4f);
 				}
 			}
 		}

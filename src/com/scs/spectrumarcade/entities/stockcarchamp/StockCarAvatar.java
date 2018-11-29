@@ -5,16 +5,17 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.IAbility;
 
 public class StockCarAvatar extends AbstractStockCar implements IAvatar {
-	
+
 	private Node camNode;
 
 	protected static final float accelerationForce = 1000.0f;
 	protected static final float brakeForce = 100.0f;
-	
+
 	protected float steeringValue = 0;
 	protected float accelerationValue = 0;
 
@@ -80,7 +81,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 			}
 		}
 	}
-	
+
 
 	@Override
 	public void warp(Vector3f vec) {
@@ -88,28 +89,32 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 	}
 
-	
+
 	@Override
 	public void setCameraLocation(Camera cam) {
-		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
-		cam.setLocation(new Vector3f(10, 10, 10));
+		if (!Settings.FREE_CAM) {
+			cam.lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+			cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+		} else {
+			cam.setLocation(new Vector3f(30, 100, 30));
+			game.getCamera().lookAt(new Vector3f(31, 0, 31), Vector3f.UNIT_Y);
+		}
 	}
 
 	/*
 	@Override
 	public void setAbility(int num, IAbility a) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
+
 	@Override
 	public void activateAbility(int num) {
 		// TODO Auto-generated method stub
-		
+
 	}
-*/
+	 */
 
 	@Override
 	public void clearForces() {

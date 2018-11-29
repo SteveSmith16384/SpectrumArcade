@@ -1,7 +1,13 @@
 package com.scs.spectrumarcade;
 
+import com.atr.jme.font.TrueTypeFont;
+import com.atr.jme.font.TrueTypeMesh;
+import com.atr.jme.font.asset.TrueTypeKeyMesh;
+import com.atr.jme.font.asset.TrueTypeLoader;
+import com.atr.jme.font.shape.TrueTypeContainer;
+import com.atr.jme.font.util.StringContainer;
+import com.atr.jme.font.util.Style;
 import com.jme3.font.BitmapFont;
-import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.ColorRGBA;
@@ -25,9 +31,10 @@ public class HUD extends Node {
 	private boolean process_damage_box;
 	private SpectrumArcade game;
 
-	private BitmapText textArea; 
+	//private BitmapText textArea; 
+	private TrueTypeContainer textArea; // For showing all other stats 
 
-	public HUD(SpectrumArcade _game, Camera _cam) { 
+	public HUD(SpectrumArcade _game, Camera _cam, ColorRGBA col) {
 		super("HUD");
 
 		game = _game;
@@ -38,9 +45,8 @@ public class HUD extends Node {
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
 		TrueTypeKeyMesh ttkLarge = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize*2);
-		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/
-		
-        BitmapFont font = game.getAssetManager().loadFont("Interface/Fonts/Console.fnt");
+		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/		
+        //BitmapFont font = game.getAssetManager().loadFont("Interface/Fonts/Console.fnt");
 
 		float lineSpacing = cam.getHeight() / 30;
 
@@ -50,8 +56,14 @@ public class HUD extends Node {
 
 		float xPos = cam.getWidth() * .7f;
 
-		textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
-		textArea.setColor(ColorRGBA.White);
+		//textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
+		game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
+		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zxspectr.ttf", Style.Plain, (int)20);
+		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
+		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), col);
+		//textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.6f), 0);
+		//this.attachChild(textArea);
+		//textArea.setColor(ColorRGBA.White);
 		textArea.setLocalTranslation(10, (int)(cam.getHeight()*.9f), 0);
 		this.attachChild(textArea);
 

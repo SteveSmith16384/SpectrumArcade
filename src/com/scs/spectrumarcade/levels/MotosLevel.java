@@ -19,6 +19,7 @@ import com.scs.spectrumarcade.entities.motos.MotosSimpleEnemy;
 import com.scs.spectrumarcade.entities.motos.MotosSuperHeavyEnemy;
 
 import mygame.util.Vector3Int;
+import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
 public class MotosLevel extends AbstractLevel implements ILevelGenerator {
@@ -31,7 +32,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private int boardsSizeActual;
 	private RealtimeInterval checkEndfLevelInt = new RealtimeInterval(4000);
-	
+
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -106,6 +107,15 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		default:
 			throw new RuntimeException("No such level: " + this.levelNum);
 		}
+
+		//if (levelNum > 1) { todo - re-add
+			for (int i=0 ; i<levelNum*5 ; i++) {
+				int x = NumberFunctions.rnd(1, MAP_SIZE_BLOCKS-2);
+				int z = NumberFunctions.rnd(1, MAP_SIZE_BLOCKS-2);
+				terrainUDG.removeBlock(new Vector3Int(x, 0, z));
+
+			}
+		//}
 
 	}
 

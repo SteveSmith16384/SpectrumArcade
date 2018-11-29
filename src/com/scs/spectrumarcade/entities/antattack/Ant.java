@@ -24,10 +24,11 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private static final int MODE_FWDS = 1;
 	private static final int MODE_TURNING = 2;
 	private static final int MODE_AWAY_FROM_PLAYER = 3;
-	
+
 	private static final float TURN_SPEED = 1f;
 
-	private Vector3f turnDir = new Vector3f();
+	//private Vector3f turnDir = new Vector3f();
+	//private Vector3f dir = new Vector3f();
 	private long timeUntilNextMode = 0;
 	private int mode = -1;
 	public BetterCharacterControl playerControl;
@@ -69,6 +70,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	@Override
 	public void process(float tpfSecs) {
+		this.showDir();
+
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
@@ -89,6 +92,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			moveFwds();
 			break;
 		case MODE_TURNING:
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, 20);//-TURN_SPEED);
+			this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
 			break;
 		case MODE_AWAY_FROM_PLAYER:
 			turnAwayFromPlayer();
@@ -96,6 +101,14 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		default:
 			throw new RuntimeException("Unknown mode: " + mode);
 		}
+		this.showDir();
+	}
+
+
+	private void showDir() {
+		Vector3f walkDirection = this.mainNode.getWorldRotation().getRotationColumn(2);
+		Globals.p("Ant dir: " + walkDirection);
+
 	}
 
 
@@ -104,9 +117,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		//dir.y = -.1f;
 		Vector3f force = dir.mult(4);
-		//Globals.p("Ant force: " + dir);
 		this.srb.setLinearVelocity(force); // todo - need this every frame?*/
-		Vector3f walkDirection = this.mainNode.getWorldRotation().getRotationColumn(2);
+		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
+		Globals.p("Ant dir: " + walkDirection);
 		playerControl.setWalkDirection(walkDirection);
 
 	}
@@ -120,7 +133,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		} else {
 			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
-		this.srb.applyTorqueImpulse(turnDir);
+		this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
+		//this.srb.applyTorqueImpulse(turnDir);
 	}
 
 
@@ -132,7 +146,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		} else {
 			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
-		this.srb.applyTorqueImpulse(turnDir);
+		this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
+		//this.srb.applyTorqueImpulse(turnDir);
 	}
 
 
@@ -141,17 +156,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (collidedWith instanceof FloorOrCeiling) {
 			// Do nothing
 		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ant) {
-			this.srb.setLinearVelocity(Vector3f.ZERO);
-			/*if (timeUntilNextTurn < System.currentTimeMillis()) {
-				timeUntilNextTurn = System.currentTimeMillis() + TURN_INTERVAL;
-				if (NumberFunctions.rnd(1,  2) == 1) {*/
-			turnDir.set(0, 1, 0).multLocal(2);//7.6f);
-			/*} else {
-					turnDir = new Vector3f(0, -1, 0).multLocal(2.6f);
-				}
-			}*/
 			Globals.p("Ant collided with " + collidedWith + " and is turning");
-			this.srb.applyTorqueImpulse(turnDir);
+			//this.srb.setLinearVelocity(Vector3f.ZERO);
+			//this.srb.applyTorqueImpulse(turnDir);
 			this.setMode(MODE_TURNING);
 		}
 	}
@@ -159,34 +166,36 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	public void hitByBomb() {
 		Globals.p("Ant hit!");
-		this.srb.applyTorqueImpulse(new Vector3f(0, 1, 0).multLocal(1f));
+		//this.srb.applyTorqueImpulse(new Vector3f(0, 1, 0).multLocal(1f));
 		//dontMoveTowardsPlayerUntil = System.currentTimeMillis() + 10000;
 		this.setMode(MODE_AWAY_FROM_PLAYER);
 	}
 
 
 	private void setMode(int m) {
-		Globals.p("New Ant mode: " + m);
-		mode = m;
-		switch (mode) {
-		case MODE_TOWARDS_PLAYER:
-			moveFwds();
-			// Do nothing
-			break;
-		case MODE_FWDS:
-			moveFwds();
-			this.timeUntilNextMode = System.currentTimeMillis() + 3000;//5000;
-			break;
-		case MODE_TURNING:
-			this.srb.setLinearVelocity(new Vector3f());
-			this.timeUntilNextMode = System.currentTimeMillis() + 1000;//1500; 
-			break;
-		case MODE_AWAY_FROM_PLAYER:
-			moveFwds();
-			this.timeUntilNextMode = System.currentTimeMillis() + 10000;
-			break;
-		default:
-			throw new RuntimeException("Unknown mode: " + mode);
+		if (m != mode) {
+			Globals.p("New Ant mode: " + m);
+			mode = m;
+			switch (mode) {
+			case MODE_TOWARDS_PLAYER:
+				moveFwds();
+				// Do nothing
+				break;
+			case MODE_FWDS:
+				moveFwds();
+				this.timeUntilNextMode = System.currentTimeMillis() + 3000;//5000;
+				break;
+			case MODE_TURNING:
+				//this.srb.setLinearVelocity(new Vector3f());
+				this.timeUntilNextMode = System.currentTimeMillis() + 1000;//1500; 
+				break;
+			case MODE_AWAY_FROM_PLAYER:
+				moveFwds();
+				this.timeUntilNextMode = System.currentTimeMillis() + 10000;
+				break;
+			default:
+				throw new RuntimeException("Unknown mode: " + mode);
+			}
 		}
 	}
 

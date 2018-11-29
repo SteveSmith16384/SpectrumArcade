@@ -26,7 +26,7 @@ import ssmith.lang.NumberFunctions;
 
 public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE = 128;
+	private static int MAP_SIZE = 128;
 
 	public AntAttackLevel() {//SpectrumArcade _game) {
 		super();//_game);
@@ -35,6 +35,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		if (Settings.TEST_ANT_AI) {
+			MAP_SIZE = 20;
+		}
+		
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/white.png");
 		game.addEntity(floor);
 
@@ -49,7 +53,11 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
 			// Platform
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(64, 0, 5), new Vector3Int(10, 1, 10));
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(5, 0, 5), new Vector3Int(10, 1, 10));
+			
+			// Add ants
+				Ant ant = new Ant(game, 10, 11, 10); // Make height unique to stop collisions at start
+				game.addEntity(ant);
 
 		} else {
 			String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
@@ -65,13 +73,13 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			}
 
 
-		}
 		// Add ants
 		for (int i=0 ; i<(Settings.TEST_ANT_AI?1:5) ; i++) {
-			int x = NumberFunctions.rnd(40, MAP_SIZE-40);
+			int x = NumberFunctions.rnd(40, MAP_SIZE-40); // todo - base on avatar start pos
 			int z = NumberFunctions.rnd(10, 20);
 			Ant ant = new Ant(game, x, 11, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
+		}
 		}
 
 		// Add keys

@@ -106,7 +106,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "Laps:";
 	}
 
 

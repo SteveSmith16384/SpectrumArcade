@@ -1,5 +1,8 @@
 package com.scs.spectrumarcade;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -36,7 +39,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
+import com.scs.spectrumarcade.levels.MotosLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -138,7 +141,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		gameData = new GameData();
 
-		hud = new HUD(this, cam);
+		hud = new HUD(this, cam, ColorRGBA.Green);
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
@@ -148,7 +151,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		int levelNum = gameData.getLevelNum(level.getClass());
 		this.startNewLevel(level, levelNum);
 */
-		this.setNextLevel(StockCarChamp3DLevel.class, 1);
+		this.setNextLevel(MotosLevel.class, 1); // TrailblazerLevel
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -214,8 +217,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	private void startNewLevel(ILevelGenerator level, int levelNum) {
-		try {
+	private void startNewLevel(ILevelGenerator level, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		//try {
 			// Clear previous
 			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 			this.rootNode.detachAllChildren();
@@ -232,10 +235,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			IAvatar a = (IAvatar)player;
 			a.setCameraLocation(cam); // Ready to set direction
 			level.setInitialCameraDir(cam);
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
-		}
+		}*/
 
 	}
 
@@ -437,12 +440,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void keyCollected() {
-		this.gameData.numKeys--;
+		/*this.gameData.numKeys--;
 		if (gameData.numKeys <= 0) {
 			ArcadeRoom room = new ArcadeRoom();
 			room.setGame(this);
 			this.startNewLevel(room, -1);
-		}
+		}*/
 	}
 
 

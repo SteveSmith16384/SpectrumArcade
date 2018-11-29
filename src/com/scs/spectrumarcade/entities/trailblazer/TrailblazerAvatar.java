@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities.motos;
+package com.scs.spectrumarcade.entities.trailblazer;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
@@ -8,26 +8,28 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.IAvatar;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.levels.MotosLevel;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
-public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
+public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar {
 
-	private static final float FORCE = 15f;
+	private static final float FORCE = 5f;
 
+	private TrailblazerLevel level;
 	private Vector3f camPos = new Vector3f();
-	
+	private int x, z; // todo - rename to lastCheck
+
 	private boolean left = false, right = false, up = false, down = false;
 
-	public MotosAvatar(SpectrumArcade _game, float x, float y, float z) {
-		super(_game, "MotosAvatar");
+	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z) {
+		super(_game, "TrailblazerAvatar");
 
+		level = _level;
+		
 		Mesh sphere = new Sphere(16, 16, 1, true, false);
-		Geometry geometry = new Geometry("MotosPlayerEntitySphere", sphere);
+		Geometry geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
 		geometry.setCullHint(CullHint.Always);
 		//geometry.setShadowMode(ShadowMode.CastAndReceive);
 
@@ -54,13 +56,18 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 			}
 			if (left) {
 				Vector3f dir = game.getCamera().getLeft();
-				//dir = JMEAngleFunctions.turnLeft(dir);
 				this.srb.applyCentralForce(dir.mult(FORCE));
 			}
 			if (right) {
 				Vector3f dir = game.getCamera().getLeft().mult(-1);
-				//dir = JMEAngleFunctions.turnRight(dir);
 				this.srb.applyCentralForce(dir.mult(FORCE));
+			}
+			
+			Vector3f pos = this.mainNode.getWorldTranslation();
+			if ((int)pos.x != x || (int)pos.z != z) {
+				level.handleSquare(x, z);
+				x = (int)pos.x;
+				z = (int)pos.z;
 			}
 
 		}
@@ -82,11 +89,9 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 		} else if (binding.equals("Down")) {
 			down = isPressed;
 		} else if (binding.equals("Jump")) {
-			/*if (canJump) {
-				if (isPressed) { 
-					jump(); 
-				}
-			}*/
+			if (isPressed) { 
+				// todo jump(); 
+			}
 		}
 
 	}
@@ -96,7 +101,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	public void warp(Vector3f vec) {
 		this.srb.setPhysicsLocation(vec.clone());
 	}
-	
+
 
 	@Override
 	public void setCameraLocation(Camera cam) {
