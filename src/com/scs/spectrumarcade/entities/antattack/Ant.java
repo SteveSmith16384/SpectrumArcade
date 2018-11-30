@@ -113,11 +113,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 
 	private void moveFwds() {
-		/*
-		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		//dir.y = -.1f;
-		Vector3f force = dir.mult(4);
-		this.srb.setLinearVelocity(force); // todo - need this every frame?*/
 		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
 		//Globals.p("Ant dir: " + walkDirection);
 		playerControl.setWalkDirection(walkDirection.mult(3f));

@@ -23,7 +23,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private TrailblazerLevel level;
 	private Vector3f camPos = new Vector3f();
-	private int x, z; // todo - rename to lastCheck
+	private int lastCheckX, lastCheckZ;
 
 	private boolean left = false, right = false, up = false, down = false;
 
@@ -73,10 +73,10 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 			Vector3f pos = this.mainNode.getWorldTranslation();
 			if (pos.y <= RAD+0.1f) {
-				if ((int)pos.x != x || (int)pos.z != z) {
-					level.handleSquare(x, z);
-					x = (int)pos.x;
-					z = (int)pos.z;
+				if ((int)pos.x != lastCheckX || (int)pos.z != lastCheckZ) {
+					level.handleSquare(lastCheckX, lastCheckZ);
+					lastCheckX = (int)pos.x;
+					lastCheckZ = (int)pos.z;
 				}
 			}
 		}

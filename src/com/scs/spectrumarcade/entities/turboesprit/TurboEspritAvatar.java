@@ -18,7 +18,6 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
 		
-		//game.getCamera().setLocation(camNode.getWorldTranslation()); // todo -re3move
 	}
 
 
@@ -41,20 +40,6 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		
 	}
 
-/*
-	@Override
-	public void setAbility(int num, IAbility a) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void activateAbility(int num) {
-		// TODO Auto-generated method stub
-		
-	}
-*/
 
 	@Override
 	public void clearForces() {

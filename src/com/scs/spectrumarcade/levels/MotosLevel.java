@@ -44,15 +44,6 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
 		game.addEntity(terrainUDG);
 
-		// Border - todo - remove
-		/*terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 1, 0), new Vector3Int(MAP_SIZE_BLOCKS, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 1, 0), new Vector3Int(1, 1, MAP_SIZE_BLOCKS));
-		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 1, MAP_SIZE_BLOCKS-1), new Vector3Int(MAP_SIZE_BLOCKS, 1, 1));
-		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(MAP_SIZE_BLOCKS, 1, 0), new Vector3Int(1, 1, MAP_SIZE_BLOCKS));
-		 */
-
-		//terrainUDG.addRectRange_Blocks(BlockCodes.MOTOS_MAGENTA, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE_BLOCKS, 1, MAP_SIZE_BLOCKS));
-
 		// Add solid walls
 		int id = 0;
 		for (int zGrid=0 ; zGrid<gridSize ; zGrid++) {

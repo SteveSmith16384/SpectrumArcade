@@ -101,21 +101,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		}
 	}
 
-	/*
-	@Override
-	public void setAbility(int num, IAbility a) {
-		// TODO Auto-generated method stub
-
-	}
-
-
-	@Override
-	public void activateAbility(int num) {
-		// TODO Auto-generated method stub
-
-	}
-	 */
-
+	
 	@Override
 	public void clearForces() {
 		vehicle.clearForces();

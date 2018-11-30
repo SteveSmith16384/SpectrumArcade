@@ -6,7 +6,6 @@ import com.scs.spectrumarcade.blocks.ConveyorBlock;
 import com.scs.spectrumarcade.blocks.DebugBlock;
 import com.scs.spectrumarcade.blocks.EATFOuterWall;
 import com.scs.spectrumarcade.blocks.EATFSolidBlock;
-import com.scs.spectrumarcade.blocks.EATFWeakBlock;
 import com.scs.spectrumarcade.blocks.ExitBlock;
 import com.scs.spectrumarcade.blocks.FenceBlock;
 import com.scs.spectrumarcade.blocks.GauntletDoor;
@@ -23,6 +22,14 @@ import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.SplatBlock;
 import com.scs.spectrumarcade.blocks.StockCarWallCyan;
+import com.scs.spectrumarcade.blocks.TrailblazerJump;
+import com.scs.spectrumarcade.blocks.TrailblazerNormal1;
+import com.scs.spectrumarcade.blocks.TrailblazerNormal2;
+import com.scs.spectrumarcade.blocks.TrailblazerNormal3;
+import com.scs.spectrumarcade.blocks.TrailblazerNudgeLeft;
+import com.scs.spectrumarcade.blocks.TrailblazerNudgeRight;
+import com.scs.spectrumarcade.blocks.TrailblazerSlowDown;
+import com.scs.spectrumarcade.blocks.TrailblazerSpeedUp;
 
 import mygame.blocks.IBlock;
 
@@ -38,7 +45,7 @@ public class BlockCodes {
 	public static final int SPLAT = 9;
 	public static final int RED_FLOOR_PXL = 10;
 	public static final int EATF_SOLID = 11;
-	public static final int EATF_WEAK = 12; // todo - not required
+	//public static final int EATF_WEAK = 12; // todo - not required
 	public static final int EATF_OUTER_WALL = 13;
 	public static final int MINED_OUT_FRESH = 14;
 	public static final int MINED_OUT_WALKED_ON = 15;
@@ -51,6 +58,14 @@ public class BlockCodes {
 	public static final int GAUNTLET_DOOR = 22;
 	public static final int GRASS_LONG = 23;
 	public static final int GRASS_CUT = 24;
+	public static final int TRAILBLAZER_NORMAL1 = 25;
+	public static final int TRAILBLAZER_NORMAL2 = 26;
+	public static final int TRAILBLAZER_NORMAL3 = 27;
+	public static final int TRAILBLAZER_SPEED_UP = 28;
+	public static final int TRAILBLAZER_SLOW_DOWN = 29;
+	public static final int TRAILBLAZER_NUDGE_LEFT = 30;
+	public static final int TRAILBLAZER_NUDGE_RIGHT = 31;
+	public static final int TRAILBLAZER_JUMP = 32;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -64,7 +79,7 @@ public class BlockCodes {
 		case SPLAT: return SplatBlock.class;
 		case RED_FLOOR_PXL: return RedFloorBlockPxl.class;
 		case EATF_SOLID: return EATFSolidBlock.class;
-		case EATF_WEAK: return EATFWeakBlock.class;
+		//case EATF_WEAK: return EATFWeakBlock.class;
 		case EATF_OUTER_WALL: return EATFOuterWall.class;
 		case MINED_OUT_FRESH: return MinedOutPlain.class;
 		case MINED_OUT_WALKED_ON: return MinedOutWalkedOn.class;
@@ -77,6 +92,15 @@ public class BlockCodes {
 		case GAUNTLET_DOOR: return GauntletDoor.class;
 		case GRASS_LONG: return GrassLongBlock.class;
 		case GRASS_CUT: return GrassCutBlock.class;
+		case TRAILBLAZER_NORMAL1: return TrailblazerNormal1.class;
+		case TRAILBLAZER_NORMAL2: return TrailblazerNormal2.class;
+		case TRAILBLAZER_NORMAL3: return TrailblazerNormal3.class;
+		case TRAILBLAZER_SPEED_UP: return TrailblazerSpeedUp.class;
+		case TRAILBLAZER_SLOW_DOWN: return TrailblazerSlowDown.class;
+		case TRAILBLAZER_NUDGE_LEFT: return TrailblazerNudgeLeft.class;
+		case TRAILBLAZER_NUDGE_RIGHT: return TrailblazerNudgeRight.class;
+		case TRAILBLAZER_JUMP: return TrailblazerJump.class;
+
 		default: throw new RuntimeException("code: " + code);
 		}
 	}

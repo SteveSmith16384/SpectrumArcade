@@ -51,12 +51,6 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 
 	@Override
 	public void process(float tpfSecs) {
-		//turnTowardsPlayer();
-
-		//Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		//Vector3f forceDir = dir.mult(15);
-		//Globals.p("Ant force: " + dir);
-
 		Vector3f dir = game.getCamera().getLocation().subtract(this.getMainNode().getWorldTranslation());
 		Vector3f forceDir = dir.mult(force);
 
@@ -68,19 +62,6 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 		}
 
 	}
-	
-	/*
-	private void turnTowardsPlayer() {
-		float leftDist = this.leftNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
-		float rightDist = this.rightNode.getWorldTranslation().distance(game.player.getMainNode().getWorldTranslation()); 
-		if (leftDist > rightDist) {
-			turnDir.set(0, 1, 0).multLocal(turnSpeed); // todo - make param
-		} else {
-			turnDir.set(0, -1, 0).multLocal(turnSpeed); // todo - make param
-		}
-		this.srb.applyTorqueImpulse(turnDir);
-	}
-*/
 
 
 }
