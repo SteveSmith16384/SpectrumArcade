@@ -45,8 +45,7 @@ public class HUD extends Node {
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
 		TrueTypeKeyMesh ttkLarge = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize*2);
-		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/		
-        //BitmapFont font = game.getAssetManager().loadFont("Interface/Fonts/Console.fnt");
+		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/
 
 		float lineSpacing = cam.getHeight() / 30;
 
@@ -58,9 +57,9 @@ public class HUD extends Node {
 
 		//textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
 		game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
-		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zxspectr.ttf", Style.Plain, (int)20);
+		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zxspectr.ttf", Style.Bold, (int)30);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
-		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), col);
+		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "HELLO!"), col);
 		//textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.6f), 0);
 		//this.attachChild(textArea);
 		//textArea.setColor(ColorRGBA.White);

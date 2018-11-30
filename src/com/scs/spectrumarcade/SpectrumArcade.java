@@ -39,7 +39,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.MotosLevel;
+import com.scs.spectrumarcade.levels.MinedOutLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -146,12 +146,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
 /*
-		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//AntAttackLevel(); //
+		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		level.setGame(this);
 		int levelNum = gameData.getLevelNum(level.getClass());
 		this.startNewLevel(level, levelNum);
 */
-		this.setNextLevel(MotosLevel.class, 1); // TrailblazerLevel
+		this.setNextLevel(MinedOutLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {

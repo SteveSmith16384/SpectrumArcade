@@ -53,7 +53,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 
 			// Platform
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(5, 0, 5), new Vector3Int(10, 1, 10));
+			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(5, 0, 5), new Vector3Int(2, 1, 2));
 			
 			// Add ants
 				Ant ant = new Ant(game, 10, 11, 10); // Make height unique to stop collisions at start

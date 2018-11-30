@@ -70,7 +70,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	@Override
 	public void process(float tpfSecs) {
-		this.showDir();
+		//this.showDir();
 
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
@@ -92,7 +92,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			moveFwds();
 			break;
 		case MODE_TURNING:
-			JMEAngleFunctions.turnSpatialLeft(this.mainNode, 20);//-TURN_SPEED);
+			JMEAngleFunctions.turnSpatialLeft(this.mainNode, .2f);//-TURN_SPEED);
 			this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
 			break;
 		case MODE_AWAY_FROM_PLAYER:
@@ -101,7 +101,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		default:
 			throw new RuntimeException("Unknown mode: " + mode);
 		}
-		this.showDir();
+		//this.showDir();
 	}
 
 
@@ -119,8 +119,8 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		Vector3f force = dir.mult(4);
 		this.srb.setLinearVelocity(force); // todo - need this every frame?*/
 		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
-		Globals.p("Ant dir: " + walkDirection);
-		playerControl.setWalkDirection(walkDirection);
+		//Globals.p("Ant dir: " + walkDirection);
+		playerControl.setWalkDirection(walkDirection.mult(3f));
 
 	}
 
@@ -156,7 +156,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (collidedWith instanceof FloorOrCeiling) {
 			// Do nothing
 		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ant) {
-			Globals.p("Ant collided with " + collidedWith + " and is turning");
+			//Globals.p("Ant collided with " + collidedWith + " and is turning");
 			//this.srb.setLinearVelocity(Vector3f.ZERO);
 			//this.srb.applyTorqueImpulse(turnDir);
 			this.setMode(MODE_TURNING);
@@ -174,7 +174,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	private void setMode(int m) {
 		if (m != mode) {
-			Globals.p("New Ant mode: " + m);
+			//Globals.p("New Ant mode: " + m);
 			mode = m;
 			switch (mode) {
 			case MODE_TOWARDS_PLAYER:
@@ -183,7 +183,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 				break;
 			case MODE_FWDS:
 				moveFwds();
-				this.timeUntilNextMode = System.currentTimeMillis() + 3000;//5000;
+				this.timeUntilNextMode = System.currentTimeMillis() + 2000;//5000;
 				break;
 			case MODE_TURNING:
 				//this.srb.setLinearVelocity(new Vector3f());
@@ -191,7 +191,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 				break;
 			case MODE_AWAY_FROM_PLAYER:
 				moveFwds();
-				this.timeUntilNextMode = System.currentTimeMillis() + 10000;
+				this.timeUntilNextMode = System.currentTimeMillis() + 5000;
 				break;
 			default:
 				throw new RuntimeException("Unknown mode: " + mode);
