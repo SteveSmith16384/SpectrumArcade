@@ -19,7 +19,7 @@ public class MinerModel extends Node {
 	//private Spatial model;
 	private AnimChannel channel;
 	//public boolean isJumping = false;
-	private int levelCode;
+	//private int levelCode;
 
 	public MinerModel(AssetManager assetManager) {
 		super("MinerModel");
@@ -43,6 +43,11 @@ public class MinerModel extends Node {
 	public void walkAnim() {
 		channel.setLoopMode(LoopMode.Loop);
 		channel.setAnim("Walk");
+	}
+
+	public void idleAnim() {
+		channel.setLoopMode(LoopMode.Loop);
+		//todo - re-add channel.setAnim("Idle");
 	}
 
 	/*

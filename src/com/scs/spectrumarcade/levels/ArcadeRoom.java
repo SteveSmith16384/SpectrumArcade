@@ -44,17 +44,17 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine3 = new ArcadeMachine(game, this, 3, 0, 2, "ArcadeMachine_EricAndTheFloaters", EricAndTheFloatersLevel.class);
 		game.addEntity(machine3);
 
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 4, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
-		game.addEntity(machine2);
-
-		ArcadeMachine machine4 = new ArcadeMachine(game, this, 5, 0, 2, "ArcadeMachine_MinedOut", MinedOutLevel.class);
+		ArcadeMachine machine4 = new ArcadeMachine(game, this, 4, 0, 2, "ArcadeMachine_MinedOut", MinedOutLevel.class);
 		game.addEntity(machine4);
 
-		ArcadeMachine machine5 = new ArcadeMachine(game, this, 6, 0, 2, "ArcadeMachine_Motos", MotosLevel.class);
+		ArcadeMachine machine5 = new ArcadeMachine(game, this, 5, 0, 2, "ArcadeMachine_Motos", MotosLevel.class);
 		game.addEntity(machine5);
 
-		ArcadeMachine machine6 = new ArcadeMachine(game, this, 7, 0, 2, "ArcadeMachine_StockCar", StockCarChamp3DLevel.class);
+		ArcadeMachine machine6 = new ArcadeMachine(game, this, 6, 0, 2, "ArcadeMachine_StockCar", StockCarChamp3DLevel.class);
 		game.addEntity(machine6);
+
+		//ArcadeMachine machine2 = new ArcadeMachine(game, this, 7, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		//game.addEntity(machine2);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 8, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
 		//game.addEntity(machine7);
@@ -74,7 +74,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, true);
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, true, false);
 	}
 
 

@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.misc;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
+import com.jme3.animation.LoopMode;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bounding.BoundingBox;
@@ -47,10 +48,10 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
-		Spatial model = assetManager.loadModel("Models/jkm_fordfocus/fordfocus128.obj");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/jkm_fordfocus/fordfocusnew128.bmp");
-		String animNode = "Peau(ZOMBIE) (Node)";
-		String animToUse = "Rig(Zombie)Action";
+		Spatial model = assetManager.loadModel("Models/AnimatedHuman/Animated Woman_smooth(1).blend");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AnimatedHuman/Textures/ClothedDarkSkin.png");
+		String animNode = "Woman (Node)";
+		String animToUse = "Walking";
 
 
 		if (model instanceof Node) {
@@ -61,11 +62,12 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 			control = JMEModelFunctions.getNodeWithControls(animNode, (Node)model);
 			if (control != null) {
 				control.addListener(this);
-				System.out.println("Control Animations: " + control.getAnimationNames());
+				System.out.println("Animations for selected control: " + control.getAnimationNames());
 				AnimChannel channel = control.createChannel();
 				try {
+					channel.setLoopMode(LoopMode.Loop);
 					channel.setAnim(animToUse);
-					SpectrumArcade.p("Runnign anim " + animToUse);
+					SpectrumArcade.p("Running anim " + animToUse);
 				} catch (IllegalArgumentException ex) {
 					SpectrumArcade.pe("Try running the right anim code!");
 				}
@@ -76,13 +78,14 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 
 		rootNode.attachChild(model);
 
-		this.rootNode.attachChild(JMEModelFunctions.getGrid(assetManager, 10));
+		//this.rootNode.attachChild(JMEModelFunctions.getGrid(assetManager, 10));
 
 		rootNode.updateGeometricState();
 
 		model.updateModelBound();
 		BoundingBox bb = (BoundingBox)model.getWorldBound();
-		System.out.println("Model w/h/d: " + (bb.getXExtent()*2) + "/" + (bb.getYExtent()*2) + "/" + (bb.getZExtent()*2));
+		System.out.println("Model w/h/d: " + (bb.getXExtent()*2) + " / " + (bb.getYExtent()*2) + " / " + (bb.getZExtent()*2));
+		System.out.println("Model centre: " + bb.getCenter());
 
 		this.flyCam.setMoveSpeed(12f);
 

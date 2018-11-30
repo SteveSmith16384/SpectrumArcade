@@ -11,6 +11,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -29,9 +30,13 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	private List<Point> startPos;
 	public ArrayList<Vector3f> waypoints;
 
+	private CameraSystem camSys;
+
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		camSys = new CameraSystem(game, true, 3f);
+		camSys.setupFollowCam(3, 0);
 
 		// Border
 		/*terrainUDG.addRectRange_Blocks(BlockCodes.STOCK_CAR_WALL_CYAN, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -51,25 +56,25 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 		waypoints = new ArrayList<>();
 		startPos = new ArrayList<>();
-		
+
 		for (int z=0 ; z<map[0].length ; z++) {
 			for (int x=0 ; x<map.length ; x++) {
 				//try {
-					if (map[x][z] == 1) {
-						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
-					} else if (map[x][z] < 0) {
-						this.startPos.add(new Point(x*SQ_SIZE, z*SQ_SIZE));
-					} else if (map[x][z] == 0) {
-						// Do nothing
-					} else {
-						//waypoints[map[x][z]-2]= new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE);
-						int pos = map[x][z]-2;
-						while (waypoints.size() <= pos) {
-							waypoints.add(new Vector3f());
-						}
-						waypoints.remove(pos);
-						waypoints.add(pos, new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE));
+				if (map[x][z] == 1) {
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
+				} else if (map[x][z] < 0) {
+					this.startPos.add(new Point(x*SQ_SIZE, z*SQ_SIZE));
+				} else if (map[x][z] == 0) {
+					// Do nothing
+				} else {
+					//waypoints[map[x][z]-2]= new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE);
+					int pos = map[x][z]-2;
+					while (waypoints.size() <= pos) {
+						waypoints.add(new Vector3f());
 					}
+					waypoints.remove(pos);
+					waypoints.add(pos, new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE));
+				}
 				/*} catch (ArrayIndexOutOfBoundsException ex) {
 					ex.printStackTrace();
 				}*/
@@ -77,7 +82,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		}
 
 		// Create AI cars
-		for (int i=0 ; i<1 ; i++) {
+		for (int i=0 ; i<startPos.size()-1 ; i++) {
 			Point p = this.startPos.get(i+1);
 			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y, i+2);
 			game.addEntity(aicar);
@@ -107,19 +112,20 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public void process(float tpfSecs) {
-		// Do nothing
+		camSys.process(game.getCamera(), game.player);
+
 	}
 
 
 	@Override
 	public String getHUDText() {
-		return "Laps:";
+		return "Laps: [todo]";
 	}
 
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
-		//cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
+		// No, camsys does it
 	}
 
 }

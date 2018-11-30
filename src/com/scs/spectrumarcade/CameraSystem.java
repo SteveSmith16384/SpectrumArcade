@@ -11,14 +11,15 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
-public class CameraSystem {//extends AbstractSystem {
+public class CameraSystem {
 
 	private boolean followCam;
 	private float followDist = 1f;
 	private float shoulderAngle = 0f;
+	private float fixedHeight = -1;
 	private SpectrumArcade game;
 
-	public CameraSystem(SpectrumArcade _game, boolean _followCam) {
+	public CameraSystem(SpectrumArcade _game, boolean _followCam, float _fixedHeight) {
 		game = _game;
 		followCam = _followCam;
 	}
@@ -89,6 +90,9 @@ public class CameraSystem {//extends AbstractSystem {
 				cam.setLocation(avatarPos.add(add));
 			}
 
+			if (fixedHeight > 0) {
+				cam.getLocation().y = fixedHeight;
+			}
 			cam.update();
 		}
 	}

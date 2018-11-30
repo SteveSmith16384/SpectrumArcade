@@ -25,7 +25,7 @@ import ssmith.util.RealtimeInterval;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final boolean SHOW_MINES = true;
+	private static final boolean SHOW_MINES = false;
 	private static final int MAP_SIZE_X = 30;
 	private static final int MAP_SIZE_Z = 20;
 
@@ -47,7 +47,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		int NUM_MINES = 30 + (levelNum*10);
 		for (int i=0 ; i<NUM_MINES ; i++) {
 			int x = NumberFunctions.rnd(1, MAP_SIZE_X-2);
-			int z = NumberFunctions.rnd(3, MAP_SIZE_Z-2);
+			int z = NumberFunctions.rnd(3, MAP_SIZE_Z-3);
 			mines[x][z] = true;
 			if (SHOW_MINES) {
 				this.terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.BRICK);
@@ -80,7 +80,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 3f, 2f, false);
+		return new WalkingPlayer(game, MAP_SIZE_X/2, 3f, 2f, false, false);
 	}
 
 

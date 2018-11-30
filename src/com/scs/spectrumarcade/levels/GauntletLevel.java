@@ -108,7 +108,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, true);
+		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, true, false);
 		game.setAbility(1, new GauntletAxeThrower(game));
 		return wp;
 	}

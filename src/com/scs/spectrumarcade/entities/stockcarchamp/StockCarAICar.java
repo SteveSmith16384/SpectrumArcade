@@ -43,6 +43,14 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 	@Override
 	public void process(float tpfSecs) {
 		if (checkNodesInt.hitInterval()) {
+			
+			// Check if upside-down
+			Vector3f upDir = this.getMainNode().getWorldRotation().getRotationColumn(1);
+			if (upDir.y < 0) {
+				Globals.p("Car upside down!");
+				// todo - right
+				//this.vehicle.applyTorque(torque);
+			}
 
 			if (!reversing) {
 				boolean canSeeWP = this.isValidWaypoint(this.currentWayPoint);

@@ -61,7 +61,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean game_over = false;
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
-	//public boolean started = false;
 	private boolean loadingLevel = false;
 	private int mode = MODE_GAME;
 
@@ -201,6 +200,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_W));
 		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
 		inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+		inputManager.addMapping("Test", new KeyTrigger(KeyInput.KEY_T));
 		inputManager.addMapping(Settings.KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
 		inputManager.addMapping(Settings.KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
 
@@ -209,6 +209,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Up");
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
+		inputManager.addListener(this, "Test");
 		inputManager.addListener(this, Settings.KEY_RECORD);
 		inputManager.addListener(this, Settings.KEY_RETURN_TO_ARCADE);
 
@@ -373,33 +374,33 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	@Override
 	public void collision(PhysicsCollisionEvent event) {
 		if (mode == MODE_GAME) {
-		//System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
+			//System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
 
-		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
-		AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);
-		while (a == null && ga.getParent() != null) {
-			//Globals.p("Getting parent of " + ga);
-			ga = ga.getParent();
-			a = ga.getUserData(Settings.ENTITY);
-		}
-		if (a == null) {
-			//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
-			return;
-		}
+			Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
+			AbstractPhysicalEntity a = ga.getUserData(Settings.ENTITY);
+			while (a == null && ga.getParent() != null) {
+				//Globals.p("Getting parent of " + ga);
+				ga = ga.getParent();
+				a = ga.getUserData(Settings.ENTITY);
+			}
+			if (a == null) {
+				//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
+				return;
+			}
 
-		Spatial gb = (Spatial)event.getObjectB().getUserObject(); 
-		AbstractPhysicalEntity b = gb.getUserData(Settings.ENTITY);
-		while (b == null && gb.getParent() != null) {
-			//Globals.p("Getting parent of " + gb);
-			gb = gb.getParent();
-			b = gb.getUserData(Settings.ENTITY);
-		}
-		if (b == null) {
-			//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
-			return;
-		}
+			Spatial gb = (Spatial)event.getObjectB().getUserObject(); 
+			AbstractPhysicalEntity b = gb.getUserData(Settings.ENTITY);
+			while (b == null && gb.getParent() != null) {
+				//Globals.p("Getting parent of " + gb);
+				gb = gb.getParent();
+				b = gb.getUserData(Settings.ENTITY);
+			}
+			if (b == null) {
+				//throw new RuntimeException("Geometry " + ga.getName() + " has no entity");
+				return;
+			}
 
-		CollisionLogic.collision(this, a, b);
+			CollisionLogic.collision(this, a, b);
 		}
 	}
 

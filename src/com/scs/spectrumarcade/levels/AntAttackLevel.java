@@ -12,6 +12,7 @@ import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
@@ -26,7 +27,10 @@ import ssmith.lang.NumberFunctions;
 
 public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
+	public static final boolean FOLLOW_CAM = true;
+
 	private static int MAP_SIZE = 128;
+	private CameraSystem camSys;
 
 	public AntAttackLevel() {
 		super();
@@ -38,7 +42,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		if (Settings.TEST_ANT_AI) {
 			MAP_SIZE = 20;
 		}
-		
+
+		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		if (FOLLOW_CAM) {
+			camSys.setupFollowCam(3, 0);
+		}
+
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 2, MAP_SIZE, "Textures/white.png");
 		game.addEntity(floor);
 
@@ -54,10 +63,10 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 			// Platform
 			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(5, 0, 5), new Vector3Int(2, 1, 2));
-			
+
 			// Add ants
-				Ant ant = new Ant(game, 10, 11, 10); // Make height unique to stop collisions at start
-				game.addEntity(ant);
+			Ant ant = new Ant(game, 10, 2, 10); // Make height unique to stop collisions at start
+			game.addEntity(ant);
 
 		} else {
 			String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
@@ -73,13 +82,13 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			}
 
 
-		// Add ants
-		for (int i=0 ; i<(Settings.TEST_ANT_AI?1:5) ; i++) {
-			int x = NumberFunctions.rnd(40, MAP_SIZE-40); // todo - base on avatar start pos
-			int z = NumberFunctions.rnd(10, 20);
-			Ant ant = new Ant(game, x, 11, z); // Make height unique to stop collisions at start
-			game.addEntity(ant);
-		}
+			// Add ants
+			for (int i=0 ; i<(Settings.TEST_ANT_AI?1:5) ; i++) {
+				int x = NumberFunctions.rnd(40, MAP_SIZE-40); // todo - base on avatar start pos
+				int z = NumberFunctions.rnd(10, 20);
+				Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
+				game.addEntity(ant);
+			}
 		}
 
 		// Add keys
@@ -124,7 +133,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true);
+		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true, true);
 		game.setAbility(1, new BombGun_AA(game));
 		return wp;
 	}
@@ -138,7 +147,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		// Do nothing
+		camSys.process(game.getCamera(), game.player);
+
 	}
 
 

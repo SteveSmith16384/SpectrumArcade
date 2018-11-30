@@ -14,7 +14,7 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 // SpiderStand, SpiderWalk
 public class AntModel extends Node {
 
-	private static final float MODEL_HEIGHT = 0.4f;
+	public static final float MODEL_WIDTH = 0.9f;
 
 	// Anim
 	private AnimChannel channel;
@@ -23,10 +23,11 @@ public class AntModel extends Node {
 		Spatial model = assetManager.loadModel("Models/spider/Spider.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/spider/Spider.png");
 		model.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
+		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(-1, 0, 0)); // Point model fwds
+		JMEModelFunctions.scaleModelToWidth(model, MODEL_WIDTH);
+		//JMEModelFunctions.scaleModelToWidth(model, MODEL_WIDTH);
 		JMEModelFunctions.moveYOriginTo(model, 0f);
 		
-		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(-1, 0, 0)); // Point model fwds
 
 		AnimControl control = JMEModelFunctions.getNodeWithControls("Sphere (Node)", (Node)model);
 		channel = control.createChannel();

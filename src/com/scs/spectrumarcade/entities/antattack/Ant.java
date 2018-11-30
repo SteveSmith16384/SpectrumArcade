@@ -1,10 +1,9 @@
 package com.scs.spectrumarcade.entities.antattack;
 
+import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.control.BetterCharacterControl;
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -16,8 +15,6 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.models.AntModel;
 
-import ssmith.lang.NumberFunctions;
-
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
 	private static final int MODE_TOWARDS_PLAYER = 0;
@@ -27,8 +24,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	private static final float TURN_SPEED = 1f;
 
-	//private Vector3f turnDir = new Vector3f();
-	//private Vector3f dir = new Vector3f();
 	private long timeUntilNextMode = 0;
 	private int mode = -1;
 	public BetterCharacterControl playerControl;
@@ -44,18 +39,14 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		Vector3f dir = JMEAngleFunctions.getRandomDirection_8();
 		JMEAngleFunctions.rotateToWorldDirection(this.mainNode, dir);
 
-		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
+		BoundingBox bb = (BoundingBox)geometry.getWorldBound();
+		playerControl = new BetterCharacterControl(bb.getZExtent(), bb.getYExtent()*2, 1f);
+		//playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
 		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
+		//playerControl.setGravity(new Vector3f(0, -10, 0));
 		this.getMainNode().addControl(playerControl);
 
-		/*
-		srb = new RigidBodyControl(10f);
-		mainNode.addControl(srb);
-		srb.setAngularDamping(0.8f);
-		srb.setFriction(.6f);
-		srb.setRestitution(0);
-		 */
 		geometry.walkAnim();
 
 		this.setMode(MODE_TOWARDS_PLAYER);
@@ -76,7 +67,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
 		}
-
+/*
 		if (mode > 0) {
 			if (this.timeUntilNextMode < System.currentTimeMillis()) {
 				this.setMode(mode-1);
@@ -101,7 +92,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		default:
 			throw new RuntimeException("Unknown mode: " + mode);
 		}
-		//this.showDir();
+		//this.showDir();*/
 	}
 
 

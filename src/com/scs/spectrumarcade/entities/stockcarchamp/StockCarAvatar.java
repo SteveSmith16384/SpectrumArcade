@@ -1,17 +1,15 @@
 package com.scs.spectrumarcade.entities.stockcarchamp;
 
-import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.IAbility;
 
 public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
-	private Node camNode;
+	//private Node camNode;
 
 	protected static final float accelerationForce = 1000.0f;
 	protected static final float brakeForce = 100.0f;
@@ -22,9 +20,9 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "StockCarAvatar", x, y, z, true, 1);
 
-		camNode = new Node("CameraNode");
-		camNode.setLocalTranslation(0f, 1.2f, -4);
-		this.mainNode.attachChild(camNode);
+		/*camNode = new Node("CameraNode");
+		camNode.setLocalTranslation(0f, 1.8f, -4);
+		this.mainNode.attachChild(camNode);*/
 	}
 
 
@@ -71,6 +69,10 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 			} else {
 				vehicle.brake(0f);
 			}
+		} else if (binding.equals("Test")) {
+			if (value) {
+				this.vehicle.applyTorque(new Vector3f(0, 1, 0).multLocal(10f));
+			}
 		} /*else if (binding.equals("Jump")) {
 			if (value) {
 				System.out.println("Reset");
@@ -94,8 +96,8 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 	@Override
 	public void setCameraLocation(Camera cam) {
 		if (!Settings.FREE_CAM) {
-			cam.lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-			cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+			//cam.lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+			//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		} else {
 			cam.setLocation(new Vector3f(30, 100, 30));
 			game.getCamera().lookAt(new Vector3f(31, 0, 31), Vector3f.UNIT_Y);

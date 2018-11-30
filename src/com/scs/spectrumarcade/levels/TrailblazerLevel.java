@@ -43,7 +43,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		camSys = new CameraSystem(game, FOLLOW_CAM);
+		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0);
 		}

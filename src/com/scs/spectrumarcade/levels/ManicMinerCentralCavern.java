@@ -89,7 +89,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 */
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 15, 5, 20f, true);
+		return new WalkingPlayer(game, 15, 5, 20f, true, true);
 	}
 
 
