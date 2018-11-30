@@ -39,7 +39,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.MinedOutLevel;
+import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -151,7 +151,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		int levelNum = gameData.getLevelNum(level.getClass());
 		this.startNewLevel(level, levelNum);
 */
-		this.setNextLevel(MinedOutLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+		this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 		
 		//File video, audio;
 		if (Settings.RECORD_VID) {

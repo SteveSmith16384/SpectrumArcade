@@ -20,7 +20,7 @@ import ssmith.util.RealtimeInterval;
 
 public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
-	private final static float accelerationForce = 1000.0f;
+	private final static float accelerationForce = 500.0f;
 
 	private StockCarChamp3DLevel level;
 	private RealtimeInterval checkNodesInt = new RealtimeInterval(200);
@@ -68,12 +68,15 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 					this.reversing = true;
 					this.reverseUntil = System.currentTimeMillis() + 3000;
 				}
+				prevPos.set(this.mainNode.getWorldTranslation());
 				
 			} else {
 				if (this.reverseUntil < System.currentTimeMillis()) {
 					this.reversing = false;
-				}
+					vehicle.accelerate(accelerationForce * 2);
+				} else {
 				vehicle.accelerate(-accelerationForce);
+			}
 			}
 		}
 	}
@@ -83,8 +86,8 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 		Vector3f pos = level.waypoints[i];
 		if (this.canSeeWaypoint(pos)) {
 			float ang = JMEAngleFunctions.getAngleBetween(this.getMainNode(), pos);
-			if (ang < Math.PI/2) { // It's on front of us
-				Globals.p("AI can see waypoint " + i);
+			if (ang < Math.PI) { // It's on front of us
+				Globals.p("AI can see waypoint #" + (i+2));
 				return true;
 			}
 		}
@@ -94,7 +97,7 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
 	private void turnTowardsPoint(Vector3f o) {
 		float ang = JMEAngleFunctions.getAngleBetween(this.getMainNode(), o);
-		if (ang > Math.PI/2) { // It's behind us!
+		if (ang > Math.PI) { // It's behind us!
 			Globals.p("Waypoint is behind AI!");
 			vehicle.steer(1f);
 		} else {
@@ -104,10 +107,10 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 			if (diff != 0) {
 				if (leftDist > rightDist) { // Turn right
 					Globals.p("Steering right");
-					vehicle.steer(.4f);
+					vehicle.steer(.3f);
 				} else { // Turn left
 					Globals.p("Steering left");
-					vehicle.steer(-.4f);
+					vehicle.steer(-.3f);
 				}
 			}
 		}

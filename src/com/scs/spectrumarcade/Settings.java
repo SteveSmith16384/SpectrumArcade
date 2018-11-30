@@ -3,7 +3,7 @@ package com.scs.spectrumarcade;
 public class Settings {
 	
 	public static final boolean TEST_ANT_AI = false;
-	public static final boolean FREE_CAM = false;
+	public static final boolean FREE_CAM = true;
 	
 	public static final boolean TRY_SKIDDING = true;
 	
