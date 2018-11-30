@@ -3,18 +3,22 @@ package com.scs.spectrumarcade.entities.trailblazer;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
+import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.MotosLevel;
 import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar {
 
+	private static final float RAD = .4f;
 	private static final float FORCE = 5f;
 
 	private TrailblazerLevel level;
@@ -23,15 +27,19 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private boolean left = false, right = false, up = false, down = false;
 
-	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z) {
+	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
 		super(_game, "TrailblazerAvatar");
 
 		level = _level;
-		
-		Mesh sphere = new Sphere(16, 16, 1, true, false);
+
+		Mesh sphere = new Sphere(32, 32, RAD, true, false);
 		Geometry geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
-		geometry.setCullHint(CullHint.Always);
-		//geometry.setShadowMode(ShadowMode.CastAndReceive);
+		if (!followCam) {
+			geometry.setCullHint(CullHint.Always);
+		} else {
+			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
+			geometry.setShadowMode(ShadowMode.CastAndReceive);
+		}
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -62,14 +70,15 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 				Vector3f dir = game.getCamera().getLeft().mult(-1);
 				this.srb.applyCentralForce(dir.mult(FORCE));
 			}
-			
-			Vector3f pos = this.mainNode.getWorldTranslation();
-			if ((int)pos.x != x || (int)pos.z != z) {
-				level.handleSquare(x, z);
-				x = (int)pos.x;
-				z = (int)pos.z;
-			}
 
+			Vector3f pos = this.mainNode.getWorldTranslation();
+			if (pos.y <= RAD+0.1f) {
+				if ((int)pos.x != x || (int)pos.z != z) {
+					level.handleSquare(x, z);
+					x = (int)pos.x;
+					z = (int)pos.z;
+				}
+			}
 		}
 
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
@@ -90,7 +99,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 			down = isPressed;
 		} else if (binding.equals("Jump")) {
 			if (isPressed) { 
-				// todo jump(); 
+				if (Settings.DEBUG_CLEAR_FORCES) {
+					this.clearForces();
+				}
 			}
 		}
 
@@ -105,9 +116,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void setCameraLocation(Camera cam) {
-		//cam.setLocation(new Vector3f(10, 5, 10f));
-		camPos.set(getMainNode().getWorldTranslation());
-		cam.setLocation(camPos);
+		// No, cam system does it
+		//camPos.set(getMainNode().getWorldTranslation());
+		//cam.setLocation(camPos);
 
 	}
 
@@ -115,6 +126,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	@Override
 	public void clearForces() {
 		srb.clearForces();
+		srb.setLinearVelocity(new Vector3f());
 	}
 
 }

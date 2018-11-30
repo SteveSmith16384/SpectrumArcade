@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -19,21 +20,30 @@ import ssmith.util.RealtimeInterval;
 
 public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
+	private static final boolean FOLLOW_CAM = true;
+	
 	private static final int MAP_SIZE_X = 8;
-	private static final int MAP_SIZE_Z = 200;
+	private static final int MAP_SIZE_Z = 400;
 
 	private VoxelTerrainEntity terrainUDG;
 	private RealtimeInterval checkWinInt = new RealtimeInterval(100);
 	private int levelNum;
-
+	private int[][] map;
+	private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
+		
+		camSys = new CameraSystem(game, FOLLOW_CAM);
+		if (FOLLOW_CAM) {
+			camSys.setupFollowCam(3, 0);
+		}
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_Z, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_Z, 100, 1f);
 		game.addEntity(terrainUDG);
 
+		map = new int[MAP_SIZE_X][MAP_SIZE_Z];
 		// Add floor
 		int id = 0;
 		for (int zGrid=0 ; zGrid<MAP_SIZE_Z ; zGrid++) {
@@ -55,9 +65,10 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		}
 
 		// Add problems
-		for (int zGrid=0 ; zGrid<MAP_SIZE_Z ; zGrid++) {
+		for (int zGrid=3 ; zGrid<MAP_SIZE_Z ; zGrid++) {
 			int xGrid = NumberFunctions.rnd(0, MAP_SIZE_X-1);
-			int rnd = NumberFunctions.rnd(1, 2);
+			int rnd = NumberFunctions.rnd(1, 4);
+			map[xGrid][zGrid] = rnd;
 			switch (rnd) {
 			case 1:
 				terrainUDG.removeBlock(new Vector3Int(xGrid, 0, zGrid));
@@ -70,10 +81,9 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 				break;
 			case 4:
 				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
-				id = -1;
 				break;
 			default:
-				throw new RuntimeException("Todo");
+				//throw new RuntimeException("Todo");
 			}
 		}
 
@@ -89,7 +99,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new TrailblazerAvatar(game, this, MAP_SIZE_X/2, 2f, 1f);
+		return new TrailblazerAvatar(game, this, MAP_SIZE_X/2, 2f, 1f, FOLLOW_CAM);
 	}
 
 
@@ -101,6 +111,8 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		camSys.process(game.getCamera(), game.player);
+		
 		if (checkWinInt.hitInterval()) {
 			Vector3f pos = game.player.getMainNode().getWorldTranslation();
 			// Check if player completed level

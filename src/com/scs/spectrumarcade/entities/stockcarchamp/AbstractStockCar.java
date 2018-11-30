@@ -45,11 +45,11 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 
 		//setting suspension values for wheels, this can be a bit tricky
 		//see also https://docs.google.com/Doc?docid=0AXVUZ5xw6XpKZGNuZG56a3FfMzU0Z2NyZnF4Zmo&hl=en
-		float stiffness = 60.0f;//200=f1 car
-		float compValue = .3f; //(should be lower than damp)
-		float dampValue = .4f;
-		vehicle.setSuspensionCompression(compValue * 2.0f * FastMath.sqrt(stiffness));
-		vehicle.setSuspensionDamping(dampValue * 2.0f * FastMath.sqrt(stiffness));
+		float stiffness = 70f;//60.0f;//200=f1 car
+		float compValue = .6f; //(should be lower than damp)
+		float dampValue = .8f;
+		vehicle.setSuspensionCompression(compValue * FastMath.sqrt(stiffness));
+		vehicle.setSuspensionDamping(dampValue * FastMath.sqrt(stiffness));
 		vehicle.setSuspensionStiffness(stiffness);
 		vehicle.setMaxSuspensionForce(10000.0f);
 

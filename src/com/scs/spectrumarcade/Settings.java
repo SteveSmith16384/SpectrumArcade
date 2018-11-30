@@ -2,6 +2,7 @@ package com.scs.spectrumarcade;
 
 public class Settings {
 	
+	public static final boolean DEBUG_CLEAR_FORCES = true;
 	public static final boolean TEST_ANT_AI = false;
 	public static final boolean FREE_CAM = false;
 	

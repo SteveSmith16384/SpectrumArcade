@@ -172,7 +172,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	@Override
 	public void clearForces() {
-		//playerControl.clearForces();
+		playerControl.setWalkDirection(new Vector3f());
 	}
 
 

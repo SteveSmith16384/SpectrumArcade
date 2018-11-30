@@ -110,6 +110,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	@Override
 	public void clearForces() {
 		srb.clearForces();
+		srb.setLinearVelocity(new Vector3f());
 	}
 
 }

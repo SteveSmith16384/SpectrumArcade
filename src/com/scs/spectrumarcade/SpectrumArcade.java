@@ -39,9 +39,12 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
+
+	private static final int MODE_GAME = 0;
+	private static final int MODE_RETURNING = 1;
 
 	public static final Random rnd = new Random();
 
@@ -58,8 +61,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean game_over = false;
 	private boolean player_won = false;
 	private VideoRecorderAppState video_recorder;
-	public boolean started = false;
+	//public boolean started = false;
 	private boolean loadingLevel = false;
+	private int mode = MODE_GAME;
 
 	private DirectionalLight sun;
 	public GameData gameData;
@@ -145,14 +149,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
-/*
+		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
-		level.setGame(this);
-		int levelNum = gameData.getLevelNum(level.getClass());
-		this.startNewLevel(level, levelNum);
-*/
-		this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel
-		
+		 */
+		this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+
 		//File video, audio;
 		if (Settings.RECORD_VID) {
 			/*app.setTimer(new IsoTimer(60));
@@ -219,22 +220,22 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	private void startNewLevel(ILevelGenerator level, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		//try {
-			// Clear previous
-			this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
-			this.rootNode.detachAllChildren();
-			this.entities.clear();
-			this.entitiesToAdd.clear();
-			this.entitiesToRemove.clear();
+		// Clear previous
+		this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
+		this.rootNode.detachAllChildren();
+		this.entities.clear();
+		this.entitiesToAdd.clear();
+		this.entitiesToRemove.clear();
 
-			loadingLevel = true;
-			level.generateLevel(this, levelNum);
-			player = (AbstractPhysicalEntity)level.createAndPositionAvatar();
-			this.addEntity((AbstractPhysicalEntity)player);
-			loadingLevel = false;
-			this.getViewPort().setBackgroundColor(level.getBackgroundColour());
-			IAvatar a = (IAvatar)player;
-			a.setCameraLocation(cam); // Ready to set direction
-			level.setInitialCameraDir(cam);
+		loadingLevel = true;
+		level.generateLevel(this, levelNum);
+		player = (AbstractPhysicalEntity)level.createAndPositionAvatar();
+		this.addEntity((AbstractPhysicalEntity)player);
+		loadingLevel = false;
+		this.getViewPort().setBackgroundColor(level.getBackgroundColour());
+		IAvatar a = (IAvatar)player;
+		a.setCameraLocation(cam); // Ready to set direction
+		level.setInitialCameraDir(cam);
 		/*} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -278,23 +279,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			tpfSecs = 1f;
 		}
 
-		if (this.nextLevel != null) {
-			try {
-				level = nextLevel.newInstance();
-				level.setGame(this);
-				this.startNewLevel(level, this.nextLevelNum);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			this.nextLevel = null;
-		}
-
-		for (int i=1 ; i<=2 ; i++) {
-			if (this.abilityActivated[i]) {
-				activateAbility(i);
-			}
-		}
-
 		while (this.entitiesToRemove.size() > 0) {
 			IEntity e = this.entitiesToRemove.remove(0);
 			this.actuallyRemoveEntity(e);
@@ -306,28 +290,46 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			actuallyAddEntity(e);
 		}
 
-		level.process(tpfSecs);
+		if (mode == MODE_RETURNING) {
+			this.cam.setLocation(cam.getLocation().add(0, tpfSecs, 0));
+			this.cam.lookAt(this.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+			if (cam.getLocation().y > 20) {
+				mode = MODE_GAME;
+			}
+		} else {
+			if (this.nextLevel != null) {
+				try {
+					level = nextLevel.newInstance();
+					level.setGame(this);
+					this.startNewLevel(level, this.nextLevelNum);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				this.nextLevel = null;
+			}
 
-		for(IProcessable ip : this.entitiesForProcessing) {
-			ip.process(tpfSecs);
+			for (int i=1 ; i<=2 ; i++) {
+				if (this.abilityActivated[i]) {
+					activateAbility(i);
+				}
+			}
+
+			level.process(tpfSecs);
+
+			for(IProcessable ip : this.entitiesForProcessing) {
+				ip.process(tpfSecs);
+			}
+
+			hud.processByClient(tpfSecs);
+
+			IAvatar a = (IAvatar)player;
+			a.setCameraLocation(cam);
 		}
-
-		hud.processByClient(tpfSecs);
-		/*
-		 * By default the location of the box is on the bottom of the terrain
-		 * we make a slight offset to adjust for head height.
-		 */
-		//Vector3f vec = ((AbstractPhysicalEntity)player).getMainNode().getWorldTranslation();
-		//cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level
-		IAvatar a = (IAvatar)player;
-		a.setCameraLocation(cam);
 
 		if (spotlight != null) {
 			this.spotlight.setPosition(cam.getLocation());
 			this.spotlight.setDirection(cam.getDirection());
 		}
-
-		started = true;
 	}
 
 
@@ -355,6 +357,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				}
 			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
 				// this.startNewLevel(new ArcadeRoom(), -1);
+				mode = MODE_RETURNING;
 				this.setNextLevel(ArcadeRoom.class, -1);
 			}
 		}
@@ -451,7 +454,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public String getHUDText() {
-		return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
+		if (mode == MODE_GAME) {
+			return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
+		} else {
+			return "C NONSENCE IN BASIC";
+		}
 	}
 
 
@@ -484,7 +491,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public void setNextLevel(Class<? extends ILevelGenerator> clazz, int levelNum) {
 		//gameData.setLevel(clazz, levelNum);
 		this.setLevel(clazz, levelNum);
-		
+
 		this.nextLevel = clazz;
 		this.nextLevelNum = levelNum;
 	}
