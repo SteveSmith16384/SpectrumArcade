@@ -440,6 +440,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void keyCollected() {
+		hud.showCollectBox();
 		/*this.gameData.numKeys--;
 		if (gameData.numKeys <= 0) {
 			ArcadeRoom room = new ArcadeRoom();
@@ -455,6 +456,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void playerKilled() {
+		hud.showDamageBox();
 		IAvatar a = (IAvatar)player;
 		a.warp(level.getAvatarStartPos());
 		a.clearForces();

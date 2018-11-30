@@ -14,10 +14,10 @@ public class VWCorradon extends Node {
 	public static final float MODEL_WIDTH = 2.2f;
 	public static final float MODEL_HEIGHT = 0.7f;
 
-	public VWCorradon(AssetManager assetManager) {
+	public VWCorradon(AssetManager assetManager, int texNum) {
 		Spatial model = assetManager.loadModel("Models/car/car.obj");
 		model.scale(.01f);
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/car/corradon.png");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/car/corradon" + texNum + ".png");
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);

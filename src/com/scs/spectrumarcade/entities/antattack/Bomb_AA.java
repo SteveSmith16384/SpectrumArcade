@@ -34,6 +34,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 	public Bomb_AA(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Bomb_AA");
 		
+		// Check it doesn't start in the 
 		if (y < .3f) {
 			y = .3f;
 		}
@@ -64,10 +65,10 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 
 			// Shards
 			for (int i=0 ; i<10 ; i++) {
-				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.2f,  .2f);
-				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.2f,  .2f);
-				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.2f,  .2f);
-				ExplosionShard shard = new ExplosionShard(game, x, y, z, .1f, "Textures/antattack.png");
+				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.3f,  .3f);
+				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.3f,  .3f);
+				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.3f,  .3f);
+				ExplosionShard shard = new ExplosionShard(game, x, y, z, .05f, "Textures/antattack.png");
 				game.addEntity(shard);
 			}
 			this.markForRemoval();

@@ -57,7 +57,7 @@ public class HUD extends Node {
 
 		//textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
 		game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
-		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zxspectr.ttf", Style.Bold, (int)30);
+		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zx_spectrum-7.ttf", Style.Bold, (int)30);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
 		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "HELLO!"), col);
 		//textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.6f), 0);

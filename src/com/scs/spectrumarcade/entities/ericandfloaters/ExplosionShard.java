@@ -22,9 +22,9 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 		super(_game, "ExplosionShard");
 
 		Box box1 = new Box(size, size, size);
-		Geometry geometry = new Geometry("BombSphere", box1);
+		Geometry geometry = new Geometry("BombGeom", box1);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, tex);//);
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, tex);
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -33,7 +33,7 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 		srb = new RigidBodyControl(.2f);
 		mainNode.addControl(srb);
 		
-		Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), 1, NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(100);
+		Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(1,  2), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(100);
 		srb.applyCentralForce(dir);
 
 	}

@@ -30,7 +30,7 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 
 	@Override
 	protected Node getModel() {
-		return new VWCorradon(game.getAssetManager());
+		return new VWCorradon(game.getAssetManager(), 1);
 	}
 
 	

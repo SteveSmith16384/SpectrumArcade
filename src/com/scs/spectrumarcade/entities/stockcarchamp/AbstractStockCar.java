@@ -24,7 +24,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	public VehicleControl vehicle;
 
 
-	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z) {
+	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, boolean player, int texNum) {
 		super(_game, name);
 
 		Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
@@ -37,7 +37,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		//BoxCollisionShape box = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
 		BoxCollisionShape box = new BoxCollisionShape(new Vector3f(0.7f, 0.65f, 1.25f));
 		compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
-		
+
 		//create vehicle node
 		Node vehicleNode = this.mainNode;// new Node("vehicleNode");
 		vehicle = new VehicleControl(compoundShape, 400);
@@ -72,8 +72,10 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		wheels1.setMaterial(mat);
 		VehicleWheel w1 = vehicle.addWheel(node1, new Vector3f(-xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
-		if (Settings.TRY_SKIDDING) {
-			w1.setFrictionSlip(3f);
+		if (player) {
+			if (Settings.TRY_SKIDDING) {
+				w1.setFrictionSlip(3f);
+			}
 		}
 
 		Node node2 = new Node("wheel 2 node");
@@ -83,8 +85,10 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		wheels2.setMaterial(mat);
 		VehicleWheel w2 = vehicle.addWheel(node2, new Vector3f(xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
-		if (Settings.TRY_SKIDDING) {
-			w2.setFrictionSlip(3f);
+		if (player) {
+			if (Settings.TRY_SKIDDING) {
+				w2.setFrictionSlip(3f);
+			}
 		}
 
 		Node node3 = new Node("wheel 3 node");
@@ -94,8 +98,10 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		wheels3.setMaterial(mat);
 		VehicleWheel w3 = vehicle.addWheel(node3, new Vector3f(-xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
-		if (Settings.TRY_SKIDDING) {
-			w3.setFrictionSlip(2.35f); // Low = slide.  2 skids too much, 2.5 doesn't
+		if (player) {
+			if (Settings.TRY_SKIDDING) {
+				w3.setFrictionSlip(2.35f); // Low = slide.  2 skids too much, 2.5 doesn't
+			}
 		}
 
 		Node node4 = new Node("wheel 4 node");
@@ -105,8 +111,10 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		wheels4.setMaterial(mat);
 		VehicleWheel w4 = vehicle.addWheel(node4, new Vector3f(xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
-		if (Settings.TRY_SKIDDING) {
-			w4.setFrictionSlip(2.35f); // Low = slide
+		if (player) {
+			if (Settings.TRY_SKIDDING) {
+				w4.setFrictionSlip(2.35f); // Low = slide
+			}
 		}
 
 		vehicleNode.attachChild(node1);
@@ -124,7 +132,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		this.mainNode.setLocalTranslation(x, y, z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
 
-		this.mainNode.attachChild(new VWCorradon(game.getAssetManager()));
+		this.mainNode.attachChild(new VWCorradon(game.getAssetManager(), texNum));
 	}
 
 

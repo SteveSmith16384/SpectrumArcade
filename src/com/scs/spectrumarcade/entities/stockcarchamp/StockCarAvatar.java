@@ -20,7 +20,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 	protected float accelerationValue = 0;
 
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z) {
-		super(_game, "StockCarAvatar", x, y, z);
+		super(_game, "StockCarAvatar", x, y, z, true, 1);
 
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.2f, -4);

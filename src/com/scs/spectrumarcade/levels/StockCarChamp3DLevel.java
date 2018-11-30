@@ -26,14 +26,12 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	private static final int SQ_SIZE = 2;
 
 	public VoxelTerrainEntity terrainUDG;
-	private List<Point> startPos = new ArrayList<>();
-	public Vector3f[] waypoints = new Vector3f[4];
+	private List<Point> startPos;
+	public ArrayList<Vector3f> waypoints;
 
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		startPos.clear();
-		//waypoints.clear();
 
 		// Border
 		/*terrainUDG.addRectRange_Blocks(BlockCodes.STOCK_CAR_WALL_CYAN, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -51,9 +49,12 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, MAP_SIZE+1, SQ_SIZE);
 		game.addEntity(terrainUDG);
 
+		waypoints = new ArrayList<>();
+		startPos = new ArrayList<>();
+		
 		for (int z=0 ; z<map[0].length ; z++) {
 			for (int x=0 ; x<map.length ; x++) {
-				try {
+				//try {
 					if (map[x][z] == 1) {
 						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
 					} else if (map[x][z] < 0) {
@@ -61,18 +62,24 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 					} else if (map[x][z] == 0) {
 						// Do nothing
 					} else {
-						waypoints[map[x][z]-2]= new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE);
+						//waypoints[map[x][z]-2]= new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE);
+						int pos = map[x][z]-2;
+						while (waypoints.size() <= pos) {
+							waypoints.add(new Vector3f());
+						}
+						waypoints.remove(pos);
+						waypoints.add(pos, new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE));
 					}
-				} catch (ArrayIndexOutOfBoundsException ex) {
+				/*} catch (ArrayIndexOutOfBoundsException ex) {
 					ex.printStackTrace();
-				}
+				}*/
 			}
 		}
 
 		// Create AI cars
 		for (int i=0 ; i<1 ; i++) {
 			Point p = this.startPos.get(i+1);
-			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y);
+			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y, i+2);
 			game.addEntity(aicar);
 		}
 	}

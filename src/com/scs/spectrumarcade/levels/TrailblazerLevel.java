@@ -38,30 +38,42 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		int id = 0;
 		for (int zGrid=0 ; zGrid<MAP_SIZE_Z ; zGrid++) {
 			for (int xGrid=0 ; xGrid<MAP_SIZE_X ; xGrid++) {
-				int rnd = NumberFunctions.rnd(1, 25);
-				switch (rnd) {
+				switch (id) {
 				case 0:
+					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_MAGENTA); // todo - use TB blocks!
 					break;
 				case 1:
-					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.MOTOS_YELLOW);
+					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
 					break;
 				default:
-					switch (id) {
-					case 0:
-						terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_MAGENTA); // todo - use TB blocks!
-						break;
-					case 1:
-						terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
-						break;
-					case 2:
-						terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
-						id = -1;
-						break;
-					default:
-						throw new RuntimeException("Todo");
-					}
-					id++;
+					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
+					id = -1;
+					break;
 				}
+				id++;
+			}
+		}
+
+		// Add problems
+		for (int zGrid=0 ; zGrid<MAP_SIZE_Z ; zGrid++) {
+			int xGrid = NumberFunctions.rnd(0, MAP_SIZE_X-1);
+			int rnd = NumberFunctions.rnd(1, 2);
+			switch (rnd) {
+			case 1:
+				terrainUDG.removeBlock(new Vector3Int(xGrid, 0, zGrid));
+				break;
+			case 2:
+				terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
+				break;
+			case 3:
+				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
+				break;
+			case 4:
+				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
+				id = -1;
+				break;
+			default:
+				throw new RuntimeException("Todo");
 			}
 		}
 
@@ -111,7 +123,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
-	
+
 	public void handleSquare(int x, int z) {
 		// todo
 	}

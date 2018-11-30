@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities.stockcarchamp;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.jme3.collision.CollisionResult;
@@ -24,15 +25,18 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
 	private StockCarChamp3DLevel level;
 	private RealtimeInterval checkNodesInt = new RealtimeInterval(200);
+	private ArrayList<Vector3f> waypoints;
 
+	private int currentWayPoint = 0;
 	private boolean reversing = false;
 	private Vector3f prevPos = new Vector3f();
 	private long reverseUntil;
 
-	public StockCarAICar(SpectrumArcade _game, StockCarChamp3DLevel _level, float x, float y, float z) {
-		super(_game, "StockCarAICar", x, y, z);
+	public StockCarAICar(SpectrumArcade _game, StockCarChamp3DLevel _level, float x, float y, float z, int texNum) {
+		super(_game, "StockCarAICar", x, y, z, false, texNum);
 
 		level = _level;
+		waypoints = level.waypoints;
 	}
 
 
@@ -41,57 +45,115 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 		if (checkNodesInt.hitInterval()) {
 
 			if (!reversing) {
-				// Get highest node we can see, starting with the last one
-				boolean found = false;
-				Vector3f[] waypoints = level.waypoints;
-				for (int i=waypoints.length-1; i>=0 ; i--) {
-					if (this.isValidWaypoint(i)) {
-						// If we can see the last waypoint, check if we can see the first
-						if (i == waypoints.length-1) {
-							if (this.isValidWaypoint(0)) {
-								Globals.p("Going to the first waypoint");
-								i = 0;
-							}
-						}
-						turnTowardsPoint(waypoints[i]);
-						vehicle.accelerate(accelerationForce);
-						found = true;
-						break;
+				boolean canSeeWP = this.isValidWaypoint(this.currentWayPoint);
+				if (!canSeeWP) {
+					this.emergencySetNextWaypoint();
+					return;
+				}
+				float dist = this.getDistToWP(this.currentWayPoint);
+				if (dist < 8) {
+					int nextWP = this.getNextWaypoint(this.currentWayPoint);
+					boolean canSeenextWP = this.isValidWaypoint(nextWP);
+					if (canSeenextWP) {
+						Globals.p("AI now going to WP #" + (currentWayPoint+2));
+						this.currentWayPoint = nextWP;
 					}
 				}
-				if (!found) {
-					Globals.p("Can't see any waypoints!");
-				}
-				
-				if (prevPos.distance(this.mainNode.getWorldTranslation()) < 0.1f) {
+
+				// Check if we're stuck
+				float distMoved = prevPos.distance(this.mainNode.getWorldTranslation()); 
+				if (distMoved < 0.01f) {
 					Globals.p("Stuck!  Reversing...");
-					this.reversing = true;
-					this.reverseUntil = System.currentTimeMillis() + 3000;
+					this.startReversing();
+				} else {
+					vehicle.accelerate(accelerationForce);
+					this.turnTowardsPoint(this.waypoints.get(this.currentWayPoint));
+
 				}
 				prevPos.set(this.mainNode.getWorldTranslation());
-				
+
 			} else {
 				if (this.reverseUntil < System.currentTimeMillis()) {
 					this.reversing = false;
-					vehicle.accelerate(accelerationForce * 2);
 				} else {
-				vehicle.accelerate(-accelerationForce);
-			}
+					vehicle.accelerate(-accelerationForce);
+				}
 			}
 		}
 	}
+	
+	
+	private int getNextWaypoint(int wp) {
+		if (wp < this.waypoints.size()-1) {
+			return wp+1;
+		} else {
+			return 0;
+		}
+		
+	}
 
 
+	private int getPrevWaypoint(int wp) {
+		if (wp > 0) {
+			return wp - 1;
+		} else {
+			return this.waypoints.size()-1;
+		}
+		
+	}
+
+
+	private void emergencySetNextWaypoint() {
+		// Get highest node we can see, starting with the last one
+		boolean found = false;
+		for (int i=waypoints.size()-1; i>=0 ; i--) {
+			if (this.isValidWaypoint(i)) {
+				// If we can see the last waypoint, check if we can see the first
+				/*if (i == waypoints.length-1) {
+					if (this.isValidWaypoint(0)) {
+						//Globals.p("Going to the first waypoint");
+						i = 0;
+					}
+				}
+				turnTowardsPoint(waypoints[i]);
+				vehicle.accelerate(accelerationForce);*/
+				found = true;
+				this.currentWayPoint = i;
+				break;
+			}
+		}
+		if (!found) {
+			Globals.p("Can't see any waypoints!");
+			this.startReversing();
+		}
+	}
+
+	
+	private void startReversing() {
+		Globals.p("Reversing");
+		this.reversing = true;
+		this.reverseUntil = System.currentTimeMillis() + 3000;
+
+	}
+
+	
 	private boolean isValidWaypoint(int i) {
-		Vector3f pos = level.waypoints[i];
+		Vector3f pos = this.waypoints.get(i);
 		if (this.canSeeWaypoint(pos)) {
 			float ang = JMEAngleFunctions.getAngleBetween(this.getMainNode(), pos);
 			if (ang < Math.PI) { // It's on front of us
-				Globals.p("AI can see waypoint #" + (i+2));
+				Globals.p("AI can see waypoint #" + (i+2) + " (array " + i + ")");
 				return true;
 			}
 		}
 		return false;
+	}
+
+
+	private float getDistToWP(int i) {
+		Vector3f pos = this.waypoints.get(i);
+		return this.mainNode.getWorldTranslation().distance(pos); 
+
 	}
 
 
