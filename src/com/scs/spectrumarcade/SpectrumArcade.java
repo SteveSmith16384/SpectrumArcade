@@ -39,7 +39,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
+import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -152,7 +152,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		 */
-		this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+		this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -291,9 +291,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}
 
 		if (mode == MODE_RETURNING) {
-			this.cam.setLocation(cam.getLocation().add(0, tpfSecs, 0));
+			this.cam.setLocation(cam.getLocation().add(0, tpfSecs*9, 0));
 			this.cam.lookAt(this.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
-			if (cam.getLocation().y > 20) {
+			if (cam.getLocation().y > 30) {
 				mode = MODE_GAME;
 			}
 		} else {
@@ -372,6 +372,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	@Override
 	public void collision(PhysicsCollisionEvent event) {
+		if (mode == MODE_GAME) {
 		//System.out.println(event.getObjectA().getUserObject().toString() + " collided with " + event.getObjectB().getUserObject().toString());
 
 		Spatial ga = (Spatial)event.getObjectA().getUserObject(); 
@@ -399,6 +400,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}
 
 		CollisionLogic.collision(this, a, b);
+		}
 	}
 
 

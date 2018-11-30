@@ -28,8 +28,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static int MAP_SIZE = 128;
 
-	public AntAttackLevel() {//SpectrumArcade _game) {
-		super();//_game);
+	public AntAttackLevel() {
+		super();
 	}
 
 

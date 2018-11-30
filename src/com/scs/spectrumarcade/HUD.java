@@ -51,10 +51,6 @@ public class HUD extends Node {
 
 		super.setLocalTranslation(0, 0, 0);
 
-		//this.addTargetter();
-
-		float xPos = cam.getWidth() * .7f;
-
 		//textArea = new BitmapText(font);//ttfSmall.getFormattedText(new StringContainer(ttfSmall, ""), ColorRGBA.Green);
 		game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zx_spectrum-7.ttf", Style.Bold, (int)30);
@@ -63,12 +59,8 @@ public class HUD extends Node {
 		//textArea.setLocalTranslation(xPos, (int)(cam.getHeight()*.6f), 0);
 		//this.attachChild(textArea);
 		//textArea.setColor(ColorRGBA.White);
-		textArea.setLocalTranslation(10, (int)(cam.getHeight()*.9f), 0);
+		textArea.setLocalTranslation(10, (int)(cam.getHeight()*1), 0);
 		this.attachChild(textArea);
-
-		float yPos = cam.getHeight() - lineSpacing;
-
-		yPos -= lineSpacing;
 
 		// Damage box
 		{
@@ -109,7 +101,7 @@ public class HUD extends Node {
 		//StringBuilder str = new StringBuilder();
 		//str.append(game.getHUDText());
 		this.textArea.setText(game.getHUDText());
-		//this.textArea.updateGeometry();
+		this.textArea.updateGeometry();
 	}
 
 

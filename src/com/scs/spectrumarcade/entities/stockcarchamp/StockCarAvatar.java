@@ -53,8 +53,9 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		} else if (binding.equals("Up")) {
 			if (value) {
 				accelerationValue += accelerationForce;
-			} else {
+			} else if (accelerationValue > 0) {
 				accelerationValue -= accelerationForce;
+
 			}
 			vehicle.accelerate(accelerationValue);
 		} else if (binding.equals("Down")) {
@@ -70,7 +71,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 			} else {
 				vehicle.brake(0f);
 			}
-		} else if (binding.equals("Jump")) {
+		} /*else if (binding.equals("Jump")) {
 			if (value) {
 				System.out.println("Reset");
 				vehicle.setPhysicsLocation(Vector3f.ZERO);
@@ -79,7 +80,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 				vehicle.setAngularVelocity(Vector3f.ZERO);
 				vehicle.resetSuspension();
 			}
-		}
+		}*/
 	}
 
 
@@ -101,9 +102,12 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		}
 	}
 
-	
+
 	@Override
 	public void clearForces() {
+		vehicle.setLinearVelocity(Vector3f.ZERO);
+		vehicle.setAngularVelocity(Vector3f.ZERO);
+		vehicle.resetSuspension();
 		vehicle.clearForces();
 	}
 

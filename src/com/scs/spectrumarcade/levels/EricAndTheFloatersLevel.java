@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_EATF;
@@ -16,9 +17,11 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.ericandfloaters.DestroyableWall;
 import com.scs.spectrumarcade.entities.ericandfloaters.Floater;
+import com.scs.spectrumarcade.entities.motos.AbstractMotosEnemyBall;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
+import ssmith.util.RealtimeInterval;
 
 public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGenerator {
 
@@ -26,6 +29,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	public static final int SEGMENT_SIZE = 3;
 
 	private int levelNum;
+	private RealtimeInterval checkEndfLevelInt = new RealtimeInterval(4000);
 	
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -70,15 +74,18 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 				}
 			}			
 		}
+		
 		/*
+		// Walls for testing
 		DestroyableWall dw = new DestroyableWall(game, 1, 3);
 		game.addEntity(dw);
 
 		DestroyableWall dw2 = new DestroyableWall(game, 5, 1);
 		game.addEntity(dw2);
 */
+		
 /*
-		// Floaters
+		// Floaters for testing
 		for (int i=0 ; i<1 ; i++) {
 			int x = SEGMENT_SIZE+3;//NumberFunctions.rnd(2, MAP_SIZE-4);
 			int z = SEGMENT_SIZE+3;//NumberFunctions.rnd(2, MAP_SIZE-4);
@@ -119,7 +126,9 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 	@Override
 	public void process(float tpfSecs) {
-		// Do nothing
+		if (checkEndfLevelInt.hitInterval()) {
+			this.checkIfAllBaddiesDead();
+		}
 	}
 
 
@@ -132,6 +141,23 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(1, 0, 1)), Vector3f.UNIT_Y);
+	}
+
+
+	public void checkIfAllBaddiesDead() {
+		boolean any = false;
+		for (IEntity e : game.entities) {
+			if (e instanceof Floater) {
+				Floater enemy = (Floater)e;
+				if (!enemy.isMarkedForRemoval()) {
+					any = true;
+					break;
+				}
+			}
+		}
+		if (!any) {
+			game.setNextLevel(this.getClass(), levelNum++);
+		}
 	}
 
 }

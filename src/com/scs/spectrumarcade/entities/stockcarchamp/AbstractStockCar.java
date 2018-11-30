@@ -15,11 +15,11 @@ import com.jme3.scene.shape.Cylinder;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.models.VWCorradon;
+import com.scs.spectrumarcade.models.FordFocusModel;
 
 public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 
-	private static final boolean SHOW_CAR = true;
+	private static final boolean SHOW_WHEELS = true;
 
 	public VehicleControl vehicle;
 
@@ -122,7 +122,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		vehicleNode.attachChild(node3);
 		vehicleNode.attachChild(node4);
 
-		if (!SHOW_CAR) {
+		if (!SHOW_WHEELS) {
 			node1.setCullHint(CullHint.Always);
 			node2.setCullHint(CullHint.Always);
 			node3.setCullHint(CullHint.Always);
@@ -132,7 +132,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		this.mainNode.setLocalTranslation(x, y, z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
 
-		this.mainNode.attachChild(new VWCorradon(game.getAssetManager(), texNum));
+		this.mainNode.attachChild(new FordFocusModel(game.getAssetManager(), texNum));
 	}
 
 

@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -24,6 +25,8 @@ import ssmith.util.RealtimeInterval;
 
 public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
+	public static final boolean FOLLOW_CAM = true;
+
 	private static final int MAP_SIZE_BLOCKS = 22;
 	public static final int SEGMENT_SIZE = 2;
 	public static final float FALL_DIST = -20f;
@@ -32,11 +35,16 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private int boardsSizeActual;
 	private RealtimeInterval checkEndfLevelInt = new RealtimeInterval(4000);
-
+	private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
+
+		camSys = new CameraSystem(game, FOLLOW_CAM);
+		if (FOLLOW_CAM) {
+			camSys.setupFollowCam(3, 0);
+		}
 
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
 		int gridSize = MAP_SIZE_BLOCKS;
@@ -121,7 +129,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		float pos = boardsSizeActual / 2;
-		MotosAvatar wp = new MotosAvatar(game, pos, 4f, pos);
+		MotosAvatar wp = new MotosAvatar(game, pos, 4f, pos, FOLLOW_CAM);
 		return wp;
 	}
 
@@ -135,6 +143,8 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		camSys.process(game.getCamera(), game.player);
+		
 		if (checkEndfLevelInt.hitInterval()) {
 			this.checkIfAllBaddiesDead();
 		}

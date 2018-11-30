@@ -56,8 +56,8 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine6 = new ArcadeMachine(game, this, 7, 0, 2, "ArcadeMachine_StockCar", StockCarChamp3DLevel.class);
 		game.addEntity(machine6);
 
-		ArcadeMachine machine7 = new ArcadeMachine(game, this, 8, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
-		game.addEntity(machine7);
+		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 8, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
+		//game.addEntity(machine7);
 
 	}
 
@@ -67,7 +67,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		if (this.lastPos != null) {
 			return lastPos.add(0, 0, 1f);
 		}
-		return new Vector3f(5, 3f, 5f);
+		return new Vector3f(5, 1f, 5f);
 	}
 
 

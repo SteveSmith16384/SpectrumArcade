@@ -105,7 +105,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			}
 
 			// Check if player completed level
-			if (pos.z > MAP_SIZE_Z) {
+			if (pos.z >= MAP_SIZE_Z-1) {
 				//this.levelNum++;
 				//game.setLevel(this.getClass(), levelNum);
 				game.setNextLevel(this.getClass(), levelNum++);
@@ -149,7 +149,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			// Do nothing
 		}
-		return "There are " + count + " mines next to you";
+		return "Level: " + this.levelNum + "\nThere are " + count + " mines next to you";
 	}
 
 

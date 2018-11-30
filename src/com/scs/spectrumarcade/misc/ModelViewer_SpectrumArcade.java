@@ -47,8 +47,8 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
-		Spatial model = assetManager.loadModel("Models/ManCover/ManCover.obj");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/ManCover/MB_ManCoverTexturb.png");
+		Spatial model = assetManager.loadModel("Models/jkm_fordfocus/fordfocus128.obj");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/jkm_fordfocus/fordfocusnew128.bmp");
 		String animNode = "Peau(ZOMBIE) (Node)";
 		String animToUse = "Rig(Zombie)Action";
 

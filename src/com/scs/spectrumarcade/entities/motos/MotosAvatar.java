@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.motos;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
@@ -13,6 +14,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
+import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.MotosLevel;
 
 public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
@@ -23,13 +25,17 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	
 	private boolean left = false, right = false, up = false, down = false;
 
-	public MotosAvatar(SpectrumArcade _game, float x, float y, float z) {
+	public MotosAvatar(SpectrumArcade _game, float x, float y, float z, boolean followCam) {
 		super(_game, "MotosAvatar");
 
 		Mesh sphere = new Sphere(16, 16, 1, true, false);
 		Geometry geometry = new Geometry("MotosPlayerEntitySphere", sphere);
-		geometry.setCullHint(CullHint.Always);
-		//geometry.setShadowMode(ShadowMode.CastAndReceive);
+		if (!followCam) {
+			geometry.setCullHint(CullHint.Always);
+		} else {
+			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
+			geometry.setShadowMode(ShadowMode.CastAndReceive);
+		}
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -100,10 +106,10 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 
 	@Override
 	public void setCameraLocation(Camera cam) {
-		//cam.setLocation(new Vector3f(10, 5, 10f));
+		if (!MotosLevel.FOLLOW_CAM) {
 		camPos.set(getMainNode().getWorldTranslation());
 		cam.setLocation(camPos);
-
+		}
 	}
 
 
