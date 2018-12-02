@@ -40,7 +40,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		JMEAngleFunctions.rotateToWorldDirection(this.mainNode, dir);
 
 		BoundingBox bb = (BoundingBox)geometry.getWorldBound();
-		playerControl = new BetterCharacterControl(bb.getZExtent(), bb.getYExtent()*2, 1f);
+		playerControl = new BetterCharacterControl(bb.getZExtent()*.9f, bb.getZExtent()*2, 1000f);
 		//playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
 		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
@@ -67,7 +67,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
 		}
-/*
+
 		if (mode > 0) {
 			if (this.timeUntilNextMode < System.currentTimeMillis()) {
 				this.setMode(mode-1);
@@ -92,7 +92,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		default:
 			throw new RuntimeException("Unknown mode: " + mode);
 		}
-		//this.showDir();*/
+		//this.showDir();
 	}
 
 
@@ -106,7 +106,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private void moveFwds() {
 		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
 		//Globals.p("Ant dir: " + walkDirection);
-		playerControl.setWalkDirection(walkDirection.mult(3f));
+		playerControl.setWalkDirection(walkDirection.mult(2.4f));
 
 	}
 
@@ -160,7 +160,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	private void setMode(int m) {
 		if (m != mode) {
-			//Globals.p("New Ant mode: " + m);
+			Globals.p("New Ant mode: " + m);
 			mode = m;
 			switch (mode) {
 			case MODE_TOWARDS_PLAYER:

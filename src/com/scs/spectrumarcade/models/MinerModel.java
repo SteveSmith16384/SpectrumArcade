@@ -36,18 +36,22 @@ public class MinerModel extends Node {
 		channel = control.createChannel();
 
 		model.setShadowMode(ShadowMode.Cast);
-		
+
 	}
-	
-	
+
+
 	public void walkAnim() {
-		channel.setLoopMode(LoopMode.Loop);
-		channel.setAnim("Walk");
+		if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Walk")) {
+			channel.setLoopMode(LoopMode.Loop);
+			channel.setAnim("Walk");
+		}
 	}
 
 	public void idleAnim() {
-		channel.setLoopMode(LoopMode.Loop);
-		//todo - re-add channel.setAnim("Idle");
+		if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
+			channel.setLoopMode(LoopMode.Loop);
+			channel.setAnim("Idle");
+		}
 	}
 
 	/*

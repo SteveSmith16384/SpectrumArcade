@@ -45,7 +45,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0);
+			camSys.setupFollowCam(3, 0, true);
 		}
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 2, MAP_SIZE, "Textures/white.png");

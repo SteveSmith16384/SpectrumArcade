@@ -51,7 +51,6 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	public void process(float tpfSecs) {
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
 		if (!game.isGameOver()) {
-			//walking = up || down || left || right;
 			if (up) {
 				this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
 			}

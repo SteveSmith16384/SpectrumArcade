@@ -45,7 +45,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0);
+			camSys.setupFollowCam(3, 0, true);
 		}
 
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_Z, 100, 1f);
@@ -94,7 +94,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 				//throw new RuntimeException("Todo");
 			}
 		}
-
 
 	}
 

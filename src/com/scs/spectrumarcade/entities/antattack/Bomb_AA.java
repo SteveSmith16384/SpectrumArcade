@@ -6,13 +6,11 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
@@ -27,8 +25,9 @@ import ssmith.lang.NumberFunctions;
 
 public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 
-	public static final float SPEED = 10f;
-
+	//private static final float SPEED = 10f;
+	private static final float DAM_RANGE = 8f;
+	
 	private long explodeTime = System.currentTimeMillis() + 3000;
 
 	public Bomb_AA(SpectrumArcade _game, float x, float y, float z) {
@@ -78,7 +77,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 
 	private void checkForHitAnts(Ant ant) {		
 		Ray r = new Ray(this.mainNode.getWorldTranslation(), ant.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
-		r.setLimit(EricAndTheFloatersLevel.SEGMENT_SIZE*2);
+		r.setLimit(DAM_RANGE);
 		CollisionResults res = new CollisionResults();
 		int c = game.getRootNode().collideWith(r, res);
 		//boolean found = false;

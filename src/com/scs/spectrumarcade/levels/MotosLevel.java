@@ -43,7 +43,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 		camSys = new CameraSystem(game, FOLLOW_CAM, -1f);
 		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0);
+			camSys.setupFollowCam(3, 0, true);
 		}
 
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
@@ -168,7 +168,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		for (IEntity e : game.entities) {
 			if (e instanceof AbstractMotosEnemyBall) {
 				AbstractMotosEnemyBall enemy = (AbstractMotosEnemyBall)e;
-				if (!enemy.isMarkedForRemoval()) {
+				if (!enemy.isMarkedForRemoval()) { //enemy.getMainNode().getWorldTranslation()
 					any = true;
 					break;
 				}

@@ -17,6 +17,7 @@ public class CameraSystem {
 	private float followDist = 1f;
 	private float shoulderAngle = 0f;
 	private float fixedHeight = -1;
+	private boolean camInCharge;
 	private SpectrumArcade game;
 
 	public CameraSystem(SpectrumArcade _game, boolean _followCam, float _fixedHeight) {
@@ -25,9 +26,10 @@ public class CameraSystem {
 	}
 
 
-	public void setupFollowCam(float dist, float angle) {
+	public void setupFollowCam(float dist, float angle, boolean _camInCharge) {
 		this.followDist = dist;
 		shoulderAngle = angle;
+		camInCharge = _camInCharge;
 	}
 
 
@@ -93,6 +95,11 @@ public class CameraSystem {
 			if (fixedHeight > 0) {
 				cam.getLocation().y = fixedHeight;
 			}
+			
+			if (!camInCharge) {
+				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+			}
+
 			cam.update();
 		}
 	}
