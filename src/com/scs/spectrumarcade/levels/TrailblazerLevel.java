@@ -12,6 +12,7 @@ import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.trailblazer.Barrier_Trailblazer;
 import com.scs.spectrumarcade.entities.trailblazer.TrailblazerAvatar;
 
 import mygame.util.Vector3Int;
@@ -22,13 +23,13 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	public static final boolean FOLLOW_CAM = true;
 
-	private static final int MAP_HOLE = 1;
-	private static final int MAP_WALL = 2;
-	private static final int MAP_SPEED_UP = 3;
-	private static final int MAP_SLOW_DOWN = 4;
-	private static final int MAP_JUMP = 5;
-	private static final int MAP_NUDGE_LEFT = 6;
-	private static final int MAP_NUDGE_RIGHT = 7;
+	public static final int MAP_HOLE = 1;
+	public static final int MAP_WALL = 2;
+	public static final int MAP_SPEED_UP = 3;
+	public static final int MAP_SLOW_DOWN = 4;
+	public static final int MAP_JUMP = 5;
+	public static final int MAP_NUDGE_LEFT = 6;
+	public static final int MAP_NUDGE_RIGHT = 7;
 
 	private static final int MAP_SIZE_X = 8;
 	private static final int MAP_SIZE_Z = 400;
@@ -36,7 +37,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private RealtimeInterval checkWinInt = new RealtimeInterval(100);
 	private int levelNum;
-	private int[][] map;
+	public int[][] map;
 	private CameraSystem camSys;
 
 	@Override
@@ -82,7 +83,9 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 				terrainUDG.removeBlock(new Vector3Int(xGrid, 0, zGrid));
 				break;
 			case MAP_WALL:
-				terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
+				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
+				Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, xGrid, zGrid);
+				game.addEntity(barrier);
 				break;
 			case 3:
 				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
@@ -142,13 +145,5 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
-
-	public void handleSquare(int x, int z) {
-		if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
-			switch (map[x][z]) {
-			// todo
-			}
-		}
-	}
 
 }

@@ -15,6 +15,8 @@ import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.input.KeyInput;
@@ -37,11 +39,11 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
-public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
+public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener, PhysicsTickListener {
 
 	private static final int MODE_GAME = 0;
 	private static final int MODE_RETURNING = 1;
@@ -50,8 +52,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
 	public List<IProcessable> entitiesForProcessing = new ArrayList<IProcessable>();
-	private List<IEntity> entitiesToAdd = new LinkedList<IEntity>();
-	private List<IEntity> entitiesToRemove = new LinkedList<IEntity>();
+	private List<IEntity> entitiesToAdd = new LinkedList<>();
+	private List<IEntity> entitiesToRemove = new LinkedList<>();
+	private List<ForceData> forcesToApply = new LinkedList<>();
 	public BulletAppState bulletAppState;
 
 	public AbstractPhysicalEntity player;
@@ -151,7 +154,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		 */
-		this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+		this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -220,13 +223,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	private void startNewLevel(ILevelGenerator level, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		//try {
 		// Clear previous
 		this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 		this.rootNode.detachAllChildren();
 		this.entities.clear();
 		this.entitiesToAdd.clear();
 		this.entitiesToRemove.clear();
+		entitiesForProcessing.clear();
+		forcesToApply.clear();
 
 		loadingLevel = true;
 		level.generateLevel(this, levelNum);
@@ -237,11 +241,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		IAvatar a = (IAvatar)player;
 		a.setCameraLocation(cam); // Ready to set direction
 		level.setInitialCameraDir(cam);
-		/*} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}*/
-
 	}
 
 
@@ -267,10 +266,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof Key) {
 			gameData.numKeys++;
 		}
-		/*if (e instanceof INotifyWhenAdded) {
-			INotifyWhenAdded nwa = (INotifyWhenAdded)e;
-			nwa.added();
-		}*/
 	}
 
 
@@ -292,7 +287,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}
 
 		if (mode == MODE_RETURNING) {
-			this.cam.setLocation(cam.getLocation().add(0, tpfSecs*9, 0));
+			this.cam.setLocation(cam.getLocation().add(0, tpfSecs*20, 0));
 			this.cam.lookAt(this.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			if (cam.getLocation().y > 30) {
 				mode = MODE_GAME;
@@ -359,6 +354,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
 				// this.startNewLevel(new ArcadeRoom(), -1);
 				mode = MODE_RETURNING;
+				Vector3f pos = this.getCamera().getLocation().clone();
+				pos.y = 0; // In case we've fallen off edge
+				this.getCamera().setLocation(pos);
 				this.setNextLevel(ArcadeRoom.class, -1);
 			}
 		}
@@ -498,4 +496,27 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.nextLevel = clazz;
 		this.nextLevelNum = levelNum;
 	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
+		while (forcesToApply.size() > 0) {
+			ForceData fd = this.forcesToApply.remove(0);
+			switch (fd.type) {
+			case ForceData.CENTRAL_FORCE:
+				fd.pe.srb.applyCentralForce(fd.force);
+				break;
+			}
+		}
+		
+	}
+
+	
+	@Override
+	public void physicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

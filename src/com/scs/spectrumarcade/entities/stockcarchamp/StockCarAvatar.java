@@ -9,7 +9,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 
 public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
-	private Node camNode;
+	private Node camNode; // todo - remove?
 
 	protected static final float accelerationForce = 1000.0f;
 	protected static final float brakeForce = 100.0f;
@@ -96,8 +96,8 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 	@Override
 	public void setCameraLocation(Camera cam) {
 		if (!Settings.FREE_CAM) {
-			cam.lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-			cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+			//cam.lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+			//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		} else {
 			cam.setLocation(new Vector3f(30, 100, 30));
 			game.getCamera().lookAt(new Vector3f(31, 0, 31), Vector3f.UNIT_Y);

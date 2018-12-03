@@ -31,7 +31,7 @@ public class SquareIndicator extends AbstractPhysicalEntity  implements IProcess
 		int x = (int)pos.x;
 		int z = (int)pos.z;
 		
-		this.mainNode.setLocalTranslation(x, 1.1f, z);
+		this.mainNode.setLocalTranslation(x, 1.01f, z);
 	}
 
 

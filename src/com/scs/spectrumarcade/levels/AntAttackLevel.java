@@ -4,22 +4,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.scs.spectrumarcade.IAvatar;
-import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
+import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.antattack.Ant;
-import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.entities.antattack.Damsel;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.Functions;
@@ -29,7 +28,9 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	public static final boolean FOLLOW_CAM = true;
 
+	private static int MAP_BORDER = 10;
 	private static int MAP_SIZE = 128;
+
 	private CameraSystem camSys;
 
 	public AntAttackLevel() {
@@ -48,7 +49,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			camSys.setupFollowCam(3, 0, true);
 		}
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 2, MAP_SIZE, "Textures/white.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/white.png");
 		game.addEntity(floor);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 1f);
@@ -91,63 +92,48 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			}
 		}
 
-		// Add keys
-		for (int i=0 ; i<5 ; i++) {
-			int x = NumberFunctions.rnd(3, MAP_SIZE-4);
-			int z = NumberFunctions.rnd(3, MAP_SIZE-4);
-			Ray r = new Ray(new Vector3f(x, 100, z), new Vector3f(0, -1, 0));
-			CollisionResults res = new CollisionResults();
-			int c = game.getRootNode().collideWith(r, res);
-			if (c == 0) {
-				throw new RuntimeException("Something wrong with the map, there should always be a collision");
-			}
-			Vector3f pos = res.getCollision(0).getContactPoint();
-			Key key = new Key(game, pos.x, pos.y + 1.3f, pos.z); // Raise key so ants don't hit it
-			game.addEntity(key);
-		}
+		// Add damsel
+		int x = NumberFunctions.rnd(3, MAP_SIZE-4); // todo - use this
+		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
+		Damsel key = new Damsel(game, 54, 110);
+		game.addEntity(key);
 
-
-		// Show all blocks for debugging
-		/*terrainUDG.addBlock_Block(new Vector3Int(1, 0, 1), BlockCodes.BRICK);
-		terrainUDG.addBlock_Block(new Vector3Int(2, 0, 2), BlockCodes.CONVEYOR);
-		terrainUDG.addBlock_Block(new Vector3Int(3, 0, 3), BlockCodes.EATF_SOLID); // 26
-		terrainUDG.addBlock_Block(new Vector3Int(4, 0, 4), BlockCodes.EATF_WEAK); // 17
-		terrainUDG.addBlock_Block(new Vector3Int(5, 0, 5), BlockCodes.EXIT); // 24
-		terrainUDG.addBlock_Block(new Vector3Int(6, 0, 6), BlockCodes.RED_FLOOR_PXL); // ant attack
-		terrainUDG.addBlock_Block(new Vector3Int(7, 0, 7), BlockCodes.RED_FLOOR_UDG); // 41
-		terrainUDG.addBlock_Block(new Vector3Int(8, 0, 8), BlockCodes.SPLAT); // OK
-		/*terrainUDG.addBlock_Block(new Vector3Int(9, 0, 9), BlockCodes.);
-		terrainUDG.addBlock_Block(new Vector3Int(10, 0, 10), BlockCodes.BRICK);
-		terrainUDG.addBlock_Block(new Vector3Int(11, 0, 0), BlockCodes.BRICK);
-		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);
-		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);
-		terrainUDG.addBlock_Block(new Vector3Int(0, 0, 0), BlockCodes.BRICK);*/
 	}
 
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 2f, 3f);
+		return new Vector3f(MAP_SIZE/2, 2f, 124f);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 3f, true, true);
-		game.setAbility(1, new BombGun_AA(game));
-		return wp;
+		if (Settings.AA_FIND_START) {
+			WalkingPlayer wp = new WalkingPlayer(game, 0, 2f, 0, true, FOLLOW_CAM);
+			game.setAbility(1, new BombGun_AA(game));
+			return wp;
+		} else {
+			WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 124, true, FOLLOW_CAM);
+			game.setAbility(1, new BombGun_AA(game));
+			return wp;
+		}
 	}
 
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.White;
+		return ColorRGBA.Cyan;
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
 		camSys.process(game.getCamera(), game.player);
+
+		if (Settings.AA_FIND_START) {
+			Globals.p("Avatar Pos: " + game.player.getMainNode().getWorldTranslation());
+		}
 
 	}
 
@@ -160,7 +146,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
-		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
+		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
 	}
 
 }

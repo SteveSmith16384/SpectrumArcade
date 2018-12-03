@@ -10,6 +10,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -25,17 +26,27 @@ import ssmith.util.RealtimeInterval;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
+	public static final boolean FOLLOW_CAM = true;
+
 	private static final boolean SHOW_MINES = false;
 	private static final int MAP_SIZE_X = 30;
 	private static final int MAP_SIZE_Z = 20;
 
 	private boolean[][] mines = new boolean[MAP_SIZE_X][MAP_SIZE_Z];
 	private VoxelTerrainEntity terrainUDG;
-	private RealtimeInterval checkMinesInt = new RealtimeInterval(100);
+	//private RealtimeInterval checkMinesInt = new RealtimeInterval(100);
 	private int levelNum;
+	private int lastCheckX, lastCheckZ;
+
+	private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		if (FOLLOW_CAM) {
+			camSys.setupFollowCam(3, 0, true);
+		}
+
 		levelNum = _levelNum;
 
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_X, 1f);
@@ -74,13 +85,13 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE_X/2, 3f, 2f);
+		return new Vector3f(MAP_SIZE_X/2, 1.1f, 2f);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 3f, 2f, false, false);
+		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, false, FOLLOW_CAM);
 	}
 
 
@@ -92,10 +103,15 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		if (checkMinesInt.hitInterval()) {
-			Vector3f pos = game.player.getMainNode().getWorldTranslation();
-			int x = (int)pos.x;
-			int z = (int)pos.z;
+		camSys.process(game.getCamera(), game.player);
+		
+		Vector3f pos = game.player.getMainNode().getWorldTranslation();
+		int x = (int)pos.x;
+		int z = (int)pos.z;
+		if (x != lastCheckX || z != lastCheckZ) {
+			lastCheckX = (int)pos.x;
+			lastCheckZ = (int)pos.z;
+
 			if (mines[x][z]) {
 				Globals.p("You have stood on a mine!");
 				this.explosion(pos);
@@ -117,6 +133,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public String getHUDText() {
+		// todo - cache this
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
 		int x = (int)pos.x;
 		int z = (int)pos.z;

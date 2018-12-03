@@ -9,17 +9,13 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class MinerModel extends Node {
+public class MinerModel extends Node { // todo - rename
 
 	public static final float MODEL_HEIGHT = 1.7f;
-	private static final float MODEL_WIDTH = 0.6f;
-	private static final float MODEL_DEPTH = 0.6f;
 
-	//private AssetManager assetManager;
-	//private Spatial model;
+	private boolean isJumping = false;
+	private long jumpEndTime;
 	private AnimChannel channel;
-	//public boolean isJumping = false;
-	//private int levelCode;
 
 	public MinerModel(AssetManager assetManager) {
 		super("MinerModel");
@@ -41,18 +37,34 @@ public class MinerModel extends Node {
 
 
 	public void walkAnim() {
-		if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Walk")) {
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("Walk");
+		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
+			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Walk")) {
+				channel.setLoopMode(LoopMode.Loop);
+				channel.setAnim("Walk");
+			}
 		}
 	}
 
+
 	public void idleAnim() {
-		if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("Idle");
+		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
+			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
+				channel.setLoopMode(LoopMode.Loop);
+				channel.setAnim("Idle");
+			}
 		}
 	}
+
+
+	public void jumpAnim() {
+		if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Jump")) {
+			channel.setLoopMode(LoopMode.DontLoop);
+			channel.setAnim("Jump");
+			isJumping = true;
+			jumpEndTime = System.currentTimeMillis() + (long)(channel.getAnimMaxTime() * 1000);
+		}
+	}
+
 
 	/*
 	public void setAnim(int animCode) {

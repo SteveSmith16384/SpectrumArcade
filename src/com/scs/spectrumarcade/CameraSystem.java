@@ -11,6 +11,11 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
+/**
+ * This shoots a ray from the avatar backwards, and places the camera somewhere ni that ray depending on collisions.
+ * @author StephenCS
+ *
+ */
 public class CameraSystem {
 
 	private boolean followCam;
@@ -46,7 +51,14 @@ public class CameraSystem {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time
 			avatarPos.y += 1f;//avatar.avatarModel.getCameraHeight() + .1f;
 
-			Vector3f dir = cam.getDirection().mult(-1);
+			//cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+
+			Vector3f dir = null;
+			if (camInCharge) {
+				dir = cam.getDirection().mult(-1); // todo - don't create every time
+			} else {
+				dir = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1); // todo - don't create every time
+			}
 			if (shoulderAngle != 0) {
 				Quaternion rotQ = new Quaternion();
 				rotQ.fromAngleAxis(shoulderAngle, Vector3f.UNIT_Y);
@@ -75,7 +87,7 @@ public class CameraSystem {
 						AbstractPhysicalEntity pe = (AbstractPhysicalEntity)s.getUserData(Settings.ENTITY);
 						if (pe != avatar) {
 							float dist = col.getDistance();
-							if (dist > 0.1f) {
+							if (dist > 0.1f) { // Move cam forward slightly
 								dist -= 0.1f;
 							}
 							Vector3f add = dir.multLocal(dist);
@@ -96,9 +108,9 @@ public class CameraSystem {
 				cam.getLocation().y = fixedHeight;
 			}
 			
-			if (!camInCharge) {
-				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
-			}
+			//if (!camInCharge) {
+				//cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+			//}
 
 			cam.update();
 		}

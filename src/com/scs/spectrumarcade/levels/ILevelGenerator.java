@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -27,5 +28,7 @@ public interface ILevelGenerator {
 	String getHUDText();
 	
 	void setInitialCameraDir(Camera cam);
+	
+	//void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs);
 	
 }

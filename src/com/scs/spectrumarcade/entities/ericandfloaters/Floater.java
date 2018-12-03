@@ -26,8 +26,8 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 	private Geometry geometry;
 	private Vector3f dir;
-	private long timeUntilNextTurn = 0;	
-	private Vector3f prevPos;
+	private long timeUntilNextTurn = 0;
+	private Vector3f prevPos = new Vector3f();
 	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
 
 	private boolean killed = false;
@@ -53,8 +53,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 		dir = JMEAngleFunctions.getRandomDirection_4();
 
-		prevPos = new Vector3f(x, y, z);
-
 	}
 
 
@@ -71,7 +69,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			if (checkPosInterval.hitInterval()) {
 				if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
 					dir = dir.mult(-1);//JMEAngleFunctions.getRandomDirection_8();
-					Globals.p("Floater stuck, changing dir "  + dir);
+					Globals.p("Floater stuck, changing dir to "  + dir);
 				}
 				prevPos.set(this.mainNode.getWorldTranslation());
 			}

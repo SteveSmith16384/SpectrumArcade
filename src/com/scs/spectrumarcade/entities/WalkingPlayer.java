@@ -21,10 +21,9 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
 	// Our movement speed
-	private static final float speed = 4f;
+	private static final float speed = 4;
 	private static final float strafeSpeed = 4f;
 
-	//private Geometry playerGeometry_;
 	private MinerModel minerModel; 
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
@@ -155,7 +154,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		} else if (binding.equals("Jump")) {
 			if (canJump) {
 				if (isPressed) { 
-					playerControl.jump(); 
+					playerControl.jump();
+					this.minerModel.jumpAnim();
 				}
 			}
 		}
@@ -195,7 +195,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	@Override
 	public void clearForces() {
-		playerControl.setWalkDirection(new Vector3f());
 	}
 
 

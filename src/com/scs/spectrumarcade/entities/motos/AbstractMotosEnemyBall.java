@@ -17,7 +17,6 @@ import com.scs.spectrumarcade.levels.MotosLevel;
 public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity implements INotifiedOfCollision, IProcessable {
 
 	private float force;
-	//private float turnSpeed;
 	private MotosLevel level;
 	
 	public AbstractMotosEnemyBall(SpectrumArcade _game, MotosLevel _level, String name, float x, float z, float rad, float mass, float _force) {

@@ -11,10 +11,10 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.stockcarchamp.StockCarAICar;
@@ -30,13 +30,13 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	private List<Point> startPos;
 	public ArrayList<Vector3f> waypoints;
 
-	//private CameraSystem camSys;
+	private CameraSystem camSys;
 
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		//camSys = new CameraSystem(game, true, 3f);
-		//camSys.setupFollowCam(3, 0, false);
+		camSys = new CameraSystem(game, true, 3f);
+		camSys.setupFollowCam(3, 0, false);
 
 		// Border
 		/*terrainUDG.addRectRange_Blocks(BlockCodes.STOCK_CAR_WALL_CYAN, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -112,7 +112,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public void process(float tpfSecs) {
-		//camSys.process(game.getCamera(), game.player);
+		camSys.process(game.getCamera(), game.player);
 
 	}
 

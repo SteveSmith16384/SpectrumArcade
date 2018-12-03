@@ -8,6 +8,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -20,12 +21,13 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private static final float RAD = .4f;
 	private static final float FORCE = 5f;
+	private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
 	private Vector3f camPos = new Vector3f();
 	private int lastCheckX, lastCheckZ;
 
-	private boolean left = false, right = false, up = false, down = false;
+	private boolean left = false, right = false, up = false, down = false, jump = false;
 
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
 		super(_game, "TrailblazerAvatar");
@@ -70,11 +72,20 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 				Vector3f dir = game.getCamera().getLeft().mult(-1);
 				this.srb.applyCentralForce(dir.mult(FORCE));
 			}
+			if (right) {
+				Vector3f dir = game.getCamera().getLeft().mult(-1);
+				this.srb.applyCentralForce(dir.mult(FORCE));
+			}
+			if (jump) {
+				Globals.p("Jumping");
+				this.srb.applyCentralForce(new Vector3f(0, 150f, 0));
+				jump = false;
+			}
 
 			Vector3f pos = this.mainNode.getWorldTranslation();
 			if (pos.y <= RAD+0.1f) {
 				if ((int)pos.x != lastCheckX || (int)pos.z != lastCheckZ) {
-					level.handleSquare(lastCheckX, lastCheckZ);
+					handleSquare(lastCheckX, lastCheckZ);
 					lastCheckX = (int)pos.x;
 					lastCheckZ = (int)pos.z;
 				}
@@ -83,6 +94,39 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			game.playerKilled();
+		}
+	}
+
+
+	public void handleSquare(int x, int z) {
+		try {
+			//if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
+			switch (level.map[x][z]) {
+			case 0:
+			case TrailblazerLevel.MAP_HOLE:
+			case TrailblazerLevel.MAP_WALL:
+				// Do nothing
+				break;
+			case TrailblazerLevel.MAP_SPEED_UP:
+				this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE*3));
+				break;
+			case TrailblazerLevel.MAP_SLOW_DOWN:
+				this.srb.applyCentralForce(game.getCamera().getDirection().mult(-1).multLocal(FORCE*3));
+				break;
+			case TrailblazerLevel.MAP_JUMP:
+				this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*2, 0));
+				break;
+			case TrailblazerLevel.MAP_NUDGE_LEFT:
+				this.srb.applyCentralForce(game.getCamera().getLeft().mult(FORCE));
+				break;
+			case TrailblazerLevel.MAP_NUDGE_RIGHT:
+				this.srb.applyCentralForce(game.getCamera().getLeft().mult(-1).multLocal(FORCE));
+				break;
+			default:
+				Globals.p("Unhandle map square: " + level.map[x][z]);
+			}
+		} catch (ArrayIndexOutOfBoundsException ex) {
+			// Do nothing
 		}
 	}
 
@@ -98,9 +142,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		} else if (binding.equals("Down")) {
 			down = isPressed;
 		} else if (binding.equals("Jump")) {
-			if (isPressed) { 
-				if (Settings.DEBUG_CLEAR_FORCES) {
-					this.clearForces();
+			if (isPressed && !jump) {
+				if (this.getMainNode().getWorldTranslation().y <= 1+RAD+0.1f) {
+					jump = true;
 				}
 			}
 		}

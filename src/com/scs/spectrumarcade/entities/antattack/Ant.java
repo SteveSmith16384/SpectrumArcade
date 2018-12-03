@@ -15,6 +15,8 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.models.AntModel;
 
+import ssmith.util.RealtimeInterval;
+
 public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
 
 	private static final int MODE_TOWARDS_PLAYER = 0;
@@ -27,6 +29,9 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 	private long timeUntilNextMode = 0;
 	private int mode = -1;
 	public BetterCharacterControl playerControl;
+
+	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
+	private Vector3f prevPos = new Vector3f();
 
 	public Ant(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Ant");
@@ -44,7 +49,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		//playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
 		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
-		//playerControl.setGravity(new Vector3f(0, -10, 0));
 		this.getMainNode().addControl(playerControl);
 
 		geometry.walkAnim();
@@ -66,6 +70,15 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
+			this.markForRemoval();
+		}
+
+		if (checkPosInterval.hitInterval()) {
+			if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+				Globals.p("Ant stuck, changing dir");
+				this.setMode(MODE_TURNING);
+			}
+			prevPos.set(this.mainNode.getWorldTranslation());
 		}
 
 		if (mode > 0) {
@@ -143,9 +156,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			// Do nothing
 		} else if (collidedWith instanceof VoxelTerrainEntity || collidedWith instanceof Ant) {
 			//Globals.p("Ant collided with " + collidedWith + " and is turning");
-			//this.srb.setLinearVelocity(Vector3f.ZERO);
-			//this.srb.applyTorqueImpulse(turnDir);
-			this.setMode(MODE_TURNING);
+			//this.setMode(MODE_TURNING);
 		}
 	}
 
