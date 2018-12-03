@@ -9,6 +9,7 @@ import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.IAbility;
@@ -52,18 +53,22 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
 		if (!game.isGameOver()) {
 			if (up) {
-				this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
+				//this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
+				game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
 			}
 			if (down) {
-				this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE));
+				//this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE));
+				game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
 			}
 			if (left) {
 				Vector3f dir = game.getCamera().getLeft();
-				this.srb.applyCentralForce(dir.mult(FORCE));
+				//this.srb.applyCentralForce(dir.mult(FORCE));
+				game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
 			}
 			if (right) {
 				Vector3f dir = game.getCamera().getLeft().mult(-1);
-				this.srb.applyCentralForce(dir.mult(FORCE));
+				//this.srb.applyCentralForce(dir.mult(FORCE));
+				game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 			}
 
 		}
@@ -113,7 +118,8 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	@Override
 	public void clearForces() {
 		srb.clearForces();
-		srb.setLinearVelocity(new Vector3f());
+		//srb.setLinearVelocity(new Vector3f());
+		game.addForce(this, ForceData.LINEAR_VELOCITY, new Vector3f());
 	}
 
 }

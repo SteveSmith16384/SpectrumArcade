@@ -5,6 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
@@ -34,8 +35,8 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 		mainNode.addControl(srb);
 		
 		Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(1,  2), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(100);
-		srb.applyCentralForce(dir);
-
+		//srb.applyCentralForce(dir);
+		game.addForce(this, ForceData.CENTRAL_FORCE, dir);
 	}
 
 

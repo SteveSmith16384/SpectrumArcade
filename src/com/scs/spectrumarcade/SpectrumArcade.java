@@ -498,6 +498,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
+	public void addForce(AbstractPhysicalEntity pe, int type, Vector3f force) {
+		this.forcesToApply.add(new ForceData(pe, type, force));
+	}
+	
+	
 	@Override
 	public void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
 		while (forcesToApply.size() > 0) {
@@ -505,6 +510,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			switch (fd.type) {
 			case ForceData.CENTRAL_FORCE:
 				fd.pe.srb.applyCentralForce(fd.force);
+				break;
+			case ForceData.LINEAR_VELOCITY:
+				fd.pe.srb.setLinearVelocity(fd.force);
 				break;
 			}
 		}
@@ -514,7 +522,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	
 	@Override
 	public void physicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
-		// TODO Auto-generated method stub
 		
 	}
 

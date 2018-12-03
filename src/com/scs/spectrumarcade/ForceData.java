@@ -5,7 +5,8 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public class ForceData {
 	
-	public static int CENTRAL_FORCE = 1;
+	public static final int CENTRAL_FORCE = 1;
+	public static final int LINEAR_VELOCITY = 2;
 	
 	public AbstractPhysicalEntity pe;
 	public int type;

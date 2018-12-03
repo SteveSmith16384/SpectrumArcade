@@ -6,6 +6,7 @@ import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -50,16 +51,18 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 
 	@Override
 	public void process(float tpfSecs) {
-		Vector3f dir = game.getCamera().getLocation().subtract(this.getMainNode().getWorldTranslation());
-		Vector3f forceDir = dir.mult(force);
-
-		this.srb.applyCentralForce(forceDir);
-		
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			this.markForRemoval();
 			level.checkIfAllBaddiesDead();
+			return;
 		}
 
+		Vector3f dir = game.getCamera().getLocation().subtract(this.getMainNode().getWorldTranslation());
+		Vector3f forceDir = dir.mult(force);
+
+		//this.srb.applyCentralForce(forceDir);
+		game.addForce(this, ForceData.CENTRAL_FORCE, forceDir);
+		
 	}
 
 

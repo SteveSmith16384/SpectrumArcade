@@ -73,16 +73,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 			if (value) {
 				this.vehicle.applyTorque(new Vector3f(0, 1, 0).multLocal(10f));
 			}
-		} /*else if (binding.equals("Jump")) {
-			if (value) {
-				System.out.println("Reset");
-				vehicle.setPhysicsLocation(Vector3f.ZERO);
-				vehicle.setPhysicsRotation(new Matrix3f());
-				vehicle.setLinearVelocity(Vector3f.ZERO);
-				vehicle.setAngularVelocity(Vector3f.ZERO);
-				vehicle.resetSuspension();
-			}
-		}*/
+		}
 	}
 
 

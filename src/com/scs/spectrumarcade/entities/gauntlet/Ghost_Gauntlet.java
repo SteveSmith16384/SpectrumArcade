@@ -6,6 +6,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -72,10 +73,9 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 
 	private void moveFwds() {
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
-		//dir.y = -.1f;
 		Vector3f force = dir.mult(1);
-		//Globals.p("Ant force: " + dir);
-		this.srb.setLinearVelocity(force); // todo - need this every frame?
+		//this.srb.setLinearVelocity(force); // todo - need this every frame?
+		game.addForce(this, ForceData.LINEAR_VELOCITY, force);
 	}
 
 

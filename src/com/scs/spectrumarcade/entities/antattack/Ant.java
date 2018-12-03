@@ -183,7 +183,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 				this.timeUntilNextMode = System.currentTimeMillis() + 2000;//5000;
 				break;
 			case MODE_TURNING:
-				//this.srb.setLinearVelocity(new Vector3f());
 				this.timeUntilNextMode = System.currentTimeMillis() + 1000;//1500; 
 				break;
 			case MODE_AWAY_FROM_PLAYER:

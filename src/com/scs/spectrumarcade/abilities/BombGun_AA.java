@@ -1,6 +1,7 @@
 package com.scs.spectrumarcade.abilities;
 
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -30,12 +31,9 @@ public class BombGun_AA extends AbstractAbility implements IAbility {
 			game.addEntity(bomb);
 
 			Vector3f force = game.getCamera().getDirection().mult(10);
-			//force.y = 0;
-			//srb.applyCentralForce(force);
-			bomb.srb.setLinearVelocity(force);
+			//bomb.srb.setLinearVelocity(force);
+			game.addForce(bomb, ForceData.LINEAR_VELOCITY, force);
 			Globals.p("Force=" + force);
-
-
 		}
 	}
 

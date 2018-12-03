@@ -1,6 +1,7 @@
 package com.scs.spectrumarcade.abilities;
 
 import com.jme3.math.Vector3f;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -31,8 +32,8 @@ public class GauntletAxeThrower extends AbstractAbility implements IAbility {
 			game.addEntity(axe);
 
 			Vector3f force = game.getCamera().getDirection().mult(20);
-			//force.y = 0;
-			axe.srb.setLinearVelocity(force);
+			//axe.srb.setLinearVelocity(force);
+			game.addForce(axe, ForceData.LINEAR_VELOCITY, force);
 			//Globals.p("Force=" + force);
 
 		}

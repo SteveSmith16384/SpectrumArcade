@@ -6,6 +6,7 @@ import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
+import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -90,10 +91,9 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			}
 		}
 
-		//Globals.p("Floater pos: " + this.getMainNode().getWorldTranslation());
 		Vector3f force = dir.mult(SPEED);
-		//Globals.p("Floater force: " + dir);
-		this.srb.setLinearVelocity(force);
+		//this.srb.setLinearVelocity(force);
+		game.addForce(this, ForceData.LINEAR_VELOCITY, force);
 	}
 
 

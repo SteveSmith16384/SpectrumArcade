@@ -8,7 +8,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.models.MinerModel;
 
-public class Pedestrian extends AbstractPhysicalEntity implements IProcessable  {
+public class Pedestrian extends AbstractPhysicalEntity implements IProcessable  { // todo - use BetterCharacterControl!
 	
 	public Pedestrian(SpectrumArcade _game, float x, float z) {
 		super(_game, "Pedestrian");
