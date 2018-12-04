@@ -15,7 +15,6 @@ import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -39,9 +38,9 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -152,7 +151,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		 */
-		this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+		this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {

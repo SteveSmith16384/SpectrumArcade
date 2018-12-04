@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class TrailblazerNormal3 extends AbstractBlock {
 
 	public TrailblazerNormal3() {
-		super(9, 0);
+		super(3, 3);
 	}
 
 }

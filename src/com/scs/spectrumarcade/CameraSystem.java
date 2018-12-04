@@ -108,9 +108,9 @@ public class CameraSystem {
 				cam.getLocation().y = fixedHeight;
 			}
 			
-			//if (!camInCharge) {
+			if (!camInCharge) {
 				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
-			//}
+			}
 
 			cam.update();
 		}

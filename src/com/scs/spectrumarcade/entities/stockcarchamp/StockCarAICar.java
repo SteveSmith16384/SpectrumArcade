@@ -42,6 +42,8 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
 	@Override
 	public void process(float tpfSecs) {
+		super.process(tpfSecs);
+
 		if (checkNodesInt.hitInterval()) {
 			
 			// Check if upside-down

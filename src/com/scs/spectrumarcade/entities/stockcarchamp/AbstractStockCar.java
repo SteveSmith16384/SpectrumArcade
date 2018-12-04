@@ -12,6 +12,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
@@ -135,6 +136,17 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		this.mainNode.attachChild(new FordFocusModel(game.getAssetManager(), texNum));
 	}
 
+
+	public void process(float tpfSecs) {
+		// Check if upside-down
+		Vector3f upDir = this.getMainNode().getWorldRotation().getRotationColumn(1);
+		if (upDir.y < 0) {
+			Globals.p("Car upside down!");
+			// todo - right
+			this.vehicle.applyTorqueImpulse(new Vector3f(8, 0, 0));
+		}
+
+	}
 
 
 	@Override

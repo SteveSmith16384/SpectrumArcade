@@ -74,7 +74,6 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			String[] lines = text.split("\n");
 
 			for (String line : lines) {
-				//lineNum++;
 				String[] parts = line.split(",");
 				int x = Integer.parseInt(parts[0]);
 				int y = Integer.parseInt(parts[1]);
@@ -84,9 +83,9 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 
 			// Add ants
-			for (int i=0 ; i<(Settings.TEST_ANT_AI?1:5) ; i++) {
-				int x = NumberFunctions.rnd(40, MAP_SIZE-40); // todo - base on avatar start pos
-				int z = NumberFunctions.rnd(10, 20);
+			for (int i=0 ; i<5 ; i++) {
+				int x = NumberFunctions.rnd(10, MAP_SIZE-10);
+				int z = NumberFunctions.rnd(10, MAP_SIZE-10);
 				Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
 				game.addEntity(ant);
 			}
@@ -103,7 +102,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 2f, 124f);
+		return new Vector3f(54, 2f, 124f);
 	}
 
 
@@ -114,7 +113,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			game.setAbility(1, new BombGun_AA(game));
 			return wp;
 		} else {
-			WalkingPlayer wp = new WalkingPlayer(game, MAP_SIZE/2, 2f, 124, true, FOLLOW_CAM);
+			WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, true, FOLLOW_CAM);
 			game.setAbility(1, new BombGun_AA(game));
 			return wp;
 		}

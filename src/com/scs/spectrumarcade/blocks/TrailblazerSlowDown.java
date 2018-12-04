@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class TrailblazerSlowDown extends AbstractBlock {
 
 	public TrailblazerSlowDown() {
-		super(9, 0);
+		super(2, 3);
 	}
 
 }

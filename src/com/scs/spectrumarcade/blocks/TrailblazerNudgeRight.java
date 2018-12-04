@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class TrailblazerNudgeRight extends AbstractBlock {
 
 	public TrailblazerNudgeRight() {
-		super(9, 0);
+		super(1, 3);
 	}
 
 }

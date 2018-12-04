@@ -56,6 +56,9 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine7 = new ArcadeMachine(game, this, 7, 0, 2, "ArcadeMachine_Trailblazer", TrailblazerLevel.class);
 		game.addEntity(machine7);
 
+		ArcadeMachine machine8 = new ArcadeMachine(game, this, 8, 0, 2, "ArcadeMachine_ManicMiner", ManicMinerCentralCavern.class);
+		game.addEntity(machine8);
+
 		//ArcadeMachine machine2 = new ArcadeMachine(game, this, 8, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
 		//game.addEntity(machine2);
 

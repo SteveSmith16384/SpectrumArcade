@@ -12,6 +12,7 @@ import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
+import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.models.MinerModel;
 
 import ssmith.util.RealtimeInterval;
@@ -47,13 +48,20 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	@Override
 	public void process(float tpfSecs) {
-		if (checkPosInterval.hitInterval()) {
-			if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
-				Globals.p("Damsel stuck; jumping");
-				this.playerControl.jump();
-				this.model.jumpAnim();
+		if (followingPlayer) {
+			if (checkPosInterval.hitInterval()) {
+				if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+					Globals.p("Damsel stuck; jumping");
+					this.playerControl.jump();
+					this.model.jumpAnim();
+				}
+				prevPos.set(this.mainNode.getWorldTranslation());
 			}
-			prevPos.set(this.mainNode.getWorldTranslation());
+			Vector3f pos = this.getMainNode().getWorldTranslation();
+			if (pos.z > 124) {
+				// Game complete
+				game.setNextLevel(ArcadeRoom.class, -1);
+			}
 		}
 
 		//model.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
