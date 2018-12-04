@@ -34,7 +34,11 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall2);
 
-		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/SU/Sinclair_User_cover_24.jpg");
+		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/mags/Sinclair_User_cover_24.jpg");
+		game.addEntity(mag);
+		mag = new Magazine(game, 5, .3f, 3, "Textures/mags/Crash_Magazine_Cover_Issue_1.jpg");
+		game.addEntity(mag);
+		mag = new Magazine(game, 7, .3f, 2, "Textures/mags/Yscover1.jpg");
 		game.addEntity(mag);
 
 		// Arcade machines

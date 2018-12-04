@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities.stockcarchamp;
 
+import com.jme3.asset.TextureKey;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.control.VehicleControl;
@@ -12,6 +13,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Cylinder;
+import com.jme3.texture.Texture;
+import com.jme3.texture.Texture.WrapMode;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -28,9 +31,17 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, boolean player, int texNum) {
 		super(_game, name);
 
-		Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-		mat.getAdditionalRenderState().setWireframe(true);
-		mat.setColor("Color", ColorRGBA.Red);
+		TextureKey key3 = new TextureKey("Textures/tire.jpg");
+		key3.setGenerateMips(true);
+		Texture tex3 = game.getAssetManager().loadTexture(key3);
+		tex3.setWrap(WrapMode.Repeat);
+
+		//Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
+		//mat.getAdditionalRenderState().setWireframe(true);
+		//mat.setColor("Color", ColorRGBA.Red);
+
+		Material mat = new Material(game.getAssetManager(), "Common/MatDefs/Light/Lighting.j3md");
+		mat.setTexture("DiffuseMap", tex3);
 
 		//create a compound shape and attach the BoxCollisionShape for the car body at 0,1,0
 		//this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0

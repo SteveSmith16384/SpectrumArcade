@@ -5,6 +5,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -17,10 +18,18 @@ import mygame.util.Vector3Int;
 
 public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGenerator {
 
+	public static final boolean FOLLOW_CAM = true;
 	private static final int MAP_DEPTH = 5;
+
+	private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) {
+		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		if (FOLLOW_CAM) {
+			camSys.setupFollowCam(3, 0, true);
+		}
+
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
 		game.addEntity(terrainUDG);
 		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
@@ -89,7 +98,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 */
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 15, 5, 20f, true, true);
+		return new WalkingPlayer(game, 15, 5, 20f, true, FOLLOW_CAM);
 	}
 
 
@@ -101,13 +110,13 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public void process(float tpfSecs) {
-		// Do nothing
+		camSys.process(game.getCamera(), game.player);
 	}
 
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "CENTRAL CAVERN";
 	}
 
 

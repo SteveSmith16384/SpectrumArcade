@@ -23,7 +23,7 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 		geometry = (Geometry)game.getAssetManager().loadModel("Models/RocksFlowersGrassPack/OBJ/rock3.obj");
 		JMEAngleFunctions.turnOnXAxis(geometry, (float)Math.PI);
 		JMEModelFunctions.scaleModelToWidth(geometry, 1f);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/rock.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/mm_rock.png");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
 		JMEModelFunctions.moveYOriginTo(geometry, 0f);

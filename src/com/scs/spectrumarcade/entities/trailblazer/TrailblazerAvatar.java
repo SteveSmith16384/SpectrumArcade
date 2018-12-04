@@ -31,12 +31,14 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private boolean left = false, right = false, up = false, down = false, jump = false;
 
+	private boolean clearForces;
+
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
 		super(_game, "TrailblazerAvatar");
 
 		level = _level;
 
-		Mesh sphere = new Sphere(32, 32, RAD, true, false);
+		Mesh sphere = new Sphere(64, 64, RAD, true, false);
 		Geometry geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
@@ -102,7 +104,8 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void clearForces() {
-		srb.clearForces();
+		clearForces = true;
+		//srb.clearForces();
 		//srb.setLinearVelocity(new Vector3f());
 	}
 
@@ -115,6 +118,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (this.clearForces) {
+			this.clearForces = false;
+			srb.clearForces();
+			srb.setLinearVelocity(new Vector3f());
+		}
 		//walking = up || down || left || right;
 		if (up) {
 			this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
@@ -131,19 +139,20 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 		if (right) {
 			Vector3f dir = game.getCamera().getLeft();
-			this.srb.applyCentralForce(dir.mult(FORCE));
+			this.srb.applyCentralForce(dir.mult(-FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 		}
 		if (jump) {
 			Globals.p("Jumping");
-			this.srb.applyCentralForce(new Vector3f(0, 150f, 0));
+			this.srb.applyCentralForce(new Vector3f(0, 250f, 0));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, 150f, 0));
 			jump = false;
 		}
 
 		Vector3f pos = this.mainNode.getWorldTranslation();
-		if (pos.y <= RAD+0.1f) {
+		if (pos.y <= 1+RAD+0.1f) {
 			if ((int)pos.x != lastCheckX || (int)pos.z != lastCheckZ) {
+				//Globals.p("Checking square " + (int)pos.x + "," + (int)pos.z);
 				handleSquare(lastCheckX, lastCheckZ);
 				lastCheckX = (int)pos.x;
 				lastCheckZ = (int)pos.z;
@@ -156,35 +165,37 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private void handleSquare(int x, int z) {
 		try {
-			//if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
-			switch (level.map[x][z]) {
-			case 0:
+			if (level.map[x][z] >= 3) {
+				//if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
+				switch (level.map[x][z]) {
+				/*case 0:
 			case TrailblazerLevel.MAP_HOLE:
 			case TrailblazerLevel.MAP_WALL:
 				// Do nothing
-				break;
-			case TrailblazerLevel.MAP_SPEED_UP:
-				this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE*3));
-				//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE*3));
-				break;
-			case TrailblazerLevel.MAP_SLOW_DOWN:
-				this.srb.applyCentralForce(game.getCamera().getDirection().mult(-1).multLocal(FORCE*3));
-				//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE*2));
-				break;
-			case TrailblazerLevel.MAP_JUMP:
-				this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*2, 0));
-				//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
-				break;
-			case TrailblazerLevel.MAP_NUDGE_LEFT:
-				this.srb.applyCentralForce(game.getCamera().getLeft().mult(FORCE));
-				//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(FORCE));
-				break;
-			case TrailblazerLevel.MAP_NUDGE_RIGHT:
-				this.srb.applyCentralForce(game.getCamera().getLeft().mult(-1).multLocal(FORCE));
-				//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(-FORCE));
-				break;
-			default:
-				Globals.p("Unhandle map square: " + level.map[x][z]);
+				break;*/
+				case TrailblazerLevel.MAP_SPEED_UP:
+					this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE*20));
+					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE*3));
+					break;
+				case TrailblazerLevel.MAP_SLOW_DOWN:
+					this.srb.applyCentralForce(game.getCamera().getDirection().mult(-1).multLocal(FORCE*10));
+					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE*2));
+					break;
+				case TrailblazerLevel.MAP_JUMP:
+					this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*2, 0));
+					//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
+					break;
+				case TrailblazerLevel.MAP_NUDGE_LEFT:
+					this.srb.applyCentralForce(game.getCamera().getLeft().mult(FORCE*4));
+					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(FORCE));
+					break;
+				case TrailblazerLevel.MAP_NUDGE_RIGHT:
+					this.srb.applyCentralForce(game.getCamera().getLeft().mult(-FORCE*4));
+					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(-FORCE));
+					break;
+				default:
+					Globals.p("Unhandle map square: " + level.map[x][z]);
+				}
 			}
 		} catch (ArrayIndexOutOfBoundsException ex) {
 			// Do nothing

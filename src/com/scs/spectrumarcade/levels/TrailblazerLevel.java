@@ -60,12 +60,18 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		int width = Integer.parseInt(lines[0].split(",")[0]);
 		map = new int[width][lines.length-1];
 
+		int lineNum = 0;
 		int z=0;
 		int nextCol = 0;
 		for (String line : lines) {
+			lineNum++;
+			if (lineNum == 1) {
+				continue; // Skip first line
+			}
 			String[] tokens = line.split(",");
 			for (int x = 0 ; x<tokens.length-1 ; x++) {
 				int id = Integer.parseInt(tokens[x]);
+				map[x][z] = id;
 				switch (id) {
 				case 0:
 					switch (nextCol) {

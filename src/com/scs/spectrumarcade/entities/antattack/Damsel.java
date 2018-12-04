@@ -27,6 +27,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
 	private Vector3f prevPos = new Vector3f();
+	private long dontWalkUntil = 0;
 
 	public Damsel(SpectrumArcade _game, float x, float z) {
 		super(_game, "Damsel");
@@ -40,36 +41,39 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 		BoundingBox bb = (BoundingBox)model.getWorldBound();
 		playerControl = new BetterCharacterControl(bb.getZExtent(), bb.getYExtent()*2, 10f);
-		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
+		playerControl.setJumpForce(new Vector3f(0, 7f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
+
+		this.model.idleAnim();
+
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
-		if (followingPlayer) {
-			if (checkPosInterval.hitInterval()) {
-				if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
-					Globals.p("Damsel stuck; jumping");
-					this.playerControl.jump();
-					this.model.jumpAnim();
-				}
-				prevPos.set(this.mainNode.getWorldTranslation());
-			}
-			Vector3f pos = this.getMainNode().getWorldTranslation();
-			if (pos.z > 124) {
-				// Game complete
-				game.setNextLevel(ArcadeRoom.class, -1);
-			}
-		}
-
-		//model.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 		this.turnTowardsPlayer();
 		if (followingPlayer) {
-			if (this.distance(game.player) > 4f) {
-				this.model.walkAnim();
-				moveFwds();
+			if (this.distance(game.player) > 3f) {
+				if (dontWalkUntil < System.currentTimeMillis()) {
+					this.model.walkAnim();
+					moveFwds();
+					if (checkPosInterval.hitInterval()) {
+						if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+							Globals.p("Damsel stuck; jumping");
+							this.playerControl.jump();
+							this.model.jumpAnim();
+							dontWalkUntil = System.currentTimeMillis() + 500;
+						} 
+						prevPos.set(this.mainNode.getWorldTranslation());
+					}
+				}
+				// Check if reached the exit
+				Vector3f pos = this.getMainNode().getWorldTranslation();
+				if (pos.z > 124) {
+					// Game complete
+					game.setNextLevel(ArcadeRoom.class, -1);
+				}
 			} else {
 				playerControl.setWalkDirection(new Vector3f());
 				this.model.idleAnim();
