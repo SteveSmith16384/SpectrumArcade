@@ -39,9 +39,9 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
-import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener, PhysicsTickListener {
 
@@ -125,8 +125,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		stateManager.attach(bulletAppState);
 		//bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
-		//viewPort.setBackgroundColor(new ColorRGBA(0.1f, 0.1f, 0.1f, 1f));
-
 		setUpKeys();
 		setUpLight();
 
@@ -154,7 +152,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		 */
-		this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel
+		this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {

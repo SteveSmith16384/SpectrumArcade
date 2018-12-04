@@ -109,7 +109,7 @@ public class CameraSystem {
 			}
 			
 			//if (!camInCharge) {
-				//cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
+				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			//}
 
 			cam.update();
