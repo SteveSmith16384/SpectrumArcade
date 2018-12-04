@@ -1,13 +1,13 @@
 package com.scs.spectrumarcade.entities.gauntlet;
 
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
-import com.scs.spectrumarcade.ForceData;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
@@ -15,7 +15,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.models.GauntletGhostModel;
 
-public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, IProcessable {
+public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHarmOnContact, IProcessable, PhysicsTickListener {
 
 	private static final boolean SHOW_GHOST_BOXES = true;
 
@@ -65,8 +65,6 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 			this.markForRemoval();
 		}
 
-		turnTowardsPlayer();
-		moveFwds();
 		ghostModel.lookAt(game.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 	}
 
@@ -74,8 +72,8 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 	private void moveFwds() {
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		Vector3f force = dir.mult(1);
-		//this.srb.setLinearVelocity(force); // todo - need this every frame?
-		game.addForce(this, ForceData.LINEAR_VELOCITY, force);
+		this.srb.setLinearVelocity(force); // todo - need this every frame?
+		//game.addForce(this, ForceData.LINEAR_VELOCITY, force);
 	}
 
 
@@ -88,6 +86,21 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 			turnDir.set(0, -1, 0).multLocal(0.01f);
 		}
 		this.srb.applyTorqueImpulse(turnDir);
+	}
+
+
+	@Override
+	public void physicsTick(PhysicsSpace arg0, float arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		turnTowardsPlayer();
+		moveFwds();
+
 	}
 
 }

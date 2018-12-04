@@ -1,5 +1,7 @@
 package com.scs.spectrumarcade.entities.ericandfloaters;
 
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
@@ -20,7 +22,7 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
-public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
+public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable, PhysicsTickListener {
 
 	public static final float SPEED = 10f;
 	public static final long TURN_INTERVAL = 2000;
@@ -91,9 +93,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			}
 		}
 
-		Vector3f force = dir.mult(SPEED);
-		//this.srb.setLinearVelocity(force);
-		game.addForce(this, ForceData.LINEAR_VELOCITY, force);
 	}
 
 
@@ -117,6 +116,22 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		}
 		killed = true;
 		this.timeToRemove = System.currentTimeMillis() + 3000; 
+	}
+
+
+	@Override
+	public void physicsTick(PhysicsSpace arg0, float arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		Vector3f force = dir.mult(SPEED);
+		this.srb.setLinearVelocity(force);
+		//game.addForce(this, ForceData.LINEAR_VELOCITY, force);
+		
 	}
 
 }

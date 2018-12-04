@@ -1,5 +1,7 @@
 package com.scs.spectrumarcade.entities.motos;
 
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -8,17 +10,14 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.ForceData;
-import com.scs.spectrumarcade.Globals;
+import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.MotosLevel;
 
-public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
+public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, PhysicsTickListener {
 
 	private static final float FORCE = 15f;
 
@@ -51,27 +50,6 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	@Override
 	public void process(float tpfSecs) {
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
-		if (!game.isGameOver()) {
-			if (up) {
-				//this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
-				game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
-			}
-			if (down) {
-				//this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE));
-				game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
-			}
-			if (left) {
-				Vector3f dir = game.getCamera().getLeft();
-				//this.srb.applyCentralForce(dir.mult(FORCE));
-				game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
-			}
-			if (right) {
-				Vector3f dir = game.getCamera().getLeft().mult(-1);
-				//this.srb.applyCentralForce(dir.mult(FORCE));
-				game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
-			}
-
-		}
 
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			game.playerKilled();
@@ -119,7 +97,39 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar {
 	public void clearForces() {
 		srb.clearForces();
 		//srb.setLinearVelocity(new Vector3f());
-		game.addForce(this, ForceData.LINEAR_VELOCITY, new Vector3f());
+		//game.addForce(this, ForceData.LINEAR_VELOCITY, new Vector3f());
+	}
+
+
+	@Override
+	public void physicsTick(PhysicsSpace arg0, float arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (up) {
+			this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
+			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
+		}
+		if (down) {
+			this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE));
+			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
+		}
+		if (left) {
+			Vector3f dir = game.getCamera().getLeft();
+			this.srb.applyCentralForce(dir.mult(FORCE));
+			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
+		}
+		if (right) {
+			Vector3f dir = game.getCamera().getLeft().mult(-1);
+			this.srb.applyCentralForce(dir.mult(FORCE));
+			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
+		}
+
+		
 	}
 
 }

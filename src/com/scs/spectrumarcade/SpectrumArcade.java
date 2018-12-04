@@ -43,7 +43,7 @@ import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
-public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener, PhysicsTickListener {
+public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
 	private static final int MODE_GAME = 0;
 	private static final int MODE_RETURNING = 1;
@@ -54,7 +54,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public List<IProcessable> entitiesForProcessing = new ArrayList<IProcessable>();
 	private List<IEntity> entitiesToAdd = new LinkedList<>();
 	private List<IEntity> entitiesToRemove = new LinkedList<>();
-	private List<ForceData> forcesToApply = new LinkedList<>();
+	//private List<ForceData> forcesToApply = new LinkedList<>();
 	public BulletAppState bulletAppState;
 
 	public AbstractPhysicalEntity player;
@@ -228,7 +228,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.entitiesToAdd.clear();
 		this.entitiesToRemove.clear();
 		entitiesForProcessing.clear();
-		forcesToApply.clear();
+		//forcesToApply.clear();
 
 		loadingLevel = true;
 		level.generateLevel(this, levelNum);
@@ -257,6 +257,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
 			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+			if (e instanceof PhysicsTickListener) {
+				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
+			}
 		}
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.add((IProcessable)e);
@@ -438,6 +441,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.remove((IProcessable)e);
 		}
+		if (e instanceof PhysicsTickListener) {
+			this.getBulletAppState().getPhysicsSpace().removeTickListener((PhysicsTickListener)e);
+		}
+
 	}
 
 
@@ -495,12 +502,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.nextLevelNum = levelNum;
 	}
 
-
+/*
 	public void addForce(AbstractPhysicalEntity pe, int type, Vector3f force) {
 		this.forcesToApply.add(new ForceData(pe, type, force));
 	}
 	
-	
+/*	
 	@Override
 	public void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
 		while (forcesToApply.size() > 0) {
@@ -523,5 +530,5 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		
 	}
 
-
+*/
 }
