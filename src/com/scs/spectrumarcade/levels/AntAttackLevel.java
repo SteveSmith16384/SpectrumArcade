@@ -99,7 +99,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		game.addEntity(key);
 		
 		if (Settings.TEST_BILLBOARD) {
-			TextBillboardEntity be = new TextBillboardEntity(game, 54, 2f, 124f);
+			TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
 			game.addEntity(be);
 		}
 

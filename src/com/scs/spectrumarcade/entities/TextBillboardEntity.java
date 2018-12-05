@@ -8,10 +8,10 @@ public class TextBillboardEntity extends AbstractPhysicalEntity implements IProc
 
 	private TextBillboard ab;
 	
-	public TextBillboardEntity(SpectrumArcade _game, float x, float y, float z) {
+	public TextBillboardEntity(SpectrumArcade _game, String text, float x, float y, float z) {
 		super(_game, "TextBillboardEntity");
 
-		ab = new TextBillboard(game.getAssetManager(), 2f, .5f, 200, 30);
+		ab = new TextBillboard(game.getAssetManager(), text, 2f, .5f, 200, 30);
 		ab.setLocalTranslation(0, 0, 0);
 		this.mainNode.attachChild(ab);
 
@@ -22,6 +22,13 @@ public class TextBillboardEntity extends AbstractPhysicalEntity implements IProc
 
 	@Override
 	public void process(float tpfSecs) {
+		Vector3f pos = game.player.getMainNode().getWorldTranslation().clone();  // todo - dcet
+		pos.y += 2f;
+		Vector3f dir = game.player.getMainNode().getWorldRotation().getRotationColumn(2);
+		
+		Vector3f newPos = pos.addLocal(dir.mult(10));
+		this.getMainNode().setLocalTranslation(newPos);
+		
 		ab.lookAt(game.getCamera().getLocation(), Vector3f.UNIT_Y); // todo - mainnode.lookat
 	}
 

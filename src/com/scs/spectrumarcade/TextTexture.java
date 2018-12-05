@@ -12,14 +12,20 @@ import com.scs.spectrumarcade.jme.PaintableImage;
 public class TextTexture extends PaintableImage {
 
 	private Font font;
+	private String text;
 
-	public TextTexture(int pixelsW, int pixelsH) {
+	public TextTexture(String _text, int pixelsW, int pixelsH) {
 		super(pixelsW, pixelsH);
+		
+		text = _text;
 
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("Assets/Fonts/zx_spectrum-7.ttf"));
 			//font = font.deriveFont(14);
 			font = font.deriveFont(Font.PLAIN, 72);
+			if (font.getSize() == 1) {
+				throw new RuntimeException("Unable to create font");
+			}
 		} catch (FontFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,7 +42,7 @@ public class TextTexture extends PaintableImage {
 
 		g.setColor(Color.BLACK);
 		g.setFont(font);
-		g.drawString("R TAPE LOADING ERROR", 20, 20);
+		g.drawString(text, 20, 20);
 	}
 
 }

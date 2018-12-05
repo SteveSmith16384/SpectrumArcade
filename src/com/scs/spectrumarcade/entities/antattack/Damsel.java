@@ -54,7 +54,10 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 	public void process(float tpfSecs) {
 		this.turnTowardsPlayer();
 		if (followingPlayer) {
-			if (this.distance(game.player) > 3f) {
+			if (this.distance(game.player) > 10f) {
+				this.followingPlayer = false;
+				this.model.idleAnim();
+			} else if (this.distance(game.player) > 3f) {
 				if (dontWalkUntil < System.currentTimeMillis()) {
 					this.model.walkAnim();
 					moveFwds();
