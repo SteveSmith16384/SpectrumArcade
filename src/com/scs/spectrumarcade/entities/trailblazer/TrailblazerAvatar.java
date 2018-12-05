@@ -22,7 +22,7 @@ import com.scs.spectrumarcade.levels.TrailblazerLevel;
 public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar, PhysicsTickListener {
 
 	private static final float RAD = .4f;
-	private static final float FORCE = 5f;
+	private static final float FORCE = 3f;
 	private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
@@ -150,7 +150,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 
 		Vector3f pos = this.mainNode.getWorldTranslation();
-		if (pos.y <= 1+RAD+0.1f) {
+		if (pos.y <= 1+RAD+0.5f) {
 			if ((int)pos.x != lastCheckX || (int)pos.z != lastCheckZ) {
 				//Globals.p("Checking square " + (int)pos.x + "," + (int)pos.z);
 				handleSquare(lastCheckX, lastCheckZ);
@@ -166,6 +166,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private void handleSquare(int x, int z) {
 		try {
 			if (level.map[x][z] >= 3) {
+				Globals.p("Hitting !" +level.map[x][z]);
 				//if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
 				switch (level.map[x][z]) {
 				/*case 0:
@@ -174,23 +175,24 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 				// Do nothing
 				break;*/
 				case TrailblazerLevel.MAP_SPEED_UP:
-					this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE*20));
+					Globals.p("Speeding up!");
+					this.srb.applyCentralForce(game.getCamera().getDirection().mult(200));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE*3));
 					break;
 				case TrailblazerLevel.MAP_SLOW_DOWN:
-					this.srb.applyCentralForce(game.getCamera().getDirection().mult(-1).multLocal(FORCE*10));
+					this.srb.applyCentralForce(game.getCamera().getDirection().mult(-200));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE*2));
 					break;
 				case TrailblazerLevel.MAP_JUMP:
-					this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*2, 0));
+					this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*4, 0));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_LEFT:
-					this.srb.applyCentralForce(game.getCamera().getLeft().mult(FORCE*4));
+					this.srb.applyCentralForce(game.getCamera().getLeft().mult(100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(FORCE));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_RIGHT:
-					this.srb.applyCentralForce(game.getCamera().getLeft().mult(-FORCE*4));
+					this.srb.applyCentralForce(game.getCamera().getLeft().mult(-100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(-FORCE));
 					break;
 				default:

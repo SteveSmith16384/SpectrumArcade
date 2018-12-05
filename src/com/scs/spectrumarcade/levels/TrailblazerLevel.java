@@ -33,9 +33,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	public static final int MAP_NUDGE_LEFT = 6;
 	public static final int MAP_NUDGE_RIGHT = 7;
 
-	//private static final int MAP_SIZE_X = 8;
-	//private static final int MAP_SIZE_Z = 400;
-
 	private VoxelTerrainEntity terrainUDG;
 	private RealtimeInterval checkWinInt = new RealtimeInterval(100);
 	private int levelNum;
@@ -97,6 +94,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 					terrainUDG.removeBlock(new Vector3Int(x, 0, z));
 					break;
 				case MAP_WALL:
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
 					//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
 					Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, x, z);
 					game.addEntity(barrier);
