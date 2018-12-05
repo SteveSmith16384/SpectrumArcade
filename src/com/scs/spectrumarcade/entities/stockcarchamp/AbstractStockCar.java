@@ -31,7 +31,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, boolean player, int texNum) {
 		super(_game, name);
 
-		TextureKey key3 = new TextureKey("Textures/tire.jpg");
+		TextureKey key3 = new TextureKey("Textures/stockcarchamp/tire.jpg");
 		key3.setGenerateMips(true);
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);

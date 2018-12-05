@@ -75,7 +75,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 		if (checkPosInterval.hitInterval()) {
 			if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
-				Globals.p("Ant stuck, changing dir");
+				//Globals.p("Ant stuck, changing dir");
 				this.setMode(MODE_TURNING);
 			}
 			prevPos.set(this.mainNode.getWorldTranslation());
@@ -171,7 +171,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	private void setMode(int m) {
 		if (m != mode) {
-			Globals.p("New Ant mode: " + m);
+			//Globals.p("New Ant mode: " + m);
 			mode = m;
 			switch (mode) {
 			case MODE_TOWARDS_PLAYER:

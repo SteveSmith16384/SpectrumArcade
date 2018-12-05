@@ -67,6 +67,10 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			}
 			String[] tokens = line.split(",");
 			for (int x = 0 ; x<tokens.length-1 ; x++) {
+				nextCol++;
+				if (nextCol > 2) {
+					nextCol = 0;
+				}
 				int id = Integer.parseInt(tokens[x]);
 				map[x][z] = id;
 				switch (id) {
@@ -84,10 +88,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 					default:
 						Globals.pe("Unhandled map type: " + nextCol);
 						break;
-					}
-					nextCol++;
-					if (nextCol > 2) {
-						nextCol = 0;
 					}
 					break;
 				case MAP_HOLE:

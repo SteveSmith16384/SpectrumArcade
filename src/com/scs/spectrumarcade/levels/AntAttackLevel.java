@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.levels;
 
+import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -15,6 +16,7 @@ import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
+import com.scs.spectrumarcade.entities.TextBillboardEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.antattack.Ant;
@@ -49,7 +51,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			camSys.setupFollowCam(3, 0, true);
 		}
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/white.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 1f);
@@ -96,6 +98,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
 		Damsel key = new Damsel(game, 54, 110);
 		game.addEntity(key);
+		
+		if (Settings.TEST_BILLBOARD) {
+			TextBillboardEntity be = new TextBillboardEntity(game, 54, 2f, 124f);
+			game.addEntity(be);
+		}
+
 
 	}
 

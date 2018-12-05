@@ -59,7 +59,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		// Radius and Height determine the size of the collision bubble
 		// Weight determines how much gravity effects the control
 		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
-		playerControl.setJumpForce(new Vector3f(0, 7f, 0)); 
+		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 

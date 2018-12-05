@@ -23,15 +23,15 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/carpet1.jpg");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/arcaderoom/carpet1.jpg");
 		game.addEntity(floor);
 
 		// Back wall
-		Wall wall1 = new Wall(game, 0, 0, 0, MAP_SIZE, 4, .1f, "Textures/lliella_funinthesun_paper1.jpg", true);
+		Wall wall1 = new Wall(game, 0, 0, 0, MAP_SIZE, 4, .1f, "Textures/arcaderoom/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall1);
 
 		// Side wall
-		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/lliella_funinthesun_paper1.jpg", true);
+		Wall wall2 = new Wall(game, 0, 0, 0, .1f, 4, MAP_SIZE, "Textures/arcaderoom/lliella_funinthesun_paper1.jpg", true);
 		game.addEntity(wall2);
 
 		Magazine mag = new Magazine(game, 3, .3f, 4, "Textures/mags/Sinclair_User_cover_24.jpg");

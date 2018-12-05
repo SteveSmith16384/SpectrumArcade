@@ -16,7 +16,7 @@ public class Barrier_Trailblazer extends AbstractPhysicalEntity {
 		Box box = new Box(.5f, .5f, .5f);
 		Geometry geometry = new Geometry("Barrier_TrailblazerGeom", box);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png"); // todo
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/blocks/trailblazer_red");
 		geometry.setLocalTranslation(.5f,  .5f, .5f);
 
 		this.mainNode.attachChild(geometry);

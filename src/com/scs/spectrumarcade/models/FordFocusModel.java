@@ -19,7 +19,7 @@ public class FordFocusModel extends Node {
 		Spatial model = assetManager.loadModel("Models/jkm_fordfocus/fordfocus128.obj");
 		model.scale(.01f);
 		model.setCullHint(CullHint.Never); // otherwise, the car is invisible when upside down
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/jkm_fordfocus/fordfocusnew128.bmp");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/jkm_fordfocus/fordfocusnew128_" + texNum + ".png");
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0f);

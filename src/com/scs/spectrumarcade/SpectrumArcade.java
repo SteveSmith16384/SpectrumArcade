@@ -38,9 +38,9 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -53,7 +53,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public List<IProcessable> entitiesForProcessing = new ArrayList<IProcessable>();
 	private List<IEntity> entitiesToAdd = new LinkedList<>();
 	private List<IEntity> entitiesToRemove = new LinkedList<>();
-	//private List<ForceData> forcesToApply = new LinkedList<>();
 	public BulletAppState bulletAppState;
 
 	public AbstractPhysicalEntity player;
@@ -75,7 +74,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	private Class<? extends ILevelGenerator> nextLevel;
 	private int nextLevelNum;
-	//private boolean clearForces;
 	
 	public static void main(String[] args) {
 		try {
@@ -152,7 +150,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 		 */
-		this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+		this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {

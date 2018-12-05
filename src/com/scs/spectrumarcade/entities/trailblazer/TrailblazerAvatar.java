@@ -22,7 +22,7 @@ import com.scs.spectrumarcade.levels.TrailblazerLevel;
 public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar, PhysicsTickListener {
 
 	private static final float RAD = .4f;
-	private static final float FORCE = 3f;
+	private static final float FORCE = 2f;
 	private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
@@ -30,7 +30,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private int lastCheckX, lastCheckZ;
 
 	private boolean left = false, right = false, up = false, down = false, jump = false;
-
+	private Vector3f forceDirFwd, forceDirLeft = new Vector3f();
 	private boolean clearForces;
 
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
@@ -124,22 +124,28 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 			srb.setLinearVelocity(new Vector3f());
 		}
 		//walking = up || down || left || right;
+		forceDirFwd.set(game.getCamera().getDirection());
+		forceDirFwd.y = 0;
+		forceDirFwd.normalizeLocal();
+
+		forceDirLeft.set(game.getCamera().getLeft());
+		forceDirFwd.y = 0;
+		forceDirFwd.normalizeLocal();
+
 		if (up) {
-			this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
+			this.srb.applyCentralForce(forceDirFwd.mult(FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
 		}
 		if (down) {
-			this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE*2));
+			this.srb.applyCentralForce(forceDirFwd.mult(-FORCE*2));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
 		}
 		if (left) {
-			Vector3f dir = game.getCamera().getLeft();
-			this.srb.applyCentralForce(dir.mult(FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
 		}
 		if (right) {
-			Vector3f dir = game.getCamera().getLeft();
-			this.srb.applyCentralForce(dir.mult(-FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(-FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 		}
 		if (jump) {
@@ -153,9 +159,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		if (pos.y <= 1+RAD+0.5f) {
 			if ((int)pos.x != lastCheckX || (int)pos.z != lastCheckZ) {
 				//Globals.p("Checking square " + (int)pos.x + "," + (int)pos.z);
-				handleSquare(lastCheckX, lastCheckZ);
 				lastCheckX = (int)pos.x;
 				lastCheckZ = (int)pos.z;
+				handleSquare(lastCheckX, lastCheckZ);
 			}
 		}
 
@@ -176,11 +182,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 				break;*/
 				case TrailblazerLevel.MAP_SPEED_UP:
 					Globals.p("Speeding up!");
-					this.srb.applyCentralForce(game.getCamera().getDirection().mult(200));
+					this.srb.applyCentralForce(forceDirFwd.mult(200));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE*3));
 					break;
 				case TrailblazerLevel.MAP_SLOW_DOWN:
-					this.srb.applyCentralForce(game.getCamera().getDirection().mult(-200));
+					this.srb.applyCentralForce(forceDirFwd.mult(-200));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE*2));
 					break;
 				case TrailblazerLevel.MAP_JUMP:
@@ -188,11 +194,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 					//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_LEFT:
-					this.srb.applyCentralForce(game.getCamera().getLeft().mult(100));
+					this.srb.applyCentralForce(forceDirLeft.mult(100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(FORCE));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_RIGHT:
-					this.srb.applyCentralForce(game.getCamera().getLeft().mult(-100));
+					this.srb.applyCentralForce(forceDirLeft.mult(-100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(-FORCE));
 					break;
 				default:

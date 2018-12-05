@@ -8,13 +8,13 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class SquareIndicator extends AbstractPhysicalEntity  implements IProcessable {
+public class SquareIndicator extends AbstractPhysicalEntity implements IProcessable {
 
 	public SquareIndicator(SpectrumArcade _game) {
 		super(_game, "SquareIndicator");
 
 		Box box1 = new Box(.5f, .01f, .5f);
-		Geometry geometry = new Geometry("BombSphere", box1);
+		Geometry geometry = new Geometry("SquareIndicatorBox", box1);
 		//geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/yellowsun.jpg");
 

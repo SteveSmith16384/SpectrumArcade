@@ -61,17 +61,24 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 					if (checkPosInterval.hitInterval()) {
 						if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
 							Globals.p("Damsel stuck; jumping");
+							//playerControl.setWalkDirection(new Vector3f());
+
+							Vector3f walkDirection = this.playerControl.getViewDirection();
+							playerControl.setWalkDirection(walkDirection.mult(-2.4f));
+
+							playerControl.setJumpForce(new Vector3f(0, 50f, 0)); 
 							this.playerControl.jump();
-							this.model.jumpAnim();
-							dontWalkUntil = System.currentTimeMillis() + 500;
+							//this.model.jumpAnim();
+							//dontWalkUntil = System.currentTimeMillis() + 500;
 						} 
 						prevPos.set(this.mainNode.getWorldTranslation());
 					}
 				}
 				// Check if reached the exit
 				Vector3f pos = this.getMainNode().getWorldTranslation();
-				if (pos.z > 124) {
+				if (pos.z > 127) {
 					// Game complete
+					Globals.p("Damsel has reached the end");
 					game.setNextLevel(ArcadeRoom.class, -1);
 				}
 			} else {
@@ -95,7 +102,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 
 	private void moveFwds() {
-		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
+		Vector3f walkDirection = this.playerControl.getViewDirection();
 		playerControl.setWalkDirection(walkDirection.mult(2.4f));
 
 	}

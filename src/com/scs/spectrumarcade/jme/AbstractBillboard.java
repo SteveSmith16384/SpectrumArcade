@@ -9,7 +9,7 @@ import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
-public class AbstractBillboard extends Geometry {
+public abstract class AbstractBillboard extends Geometry {
 
 	public AbstractBillboard(AssetManager assetManager, String tex, float w, float h) {
 		super("Billboard", new Quad(w, h));

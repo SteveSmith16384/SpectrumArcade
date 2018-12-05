@@ -11,12 +11,15 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.MapLoader;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
+import com.scs.spectrumarcade.entities.TextBillboardEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.stockcarchamp.StartFinishLine;
 import com.scs.spectrumarcade.entities.stockcarchamp.StockCarAICar;
 import com.scs.spectrumarcade.entities.stockcarchamp.StockCarAvatar;
 
@@ -62,6 +65,10 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 				//try {
 				if (map[x][z] == 1) {
 					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
+				} else if (map[x][z] == 99) {
+					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.START_FINISH);
+					StartFinishLine sfl = new StartFinishLine(game, x, z);
+					game.addEntity(sfl);
 				} else if (map[x][z] < 0) {
 					this.startPos.add(new Point(x*SQ_SIZE, z*SQ_SIZE));
 				} else if (map[x][z] == 0) {
@@ -87,6 +94,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y, i+2);
 			game.addEntity(aicar);
 		}
+		
 	}
 
 

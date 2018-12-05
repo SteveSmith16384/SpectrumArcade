@@ -7,7 +7,6 @@ import com.atr.jme.font.asset.TrueTypeLoader;
 import com.atr.jme.font.shape.TrueTypeContainer;
 import com.atr.jme.font.util.StringContainer;
 import com.atr.jme.font.util.Style;
-import com.jme3.font.BitmapFont;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.math.ColorRGBA;
@@ -39,15 +38,6 @@ public class HUD extends Node {
 
 		game = _game;
 		cam = _cam;
-/*
-		_game.getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
-		float fontSize = cam.getWidth() / 40; 
-		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize);
-		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
-		TrueTypeKeyMesh ttkLarge = new TrueTypeKeyMesh("Fonts/SF Distant Galaxy.ttf", Style.Plain, (int)fontSize*2);
-		TrueTypeFont ttfLarge = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkLarge);*/
-
-		float lineSpacing = cam.getHeight() / 30;
 
 		super.setLocalTranslation(0, 0, 0);
 
@@ -98,8 +88,6 @@ public class HUD extends Node {
 
 
 	private void updateTextArea() {
-		//StringBuilder str = new StringBuilder();
-		//str.append(game.getHUDText());
 		this.textArea.setText(game.getHUDText());
 		this.textArea.updateGeometry();
 	}

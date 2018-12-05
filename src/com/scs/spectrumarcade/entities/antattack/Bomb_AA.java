@@ -41,7 +41,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 		Mesh sphere = new Sphere(8, 8, .2f, true, false);
 		Geometry geometry = new Geometry("BombSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/black.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/blocks/black.png");
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -67,7 +67,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 				float x = this.getMainNode().getWorldTranslation().x + NumberFunctions.rndFloat(-.3f,  .3f);
 				float y = this.getMainNode().getWorldTranslation().y + NumberFunctions.rndFloat(-.3f,  .3f);
 				float z = this.getMainNode().getWorldTranslation().z + NumberFunctions.rndFloat(-.3f,  .3f);
-				ExplosionShard shard = new ExplosionShard(game, x, y, z, .05f, "Textures/antattack.png");
+				ExplosionShard shard = new ExplosionShard(game, x, y, z, .05f, "Textures/blocks/antattack.png");
 				game.addEntity(shard);
 			}
 			this.markForRemoval();
