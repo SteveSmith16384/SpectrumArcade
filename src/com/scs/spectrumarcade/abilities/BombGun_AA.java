@@ -47,7 +47,7 @@ public class BombGun_AA extends AbstractAbility implements IAbility, PhysicsTick
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 		if (bomb != null) {
-			Vector3f force = game.getCamera().getDirection().mult(10);
+			Vector3f force = game.getCamera().getDirection().mult(20);
 			bomb.srb.setLinearVelocity(force);
 			//game.addForce(bomb, ForceData.LINEAR_VELOCITY, force);
 			Globals.p("Force=" + force);

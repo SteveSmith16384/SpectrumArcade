@@ -1,6 +1,5 @@
 package com.scs.spectrumarcade.levels;
 
-import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;

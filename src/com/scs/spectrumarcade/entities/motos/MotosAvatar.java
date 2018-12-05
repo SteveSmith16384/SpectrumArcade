@@ -33,7 +33,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
 		} else {
-			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
+			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/motos/avatar.png");
 			geometry.setShadowMode(ShadowMode.CastAndReceive);
 		}
 

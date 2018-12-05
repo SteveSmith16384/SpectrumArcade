@@ -59,7 +59,7 @@ public class ExplosionShard extends AbstractPhysicalEntity  implements IProcessa
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 		if (!forceAdded) {
 			forceAdded = true;
-			Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(1,  2), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(100);
+			Vector3f dir = new Vector3f(NumberFunctions.rndFloat(-1,  1), NumberFunctions.rndFloat(1,  2), NumberFunctions.rndFloat(-1,  1)).normalizeLocal().multLocal(30);
 			srb.applyCentralForce(dir);
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir);
 		}

@@ -17,8 +17,6 @@ import mygame.util.Vector3Int;
 
 public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
-	//private static final int CHUNK_SIZE = 16;
-
 	public BlockTerrainControl blocks;
 	private float blockSize;
 	private int worldSizeBlocks;
@@ -44,16 +42,6 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 		blockSettings.texturesPerSheet = Settings.TEX_PER_SHEET;
 
 		blocks = new BlockTerrainControl(blockSettings);
-		/*blocks.registerBlock(new BrickBlock());
-		blocks.registerBlock(new RedFloorBlockUDG());
-		blocks.registerBlock(new RedFloorBlockPxl());
-		blocks.registerBlock(new ExitBlock());
-		blocks.registerBlock(new ConveyorBlock());
-		blocks.registerBlock(new DebugBlock());
-		blocks.registerBlock(new FenceBlock());
-		blocks.registerBlock(new AntAttackBlock());*/
-		//blocks.registerBlock(new SplatBlock());
-		//blocks.registerBlock(new EATFSolidBlock());
 
 		this.getMainNode().addControl(blocks);
 		this.getMainNode().setLocalTranslation(x, y, z);

@@ -30,7 +30,8 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private int lastCheckX, lastCheckZ;
 
 	private boolean left = false, right = false, up = false, down = false, jump = false;
-	private Vector3f forceDirFwd, forceDirLeft = new Vector3f();
+	private Vector3f forceDirFwd = new Vector3f();
+	private Vector3f forceDirLeft = new Vector3f();
 	private boolean clearForces;
 
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
@@ -43,7 +44,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
 		} else {
-			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
+			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/trailblazer/avatar.png");
 			geometry.setShadowMode(ShadowMode.CastAndReceive);
 		}
 

@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities;
 
+import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 
@@ -21,8 +22,7 @@ public class TextBillboardEntity extends AbstractPhysicalEntity implements IProc
 
 	@Override
 	public void process(float tpfSecs) {
-		//ab.refreshImage();
-		//ab.lookAt(game.getCamera().getLocation(), Vector3f.UNIT_Y); // todo - mainnode.lookat
+		ab.lookAt(game.getCamera().getLocation(), Vector3f.UNIT_Y); // todo - mainnode.lookat
 	}
 
 }

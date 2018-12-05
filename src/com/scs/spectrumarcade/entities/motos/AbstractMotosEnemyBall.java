@@ -30,7 +30,7 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 		
 		Mesh sphere = new Sphere(16, 16, rad, true, false);
 		Geometry geometry = new Geometry("AbstractMotosEnemyBall", sphere);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/antattack.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/motos/avatar.png");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
 		this.mainNode.attachChild(geometry);
