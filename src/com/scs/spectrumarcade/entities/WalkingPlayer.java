@@ -65,7 +65,9 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 		if (followCam) {
 			minerModel = new MinerModel(game.getAssetManager(), tex);
-			this.getMainNode().attachChild(minerModel);
+			if (!Settings.TEST_BILLBOARD) {
+				this.getMainNode().attachChild(minerModel);
+			}
 		}
 		
 		for (int i=1 ; i<=8 ; i++) {

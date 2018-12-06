@@ -11,14 +11,15 @@ import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.trailblazer.Barrier_Trailblazer;
 import com.scs.spectrumarcade.entities.trailblazer.TrailblazerAvatar;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.Functions;
-import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
 public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
@@ -48,11 +49,16 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			camSys.setupFollowCam(3, 0, true);
 		}
 
+		if (Settings.TEST_BALL_ROLLING) {
+			FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 100, 2, 100, "Textures/blocks/antattack.png");
+			game.addEntity(floor);
+
+		} 
 		String text = Functions.readAllFileFromJar("maps/trailblazer_map1.csv");
 		String[] lines = text.split("\n");
 
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, lines.length, 100, 1f);
-		game.addEntity(terrainUDG);
+		//game.addEntity(terrainUDG);
 
 		int width = Integer.parseInt(lines[0].split(",")[0]);
 		map = new int[width][lines.length-1];
@@ -123,47 +129,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			z++;
 		}
 
-
-
-		/*
-		map = new int[MAP_SIZE_X][MAP_SIZE_Z];
-		// Add floor
-		int id = 0;
-		for (int zGrid=0 ; zGrid<MAP_SIZE_Z ; zGrid++) {
-			for (int xGrid=0 ; xGrid<MAP_SIZE_X ; xGrid++) {
-				switch (id) {
-				case 0:
-					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_MAGENTA); // todo - use TB blocks!
-					break;
-				case 1:
-					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
-					break;
-				default:
-					terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
-					id = -1;
-					break;
-				}
-				id++;
-			}
-		}*/
-		/*
-		// Add problems
-		for (int zGrid=3 ; zGrid<MAP_SIZE_Z ; zGrid++) {
-			int xGrid = NumberFunctions.rnd(0, MAP_SIZE_X-1);
-			int rnd = NumberFunctions.rnd(1, 4);
-			map[xGrid][zGrid] = rnd;
-			switch (rnd) {
-			case 3:
-				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_CYAN);
-				break;
-			case 4:
-				//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 0, zGrid), BlockCodes.MOTOS_YELLOW);
-				break;
-			default:
-				//throw new RuntimeException("Todo");
-			}
-		}
-		 */
 	}
 
 

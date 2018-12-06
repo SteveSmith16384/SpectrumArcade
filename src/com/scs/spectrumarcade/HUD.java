@@ -20,8 +20,6 @@ import ssmith.util.RealtimeInterval;
 
 public class HUD extends Node {
 
-	private static final int MAX_LINES = 6;
-
 	private RealtimeInterval updateHudTextInterval = new RealtimeInterval(1000);
 
 	private Camera cam;
@@ -30,7 +28,6 @@ public class HUD extends Node {
 	private boolean process_damage_box;
 	private SpectrumArcade game;
 
-	//private BitmapText textArea; 
 	private TrueTypeContainer textArea; // For showing all other stats 
 
 	public HUD(SpectrumArcade _game, Camera _cam, ColorRGBA col) {

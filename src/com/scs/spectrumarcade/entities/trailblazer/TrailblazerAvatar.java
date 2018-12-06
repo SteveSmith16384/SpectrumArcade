@@ -22,7 +22,7 @@ import com.scs.spectrumarcade.levels.TrailblazerLevel;
 public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar, PhysicsTickListener {
 
 	private static final float RAD = .4f;
-	private static final float FORCE = 2f;
+	private static final float FORCE = 4f;
 	private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;

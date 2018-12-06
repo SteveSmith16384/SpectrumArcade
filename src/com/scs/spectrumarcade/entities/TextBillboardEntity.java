@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public class TextBillboardEntity extends AbstractPhysicalEntity implements IProcessable {
+public class TextBillboardEntity extends AbstractPhysicalEntity implements IProcessable { // todo - delete
 
 	private TextBillboard ab;
 	
@@ -25,11 +25,11 @@ public class TextBillboardEntity extends AbstractPhysicalEntity implements IProc
 	public void process(float tpfSecs) {
 		Vector3f pos = game.player.getMainNode().getWorldTranslation().clone();  // todo - dcet
 		pos.y += 1.2f;
-		BoundingBox bb = (BoundingBox)ab.getWorldBound(); 
+		BoundingBox bb = (BoundingBox)ab.getWorldBound();
 		//pos.x -= bb.getXExtent();
 		Vector3f dir = game.getCamera().getDirection();// game.player.getMainNode().getWorldRotation().getRotationColumn(2);
 		
-		Vector3f newPos = pos.addLocal(dir.mult(5));
+		Vector3f newPos = pos.addLocal(dir.mult(1));
 		this.getMainNode().setLocalTranslation(newPos);
 		
 		ab.lookAt(game.getCamera().getLocation(), Vector3f.UNIT_Y); // todo - mainnode.lookat

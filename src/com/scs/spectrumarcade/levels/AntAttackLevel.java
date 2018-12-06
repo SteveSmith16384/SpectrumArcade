@@ -15,9 +15,10 @@ import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.TextBillboardEntity;
+import com.scs.spectrumarcade.entities.TextBillboard;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
+import com.scs.spectrumarcade.entities.antattack.AAScanner;
 import com.scs.spectrumarcade.entities.antattack.Ant;
 import com.scs.spectrumarcade.entities.antattack.Damsel;
 
@@ -95,13 +96,17 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		// Add damsel
 		int x = NumberFunctions.rnd(3, MAP_SIZE-4); // todo - use this
 		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
-		Damsel key = new Damsel(game, x, z);//54, 110);
-		game.addEntity(key);
-
+		Damsel damsel = new Damsel(game, x, z);//54, 110);
+		game.addEntity(damsel);
 
 		if (Settings.TEST_BILLBOARD) {
-			TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
+			//TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
+			TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER");
 			game.addEntity(be);
+		} else {
+			AAScanner scanner = new AAScanner(game, damsel);
+			game.addEntity(scanner);
+
 		}
 
 	}
@@ -152,7 +157,11 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
-		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
+		if (Settings.TEST_BILLBOARD) {
+			cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
+		} else {
+			cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
+		}
 	}
 
 }

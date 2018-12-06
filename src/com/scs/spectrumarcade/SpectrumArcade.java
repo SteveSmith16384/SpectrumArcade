@@ -32,10 +32,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera.FrustumIntersect;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
+import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.AntAttackLevel;
@@ -262,6 +264,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			if (e instanceof PhysicsTickListener) {
 				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
 			}
+		}
+		if (e instanceof IHudItem) {
+			this.getGuiNode().attachChild((Geometry)e);
 		}
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.add((IProcessable)e);

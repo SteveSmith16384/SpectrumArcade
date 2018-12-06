@@ -22,7 +22,7 @@ public class TextTexture extends PaintableImage {
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream("Assets/Fonts/zx_spectrum-7.ttf"));
 			//font = font.deriveFont(14);
-			font = font.deriveFont(Font.PLAIN, 72);
+			font = font.deriveFont(Font.PLAIN, 24);
 			if (font.getSize() == 1) {
 				throw new RuntimeException("Unable to create font");
 			}
@@ -37,7 +37,7 @@ public class TextTexture extends PaintableImage {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setBackground(Color.GREEN);
+		g.setBackground(Color.WHITE);
 		g.clearRect(0, 0, getWidth(), getHeight());
 
 		g.setColor(Color.BLACK);
