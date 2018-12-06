@@ -38,9 +38,9 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -74,7 +74,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	private Class<? extends ILevelGenerator> nextLevel;
 	private int nextLevelNum;
-	
+
 	public static void main(String[] args) {
 		try {
 			AppSettings settings = new AppSettings(true);
@@ -147,10 +147,15 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
-		/*
+
+		if (Settings.RELEASE_MODE) {
+			this.setNextLevel(ArcadeRoom.class, -1);
+		} else {
+			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
-		 */
-		this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+			 */
+			this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+		}
 
 		//File video, audio;
 		if (Settings.RECORD_VID) {
@@ -272,12 +277,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (tpfSecs > 1f) {
 			tpfSecs = 1f;
 		}
-/*
+		/*
 		if (this.clearForces) {
 			IAvatar a = (IAvatar)player;
 			a.clearForces();
 		}
-*/
+		 */
 
 		while (this.entitiesToRemove.size() > 0) {
 			IEntity e = this.entitiesToRemove.remove(0);
@@ -507,11 +512,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.nextLevelNum = levelNum;
 	}
 
-/*
+	/*
 	public void addForce(AbstractPhysicalEntity pe, int type, Vector3f force) {
 		this.forcesToApply.add(new ForceData(pe, type, force));
 	}
-	
+
 /*	
 	@Override
 	public void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
@@ -526,14 +531,14 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				break;
 			}
 		}
-		
+
 	}
 
-	
+
 	@Override
 	public void physicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
-		
+
 	}
 
-*/
+	 */
 }

@@ -87,9 +87,9 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		VehicleWheel w1 = vehicle.addWheel(node1, new Vector3f(-xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
 		if (player) {
-			if (Settings.TRY_SKIDDING) {
+			//if (Settings.TRY_SKIDDING) {
 				w1.setFrictionSlip(3f);
-			}
+			//}
 		}
 
 		Node node2 = new Node("wheel 2 node");
@@ -100,9 +100,9 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		VehicleWheel w2 = vehicle.addWheel(node2, new Vector3f(xOff, yOff, zOff),
 				wheelDirection, wheelAxle, restLength, radius, true);
 		if (player) {
-			if (Settings.TRY_SKIDDING) {
+			//if (Settings.TRY_SKIDDING) {
 				w2.setFrictionSlip(3f);
-			}
+			//}
 		}
 
 		Node node3 = new Node("wheel 3 node");
@@ -113,9 +113,9 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		VehicleWheel w3 = vehicle.addWheel(node3, new Vector3f(-xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
 		if (player) {
-			if (Settings.TRY_SKIDDING) {
+			//if (Settings.TRY_SKIDDING) {
 				w3.setFrictionSlip(2.35f); // Low = slide.  2 skids too much, 2.5 doesn't
-			}
+			//}
 		}
 
 		Node node4 = new Node("wheel 4 node");
@@ -126,9 +126,9 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		VehicleWheel w4 = vehicle.addWheel(node4, new Vector3f(xOff, yOff, -zOff),
 				wheelDirection, wheelAxle, restLength, radius, false);
 		if (player) {
-			if (Settings.TRY_SKIDDING) {
+			//if (Settings.TRY_SKIDDING) {
 				w4.setFrictionSlip(2.35f); // Low = slide
-			}
+			//}
 		}
 
 		vehicleNode.attachChild(node1);

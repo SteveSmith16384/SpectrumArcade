@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="assets"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Blocky"/>
 	<classpathentry kind="lib" path="libs/jmeCapture-0.1/audio-send-natives.jar"/>
 	<classpathentry kind="lib" path="libs/jmeCapture-0.1/audio-send.jar"/>
 	<classpathentry kind="lib" path="libs/jmeCapture-0.1/jmeCapture.jar"/>
@@ -105,5 +104,6 @@
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/vecmath.jar"/>
 	<classpathentry kind="lib" path="libs/jme-3.2-stable/xpp3.jar"/>
+	<classpathentry kind="lib" path="libs/blocky.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

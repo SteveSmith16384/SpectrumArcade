@@ -10,7 +10,7 @@ Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlmail.com)
 * X to return to the arcade.
 
 
-## Credits
+## CREDITS
 Written by Steve Smith ( http://twitter.com/stephencsmith/ )
 All games copyrights owned by their respective owners.
 
@@ -21,10 +21,9 @@ TTF font loader from https://1337atr.weebly.com/jttf.html
 Arcade Machine: https://free3d.com/3d-model/arcade-machine-cabinet-41196.html
 Spider (pretending to be an ant) by https://opengameart.org/content/spider-animated
 Key by https://opengameart.org/content/antique-key
-RocksFlowersGrassPack by Quaternius
-Spectrum Font from https://www.dafont.com/zx-spectrum-7.font
-Stock cars from https://opengameart.org/content/low-poly-ford-focus
-AnimatedHuman by Quaternius
+RocksFlowersGrassPack by Quaternius (http://quaternius.com/)
+Stock car model from https://opengameart.org/content/low-poly-ford-focus
+AnimatedHuman by Quaternius (http://quaternius.com/)
 
 
 ## LICENCES

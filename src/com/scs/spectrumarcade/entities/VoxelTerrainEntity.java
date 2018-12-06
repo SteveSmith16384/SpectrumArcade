@@ -24,8 +24,8 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize) {
 		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize);
 	}
-	
-	
+
+
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, int chunkSize, float _blockSize) {
 		super(_game, "VoxelTerrainEntity");
 
@@ -57,11 +57,6 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 					geom.addControl(control);
 					//control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
-
-					if (Settings.TRY_SKIDDING) {
-						//control.setFriction(.1f);
-					}
-
 				}
 				control.setCollisionShape(new MeshCollisionShape(geom.getMesh()));
 			}

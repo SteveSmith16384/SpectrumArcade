@@ -5,7 +5,7 @@ public class Settings {
 	public static final boolean RELEASE_MODE = false;
 	
 	public static final boolean TEST_BILLBOARD = true;
-	public static final boolean TRY_SKIDDING = true; // todo - remove
+	//public static final boolean TRY_SKIDDING = true; // todo - remove
 
 	public static final boolean AA_FIND_START = false;
 	public static final boolean TEST_ANT_AI = false;
