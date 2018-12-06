@@ -173,7 +173,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private void handleSquare(int x, int z) {
 		try {
 			if (level.map[x][z] >= 3) {
-				Globals.p("Hitting !" +level.map[x][z]);
+				//Globals.p("Hitting !" +level.map[x][z]);
 				//if (x >= 0 && x < MAP_SIZE_X && z >= 0 && z < MAP_SIZE_Z) {
 				switch (level.map[x][z]) {
 				/*case 0:
@@ -187,18 +187,22 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE*3));
 					break;
 				case TrailblazerLevel.MAP_SLOW_DOWN:
+					Globals.p("Slow down!");
 					this.srb.applyCentralForce(forceDirFwd.mult(-200));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE*2));
 					break;
 				case TrailblazerLevel.MAP_JUMP:
+					Globals.p("Jump!");
 					this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*4, 0));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_LEFT:
+					Globals.p("Nudge left!");
 					this.srb.applyCentralForce(forceDirLeft.mult(100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(FORCE));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_RIGHT:
+					Globals.p("Nudge right!");
 					this.srb.applyCentralForce(forceDirLeft.mult(-100));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getLeft().mult(-FORCE));
 					break;

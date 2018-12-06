@@ -96,9 +96,16 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 		avatar.warp(new Vector3f(15, 5, 20f));
 	}
 */
+
+	@Override
+	public Vector3f getAvatarStartPos() {
+		return new Vector3f(3, 2, 3);
+	}
+
+
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 15, 5, 20f, true, FOLLOW_CAM);
+		return new WalkingPlayer(game, 3, 2, 3f, true, FOLLOW_CAM);
 	}
 
 
@@ -117,12 +124,6 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 	@Override
 	public String getHUDText() {
 		return "CENTRAL CAVERN";
-	}
-
-
-	@Override
-	public Vector3f getAvatarStartPos() {
-		return new Vector3f(15, 5, 20f);
 	}
 
 
