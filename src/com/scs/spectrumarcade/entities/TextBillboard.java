@@ -15,16 +15,19 @@ public class TextBillboard extends Geometry {
 
 	private TextTexture tex;
 
-	public TextBillboard(AssetManager assetManager, String text, float quadW, float quadH, int pixelsW, int pixelsH) {
-		super("TextBillboard", new Quad(quadW, quadH));
-
+	public TextBillboard(AssetManager assetManager, String text) {//, float quadW, float quadH, int pixelsW, int pixelsH) {
+		super("TextBillboard", new Quad(text.length()/4, .5f));
+		
+		int pixelsW = text.length() * 10;
+		int pixelsH = 30;
+		tex = new TextTexture(text, pixelsW, pixelsH);
+		
 		Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md"); // create a simple material
 		mat.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
 
 		Texture2D texture = new Texture2D(pixelsW, pixelsH, Format.ABGR8);
 		texture.setMinFilter(Texture.MinFilter.Trilinear);
 		texture.setMagFilter(Texture.MagFilter.Bilinear);
-		tex = new TextTexture(text, pixelsW, pixelsH);
 		texture.setImage(tex);
 
 		mat.setTexture("DiffuseMap", texture);

@@ -32,8 +32,8 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 	private Vector3f prevPos = new Vector3f();
 	private long reverseUntil;
 
-	public StockCarAICar(SpectrumArcade _game, StockCarChamp3DLevel _level, float x, float y, float z, int texNum) {
-		super(_game, "StockCarAICar", x, y, z, false, texNum);
+	public StockCarAICar(SpectrumArcade _game, StockCarChamp3DLevel _level, float x, float y, float z, Vector3f lookAt, int texNum) {
+		super(_game, "StockCarAICar", x, y, z, lookAt, false, texNum);
 
 		level = _level;
 		waypoints = level.waypoints;
@@ -46,14 +46,6 @@ public class StockCarAICar extends AbstractStockCar implements IProcessable {
 
 		if (checkNodesInt.hitInterval()) {
 			
-			// Check if upside-down
-			Vector3f upDir = this.getMainNode().getWorldRotation().getRotationColumn(1);
-			if (upDir.y < 0) {
-				Globals.p("Car upside down!");
-				// todo - right
-				//this.vehicle.applyTorque(torque);
-			}
-
 			if (!reversing) {
 				boolean canSeeWP = this.isValidWaypoint(this.currentWayPoint);
 				if (!canSeeWP) {

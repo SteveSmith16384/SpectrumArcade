@@ -21,7 +21,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
 	// Our movement speed
-	private static final float speed = 4;
+	public static final float speed = 4;
 	private static final float strafeSpeed = 4f;
 
 	private MinerModel minerModel; 
@@ -42,10 +42,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public boolean walking = false;
 	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, boolean _canJump, boolean _followCam) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, boolean _followCam, String tex) {
 		super(_game, "Player");
 
-		canJump = _canJump;
+		canJump = jumpPower > 0;
 		followCam = _followCam;
 
 		/** Create a box to use as our player model */
@@ -59,12 +59,12 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		// Radius and Height determine the size of the collision bubble
 		// Weight determines how much gravity effects the control
 		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
-		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
+		playerControl.setJumpForce(new Vector3f(0, jumpPower, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
 		if (followCam) {
-			minerModel = new MinerModel(game.getAssetManager());
+			minerModel = new MinerModel(game.getAssetManager(), tex);
 			this.getMainNode().attachChild(minerModel);
 		}
 		
@@ -116,6 +116,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 				if (this.minerModel != null) {
 					this.minerModel.walkAnim();
 				}
+				/*
 				time_until_next_footstep_sfx -= tpf;
 				if (time_until_next_footstep_sfx <= 0) {
 					AudioNode an = this.audio_node_footsteps.get(next_footstep_sound);
@@ -130,6 +131,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 					}
 					time_until_next_footstep_sfx = FOOTSTEP_INTERVAL + (SpectrumArcade.rnd.nextFloat()/3);
 				}
+				*/
 			} else {
 				//time_until_next_footstep_sfx = 0;
 				if (this.minerModel != null) {

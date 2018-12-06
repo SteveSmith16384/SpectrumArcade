@@ -11,6 +11,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.models.MinerModel;
@@ -32,7 +33,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 	public Damsel(SpectrumArcade _game, float x, float z) {
 		super(_game, "Damsel");
 
-		model = new MinerModel(game.getAssetManager());
+		model = new MinerModel(game.getAssetManager(), "Textures/antattack/avatar_black.png");
 		model.setLocalTranslation(0, 0, 0);
 		this.mainNode.attachChild(model);
 
@@ -106,7 +107,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	private void moveFwds() {
 		Vector3f walkDirection = this.playerControl.getViewDirection();
-		playerControl.setWalkDirection(walkDirection.mult(2.4f));
+		playerControl.setWalkDirection(walkDirection.mult(WalkingPlayer.speed + 0.1f));
 
 	}
 

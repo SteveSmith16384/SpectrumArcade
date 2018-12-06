@@ -85,8 +85,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 			// Add ants
 			for (int i=0 ; i<5 ; i++) {
-				int x = NumberFunctions.rnd(10, MAP_SIZE-10);
-				int z = NumberFunctions.rnd(10, MAP_SIZE-10);
+				int x = NumberFunctions.rnd(10, MAP_SIZE-20);
+				int z = NumberFunctions.rnd(10, MAP_SIZE-20);
 				Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
 				game.addEntity(ant);
 			}
@@ -95,14 +95,14 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		// Add damsel
 		int x = NumberFunctions.rnd(3, MAP_SIZE-4); // todo - use this
 		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
-		Damsel key = new Damsel(game, 54, 110);
+		Damsel key = new Damsel(game, x, z);//54, 110);
 		game.addEntity(key);
-		
+
+
 		if (Settings.TEST_BILLBOARD) {
 			TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
 			game.addEntity(be);
 		}
-
 
 	}
 
@@ -116,11 +116,11 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		if (Settings.AA_FIND_START) {
-			WalkingPlayer wp = new WalkingPlayer(game, 0, 2f, 0, true, FOLLOW_CAM);
+			WalkingPlayer wp = new WalkingPlayer(game, 0, 2f, 0, 4f, FOLLOW_CAM, "Textures/antattack/avatar_black.png");
 			game.setAbility(1, new BombGun_AA(game));
 			return wp;
 		} else {
-			WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, true, FOLLOW_CAM);
+			WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, FOLLOW_CAM, "Textures/antattack/avatar_black.png");
 			game.setAbility(1, new BombGun_AA(game));
 			return wp;
 		}

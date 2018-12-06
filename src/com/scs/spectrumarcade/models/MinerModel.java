@@ -17,12 +17,12 @@ public class MinerModel extends Node { // todo - rename
 	private long jumpEndTime;
 	private AnimChannel channel;
 
-	public MinerModel(AssetManager assetManager) {
+	public MinerModel(AssetManager assetManager, String tex) {
 		super("MinerModel");
 		//assetManager = _assetManager;
 
 		Spatial model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AnimatedHuman/Textures/ClothedLightSkin.png");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, tex);//"Models/AnimatedHuman/Textures/ClothedLightSkin.png");
 		this.attachChild(model);
 
 		JMEModelFunctions.scaleModelToHeight(model, MODEL_HEIGHT);
@@ -31,7 +31,7 @@ public class MinerModel extends Node { // todo - rename
 		AnimControl control = JMEModelFunctions.getNodeWithControls(null, (Node)model);
 		channel = control.createChannel();
 
-		model.setShadowMode(ShadowMode.Cast);
+		model.setShadowMode(ShadowMode.CastAndReceive);
 
 	}
 

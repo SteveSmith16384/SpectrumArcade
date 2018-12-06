@@ -10,9 +10,9 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact {
+public class MMRock extends AbstractPhysicalEntity implements ICausesHarmOnContact {
 
-	public Rock(SpectrumArcade _game, float x, float y, float z) {
+	public MMRock(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Rock");
 
 		float w = 1f;
@@ -32,10 +32,8 @@ public class Rock extends AbstractPhysicalEntity implements ICausesHarmOnContact
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//srb.setKinematic(true);
-		
 		
 	}
 

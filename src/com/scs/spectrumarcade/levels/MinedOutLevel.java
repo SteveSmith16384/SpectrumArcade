@@ -91,7 +91,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, false, FOLLOW_CAM);
+		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, 0f, FOLLOW_CAM, "Textures/minedout/avatar_black.png");
 	}
 
 

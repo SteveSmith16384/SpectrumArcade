@@ -84,7 +84,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, true, false);
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, false, null);
 	}
 
 

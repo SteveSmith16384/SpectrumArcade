@@ -12,12 +12,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.MapLoader;
-import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.TextBillboardEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.stockcarchamp.StartFinishLine;
 import com.scs.spectrumarcade.entities.stockcarchamp.StockCarAICar;
@@ -67,7 +66,8 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
 				} else if (map[x][z] == 99) {
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.START_FINISH);
-					StartFinishLine sfl = new StartFinishLine(game, x, z);
+					StartFinishLine sfl = new StartFinishLine(game, z, x);
+					Globals.p("Add sfl to " + x + "," + z);
 					game.addEntity(sfl);
 				} else if (map[x][z] < 0) {
 					this.startPos.add(new Point(x*SQ_SIZE, z*SQ_SIZE));
@@ -91,7 +91,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		// Create AI cars
 		for (int i=0 ; i<startPos.size()-1 ; i++) {
 			Point p = this.startPos.get(i+1);
-			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y, i+2);
+			StockCarAICar aicar = new StockCarAICar(game, this, p.x, 2f, p.y, this.waypoints.get(0), i+2);
 			game.addEntity(aicar);
 		}
 		
@@ -108,7 +108,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Point p = this.startPos.get(0);
-		return new StockCarAvatar(game, p.x, 2f, p.y);
+		return new StockCarAvatar(game, p.x, 2f, p.y, this.waypoints.get(0));
 	}
 
 

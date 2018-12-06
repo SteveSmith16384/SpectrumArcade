@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
@@ -38,28 +39,49 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		BufferedImage image = ImageIO.read(new File("androids_map.png"));
+		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/androids_map.png");
+		BufferedImage image = ImageIO.read(inputStream);
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png"); // todo - tex and size
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/mud.png"); // todo - tex and size
 		game.addEntity(floor);
 
-		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png"); // todo
+		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/mud.png"); // todo
 		game.addEntity(ceiling);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 1f);
 		game.addEntity(terrainUDG);
 
-		for (int z=0 ; z<image.getHeight() ; z++) {
-			for (int x=0 ; x<image.getHeight() ; x++) {
-				int col = image.getRGB((x*20)+10, (z*20)+10);
+		for (int z=8 ; z<image.getHeight() ; z+=16) {
+			for (int x=8 ; x<image.getWidth() ; x+=16) {
+				int col = image.getRGB(x, z);//(x*16)+8, (z*16)+8);
 				switch (col) {
-				case -12566528: // Wall
+				case -16777216: // Wall
+				case -16711680: 
+				case -16776960:
+				case -16777214:
+				case -16659759:
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.EATF_SOLID);
 					terrainUDG.addRectRange_Blocks(BlockCodes.GAUNTLET_WALL, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
 					break;
+					
+				case -3290162: // floor
+					break;
+					
+				case -3159092: // door?
+					terrainUDG.addRectRange_Blocks(BlockCodes.GAUNTLET_DOOR, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
+					break;
+					
+				case -3355442: // baddy?
+					terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
+					break;
+					
+				case -12345791:
+					terrainUDG.addRectRange_Blocks(BlockCodes.EXIT, new Vector3Int(x, 0, z), new Vector3Int(1, WALL_HEIGHT, 1));
+					break;
 
 				default:
-					Globals.p("Unknown colour at " + x + "," + z + ":" + col);
+					Globals.p("Unknown colour at " + x/16 + "," + z/16 + ":" + col);
+					Globals.p("Unknown colour at " + x/16 + "," + z/16 + ":" + col);
 				}
 
 			}
@@ -75,7 +97,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, true, FOLLOW_CAM); // todo
+		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, 0f, FOLLOW_CAM, "Textures/androids/todo.png");
 		game.setAbility(1, new LaserRifle(game));
 		return wp;
 	}

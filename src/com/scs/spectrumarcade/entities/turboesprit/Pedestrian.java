@@ -13,7 +13,7 @@ public class Pedestrian extends AbstractPhysicalEntity implements IProcessable  
 	public Pedestrian(SpectrumArcade _game, float x, float z) {
 		super(_game, "Pedestrian");
 		
-		MinerModel model = new MinerModel(game.getAssetManager());
+		MinerModel model = new MinerModel(game.getAssetManager(), "Textures/turboesprit/avatar_white.png");
 		this.mainNode.attachChild(model);
 		this.mainNode.setLocalTranslation(x, 1f, z);
 		mainNode.updateModelBound();

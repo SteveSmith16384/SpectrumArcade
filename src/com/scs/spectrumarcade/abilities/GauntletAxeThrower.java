@@ -40,7 +40,6 @@ public class GauntletAxeThrower extends AbstractAbility implements IAbility, Phy
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 
 	}
 

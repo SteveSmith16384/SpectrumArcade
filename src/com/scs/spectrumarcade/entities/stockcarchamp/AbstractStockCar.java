@@ -28,8 +28,10 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	public VehicleControl vehicle;
 
 
-	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, boolean player, int texNum) {
+	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, Vector3f lookAt, boolean player, int texNum) {
 		super(_game, name);
+		
+		this.mainNode.lookAt(lookAt, Vector3f.UNIT_Y);
 
 		TextureKey key3 = new TextureKey("Textures/stockcarchamp/tire.jpg");
 		key3.setGenerateMips(true);
@@ -143,7 +145,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 
 		this.mainNode.setLocalTranslation(x, y, z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
-
+		
 		this.mainNode.attachChild(new FordFocusModel(game.getAssetManager(), texNum));
 	}
 

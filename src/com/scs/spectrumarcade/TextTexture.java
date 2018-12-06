@@ -37,12 +37,12 @@ public class TextTexture extends PaintableImage {
 
 	@Override
 	public void paint(Graphics2D g) {
-		g.setBackground(Color.green);
+		g.setBackground(Color.GREEN);
 		g.clearRect(0, 0, getWidth(), getHeight());
 
 		g.setColor(Color.BLACK);
 		g.setFont(font);
-		g.drawString(text, 20, 20);
+		g.drawString(text, 5, 10);
 	}
 
 }

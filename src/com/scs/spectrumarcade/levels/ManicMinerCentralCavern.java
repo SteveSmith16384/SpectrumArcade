@@ -12,7 +12,7 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.entities.manicminer.PoisonousPlant;
 import com.scs.spectrumarcade.entities.manicminer.Robot;
-import com.scs.spectrumarcade.entities.manicminer.Rock;
+import com.scs.spectrumarcade.entities.manicminer.MMRock;
 
 import mygame.util.Vector3Int;
 
@@ -78,7 +78,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 		game.addEntity(flower2);
 
 		// Rocks
-		Rock rock = new Rock(game, 3, 14, 2);
+		MMRock rock = new MMRock(game, 3, 14, 2);
 		game.addEntity(rock);
 
 		// Keys
@@ -105,7 +105,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 3, 2, 3f, true, FOLLOW_CAM);
+		return new WalkingPlayer(game, 3, 2, 3f, 7f, FOLLOW_CAM, "Textures/manicminer/avatar_white.png");
 	}
 
 

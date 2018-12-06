@@ -13,7 +13,6 @@ public class StartFinishLine extends AbstractPhysicalEntity {
 
 		Box box1 = new Box(.5f, .01f, .5f);
 		Geometry geometry = new Geometry("StartFinishLineBox", box1);
-		//geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/stockcarchamp/startfinish.png");
 
 		this.mainNode.attachChild(geometry);
