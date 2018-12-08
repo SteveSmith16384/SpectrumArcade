@@ -126,12 +126,12 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 		//walking = up || down || left || right;
 		forceDirFwd.set(game.getCamera().getDirection());
-		forceDirFwd.y = 0;
+		forceDirFwd.y = 0.5f;
 		forceDirFwd.normalizeLocal();
 
 		forceDirLeft.set(game.getCamera().getLeft());
-		forceDirFwd.y = 0;
-		forceDirFwd.normalizeLocal();
+		forceDirLeft.y = 0.2f;
+		forceDirLeft.normalizeLocal();
 
 		if (up) {
 			this.srb.applyCentralForce(forceDirFwd.mult(FORCE));
