@@ -8,11 +8,12 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
@@ -34,13 +35,15 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private Vector3f forceDirLeft = new Vector3f();
 	private boolean clearForces;
 
+	Geometry geometry;
+	
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
 		super(_game, "TrailblazerAvatar");
 
 		level = _level;
 
 		Mesh sphere = new Sphere(64, 64, RAD, true, false);
-		Geometry geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
+		geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
 		} else {
@@ -50,16 +53,24 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
-		mainNode.updateModelBound();
+		//mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1);
-		mainNode.addControl(srb);
-		//srb.setRestitution(.5f);
+		geometry.addControl(srb);
+		//mainNode.addControl(srb); // todo
 	}
+
+	
+	public Spatial getPhysicsNode() {
+		return geometry;
+	}
+
+
 
 
 	@Override
 	public void process(float tpfSecs) {
+		this.getMainNode().setLocalTranslation(this.geometry.getWorldTranslation());
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			game.playerKilled();
@@ -126,11 +137,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 		//walking = up || down || left || right;
 		forceDirFwd.set(game.getCamera().getDirection());
-		forceDirFwd.y = 0.5f;
+		//forceDirFwd.y = 0.5f;
 		forceDirFwd.normalizeLocal();
 
 		forceDirLeft.set(game.getCamera().getLeft());
-		forceDirLeft.y = 0.2f;
+		//forceDirLeft.y = 0.2f;
 		forceDirLeft.normalizeLocal();
 
 		if (up) {
@@ -171,6 +182,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 
 	private void handleSquare(int x, int z) {
+		if (Settings.TEST_BALL_ROLLING) {
+			return;
+		}
 		try {
 			if (level.map[x][z] >= 3) {
 				//Globals.p("Hitting !" +level.map[x][z]);

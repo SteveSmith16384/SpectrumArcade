@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 
@@ -32,6 +33,11 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
 
 	public Node getMainNode() {
+		return mainNode;
+	}
+
+
+	public Spatial getPhysicsNode() {
 		return mainNode;
 	}
 

@@ -53,80 +53,81 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 100, 2, 100, "Textures/blocks/antattack.png");
 			game.addEntity(floor);
 
-		} 
-		String text = Functions.readAllFileFromJar("maps/trailblazer_map1.csv");
-		String[] lines = text.split("\n");
+		} else {
+			String text = Functions.readAllFileFromJar("maps/trailblazer_map1.csv");
+			String[] lines = text.split("\n");
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, lines.length, 100, 1f);
-		//game.addEntity(terrainUDG);
+			terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, lines.length, 100, 1f);
+			//game.addEntity(terrainUDG);
 
-		int width = Integer.parseInt(lines[0].split(",")[0]);
-		map = new int[width][lines.length-1];
+			int width = Integer.parseInt(lines[0].split(",")[0]);
+			map = new int[width][lines.length-1];
 
-		int lineNum = 0;
-		int z=0;
-		int nextCol = 0;
-		for (String line : lines) {
-			lineNum++;
-			if (lineNum == 1) {
-				continue; // Skip first line
-			}
-			String[] tokens = line.split(",");
-			for (int x = 0 ; x<tokens.length-1 ; x++) {
-				nextCol++;
-				if (nextCol > 2) {
-					nextCol = 0;
+			int lineNum = 0;
+			int z=0;
+			int nextCol = 0;
+			for (String line : lines) {
+				lineNum++;
+				if (lineNum == 1) {
+					continue; // Skip first line
 				}
-				int id = Integer.parseInt(tokens[x]);
-				map[x][z] = id;
-				switch (id) {
-				case 0:
-					switch (nextCol) {
+				String[] tokens = line.split(",");
+				for (int x = 0 ; x<tokens.length-1 ; x++) {
+					nextCol++;
+					if (nextCol > 2) {
+						nextCol = 0;
+					}
+					int id = Integer.parseInt(tokens[x]);
+					map[x][z] = id;
+					switch (id) {
 					case 0:
+						switch (nextCol) {
+						case 0:
+							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
+							break;
+						case 1:
+							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL2);
+							break;
+						case 2:
+							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL3);
+							break;
+						default:
+							Globals.pe("Unhandled map type: " + nextCol);
+							break;
+						}
+						break;
+					case MAP_HOLE:
+						terrainUDG.removeBlock(new Vector3Int(x, 0, z));
+						break;
+					case MAP_WALL:
 						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
+						//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
+						Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, x, z);
+						game.addEntity(barrier);
 						break;
-					case 1:
-						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL2);
+					case MAP_SPEED_UP:
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_SPEED_UP);
 						break;
-					case 2:
-						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL3);
+					case MAP_SLOW_DOWN:
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_SLOW_DOWN);
+						break;
+					case MAP_JUMP:
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_JUMP);
+						break;
+					case MAP_NUDGE_LEFT:
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NUDGE_LEFT);
+						break;
+					case MAP_NUDGE_RIGHT:
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NUDGE_RIGHT);
 						break;
 					default:
-						Globals.pe("Unhandled map type: " + nextCol);
+						Globals.pe("Unhandled map type: " + id);
 						break;
 					}
-					break;
-				case MAP_HOLE:
-					terrainUDG.removeBlock(new Vector3Int(x, 0, z));
-					break;
-				case MAP_WALL:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
-					//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
-					Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, x, z);
-					game.addEntity(barrier);
-					break;
-				case MAP_SPEED_UP:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_SPEED_UP);
-					break;
-				case MAP_SLOW_DOWN:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_SLOW_DOWN);
-					break;
-				case MAP_JUMP:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_JUMP);
-					break;
-				case MAP_NUDGE_LEFT:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NUDGE_LEFT);
-					break;
-				case MAP_NUDGE_RIGHT:
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NUDGE_RIGHT);
-					break;
-				default:
-					Globals.pe("Unhandled map type: " + id);
-					break;
-				}
 
+				}
+				z++;
 			}
-			z++;
 		}
 
 	}
@@ -140,7 +141,11 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new TrailblazerAvatar(game, this, map.length/2, 2f, 1f, FOLLOW_CAM);
+		if (Settings.TEST_BALL_ROLLING) {
+			return new TrailblazerAvatar(game, this, 10f, 2f, 1f, FOLLOW_CAM);
+		} else {
+			return new TrailblazerAvatar(game, this, map.length/2, 2f, 1f, FOLLOW_CAM);
+		}
 	}
 
 
@@ -157,8 +162,10 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		if (checkWinInt.hitInterval()) {
 			Vector3f pos = game.player.getMainNode().getWorldTranslation();
 			// Check if player completed level
-			if (pos.z > map[0].length) {
-				game.setNextLevel(this.getClass(), levelNum++);
+			if (!Settings.TEST_BALL_ROLLING) {
+				if (pos.z > map[0].length) {
+					game.setNextLevel(this.getClass(), levelNum++);
+				}
 			}
 		}
 	}

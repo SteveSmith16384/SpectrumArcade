@@ -8,6 +8,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.ForceData;
@@ -22,6 +23,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	private static final float FORCE = 15f;
 
 	private Vector3f camPos = new Vector3f();
+	private Geometry geometry;
 	
 	private boolean left = false, right = false, up = false, down = false;
 
@@ -29,7 +31,8 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 		super(_game, "MotosAvatar");
 
 		Mesh sphere = new Sphere(16, 16, 1, true, false);
-		Geometry geometry = new Geometry("MotosPlayerEntitySphere", sphere);
+
+		geometry = new Geometry("MotosPlayerEntitySphere", sphere);
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
 		} else {
@@ -44,6 +47,11 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);
 		//srb.setRestitution(.5f);
+	}
+
+
+	public Spatial getPhysicsNode() {
+		return geometry;
 	}
 
 

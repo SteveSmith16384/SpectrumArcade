@@ -42,7 +42,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
+import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -156,7 +156,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+			this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
 		}
 
 		//File video, audio;
@@ -260,7 +260,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (e instanceof AbstractPhysicalEntity) {
 			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
 			this.getRootNode().attachChild(ape.getMainNode());
-			bulletAppState.getPhysicsSpace().add(ape.getMainNode());
+			bulletAppState.getPhysicsSpace().add(ape.getPhysicsNode());
 			if (e instanceof PhysicsTickListener) {
 				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
 			}
