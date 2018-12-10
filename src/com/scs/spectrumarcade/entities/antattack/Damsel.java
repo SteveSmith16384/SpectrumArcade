@@ -23,7 +23,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 	private static final float TURN_SPEED = 1f;
 
 	private GenericWalkingAvatar model;
-	private boolean followingPlayer;
+	public boolean followingPlayer;
 	private BetterCharacterControl playerControl;
 
 	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);

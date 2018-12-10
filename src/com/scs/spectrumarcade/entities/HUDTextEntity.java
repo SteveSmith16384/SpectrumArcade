@@ -13,16 +13,19 @@ import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IHudItem;
 
-public class HUDTextEntity implements IEntity, IHudItem, IProcessable {
+public class HUDTextEntity extends AbstractEntity implements IEntity, IHudItem, IProcessable {
 
 	private TrueTypeContainer textArea;
+	private float duration;
 
-	public HUDTextEntity(SpectrumArcade game, String text, int size, ColorRGBA col, float x, float y) {
-		super();
+	public HUDTextEntity(SpectrumArcade game, String text, int size, ColorRGBA col, float x, float y, float _duration) {
+		super(game, "HUDTextEntity");
+		
+		duration = _duration;
 
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zx_spectrum-7.ttf", Style.Bold, (int)size);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)game.getAssetManager().loadAsset(ttkSmall);
-		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "HELLO!"), col);
+		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, text), col);
 		textArea.setLocalTranslation(x, y, 0);
 	}
 
@@ -34,14 +37,12 @@ public class HUDTextEntity implements IEntity, IHudItem, IProcessable {
 
 	@Override
 	public void process(float tpfSecs) {
-		// todo - remove after time?
-
+		duration -= tpfSecs;
+		if (duration < 0) {
+			this.markForRemoval();
+		}
 	}
 
-	@Override
-	public void markForRemoval() {
-
-	}
 
 	@Override
 	public void actuallyRemove() {

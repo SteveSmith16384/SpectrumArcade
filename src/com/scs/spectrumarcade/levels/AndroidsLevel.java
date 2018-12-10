@@ -42,10 +42,10 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/androids_map.png");
 		BufferedImage image = ImageIO.read(inputStream);
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/mud.png"); // todo - tex and size
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/blocks/white.png"); // todo - size
 		game.addEntity(floor);
 
-		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/mud.png"); // todo
+		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth()/16, 1, image.getHeight()/16, "Textures/blocks/white.png"); // todo - size
 		game.addEntity(ceiling);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 16, 1f, 1f);

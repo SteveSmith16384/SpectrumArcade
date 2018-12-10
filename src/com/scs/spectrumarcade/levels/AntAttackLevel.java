@@ -33,6 +33,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	private static int MAP_BORDER = 10;
 	private static int MAP_SIZE = 128;
 
+	private Damsel damsel;
 	private CameraSystem camSys;
 
 	public AntAttackLevel() {
@@ -96,19 +97,20 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		// Add damsel
 		int x = NumberFunctions.rnd(3, MAP_SIZE-4);
 		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
-		Damsel damsel = new Damsel(game, x, z);//54, 110);
+		damsel = new Damsel(game, x, z);//54, 110);
 		game.addEntity(damsel);
 
-		if (Settings.TEST_BILLBOARD) {
-			//TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
-			//TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER", 24);
-			HUDTextEntity be = new HUDTextEntity(game, "WELCOME TO ANTCHESTER", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50);
-			game.addEntity(be);
-		} else {
-			AAScanner scanner = new AAScanner(game, damsel);
-			game.addEntity(scanner);
+		//if (Settings.TEST_BILLBOARD) {
+		//TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
+		//TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER", 24);
+		HUDTextEntity be = new HUDTextEntity(game, "WELCOME TO ANTCHESTER", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50, 5);
+		game.addEntity(be);
 
-		}
+		//} else {
+		AAScanner scanner = new AAScanner(game, damsel);
+		game.addEntity(scanner);
+
+		//}
 
 	}
 
@@ -152,7 +154,11 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public String getHUDText() {
-		return "HELLO [todo]";
+		if (damsel.followingPlayer) {
+			return "Get back to the exit!";
+		} else {
+			return "Find the damsel!";
+		}
 	}
 
 

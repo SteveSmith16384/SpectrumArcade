@@ -2,15 +2,19 @@ package com.scs.spectrumarcade.entities.antattack;
 
 import java.util.Iterator;
 
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
@@ -19,20 +23,20 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
-import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 import ssmith.lang.NumberFunctions;
 
-public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
+public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, PhysicsTickListener {
 
 	//private static final float SPEED = 10f;
 	private static final float DAM_RANGE = 8f;
-	
+
 	private long explodeTime = System.currentTimeMillis() + 3000;
+	private boolean launched = false;
 
 	public Bomb_AA(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Bomb_AA");
-		
+
 		// Check it doesn't start in the 
 		if (y < .3f) {
 			y = .3f;
@@ -49,7 +53,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 
 		srb = new RigidBodyControl(.1f);
 		mainNode.addControl(srb);
-		
+
 	}
 
 
@@ -111,6 +115,25 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable {
 				}
 			}
 		}		
+	}
+
+
+	@Override
+	public void physicsTick(PhysicsSpace arg0, float arg1) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (!launched) {
+			launched = true;
+			Vector3f force = game.getCamera().getDirection().mult(50);
+			srb.setLinearVelocity(force);
+			Globals.p("Force=" + force);
+		}
+
 	}
 
 

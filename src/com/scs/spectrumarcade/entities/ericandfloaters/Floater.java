@@ -24,7 +24,7 @@ import ssmith.util.RealtimeInterval;
 
 public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable, PhysicsTickListener {
 
-	public static final float SPEED = 10f;
+	public static final float SPEED = 5f;
 	public static final long TURN_INTERVAL = 2000;
 
 	private Geometry geometry;
@@ -42,7 +42,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	public Floater(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Floater");
 
-		Mesh sphere = new Sphere(8, 8, EricAndTheFloatersLevel.SEGMENT_SIZE*.4f, true, false);
+		Mesh sphere = new Sphere(16, 16, EricAndTheFloatersLevel.SEGMENT_SIZE*.4f, true, false);
 		geometry = new Geometry("FloaterSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
@@ -121,7 +121,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
