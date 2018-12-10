@@ -49,7 +49,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
 		int gridSize = MAP_SIZE_BLOCKS;
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, SEGMENT_SIZE);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, 16, SEGMENT_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
 		// Add solid walls
@@ -71,7 +71,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 					id = -1;
 					break;
 				default:
-					throw new RuntimeException("Todo");
+					throw new RuntimeException("Invalid code: " + id);
 				}
 				id++;
 			}

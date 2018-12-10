@@ -48,7 +48,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, image.getWidth(), 1, image.getHeight(), "Textures/mud.png");
 		game.addEntity(ceiling);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		for (int z=0 ; z<image.getHeight() ; z++) {

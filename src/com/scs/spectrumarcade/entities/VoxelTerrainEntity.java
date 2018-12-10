@@ -20,13 +20,13 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	public BlockTerrainControl blocks;
 	private float blockSize;
 	private int worldSizeBlocks;
-
-	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize) {
-		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize);
+/*
+	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize, float friction) {
+		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize, friction);
 	}
+*/
 
-
-	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, int chunkSize, float _blockSize) {
+	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, int chunkSize, float _blockSize, float friction) {
 		super(_game, "VoxelTerrainEntity");
 
 		worldSizeBlocks = _worldSizeBlocks;
@@ -57,6 +57,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 					geom.addControl(control);
 					//control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
+					control.setFriction(friction); // So players can jump up it easily
 				}
 				control.setCollisionShape(new MeshCollisionShape(geom.getMesh()));
 			}

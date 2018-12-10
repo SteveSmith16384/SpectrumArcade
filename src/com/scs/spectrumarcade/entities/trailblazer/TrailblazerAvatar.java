@@ -23,7 +23,7 @@ import com.scs.spectrumarcade.levels.TrailblazerLevel;
 public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar, PhysicsTickListener {
 
 	private static final float RAD = .4f;
-	private static final float FORCE = 4f;
+	private static final float FORCE = 3f;
 	private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
@@ -35,14 +35,14 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private Vector3f forceDirLeft = new Vector3f();
 	private boolean clearForces;
 
-	Geometry geometry;
+	private Geometry geometry;
 	
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
 		super(_game, "TrailblazerAvatar");
 
 		level = _level;
 
-		Mesh sphere = new Sphere(64, 64, RAD, true, false);
+		Mesh sphere = new Sphere(16, 16, RAD, true, false);
 		geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
 		if (!followCam) {
 			geometry.setCullHint(CullHint.Always);
@@ -57,15 +57,12 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 		srb = new RigidBodyControl(1);
 		geometry.addControl(srb);
-		//mainNode.addControl(srb); // todo
 	}
 
 	
 	public Spatial getPhysicsNode() {
 		return geometry;
 	}
-
-
 
 
 	@Override

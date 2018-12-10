@@ -41,7 +41,7 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 		srb = new RigidBodyControl(mass);
 		mainNode.addControl(srb);
 		
-		srb.setFriction(1f);  // todo - make param
+		//srb.setFriction(1f);  // todo - make param
 	}
 
 
@@ -64,7 +64,6 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -75,10 +74,7 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 		Vector3f forceDir = dir.mult(force);
 
 		this.srb.applyCentralForce(forceDir);
-		//game.addForce(this, ForceData.CENTRAL_FORCE, forceDir);
-		
 		
 	}
-
 
 }

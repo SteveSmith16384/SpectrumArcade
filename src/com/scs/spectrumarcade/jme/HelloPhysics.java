@@ -159,7 +159,6 @@ public class HelloPhysics extends SimpleApplication implements PhysicsTickListen
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 

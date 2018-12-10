@@ -20,10 +20,10 @@ public class Barrier_Trailblazer extends AbstractPhysicalEntity {
 		geometry.setLocalTranslation(.5f,  .5f, .5f);
 
 		this.mainNode.attachChild(geometry);
-		mainNode.setLocalTranslation(x, 1.1f, z);
+		mainNode.setLocalTranslation(x, 0.8f, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(1f);
+		srb = new RigidBodyControl(200f);
 		mainNode.addControl(srb);
 
 	}

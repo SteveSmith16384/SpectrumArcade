@@ -26,7 +26,7 @@ import mygame.util.Vector3Int;
 
 public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int SQ_SIZE = 2;
+	private static final int SQ_SIZE = 1;
 
 	public VoxelTerrainEntity terrainUDG;
 	private List<Point> startPos;
@@ -53,17 +53,19 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE*SQ_SIZE, 1, MAP_SIZE*SQ_SIZE, "Textures/road2.png");
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, MAP_SIZE+1, SQ_SIZE);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, MAP_SIZE+1, SQ_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
 		waypoints = new ArrayList<>();
 		startPos = new ArrayList<>();
+		
+		ArrayList<Integer> loadedWP = new ArrayList<>();
 
 		for (int z=0 ; z<map[0].length ; z++) {
 			for (int x=0 ; x<map.length ; x++) {
 				//try {
 				if (map[x][z] == 1) {
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN_TRANSP);
 				} else if (map[x][z] == 99) {
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.START_FINISH);
 					StartFinishLine sfl = new StartFinishLine(game, z, x);
@@ -76,6 +78,10 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 				} else {
 					//waypoints[map[x][z]-2]= new Vector3f(x*SQ_SIZE, .5f, z*SQ_SIZE);
 					int pos = map[x][z]-2;
+					if (loadedWP.contains(pos)) {
+						throw new RuntimeException("Already loaded WP " + pos);
+					}
+					loadedWP.add(pos);
 					while (waypoints.size() <= pos) {
 						waypoints.add(new Vector3f());
 					}

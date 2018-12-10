@@ -23,7 +23,7 @@ public class MapLoader {
 				int val = Integer.parseInt(cell);
 				//try {
 					mapCode[x][lineNum-1] = val;
-				/*} catch (ArrayIndexOutOfBoundsException ex) { // todo - remove this
+				/*} catch (ArrayIndexOutOfBoundsException ex) { 
 
 				}*/
 			}

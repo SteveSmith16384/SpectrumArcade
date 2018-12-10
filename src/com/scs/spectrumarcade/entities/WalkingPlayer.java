@@ -14,7 +14,7 @@ import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
-import com.scs.spectrumarcade.models.MinerModel;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
@@ -24,7 +24,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public static final float speed = 4;
 	private static final float strafeSpeed = 4f;
 
-	private MinerModel minerModel; 
+	private GenericWalkingAvatar minerModel; 
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
@@ -64,10 +64,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		this.getMainNode().addControl(playerControl);
 
 		if (followCam) {
-			minerModel = new MinerModel(game.getAssetManager(), tex);
-			if (!Settings.TEST_BILLBOARD) {
+			minerModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
+			//if (!Settings.TEST_BILLBOARD) {
 				this.getMainNode().attachChild(minerModel);
-			}
+			//}
 		}
 		
 		for (int i=1 ; i<=8 ; i++) {

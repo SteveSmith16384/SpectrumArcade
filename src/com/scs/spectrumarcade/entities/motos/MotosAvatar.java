@@ -12,6 +12,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Sphere;
 import com.scs.spectrumarcade.ForceData;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
@@ -23,9 +24,13 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	private static final float FORCE = 15f;
 
 	private Vector3f camPos = new Vector3f();
+	private boolean left = false, right = false, up = false, down = false, jump = false;
+	private Vector3f forceDirFwd = new Vector3f();
+	private Vector3f forceDirLeft = new Vector3f();
+	private boolean clearForces;
+
 	private Geometry geometry;
 	
-	private boolean left = false, right = false, up = false, down = false;
 
 	public MotosAvatar(SpectrumArcade _game, float x, float y, float z, boolean followCam) {
 		super(_game, "MotosAvatar");
@@ -111,32 +116,48 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
 
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (this.clearForces) {
+			this.clearForces = false;
+			srb.clearForces();
+			srb.setLinearVelocity(new Vector3f());
+		}
+		//walking = up || down || left || right;
+		forceDirFwd.set(game.getCamera().getDirection());
+		//forceDirFwd.y = 0.5f;
+		forceDirFwd.normalizeLocal();
+
+		forceDirLeft.set(game.getCamera().getLeft());
+		//forceDirLeft.y = 0.2f;
+		forceDirLeft.normalizeLocal();
+
 		if (up) {
-			this.srb.applyCentralForce(game.getCamera().getDirection().mult(FORCE));
+			this.srb.applyCentralForce(forceDirFwd.mult(FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
 		}
 		if (down) {
-			this.srb.applyCentralForce(game.getCamera().getDirection().mult(-FORCE));
+			this.srb.applyCentralForce(forceDirFwd.mult(-FORCE*2));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
 		}
 		if (left) {
-			Vector3f dir = game.getCamera().getLeft();
-			this.srb.applyCentralForce(dir.mult(FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
 		}
 		if (right) {
-			Vector3f dir = game.getCamera().getLeft().mult(-1);
-			this.srb.applyCentralForce(dir.mult(FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(-FORCE));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 		}
-
+		if (jump) {
+			Globals.p("Jumping");
+			this.srb.applyCentralForce(new Vector3f(0, 250f, 0));
+			//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, 150f, 0));
+			jump = false;
+		}
 		
 	}
 

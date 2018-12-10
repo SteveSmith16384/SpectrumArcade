@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade;
 
+import com.scs.spectrumarcade.blocks.AndroidsWall;
 import com.scs.spectrumarcade.blocks.AntAttackBlock;
 import com.scs.spectrumarcade.blocks.BrickBlock;
 import com.scs.spectrumarcade.blocks.ConveyorBlock;
@@ -21,8 +22,8 @@ import com.scs.spectrumarcade.blocks.MotosYellowBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.SplatBlock;
-import com.scs.spectrumarcade.blocks.StartFinishBlock;
 import com.scs.spectrumarcade.blocks.StockCarWallCyan;
+import com.scs.spectrumarcade.blocks.StockCarWallCyanTransp;
 import com.scs.spectrumarcade.blocks.TrailblazerJump;
 import com.scs.spectrumarcade.blocks.TrailblazerNormal1;
 import com.scs.spectrumarcade.blocks.TrailblazerNormal2;
@@ -67,7 +68,8 @@ public class BlockCodes {
 	public static final int TRAILBLAZER_NUDGE_LEFT = 30;
 	public static final int TRAILBLAZER_NUDGE_RIGHT = 31;
 	public static final int TRAILBLAZER_JUMP = 32;
-	public static final int START_FINISH = 33;
+	public static final int STOCK_CAR_WALL_CYAN_TRANSP = 33;
+	public static final int ANDROIDS_WALL = 34;
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -102,7 +104,8 @@ public class BlockCodes {
 		case TRAILBLAZER_NUDGE_LEFT: return TrailblazerNudgeLeft.class;
 		case TRAILBLAZER_NUDGE_RIGHT: return TrailblazerNudgeRight.class;
 		case TRAILBLAZER_JUMP: return TrailblazerJump.class;
-		case START_FINISH: return StartFinishBlock.class;
+		case STOCK_CAR_WALL_CYAN_TRANSP: return StockCarWallCyanTransp.class;
+		case ANDROIDS_WALL: return AndroidsWall.class;
 
 		default: throw new RuntimeException("code: " + code);
 		}

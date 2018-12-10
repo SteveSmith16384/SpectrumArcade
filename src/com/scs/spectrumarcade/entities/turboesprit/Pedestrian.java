@@ -6,14 +6,14 @@ import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.models.MinerModel;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 public class Pedestrian extends AbstractPhysicalEntity implements IProcessable  { // todo - use BetterCharacterControl!
 	
 	public Pedestrian(SpectrumArcade _game, float x, float z) {
 		super(_game, "Pedestrian");
 		
-		MinerModel model = new MinerModel(game.getAssetManager(), "Textures/turboesprit/avatar_white.png");
+		GenericWalkingAvatar model = new GenericWalkingAvatar(game.getAssetManager(), "Textures/turboesprit/avatar_white.png");
 		this.mainNode.attachChild(model);
 		this.mainNode.setLocalTranslation(x, 1f, z);
 		mainNode.updateModelBound();

@@ -30,9 +30,9 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 			camSys.setupFollowCam(3, 0, true);
 		}
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
-		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 1f/8f);
+		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 16, 1f/8f, 1f);
 		game.addEntity(terrainPixel);
 
 		// For testing

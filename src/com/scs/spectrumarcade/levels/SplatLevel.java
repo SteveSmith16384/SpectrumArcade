@@ -32,7 +32,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 50, 1, 50, "Textures/white.png");
 		game.addEntity(floor);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		// Border

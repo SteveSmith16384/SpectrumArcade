@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.antattack;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
 import com.scs.spectrumarcade.IEntity;
 import com.scs.spectrumarcade.IProcessable;
@@ -59,6 +60,12 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 			prevDist = dist;
 		}
 
+	}
+
+
+	@Override
+	public Spatial getSpatial() {
+		return this;
 	}
 
 }

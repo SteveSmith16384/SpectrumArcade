@@ -9,7 +9,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class MinerModel extends Node { // todo - rename
+public class GenericWalkingAvatar extends Node {
 
 	public static final float MODEL_HEIGHT = 1.7f;
 
@@ -17,7 +17,7 @@ public class MinerModel extends Node { // todo - rename
 	private long jumpEndTime;
 	private AnimChannel channel;
 
-	public MinerModel(AssetManager assetManager, String tex) {
+	public GenericWalkingAvatar(AssetManager assetManager, String tex) {
 		super("MinerModel");
 		//assetManager = _assetManager;
 

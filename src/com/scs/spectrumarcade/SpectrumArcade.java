@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.prefs.BackingStoreException;
 
+import com.atr.jme.font.asset.TrueTypeLoader;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
@@ -32,7 +33,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera.FrustumIntersect;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
@@ -42,7 +42,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.StockCarChamp3DLevel;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -114,6 +114,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		assetManager.registerLocator("assets/", FileLocator.class); // default
 		//assetManager.registerLocator("assets/Textures/", FileLocator.class);
 
+		getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
+
 		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
 
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
@@ -156,7 +158,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(StockCarChamp3DLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 		}
 
 		//File video, audio;
@@ -266,7 +268,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			}
 		}
 		if (e instanceof IHudItem) {
-			this.getGuiNode().attachChild((Geometry)e);
+			IHudItem hi = (IHudItem)e;
+			this.getGuiNode().attachChild(hi.getSpatial());
 		}
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.add((IProcessable)e);
@@ -474,7 +477,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public String getHUDText() {
-		if (mode == MODE_GAME) {
+		if (this.loadingLevel) {
+			return "LOAD \"\"";
+		} else if (mode == MODE_GAME) {
 			return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
 		} else {
 			return "C NONSENCE IN BASIC";

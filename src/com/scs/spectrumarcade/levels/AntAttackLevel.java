@@ -15,7 +15,7 @@ import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.TextBillboard;
+import com.scs.spectrumarcade.entities.HUDTextEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.antattack.AAScanner;
@@ -54,7 +54,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 16, 1f, .1f);
 		game.addEntity(terrainUDG);
 
 		if (Settings.TEST_ANT_AI) {
@@ -94,14 +94,15 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		}
 
 		// Add damsel
-		int x = NumberFunctions.rnd(3, MAP_SIZE-4); // todo - use this
+		int x = NumberFunctions.rnd(3, MAP_SIZE-4);
 		int z = NumberFunctions.rnd(3, MAP_SIZE-4);
 		Damsel damsel = new Damsel(game, x, z);//54, 110);
 		game.addEntity(damsel);
 
 		if (Settings.TEST_BILLBOARD) {
 			//TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
-			TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER");
+			//TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER", 24);
+			HUDTextEntity be = new HUDTextEntity(game, "WELCOME TO ANTCHESTER", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50);
 			game.addEntity(be);
 		} else {
 			AAScanner scanner = new AAScanner(game, damsel);
@@ -151,7 +152,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public String getHUDText() {
-		return "";
+		return "HELLO [todo]";
 	}
 
 

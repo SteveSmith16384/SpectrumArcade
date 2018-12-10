@@ -28,7 +28,7 @@ public class LaserRifle extends AbstractAbility implements IAbility, PhysicsTick
 			pos.y += Settings.PLAYER_HEIGHT;
 			pos.addLocal(game.getCamera().getDirection().mult(2));
 
-			LaserBolt axe = new LaserBolt(game, pos.x, pos.y, pos.z);
+			LaserBolt axe = new LaserBolt(game, pos.x, pos.y, pos.z, new Vector3f()); // todo
 			game.addEntity(axe);
 
 		}

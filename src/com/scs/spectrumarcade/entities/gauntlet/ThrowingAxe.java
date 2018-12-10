@@ -52,7 +52,7 @@ public class ThrowingAxe extends AbstractPhysicalEntity implements IProcessable,
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof Ghost_Gauntlet) {
-			collidedWith.markForRemoval();
+			collidedWith.markForRemoval(); // todo - cause damage
 		} else {
 			this.markForRemoval();
 		}

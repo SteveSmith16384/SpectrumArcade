@@ -155,7 +155,6 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		Vector3f upDir = this.getMainNode().getWorldRotation().getRotationColumn(1);
 		if (upDir.y < 0) {
 			Globals.p("Car upside down!");
-			// todo - right
 			this.vehicle.applyTorqueImpulse(new Vector3f(8, 0, 0));
 		}
 
