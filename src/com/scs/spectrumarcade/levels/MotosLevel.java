@@ -35,16 +35,16 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private int boardsSizeActual;
 	private RealtimeInterval checkEndfLevelInt = new RealtimeInterval(4000);
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		camSys = new CameraSystem(game, FOLLOW_CAM, -1f);
+		/*camSys = new CameraSystem(game, FOLLOW_CAM, -1f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0, true);
-		}
+		}*/
 
 		boardsSizeActual = MAP_SIZE_BLOCKS * SEGMENT_SIZE;
 		int gridSize = MAP_SIZE_BLOCKS;
@@ -143,7 +143,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 		
 		if (checkEndfLevelInt.hitInterval()) {
 			this.checkIfAllBaddiesDead();

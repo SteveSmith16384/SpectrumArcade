@@ -61,66 +61,9 @@ public class GenericWalkingAvatar extends Node {
 			channel.setLoopMode(LoopMode.DontLoop);
 			channel.setAnim("Jump");
 			isJumping = true;
-			jumpEndTime = System.currentTimeMillis() + (long)(channel.getAnimMaxTime() * 1000);
+			jumpEndTime = System.currentTimeMillis() + (long)(channel.getAnimMaxTime() * 1000) - 300;
 		}
 	}
 
 
-	/*
-	public void setAnim(int animCode) {
-		if (currAnimCode == animCode) {
-			return;			
-		}
-
-		if (Globals.DEBUG_JUMP_ANIM) {
-			Globals.p("Jump will end in " + (jumpEndTime - System.currentTimeMillis()) + "ms");
-		}
-
-		boolean jumpEnded = this.jumpEndTime < System.currentTimeMillis();
-		if (this.isJumping && !jumpEnded && animCode != AbstractAvatar.ANIM_DIED) {
-			// Do nothing; only dying can stop a jumping anim
-			return;
-		}
-
-		switch (animCode) {
-		case AbstractAvatar.ANIM_DIED:
-			channel.setAnim("Death");
-			channel.setLoopMode(LoopMode.DontLoop);
-			break;
-
-		case AbstractAvatar.ANIM_IDLE:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("Idle");
-			break;
-
-		case AbstractAvatar.ANIM_WALKING:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("Walk");
-			break;
-
-		case AbstractAvatar.ANIM_RUNNING:
-			channel.setLoopMode(LoopMode.Loop);
-			channel.setAnim("Run");
-			break;
-
-		case AbstractAvatar.ANIM_SHOOTING:
-			channel.setLoopMode(LoopMode.DontLoop);
-			channel.setAnim("Punch");
-			break;
-
-		case AbstractAvatar.ANIM_JUMP:
-			channel.setLoopMode(LoopMode.DontLoop);
-			channel.setAnim("Jump");
-			isJumping = true;
-			jumpEndTime = System.currentTimeMillis() + (long)(channel.getAnimMaxTime() * 1000); // System.currentTimeMillis() - jumpEndTime
-			jumpEndTime = jumpEndTime - 200; // Time is too long otherwise
-			break;
-
-		default:
-			Globals.pe(this.getClass().getSimpleName() + ": Unable to show anim " + animCode);
-		}
-
-		currAnimCode = animCode;
-	}
-	 */
 }

@@ -1,9 +1,10 @@
-package com.scs.spectrumarcade.entities;
+package com.scs.spectrumarcade.entities.arcaderoom;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.scene.Node;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 import com.scs.spectrumarcade.models.ArcadeMachineModel;

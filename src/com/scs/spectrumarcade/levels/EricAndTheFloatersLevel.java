@@ -35,7 +35,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 		
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/black.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/blocks/black.png");
 		game.addEntity(floor);
 		
 		// No ceiling so we can view from above

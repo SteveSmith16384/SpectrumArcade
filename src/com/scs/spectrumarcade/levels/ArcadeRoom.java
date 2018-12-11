@@ -9,11 +9,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.entities.ArcadeMachine;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.Magazine;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.Wall;
+import com.scs.spectrumarcade.entities.arcaderoom.ArcadeMachine;
+import com.scs.spectrumarcade.entities.arcaderoom.Magazine;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 

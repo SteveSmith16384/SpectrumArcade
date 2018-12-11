@@ -37,11 +37,10 @@ import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
-import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
-import com.scs.spectrumarcade.levels.AndroidsLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -76,6 +75,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	private Class<? extends ILevelGenerator> nextLevel;
 	private int nextLevelNum;
+	private CameraSystem camSys;
 
 	public static void main(String[] args) {
 		try {
@@ -158,7 +158,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(AndroidsLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(EricAndTheFloatersLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 		}
 
 		//File video, audio;
@@ -242,6 +242,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.addEntity((AbstractPhysicalEntity)player);
 		loadingLevel = false;
 		this.getViewPort().setBackgroundColor(level.getBackgroundColour());
+		
+		camSys = new CameraSystem(this, true, 2f);
+		if (true) {
+			camSys.setupFollowCam(3f, .1f, true);
+		}
+
 		IAvatar a = (IAvatar)player;
 		a.setCameraLocation(cam); // Ready to set direction
 		level.setInitialCameraDir(cam);
@@ -299,8 +305,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 			hud.processByClient(tpfSecs);
 
-			IAvatar a = (IAvatar)player;
-			a.setCameraLocation(cam);
+			//IAvatar a = (IAvatar)player;
+			//a.setCameraLocation(cam);
+			
+			camSys.process(cam, player);
+
 		}
 
 		if (spotlight != null) {
@@ -459,13 +468,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void actuallyRemoveEntity(IEntity e) {
-		/*if (e instanceof AbstractPhysicalEntity) {
-			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
-			ape.getMainNode().removeFromParent();
-			if (ape.srb != null) {
-				this.bulletAppState.getPhysicsSpace().remove(ape.srb);
-			}
-		}*/
 		e.actuallyRemove();
 		this.entities.remove(e);
 		if (e instanceof IProcessable) {
@@ -535,33 +537,4 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.nextLevelNum = levelNum;
 	}
 
-	/*
-	public void addForce(AbstractPhysicalEntity pe, int type, Vector3f force) {
-		this.forcesToApply.add(new ForceData(pe, type, force));
-	}
-
-/*	
-	@Override
-	public void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
-		while (forcesToApply.size() > 0) {
-			ForceData fd = this.forcesToApply.remove(0);
-			switch (fd.type) {
-			case ForceData.CENTRAL_FORCE:
-				fd.pe.srb.applyCentralForce(fd.force);
-				break;
-			case ForceData.LINEAR_VELOCITY:
-				fd.pe.srb.setLinearVelocity(fd.force);
-				break;
-			}
-		}
-
-	}
-
-
-	@Override
-	public void physicsTick(PhysicsSpace physicsSpace, float tpfSecs) {
-
-	}
-
-	 */
 }

@@ -187,7 +187,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 				break;
 			case MODE_AWAY_FROM_PLAYER:
 				moveFwds();
-				this.timeUntilNextMode = System.currentTimeMillis() + 5000;
+				this.timeUntilNextMode = System.currentTimeMillis() + 8000;
 				break;
 			default:
 				throw new RuntimeException("Unknown mode: " + mode);

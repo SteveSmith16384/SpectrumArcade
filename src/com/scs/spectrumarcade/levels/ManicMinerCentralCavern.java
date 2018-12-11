@@ -21,14 +21,14 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 	public static final boolean FOLLOW_CAM = true;
 	private static final int MAP_DEPTH = 5;
 
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) {
-		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0, true);
-		}
+		}*/
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
@@ -117,7 +117,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 	}
 
 

@@ -13,17 +13,17 @@ public class Barrier_Trailblazer extends AbstractPhysicalEntity {
 	public Barrier_Trailblazer(SpectrumArcade _game, float x, float z) {
 		super(_game, "Barrier_Trailblazer");
 
-		Box box = new Box(.45f, .5f, .45f); // Make slightly smaller to allow space
+		Box box = new Box(.4f, .4f, .4f); // Make slightly smaller to allow space
 		Geometry geometry = new Geometry("Barrier_TrailblazerGeom", box);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/blocks/trailblazer_red.png");
 		geometry.setLocalTranslation(.5f,  .5f, .5f);
 
 		this.mainNode.attachChild(geometry);
-		mainNode.setLocalTranslation(x, 0.8f, z);
+		mainNode.setLocalTranslation(x, 0.9f, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(200f);
+		srb = new RigidBodyControl(20f);
 		mainNode.addControl(srb);
 
 	}

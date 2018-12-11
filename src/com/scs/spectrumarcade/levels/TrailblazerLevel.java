@@ -38,16 +38,16 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	private RealtimeInterval checkWinInt = new RealtimeInterval(100);
 	private int levelNum;
 	public int[][] map;
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0, true);
-		}
+		}*/
 
 		if (Settings.TEST_BALL_ROLLING) {
 			FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 100, 2, 100, "Textures/blocks/antattack.png");
@@ -83,7 +83,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 					case 0:
 						switch (nextCol) {
 						case 0:
-							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
+							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1);
 							break;
 						case 1:
 							terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL2);
@@ -100,10 +100,10 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 						terrainUDG.removeBlock(new Vector3Int(x, 0, z));
 						break;
 					case MAP_WALL:
-						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1); // todo - use TB blocks!
-						//terrainUDG.addBlock_Block(new Vector3Int(xGrid, 1, zGrid), BlockCodes.ANT_ATTACK); // todo - use TB blocks!
-						Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, x, z);
-						game.addEntity(barrier);
+						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_NORMAL1);
+						terrainUDG.addBlock_Block(new Vector3Int(x, 1, z), BlockCodes.TRAILBLAZER_NORMAL1);
+						//Barrier_Trailblazer barrier = new Barrier_Trailblazer(game, x, z); Don't work
+						//game.addEntity(barrier);
 						break;
 					case MAP_SPEED_UP:
 						terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.TRAILBLAZER_SPEED_UP);
@@ -157,7 +157,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 
 		if (checkWinInt.hitInterval()) {
 			Vector3f pos = game.player.getMainNode().getWorldTranslation();

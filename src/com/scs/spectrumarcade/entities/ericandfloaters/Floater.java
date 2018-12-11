@@ -45,7 +45,7 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		Mesh sphere = new Sphere(16, 16, EricAndTheFloatersLevel.SEGMENT_SIZE*.4f, true, false);
 		geometry = new Geometry("FloaterSphere", sphere);
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/ericandthefloaters/floater.png");
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -82,14 +82,14 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 			}
 			if (NumberFunctions.rnd(1, 100) == 1) {
 				this.isAngry = true;
-				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater_red.png");
+				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/ericandthefloaters/floater_red.png");
 				checkAngerInterval.restartTimer();
 			}
 		} else {
 			this.dir = game.player.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation().normalizeLocal());
 			if (checkAngerInterval.hitInterval()) {
 				this.isAngry = false;
-				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/floater.png");
+				JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/ericandthefloaters/floater.png");
 			}
 		}
 
@@ -129,8 +129,6 @@ public class Floater extends AbstractPhysicalEntity implements ICausesHarmOnCont
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 		Vector3f force = dir.mult(SPEED);
 		this.srb.setLinearVelocity(force);
-		//game.addForce(this, ForceData.LINEAR_VELOCITY, force);
-		
 	}
 
 }

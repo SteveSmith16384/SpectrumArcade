@@ -20,7 +20,7 @@ public class CameraSystem {
 
 	private boolean followCam;
 	private float followDist = 1f;
-	private float shoulderAngle = 0f;
+	private float shoulderAngleRads = 0f;
 	private float fixedHeight = -1;
 	private boolean camInCharge;
 	private SpectrumArcade game;
@@ -31,9 +31,9 @@ public class CameraSystem {
 	}
 
 
-	public void setupFollowCam(float dist, float angle, boolean _camInCharge) {
+	public void setupFollowCam(float dist, float angleRads, boolean _camInCharge) {
 		this.followDist = dist;
-		shoulderAngle = angle;
+		shoulderAngleRads = angleRads;
 		camInCharge = _camInCharge;
 	}
 
@@ -57,9 +57,9 @@ public class CameraSystem {
 			} else {
 				dir = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1); // todo - don't create every time
 			}
-			if (shoulderAngle != 0) {
+			if (shoulderAngleRads != 0) {
 				Quaternion rotQ = new Quaternion();
-				rotQ.fromAngleAxis(shoulderAngle, Vector3f.UNIT_Y);
+				rotQ.fromAngleAxis(shoulderAngleRads, Vector3f.UNIT_Y);
 				rotQ.multLocal(dir).normalizeLocal();
 			}
 			Ray r = new Ray(avatarPos, dir);

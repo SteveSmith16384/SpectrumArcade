@@ -38,14 +38,14 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 	private int levelNum;
 	private int lastCheckX, lastCheckZ;
 
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
+		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0, true);
-		}
+		}*/
 
 		levelNum = _levelNum;
 
@@ -103,7 +103,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 		
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
 		int x = (int)pos.x;

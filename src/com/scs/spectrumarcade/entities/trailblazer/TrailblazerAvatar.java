@@ -24,7 +24,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private static final float RAD = .4f;
 	private static final float FORCE = 3f;
-	private static final float JUMP_FORCE = 3f;
+	//private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
 	private Vector3f camPos = new Vector3f();
@@ -203,7 +203,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 					break;
 				case TrailblazerLevel.MAP_JUMP:
 					Globals.p("Jump!");
-					this.srb.applyCentralForce(new Vector3f(0, JUMP_FORCE*4, 0));
+					this.srb.applyCentralForce(new Vector3f(0, 400f, 0));
 					//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, JUMP_FORCE*2, 0));
 					break;
 				case TrailblazerLevel.MAP_NUDGE_LEFT:

@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities;
+package com.scs.spectrumarcade.entities.arcaderoom;
 
 import com.jme3.asset.TextureKey;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -12,6 +12,7 @@ import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.BufferUtils;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public class Magazine extends AbstractPhysicalEntity {
 

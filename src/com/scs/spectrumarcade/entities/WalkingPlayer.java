@@ -29,12 +29,12 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
 	private boolean followCam;
-	
+
 	//Temporary vectors used on each frame.
 	private Vector3f camDir = new Vector3f();
 	private Vector3f camLeft = new Vector3f();
 	private Vector3f tempAvatarDir = new Vector3f();
-	
+
 	// Footsteps
 	private List<AudioNode> audio_node_footsteps = new ArrayList<>();
 	private float time_until_next_footstep_sfx = 1;
@@ -66,10 +66,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		if (followCam) {
 			minerModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
 			//if (!Settings.TEST_BILLBOARD) {
-				this.getMainNode().attachChild(minerModel);
+			this.getMainNode().attachChild(minerModel);
 			//}
 		}
-		
+
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
 			an.setPositional(false);
@@ -94,31 +94,29 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 		}
 
-		//SCPGame.p("Player:" + this.getMainNode().getWorldTranslation());
-		if (!game.isGameOver()) {
-			camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
-			camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
-			walkDirection.set(0, 0, 0);
-			walking = up || down || left || right;
-			if (left) {
-				walkDirection.addLocal(camLeft);
-			}
-			if (right) {
-				walkDirection.addLocal(camLeft.negate());
-			}
-			if (up) {
-				walkDirection.addLocal(camDir);
-			}
-			if (down) {
-				walkDirection.addLocal(camDir.negate());
-			}
-			playerControl.setWalkDirection(walkDirection);
+		camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
+		camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
+		walkDirection.set(0, 0, 0);
+		walking = up || down || left || right;
+		if (left) {
+			walkDirection.addLocal(camLeft);
+		}
+		if (right) {
+			walkDirection.addLocal(camLeft.negate());
+		}
+		if (up) {
+			walkDirection.addLocal(camDir);
+		}
+		if (down) {
+			walkDirection.addLocal(camDir.negate());
+		}
+		playerControl.setWalkDirection(walkDirection);
 
-			if (walking) {
-				if (this.minerModel != null) {
-					this.minerModel.walkAnim();
-				}
-				/*
+		if (walking) {
+			if (this.minerModel != null) {
+				this.minerModel.walkAnim();
+			}
+			/*
 				time_until_next_footstep_sfx -= tpf;
 				if (time_until_next_footstep_sfx <= 0) {
 					AudioNode an = this.audio_node_footsteps.get(next_footstep_sound);
@@ -133,12 +131,11 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 					}
 					time_until_next_footstep_sfx = FOOTSTEP_INTERVAL + (SpectrumArcade.rnd.nextFloat()/3);
 				}
-				*/
-			} else {
-				//time_until_next_footstep_sfx = 0;
-				if (this.minerModel != null) {
-					this.minerModel.idleAnim();
-				}
+			 */
+		} else {
+			//time_until_next_footstep_sfx = 0;
+			if (this.minerModel != null) {
+				this.minerModel.idleAnim();
 			}
 		}
 

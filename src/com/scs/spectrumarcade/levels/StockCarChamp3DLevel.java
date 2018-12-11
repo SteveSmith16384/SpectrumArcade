@@ -32,13 +32,13 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	private List<Point> startPos;
 	public ArrayList<Vector3f> waypoints;
 
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		camSys = new CameraSystem(game, true, 3f);
-		camSys.setupFollowCam(3, 0, false);
+		/*camSys = new CameraSystem(game, true, 3f);
+		camSys.setupFollowCam(3, 0, false);*/
 
 		// Border
 		/*terrainUDG.addRectRange_Blocks(BlockCodes.STOCK_CAR_WALL_CYAN, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
@@ -126,7 +126,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 
 	}
 

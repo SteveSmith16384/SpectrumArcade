@@ -34,7 +34,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 	private static int MAP_SIZE = 128;
 
 	private Damsel damsel;
-	private CameraSystem camSys;
+	//private CameraSystem camSys;
 
 	public AntAttackLevel() {
 		super();
@@ -46,12 +46,12 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		if (Settings.TEST_ANT_AI) {
 			MAP_SIZE = 20;
 		}
-
+/*
 		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
 		if (FOLLOW_CAM) {
 			camSys.setupFollowCam(3, 0, true);
 		}
-
+*/
 		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
@@ -143,7 +143,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		camSys.process(game.getCamera(), game.player);
+		//camSys.process(game.getCamera(), game.player);
 
 		if (Settings.AA_FIND_START) {
 			Globals.p("Avatar Pos: " + game.player.getMainNode().getWorldTranslation());

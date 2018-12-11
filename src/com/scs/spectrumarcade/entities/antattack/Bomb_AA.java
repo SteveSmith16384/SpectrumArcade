@@ -28,7 +28,6 @@ import ssmith.lang.NumberFunctions;
 
 public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, PhysicsTickListener {
 
-	//private static final float SPEED = 10f;
 	private static final float DAM_RANGE = 8f;
 
 	private long explodeTime = System.currentTimeMillis() + 3000;
@@ -37,7 +36,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 	public Bomb_AA(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Bomb_AA");
 
-		// Check it doesn't start in the 
+		// Check it doesn't start in the ground
 		if (y < .3f) {
 			y = .3f;
 		}
@@ -105,12 +104,12 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 						// Continue - ignore bomb
 					} else if (pe == ant) {
 						ant.hitByBomb(); 
-						break;
+						//break;
 					} else if (pe instanceof VoxelTerrainEntity) {
 						// Stop checking
 						break;
 					} else if (pe == game.player) {
-						game.playerKilled();
+						//game.playerKilled();  not for now
 					}
 				}
 			}
@@ -129,7 +128,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
 		if (!launched) {
 			launched = true;
-			Vector3f force = game.getCamera().getDirection().mult(50);
+			Vector3f force = game.getCamera().getDirection().mult(10);
 			srb.setLinearVelocity(force);
 			Globals.p("Force=" + force);
 		}
