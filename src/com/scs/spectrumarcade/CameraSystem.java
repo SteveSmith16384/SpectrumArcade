@@ -51,8 +51,6 @@ public class CameraSystem {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time
 			avatarPos.y += 1f;//avatar.avatarModel.getCameraHeight() + .1f;
 
-			//cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
-
 			Vector3f dir = null;
 			if (camInCharge) {
 				dir = cam.getDirection().mult(-1); // todo - don't create every time
@@ -107,7 +105,7 @@ public class CameraSystem {
 			if (fixedHeight > 0) {
 				cam.getLocation().y = fixedHeight;
 			}
-			
+
 			if (!camInCharge) {
 				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			}

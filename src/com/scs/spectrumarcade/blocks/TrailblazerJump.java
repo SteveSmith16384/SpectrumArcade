@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class TrailblazerJump extends AbstractBlock {
 
 	public TrailblazerJump() {
-		super(9, 0);
+		super(6, 3);
 	}
 
 }

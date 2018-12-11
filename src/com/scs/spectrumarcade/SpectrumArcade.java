@@ -40,14 +40,14 @@ import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AndroidsLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
 	private static final int MODE_GAME = 0;
-	private static final int MODE_RETURNING = 1;
+	private static final int MODE_RETURNING_TO_ARCADE = 1;
 
 	public static final Random rnd = new Random();
 
@@ -158,7 +158,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(AndroidsLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 		}
 
 		//File video, audio;
@@ -257,59 +257,22 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	private void actuallyAddEntity(IEntity e) {
-		this.entities.add(e);
-		if (e instanceof AbstractPhysicalEntity) {
-			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
-			this.getRootNode().attachChild(ape.getMainNode());
-			bulletAppState.getPhysicsSpace().add(ape.getPhysicsNode());
-			if (e instanceof PhysicsTickListener) {
-				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
-			}
-		}
-		if (e instanceof IHudItem) {
-			IHudItem hi = (IHudItem)e;
-			this.getGuiNode().attachChild(hi.getSpatial());
-		}
-		if (e instanceof IProcessable) {
-			this.entitiesForProcessing.add((IProcessable)e);
-		}
-		if (e instanceof Key) {
-			gameData.numKeys++;
-		}
-	}
-
-
 	@Override
 	public void simpleUpdate(float tpfSecs) {
 		if (tpfSecs > 1f) {
 			tpfSecs = 1f;
 		}
-		/*
-		if (this.clearForces) {
-			IAvatar a = (IAvatar)player;
-			a.clearForces();
-		}
-		 */
 
-		while (this.entitiesToRemove.size() > 0) {
-			IEntity e = this.entitiesToRemove.remove(0);
-			this.actuallyRemoveEntity(e);
-		}
+		addAndRemoveEntities();
 
-		while (this.entitiesToAdd.size() > 0) {
-			IEntity e = this.entitiesToAdd.remove(0);
-			//this.entities.add(e);
-			actuallyAddEntity(e);
-		}
-
-		if (mode == MODE_RETURNING) {
+		if (mode == MODE_RETURNING_TO_ARCADE) {
 			this.cam.setLocation(cam.getLocation().add(0, tpfSecs*20, 0));
 			this.cam.lookAt(this.player.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			if (cam.getLocation().y > 30) {
 				mode = MODE_GAME;
 			}
 		} else {
+			// Start a new level?
 			if (this.nextLevel != null) {
 				try {
 					level = nextLevel.newInstance();
@@ -347,9 +310,23 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
+	private void addAndRemoveEntities() {
+		while (this.entitiesToRemove.size() > 0) {
+			IEntity e = this.entitiesToRemove.remove(0);
+			this.actuallyRemoveEntity(e);
+		}
+
+		while (this.entitiesToAdd.size() > 0) {
+			IEntity e = this.entitiesToAdd.remove(0);
+			//this.entities.add(e);
+			actuallyAddEntity(e);
+		}
+	}
+
+	
 	public void onAction(String binding, boolean isPressed, float tpf) {
 		IAvatar a = (IAvatar)player;
-		// DO NOT DO ANY ACTUAL ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
+		// DO NOT DO ANY MAJOR ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
 		if (this.game_over == false) {
 			a.onAction(binding, isPressed, tpf);
 			if (binding.equals("Ability1")) {
@@ -371,7 +348,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				}
 			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
 				// this.startNewLevel(new ArcadeRoom(), -1);
-				mode = MODE_RETURNING;
+				mode = MODE_RETURNING_TO_ARCADE;
 				Vector3f pos = this.getCamera().getLocation().clone();
 				pos.y = 0; // In case we've fallen off edge
 				this.getCamera().setLocation(pos);
@@ -381,6 +358,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
+	/**
+	 * Get whether an entity is within our field of view.
+	 * @param entity
+	 * @return
+	 */
 	public FrustumIntersect getInsideOutside(AbstractPhysicalEntity entity) {
 		FrustumIntersect insideoutside = cam.contains(entity.getMainNode().getWorldBound());
 		return insideoutside;
@@ -446,6 +428,30 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
+	private void actuallyAddEntity(IEntity e) {
+		this.entities.add(e);
+		e.actuallyAdd();
+		/*if (e instanceof AbstractPhysicalEntity) {
+			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
+			this.getRootNode().attachChild(ape.getMainNode());
+			bulletAppState.getPhysicsSpace().add(ape.getPhysicsNode());
+			if (e instanceof PhysicsTickListener) {
+				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
+			}
+		}*/
+		/*if (e instanceof IHudItem) {
+			IHudItem hi = (IHudItem)e;
+			this.getGuiNode().attachChild(hi.getSpatial());
+		}*/
+		if (e instanceof IProcessable) {
+			this.entitiesForProcessing.add((IProcessable)e);
+		}
+		if (e instanceof Key) {
+			gameData.numKeys++;
+		}
+	}
+
+
 	public void markEntityForRemoval(IEntity e) {
 		this.entitiesToRemove.add(e);
 	}
@@ -453,6 +459,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void actuallyRemoveEntity(IEntity e) {
+		/*if (e instanceof AbstractPhysicalEntity) {
+			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
+			ape.getMainNode().removeFromParent();
+			if (ape.srb != null) {
+				this.bulletAppState.getPhysicsSpace().remove(ape.srb);
+			}
+		}*/
 		e.actuallyRemove();
 		this.entities.remove(e);
 		if (e instanceof IProcessable) {
@@ -465,7 +478,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void keyCollected() {
+	public void keyCollected() { // todo - remove
 		hud.showCollectBox();
 		/*this.gameData.numKeys--;
 		if (gameData.numKeys <= 0) {

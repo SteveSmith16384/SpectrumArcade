@@ -1,10 +1,8 @@
 package com.scs.spectrumarcade.components;
 
-import com.jme3.scene.Spatial;
-
-public interface IHudItem {
+public interface IHudItem { // todo - delete
 	
-	Spatial getSpatial();
+	//Spatial getSpatial();
 
 
 }

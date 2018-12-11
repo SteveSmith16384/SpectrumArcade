@@ -62,10 +62,17 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 
 	}
 
-
+/*
 	@Override
 	public Spatial getSpatial() {
 		return this;
+	}
+*/
+
+	@Override
+	public void actuallyAdd() {
+		game.getGuiNode().attachChild(this);
+		
 	}
 
 }

@@ -179,6 +179,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		if (!Settings.FREE_CAM) {
 			if (!followCam) {
 				cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
+			} else {
+				// Camera system in level handles it
 			}
 		} else {
 			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z));

@@ -49,12 +49,18 @@ public class HUDTextEntity extends AbstractEntity implements IEntity, IHudItem, 
 		textArea.removeFromParent();
 
 	}
-
+/*
 
 	@Override
 	public Spatial getSpatial() {
 		return textArea;
 	}
 
+*/
+	@Override
+	public void actuallyAdd() {
+		game.getGuiNode().attachChild(textArea);
+		
+	}
 
 }

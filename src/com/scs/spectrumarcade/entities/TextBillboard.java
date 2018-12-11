@@ -1,5 +1,5 @@
 package com.scs.spectrumarcade.entities;
-
+/*
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
@@ -76,4 +76,11 @@ public class TextBillboard extends Geometry implements IEntity, IHudItem, IProce
 		return this;
 	}
 
-}
+
+	@Override
+	public void actuallyAdd() {
+		game.getGuiNode().attachChild(this);
+		
+	}
+
+}*/

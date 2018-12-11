@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities;
 
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
@@ -39,6 +40,18 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
 	public Spatial getPhysicsNode() {
 		return mainNode;
+	}
+
+
+	@Override
+	public void actuallyAdd() {
+		//AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
+		game.getRootNode().attachChild(getMainNode());
+		game.bulletAppState.getPhysicsSpace().add(getPhysicsNode());
+		if (this instanceof PhysicsTickListener) {
+			game.bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)this);
+		}
+		
 	}
 
 

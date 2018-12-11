@@ -53,7 +53,6 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
-		//mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1);
 		geometry.addControl(srb);
@@ -225,6 +224,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 			// Do nothing
 		}
 	}
+
 
 
 }
