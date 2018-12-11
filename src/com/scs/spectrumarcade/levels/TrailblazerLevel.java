@@ -72,7 +72,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 					continue; // Skip first line
 				}
 				String[] tokens = line.split(",");
-				for (int x = 0 ; x<tokens.length-1 ; x++) {
+				for (int x = 0 ; x<tokens.length ; x++) {
 					nextCol++;
 					if (nextCol > 2) {
 						nextCol = 0;

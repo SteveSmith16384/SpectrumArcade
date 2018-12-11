@@ -65,7 +65,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 			for (int x=0 ; x<map.length ; x++) {
 				//try {
 				if (map[x][z] == 1) {
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN_TRANSP);
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
 				} else if (map[x][z] == 99) {
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.START_FINISH);
 					StartFinishLine sfl = new StartFinishLine(game, z, x);
