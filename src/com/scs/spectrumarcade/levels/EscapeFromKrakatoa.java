@@ -10,15 +10,14 @@ import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.HeliAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 
 import mygame.util.Vector3Int;
 
 public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE_X = 30;
-	private static final int MAP_SIZE_Z = 20;
+	private static final int MAP_SIZE = 300;
 
 	private VoxelTerrainEntity terrainUDG;
 	private int levelNum;
@@ -27,23 +26,23 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_X, 16, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
-		terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE_X, 1, MAP_SIZE_Z));
+		terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
 
 	}
 
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE_X/2, 3f, 2f);
+		return new Vector3f(MAP_SIZE/2, 3f, MAP_SIZE/2);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 3f, 2f, 0f, false, "todo");
+		return new HeliAvatar(game, MAP_SIZE/2, 3f, MAP_SIZE/2);
 	}
 
 

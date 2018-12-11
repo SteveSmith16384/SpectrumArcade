@@ -4,6 +4,7 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -16,7 +17,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 	private float anglerads = 0;
 	private Vector3f fwdSpeed = new Vector3f();
 
-	private Vector3f walkDirection = new Vector3f();
+	//private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
 	public HeliAvatar(SpectrumArcade _game, float x, float y, float z) {
@@ -25,14 +26,14 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 		/** Create a box to use as our player model */
 		Box box1 = new Box(1, 2, 1);
 		Geometry playerGeometry = new Geometry("Player", box1);
-		//playerGeometry.setCullHint(CullHint.Always);
+		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
 
 		this.getMainNode().setLocalTranslation(x, y, z);
 
 		srb = new RigidBodyControl(0);
-		srb.setKinematic(true);
 		mainNode.addControl(srb);
+		srb.setKinematic(true);
 
 	}
 
@@ -43,7 +44,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 
 		//camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
 		//camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
-		walkDirection.set(0, 0, 0);
+		//walkDirection.set(0, 0, 0);
 		if (left) {
 			turnSpeed -= .1f;
 		}
@@ -63,18 +64,28 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 			fwdSpeed.z -= z;
 		}
 		if (up) {
-			fwdSpeed.y += .1f;
+			fwdSpeed.y += .01f;
 		}
 		if (down) {
-			fwdSpeed.y -= .1f;
+			fwdSpeed.y -= .01f;
 		}
 		
 		// Gravity
-		fwdSpeed.y -= .05f;
+		//if (this.getMainNode().getWorldTranslation().y > .05f) {
+			fwdSpeed.y -= .005f;
+	//	}
 		
-		//this
+
+		// Drag
+		this.fwdSpeed.multLocal(.99f);
+				
+		this.anglerads += turnSpeed;		
 		
-		//playerControl.setWalkDirection(walkDirection);
+		this.getMainNode().move(fwdSpeed);
+		
+		if (this.getMainNode().getWorldTranslation().y <= 0) {
+			this.getMainNode().getLocalTranslation().y = 0;
+		}
 
 	}
 
