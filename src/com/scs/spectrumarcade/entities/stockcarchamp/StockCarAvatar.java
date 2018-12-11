@@ -49,7 +49,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 				steeringValue += .5f;
 			}
 			vehicle.steer(steeringValue);
-		} else if (binding.equals("Up")) {
+		} else if (binding.equals("Fwd")) {
 			if (value) {
 				accelerationValue += accelerationForce;
 			} else if (accelerationValue > 0) {
@@ -57,7 +57,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 			}
 			vehicle.accelerate(accelerationValue);
-		} else if (binding.equals("Down")) {
+		} else if (binding.equals("Backwards")) {
 			if (value) {
 				accelerationValue -= accelerationForce;
 			} else {

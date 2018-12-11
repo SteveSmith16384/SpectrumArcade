@@ -148,9 +148,9 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			left = isPressed;
 		} else if (binding.equals("Right")) {
 			right = isPressed;
-		} else if (binding.equals("Up")) {
+		} else if (binding.equals("Fwd")) {
 			up = isPressed;
-		} else if (binding.equals("Down")) {
+		} else if (binding.equals("Backwards")) {
 			down = isPressed;
 		} else if (binding.equals("Jump")) {
 			if (canJump) {

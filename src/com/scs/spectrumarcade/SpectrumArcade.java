@@ -39,8 +39,8 @@ import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.levels.AndroidsLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
-import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
@@ -158,7 +158,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(EricAndTheFloatersLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(AndroidsLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 		}
 
 		//File video, audio;
@@ -205,8 +205,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private void setUpKeys() {
 		inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_A));
 		inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_D));
-		inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_W));
-		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_S));
+		inputManager.addMapping("Fwd", new KeyTrigger(KeyInput.KEY_W));
+		inputManager.addMapping("Backwards", new KeyTrigger(KeyInput.KEY_S));
+		inputManager.addMapping("Up", new KeyTrigger(KeyInput.KEY_E));
+		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_Q));
 		inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
 		inputManager.addMapping("Test", new KeyTrigger(KeyInput.KEY_T));
 		inputManager.addMapping(Settings.KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
@@ -214,6 +216,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		inputManager.addListener(this, "Left");
 		inputManager.addListener(this, "Right");
+		inputManager.addListener(this, "Fwd");
+		inputManager.addListener(this, "Backwards");
 		inputManager.addListener(this, "Up");
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");

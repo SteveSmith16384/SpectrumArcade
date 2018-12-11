@@ -89,6 +89,10 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 				playerControl.setWalkDirection(new Vector3f());
 				this.model.idleAnim();
 			}
+		} else {
+			if (this.distance(game.player) < 5f) {
+				followingPlayer = true;
+			}
 		}
 	}
 
@@ -114,12 +118,12 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
-		if (collidedWith == game.player) {
+		/*if (collidedWith == game.player) {
 			followingPlayer = true;
 		} else if (collidedWith instanceof VoxelTerrainEntity) {
 			//this.playerControl.jump();
 			//this.model.jumpAnim();
-		}
+		}*/
 
 	}
 

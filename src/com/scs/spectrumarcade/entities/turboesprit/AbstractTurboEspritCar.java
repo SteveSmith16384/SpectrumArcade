@@ -151,14 +151,14 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 				steeringValue += .5f;
 			}
 			vehicle.steer(steeringValue);
-		} else if (binding.equals("Up")) {
+		} else if (binding.equals("Fwd")) {
 			if (value) {
 				accelerationValue += accelerationForce;
 			} else {
 				accelerationValue -= accelerationForce;
 			}
 			vehicle.accelerate(accelerationValue);
-		} else if (binding.equals("Down")) {
+		} else if (binding.equals("Backwards")) {
 			if (value) {
 				accelerationValue -= accelerationForce;
 			} else {
