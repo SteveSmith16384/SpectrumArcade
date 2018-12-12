@@ -32,7 +32,6 @@ public class PoisonousGrass extends AbstractPhysicalEntity implements ICausesHar
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//srb.setKinematic(true);
 
 	}
 

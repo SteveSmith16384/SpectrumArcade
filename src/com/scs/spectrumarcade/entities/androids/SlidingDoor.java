@@ -51,7 +51,7 @@ public class SlidingDoor extends AbstractPhysicalEntity implements INotifiedOfCo
 		geometry.setLocalTranslation(w/2, h/2, depth/2 + (w/2)); // Never change position of mainNode (unless the whole object is moving)
 		mainNode.setLocalTranslation(x, yBottom, z);
 
-		srb = new RigidBodyControl(0);
+		srb = new RigidBodyControl(1);
 		srb.setKinematic(true);
 		mainNode.addControl(srb);
 

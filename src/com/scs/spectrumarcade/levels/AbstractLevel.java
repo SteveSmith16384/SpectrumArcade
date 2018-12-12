@@ -2,7 +2,7 @@ package com.scs.spectrumarcade.levels;
 
 import com.scs.spectrumarcade.SpectrumArcade;
 
-public abstract class AbstractLevel {
+public abstract class AbstractLevel implements ILevelGenerator {
 	
 	protected SpectrumArcade game;
 
@@ -16,5 +16,17 @@ public abstract class AbstractLevel {
 	}
 	
 	
+	@Override
+	public boolean isFollowCam() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isCamInCharge() {
+		return true;
+	}
+
+
 
 }

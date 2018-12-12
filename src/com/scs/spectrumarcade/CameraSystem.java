@@ -25,13 +25,14 @@ public class CameraSystem {
 	private boolean camInCharge;
 	private SpectrumArcade game;
 
-	public CameraSystem(SpectrumArcade _game, boolean _followCam, float _fixedHeight) {
+	public CameraSystem(SpectrumArcade _game) {
 		game = _game;
-		followCam = _followCam;
+		//followCam = _followCam;
 	}
 
 
-	public void setupFollowCam(float dist, float angleRads, boolean _camInCharge) {
+	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge) {
+		followCam = _followCam;
 		this.followDist = dist;
 		shoulderAngleRads = angleRads;
 		camInCharge = _camInCharge;
@@ -45,7 +46,7 @@ public class CameraSystem {
 			cam.getLocation().x = vec.x;
 			cam.getLocation().y = vec.y;// + avatar.avatarModel.getCameraHeight();
 			cam.getLocation().z = vec.z;
-			cam.update();
+			//cam.update();
 
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time
@@ -110,8 +111,9 @@ public class CameraSystem {
 				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			}
 
-			cam.update();
 		}
+
+		cam.update();
 	}
 
 }

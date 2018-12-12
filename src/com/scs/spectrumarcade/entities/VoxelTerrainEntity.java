@@ -55,7 +55,6 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 				if(control == null){
 					control = new RigidBodyControl(0);
 					geom.addControl(control);
-					//control.setKinematic(true);
 					game.bulletAppState.getPhysicsSpace().add(control);
 					control.setFriction(friction); // So players can jump up it easily
 				}

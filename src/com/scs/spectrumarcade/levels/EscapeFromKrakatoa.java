@@ -6,14 +6,18 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera;
+import com.jme3.water.WaterFilter;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.HeliAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.krakatoa.House;
 
 import mygame.util.Vector3Int;
+import ssmith.lang.NumberFunctions;
 
 public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator {
 
@@ -29,20 +33,34 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
-		terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
+		this.generateHill(new Vector3f(150, 10, 150), 20, 5); // Start
+		House h = new House(game, 140, 5, 150);
+		game.addEntity(h);
+		this.generateHill(new Vector3f(110, 10, 110), 20, -1); // Mountain
+
+		//terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
+		
+		// Water
+		FilterPostProcessor fpp = new FilterPostProcessor(game.getAssetManager());
+		WaterFilter water = new WaterFilter(game.getRootNode(), game.sun.getDirection());
+		water.setWaterHeight(1);
+		fpp.addFilter(water);
+		game.getViewPort().addProcessor(fpp);
+
+
 
 	}
 
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(MAP_SIZE/2, 3f, MAP_SIZE/2);
+		return new Vector3f(MAP_SIZE/2, 8f, MAP_SIZE/2);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new HeliAvatar(game, MAP_SIZE/2, 3f, MAP_SIZE/2);
+		return new HeliAvatar(game, MAP_SIZE/2, 8f, MAP_SIZE/2);
 	}
 
 
@@ -66,8 +84,45 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
-		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
+		//cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
 
+	@Override
+	public boolean isFollowCam() {
+		return false;
+	}
+
+
+	@Override
+	public boolean isCamInCharge() {
+		return false;
+	}
+
+
+	private void generateHill(Vector3f peak, int rad, int plateau) {
+		for (int z = (int)peak.z - rad ; z<=peak.z+rad ; z++) {
+			for (int x = (int)peak.x - rad ; x<=peak.x+rad ; x++) {
+				/*if (x == peak.x && z == peak.z) {
+					int dfgdg = 56;
+				}*/
+				float dist = peak.distance(new Vector3f(x, peak.y, z));
+				if (dist <= rad) {
+					float frac = (dist+1) / rad;
+					int height = (int)(peak.y - (peak.y * frac));
+					height = height + (NumberFunctions.rnd(-1,  1));
+					if (height > 0) {
+						if (plateau > 0) {
+							height = Math.min(height, plateau);
+						}
+						//try {
+							this.terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
+						/*} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+							ex.printStackTrace();
+						}*/
+					}
+				}
+			}			
+		}
+	}
 }

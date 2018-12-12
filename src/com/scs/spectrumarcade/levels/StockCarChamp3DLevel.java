@@ -11,7 +11,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.MapLoader;
@@ -31,9 +30,6 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	public VoxelTerrainEntity terrainUDG;
 	private List<Point> startPos;
 	public ArrayList<Vector3f> waypoints;
-
-	//private CameraSystem camSys;
-
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -65,7 +61,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 			for (int x=0 ; x<map.length ; x++) {
 				//try {
 				if (map[x][z] == 1) {
-					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN);
+					terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.STOCK_CAR_WALL_CYAN_TRANSP);
 				} else if (map[x][z] == 99) {
 					//terrainUDG.addBlock_Block(new Vector3Int(x, 0, z), BlockCodes.START_FINISH);
 					StartFinishLine sfl = new StartFinishLine(game, z, x);
@@ -141,5 +137,12 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 	public void setInitialCameraDir(Camera cam) {
 		// No, camsys does it
 	}
+
+
+	@Override
+	public boolean isCamInCharge() {
+		return false;
+	}
+
 
 }

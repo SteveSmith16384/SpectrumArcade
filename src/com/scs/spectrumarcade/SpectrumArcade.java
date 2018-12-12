@@ -40,8 +40,8 @@ import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
+import com.scs.spectrumarcade.levels.EscapeFromKrakatoa;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -66,7 +66,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private boolean loadingLevel = false;
 	private int mode = MODE_GAME;
 
-	private DirectionalLight sun;
+	public DirectionalLight sun;
 	public GameData gameData;
 	private ILevelGenerator level;
 
@@ -130,14 +130,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		setUpKeys();
 		setUpLight();
 
-		FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
-		/*if (Settings.DEBUG_LIGHT == false) {
-			FogFilter fog = new FogFilter(ColorRGBA.Red, 1f, 2f);//Settings.CAM_DIST/2);
-			fog.setFogDistance(2f);
-			//fpp.addFilter(fog);
-		}*/
-		viewPort.addProcessor(fpp);
-
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
 
 		final int SHADOWMAP_SIZE = 1024;
@@ -158,7 +150,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel // EscapeFromKrakatoa
+			this.setNextLevel(EscapeFromKrakatoa.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+			// AndroidsLevel // EscapeFromKrakatoa
 		}
 
 		//File video, audio;
@@ -247,9 +240,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		loadingLevel = false;
 		this.getViewPort().setBackgroundColor(level.getBackgroundColour());
 		
-		camSys = new CameraSystem(this, true, 2f);
+		camSys = new CameraSystem(this);
 		if (true) {
-			camSys.setupFollowCam(3f, .1f, true);
+			camSys.setupCam(level.isFollowCam(), 3f, .1f, level.isCamInCharge());
 		}
 
 		IAvatar a = (IAvatar)player;

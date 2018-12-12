@@ -12,6 +12,6 @@ public interface IAvatar extends IProcessable {
 	
 	void clearForces();
 
-	void setCameraLocation(Camera cam);
+	void setCameraLocation(Camera cam); // todo - remove?
 	
 }

@@ -51,7 +51,6 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
-		//srb.setKinematic(true);
 		//srb.setFriction(1f);
 
 		geometry.setUserData(Settings.ENTITY, this);

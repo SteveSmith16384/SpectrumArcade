@@ -72,4 +72,11 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 		// No neeed
 	}
 
+
+	@Override
+	public boolean isCamInCharge() {
+		return false;
+	}
+
+
 }

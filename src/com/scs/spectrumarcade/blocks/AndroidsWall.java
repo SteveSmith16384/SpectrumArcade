@@ -5,7 +5,7 @@ import mygame.blocktypes.AbstractBlock;
 public class AndroidsWall extends AbstractBlock {
 
 	public AndroidsWall() {
-		super(7, 0);
+		super(4, 0);
 	}
 
 }

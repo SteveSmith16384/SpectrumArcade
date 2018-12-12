@@ -13,9 +13,11 @@ import com.jme3.light.Light;
 import com.jme3.light.LightList;
 import com.jme3.math.ColorRGBA;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class ModelViewer_SpectrumArcade extends SimpleApplication implements AnimEventListener {
@@ -42,14 +44,13 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		super.getViewPort().setBackgroundColor(ColorRGBA.Black);
 
 		setupLight();
-		/*
-		Spatial model = assetManager.loadModel("Models/ArcadeMachine_AntAttack/Arcade.obj");
-		model.scale(.01f);*/
+
 		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
-		Spatial model = assetManager.loadModel("Models/cimpletoon/submarine.blend");
-		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AnimatedHuman/Textures/ClothedDarkSkin.png");
+		Spatial model = assetManager.loadModel("Models/suburb_assets_pt1/models/gas-station.obj");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/suburb_assets_pt1/models/textures/buildings-houses_v1.jpg");
+
 		String animNode = "Woman (Node)";
 		String animToUse = "Walking";
 

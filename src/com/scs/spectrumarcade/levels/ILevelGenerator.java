@@ -27,6 +27,10 @@ public interface ILevelGenerator {
 	
 	String getHUDText();
 	
+	boolean isFollowCam();
+	
+	boolean isCamInCharge();
+	
 	void setInitialCameraDir(Camera cam);
 	
 	//void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs);
