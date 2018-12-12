@@ -34,20 +34,22 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 		game.addEntity(terrainUDG);
 
 		this.generateHill(new Vector3f(150, 10, 150), 20, 5); // Start
-		House h = new House(game, 140, 5, 150);
+		House h = new House(game, 144, 6, 150);
 		game.addEntity(h);
+		// Helipad
+		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(148, 10, 148), new Vector3Int(4, 1, 4));
+		
 		this.generateHill(new Vector3f(110, 10, 110), 20, -1); // Mountain
 
-		//terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
 		
+		//terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, MAP_SIZE));
+
 		// Water
 		FilterPostProcessor fpp = new FilterPostProcessor(game.getAssetManager());
 		WaterFilter water = new WaterFilter(game.getRootNode(), game.sun.getDirection());
 		water.setWaterHeight(1);
 		fpp.addFilter(water);
 		game.getViewPort().addProcessor(fpp);
-
-
 
 	}
 
@@ -110,16 +112,23 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 				if (dist <= rad) {
 					float frac = (dist+1) / rad;
 					int height = (int)(peak.y - (peak.y * frac));
-					height = height + (NumberFunctions.rnd(-1,  1));
 					if (height > 0) {
-						if (plateau > 0) {
-							height = Math.min(height, plateau);
+						if (plateau > 0 && height > plateau) {
+							height = plateau;
+						} else {
+							height = height + (NumberFunctions.rnd(-1,  1));
 						}
-						//try {
-							this.terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
-						/*} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+						for (int y=0 ; y<= height ; y++) {
+							int blockType = BlockCodes.GRASS_LONG;
+							if (y <= 2) {
+								blockType = BlockCodes.SAND;
+							}
+							//try {
+							this.terrainUDG.addRectRange_Blocks(blockType, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
+							/*} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
 							ex.printStackTrace();
 						}*/
+						}
 					}
 				}
 			}			

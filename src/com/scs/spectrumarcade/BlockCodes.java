@@ -21,6 +21,8 @@ import com.scs.spectrumarcade.blocks.MotosWhiteBlock;
 import com.scs.spectrumarcade.blocks.MotosYellowBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
+import com.scs.spectrumarcade.blocks.RoadBlock;
+import com.scs.spectrumarcade.blocks.SandBlock;
 import com.scs.spectrumarcade.blocks.SplatBlock;
 import com.scs.spectrumarcade.blocks.StockCarWallCyan;
 import com.scs.spectrumarcade.blocks.StockCarWallCyanTransp;
@@ -70,6 +72,9 @@ public class BlockCodes {
 	public static final int TRAILBLAZER_JUMP = 32;
 	public static final int STOCK_CAR_WALL_CYAN_TRANSP = 33;
 	public static final int ANDROIDS_WALL = 34;
+	public static final int SAND = 35;
+	public static final int ROAD = 36;
+
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
 		switch (code) {
@@ -106,6 +111,8 @@ public class BlockCodes {
 		case TRAILBLAZER_JUMP: return TrailblazerJump.class;
 		case STOCK_CAR_WALL_CYAN_TRANSP: return StockCarWallCyanTransp.class;
 		case ANDROIDS_WALL: return AndroidsWall.class;
+		case SAND: return SandBlock.class;
+		case ROAD: return RoadBlock.class;
 
 		default: throw new RuntimeException("code: " + code);
 		}

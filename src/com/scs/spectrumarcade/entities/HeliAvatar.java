@@ -77,7 +77,10 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 
 		// Gravity
-		fwdSpeed.y -= .005f;
+		//fwdSpeed.y -= .005f;
+		if (fwdSpeed.y < 0) {
+			fwdSpeed.y = fwdSpeed.y * 1.005f;
+		}
 
 		// Drag
 		this.fwdSpeed.multLocal(.99f);
@@ -85,7 +88,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		tiltDiff = tiltDiff * .99f;
 
 		//Move
-		this.angleRads += turnSpeed * tpf;  // todo - loop round
+		this.angleRads += turnSpeed * tpf;
 		while (angleRads > Math.PI) {
 			this.angleRads -= Math.PI*2;
 		}
@@ -105,10 +108,10 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
 
 		// Prevent falling through floor
-/*		if (this.getMainNode().getWorldTranslation().y <= 1.2f) {
+		/*		if (this.getMainNode().getWorldTranslation().y <= 1.2f) {
 			this.getMainNode().getLocalTranslation().y = 1.2f;
 		}
-*/
+		 */
 		Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
@@ -151,8 +154,9 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
+		Globals.p("heli collided with " + collidedWith);
 		this.getMainNode().getLocalTranslation().y += .01f;
-		
+
 	}
 
 
