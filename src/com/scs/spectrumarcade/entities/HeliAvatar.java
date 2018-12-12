@@ -54,37 +54,34 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 		if (fwd) {
 			double x = Math.cos(anglerads);
 			double z = Math.sin(anglerads);
-			fwdSpeed.x += x;
-			fwdSpeed.z += z;
+			fwdSpeed.x += x * .2f;
+			fwdSpeed.z += z * .2f;
 		}
 		if (backwards) {
 			double x = Math.cos(anglerads);
 			double z = Math.sin(anglerads);
-			fwdSpeed.x -= x;
-			fwdSpeed.z -= z;
+			fwdSpeed.x -= x * .2f;
+			fwdSpeed.z -= z * .2f;
 		}
 		if (up) {
-			fwdSpeed.y += .01f;
+			fwdSpeed.y += .05f;
 		}
 		if (down) {
-			fwdSpeed.y -= .01f;
+			fwdSpeed.y -= .05f;
 		}
-		
+
 		// Gravity
-		//if (this.getMainNode().getWorldTranslation().y > .05f) {
-			fwdSpeed.y -= .005f;
-	//	}
-		
+		fwdSpeed.y -= .005f;
 
 		// Drag
-		this.fwdSpeed.multLocal(.99f);
-				
-		this.anglerads += turnSpeed;		
-		
-		this.getMainNode().move(fwdSpeed);
-		
-		if (this.getMainNode().getWorldTranslation().y <= 0) {
-			this.getMainNode().getLocalTranslation().y = 0;
+		this.fwdSpeed.multLocal(.999f);
+
+		this.anglerads += turnSpeed * tpf;  // todo - loop
+
+		this.getMainNode().move(fwdSpeed.mult(tpf));
+
+		if (this.getMainNode().getWorldTranslation().y <= 0.1f) {
+			this.getMainNode().getLocalTranslation().y = 0.1f;
 		}
 
 	}
@@ -117,7 +114,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 
 	@Override
 	public void setCameraLocation(Camera cam) {
-/*		Vector3f vec = getMainNode().getWorldTranslation();
+		/*		Vector3f vec = getMainNode().getWorldTranslation();
 		if (!Settings.FREE_CAM) {
 			if (!followCam) {
 				cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
@@ -127,7 +124,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar {
 		} else {
 			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z));
 		}
-*/
+		 */
 	}
 
 

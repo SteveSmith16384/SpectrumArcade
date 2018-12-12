@@ -8,14 +8,12 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
-import com.scs.spectrumarcade.entities.trailblazer.Barrier_Trailblazer;
 import com.scs.spectrumarcade.entities.trailblazer.TrailblazerAvatar;
 
 import mygame.util.Vector3Int;
@@ -54,7 +52,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(floor);
 
 		} else {
-			String text = Functions.readAllFileFromJar("maps/trailblazer_map1.csv");
+			String text = Functions.readAllFileFromJar("maps/trailblazer_map2.csv");
 			String[] lines = text.split("\n");
 
 			terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, lines.length, 100, 1f, 1f);

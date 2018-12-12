@@ -40,8 +40,8 @@ import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
-import com.scs.spectrumarcade.levels.EscapeFromKrakatoa;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -158,7 +158,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(EscapeFromKrakatoa.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel // EscapeFromKrakatoa
+			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel // EscapeFromKrakatoa
 		}
 
 		//File video, audio;

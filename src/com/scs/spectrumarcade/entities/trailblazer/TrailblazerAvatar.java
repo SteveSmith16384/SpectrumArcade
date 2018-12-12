@@ -149,11 +149,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
 		}
 		if (left) {
-			this.srb.applyCentralForce(forceDirLeft.mult(FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(FORCE*2));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
 		}
 		if (right) {
-			this.srb.applyCentralForce(forceDirLeft.mult(-FORCE));
+			this.srb.applyCentralForce(forceDirLeft.mult(-FORCE*2));
 			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 		}
 		if (jump) {
