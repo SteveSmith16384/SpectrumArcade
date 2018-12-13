@@ -37,7 +37,7 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 		House h = new House(game, 144, 6, 150);
 		game.addEntity(h);
 		// Helipad
-		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(148, 10, 148), new Vector3Int(4, 1, 4));
+		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(148, 5, 148), new Vector3Int(4, 1, 4));
 		
 		this.generateHill(new Vector3f(110, 10, 110), 20, -1); // Mountain
 
@@ -116,7 +116,7 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 						if (plateau > 0 && height > plateau) {
 							height = plateau;
 						} else {
-							height = height + (NumberFunctions.rnd(-1,  1));
+							height = height + (NumberFunctions.rnd(-1, 0));
 						}
 						for (int y=0 ; y<= height ; y++) {
 							int blockType = BlockCodes.GRASS_LONG;

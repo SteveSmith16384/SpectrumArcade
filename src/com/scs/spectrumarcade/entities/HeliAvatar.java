@@ -77,7 +77,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 
 		// Gravity
-		//fwdSpeed.y -= .005f;
+		fwdSpeed.y -= .005f;
 		if (fwdSpeed.y < 0) {
 			fwdSpeed.y = fwdSpeed.y * 1.005f;
 		}
