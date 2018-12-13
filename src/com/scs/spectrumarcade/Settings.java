@@ -4,10 +4,9 @@ public class Settings {
 
 	public static final boolean RECORD_VID = false;
 	public static final boolean RELEASE_MODE = false;
-	public static final boolean FREE_CAM = false; // For viewing maps
+	public static final boolean FREE_CAM = true; // For viewing maps
 	
-	public static final boolean TEST_BILLBOARD = true;
-	
+	public static final boolean TEST_BILLBOARD = false;	
 	public static final boolean TEST_BALL_ROLLING = false;
 	public static final boolean AA_FIND_START = false;
 	public static final boolean TEST_ANT_AI = false;
@@ -28,8 +27,4 @@ public class Settings {
 	// User Data
 	public static final String ENTITY = "Entity";
 	
-	// Key codes
-	public static final String KEY_RECORD = "record";
-	public static final String KEY_RETURN_TO_ARCADE = "return";
-
 }

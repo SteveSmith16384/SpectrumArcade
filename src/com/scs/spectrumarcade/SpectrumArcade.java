@@ -48,6 +48,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private static final int MODE_GAME = 0;
 	private static final int MODE_RETURNING_TO_ARCADE = 1;
 
+	// Key codes
+	public static final String KEY_RECORD = "record";
+	public static final String KEY_RETURN_TO_ARCADE = "return";
+
 	public static final Random rnd = new Random();
 
 	public List<IEntity> entities = new ArrayList<IEntity>();
@@ -157,7 +161,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(EscapeFromKrakatoa.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern
+			this.setNextLevel(EscapeFromKrakatoa.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // EscapeFromKrakatoa
 		}
 
@@ -172,6 +176,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getStateManager().attach(video_recorder);
 
 		}
+		
+		loopTimer.start();
 	}
 
 
@@ -211,8 +217,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_Q));
 		inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
 		inputManager.addMapping("Test", new KeyTrigger(KeyInput.KEY_T));
-		inputManager.addMapping(Settings.KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
-		inputManager.addMapping(Settings.KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
+		inputManager.addMapping(KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
+		inputManager.addMapping(KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
 
 		inputManager.addListener(this, "Left");
 		inputManager.addListener(this, "Right");
@@ -222,8 +228,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
 		inputManager.addListener(this, "Test");
-		inputManager.addListener(this, Settings.KEY_RECORD);
-		inputManager.addListener(this, Settings.KEY_RETURN_TO_ARCADE);
+		inputManager.addListener(this, KEY_RECORD);
+		inputManager.addListener(this, KEY_RETURN_TO_ARCADE);
 
 		inputManager.addMapping("Ability1", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 		inputManager.addListener(this, "Ability1");
@@ -354,7 +360,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			a.onAction(binding, isPressed, tpf);
 			if (binding.equals("Ability1")) {
 				abilityActivated[1] = isPressed;
-			} else if (binding.equals(Settings.KEY_RECORD)) {
+			} else if (binding.equals(KEY_RECORD)) {
 				if (isPressed) {
 					if (video_recorder == null) {
 						//log("RECORDING VIDEO");
@@ -369,7 +375,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 						video_recorder = null;
 					}
 				}
-			} else if (binding.equals(Settings.KEY_RETURN_TO_ARCADE)) {
+			} else if (binding.equals(KEY_RETURN_TO_ARCADE)) {
 				// this.startNewLevel(new ArcadeRoom(), -1);
 				mode = MODE_RETURNING_TO_ARCADE;
 				Vector3f pos = this.getCamera().getLocation().clone();

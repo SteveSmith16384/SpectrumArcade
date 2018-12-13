@@ -1,5 +1,7 @@
 package com.scs.spectrumarcade.entities;
 
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -37,7 +39,9 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		
 		this.getMainNode().setLocalTranslation(x, y, z);
 
-		srb = new RigidBodyControl(1);
+		BoundingBox bb = (BoundingBox) heli.getWorldBound();
+		BoxCollisionShape bcs = new BoxCollisionShape(new Vector3f(bb.getXExtent(), bb.getYExtent(), bb.getZExtent()));
+		srb = new RigidBodyControl(bcs);
 		mainNode.addControl(srb);
 		srb.setKinematic(true);
 
@@ -114,7 +118,8 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 			this.getMainNode().getLocalTranslation().y = 1.2f;
 		}
 		 */
-		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
+		
+		Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
 

@@ -10,9 +10,6 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class Helicopter extends Node {
 
-	//public static final float MODEL_WIDTH = 2.2f;
-	//public static final float MODEL_HEIGHT = 0.7f;
-
 	public Helicopter(AssetManager assetManager, String tex) {
 		Spatial model = assetManager.loadModel("Models/chopper.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, tex);

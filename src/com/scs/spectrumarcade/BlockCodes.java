@@ -23,6 +23,7 @@ import com.scs.spectrumarcade.blocks.MotosYellowBlock;
 import com.scs.spectrumarcade.blocks.RedFloorBlockPxl;
 import com.scs.spectrumarcade.blocks.RedFloorBlockUDG;
 import com.scs.spectrumarcade.blocks.RoadBlock;
+import com.scs.spectrumarcade.blocks.RockBlock;
 import com.scs.spectrumarcade.blocks.SandBlock;
 import com.scs.spectrumarcade.blocks.SplatBlock;
 import com.scs.spectrumarcade.blocks.StockCarWallCyan;
@@ -76,6 +77,7 @@ public class BlockCodes {
 	public static final int SAND = 35;
 	public static final int ROAD = 36;
 	public static final int LAVA = 37;
+	public static final int ROCK = 38;
 
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
@@ -116,6 +118,7 @@ public class BlockCodes {
 		case SAND: return SandBlock.class;
 		case ROAD: return RoadBlock.class;
 		case LAVA: return LavaBlock.class;
+		case ROCK: return RockBlock.class;
 
 		default: throw new RuntimeException("code: " + code);
 		}
