@@ -23,7 +23,7 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 public class ModelViewer_SpectrumArcade extends SimpleApplication implements AnimEventListener {
 
 	private AnimControl control;
-	private FilterPostProcessor fpp;
+	//private FilterPostProcessor fpp;
 
 	public static void main(String[] args) {
 		ModelViewer_SpectrumArcade app = new ModelViewer_SpectrumArcade();
@@ -48,12 +48,11 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
-		Spatial model = assetManager.loadModel("Models/suburb_assets_pt1/models/gas-station.obj");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/suburb_assets_pt1/models/textures/buildings-houses_v1.jpg");
+		Spatial model = assetManager.loadModel("Models/chopper.blend");
+		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/suburb_assets_pt1/models/textures/buildings-houses_v1.jpg");
 
 		String animNode = "Woman (Node)";
 		String animToUse = "Walking";
-
 
 		if (model instanceof Node) {
 			SpectrumArcade.p("Listing anims:");
@@ -90,8 +89,8 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 
 		this.flyCam.setMoveSpeed(12f);
 
-		fpp = new FilterPostProcessor(assetManager);
-		viewPort.addProcessor(fpp);	
+		//fpp = new FilterPostProcessor(assetManager);
+		//viewPort.addProcessor(fpp);	
 	}
 
 

@@ -13,6 +13,7 @@ import com.scs.spectrumarcade.blocks.GauntletDoor;
 import com.scs.spectrumarcade.blocks.GauntletWall;
 import com.scs.spectrumarcade.blocks.GrassCutBlock;
 import com.scs.spectrumarcade.blocks.GrassLongBlock;
+import com.scs.spectrumarcade.blocks.LavaBlock;
 import com.scs.spectrumarcade.blocks.MinedOutPlain;
 import com.scs.spectrumarcade.blocks.MinedOutWalkedOn;
 import com.scs.spectrumarcade.blocks.MotosCyanBlock;
@@ -74,6 +75,7 @@ public class BlockCodes {
 	public static final int ANDROIDS_WALL = 34;
 	public static final int SAND = 35;
 	public static final int ROAD = 36;
+	public static final int LAVA = 37;
 
 	
 	public static Class<? extends IBlock> getClassFromCode(int code) {
@@ -113,6 +115,7 @@ public class BlockCodes {
 		case ANDROIDS_WALL: return AndroidsWall.class;
 		case SAND: return SandBlock.class;
 		case ROAD: return RoadBlock.class;
+		case LAVA: return LavaBlock.class;
 
 		default: throw new RuntimeException("code: " + code);
 		}

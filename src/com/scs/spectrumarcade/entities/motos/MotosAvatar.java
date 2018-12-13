@@ -30,7 +30,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	private boolean clearForces;
 
 	private Geometry geometry;
-	
+
 
 	public MotosAvatar(SpectrumArcade _game, float x, float y, float z, boolean followCam) {
 		super(_game, "MotosAvatar");
@@ -95,14 +95,14 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	public void warp(Vector3f vec) {
 		this.srb.setPhysicsLocation(vec.clone());
 	}
-	
+
 
 	@Override
 	public void setCameraLocation(Camera cam) {
-		if (!MotosLevel.FOLLOW_CAM) {
-		camPos.set(getMainNode().getWorldTranslation());
-		cam.setLocation(camPos);
-		}
+		/*if (!MotosLevel.FOLLOW_CAM) {
+			camPos.set(getMainNode().getWorldTranslation());
+			cam.setLocation(camPos);
+		}*/
 	}
 
 
@@ -116,7 +116,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		
+
 	}
 
 
@@ -158,7 +158,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 			//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, 150f, 0));
 			jump = false;
 		}
-		
+
 	}
 
 }

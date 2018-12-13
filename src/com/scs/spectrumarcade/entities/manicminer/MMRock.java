@@ -15,8 +15,7 @@ public class MMRock extends AbstractPhysicalEntity implements ICausesHarmOnConta
 	public MMRock(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Rock");
 
-		Spatial geometry = null;
-		geometry = (Geometry)game.getAssetManager().loadModel("Models/RocksFlowersGrassPack/OBJ/rock3.obj");
+		Spatial geometry = game.getAssetManager().loadModel("Models/RocksFlowersGrassPack/OBJ/rock3.obj");
 		JMEAngleFunctions.turnOnXAxis(geometry, (float)Math.PI);
 		JMEModelFunctions.scaleModelToWidth(geometry, 1f);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/manicminer/mm_rock.png");

@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.levels;
 
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.SpectrumArcade;
 
 public abstract class AbstractLevel implements ILevelGenerator {
@@ -14,19 +15,12 @@ public abstract class AbstractLevel implements ILevelGenerator {
 	public void setGame(SpectrumArcade _game) {
 		game = _game;
 	}
-	
-	
-	@Override
-	public boolean isFollowCam() {
-		return true;
+
+
+	public void setupCameraSystem(CameraSystem sys) {
+		sys.setupCam(true, 3f, .1f, true, 1f);
 	}
-
-
-	@Override
-	public boolean isCamInCharge() {
-		return true;
-	}
-
+	
 
 
 }

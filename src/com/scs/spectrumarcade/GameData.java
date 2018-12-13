@@ -6,7 +6,6 @@ import com.scs.spectrumarcade.levels.ILevelGenerator;
 
 public class GameData {
 
-	public int numKeys;
 	private HashMap<Class<? extends ILevelGenerator>, Integer> currentLevel = new HashMap<>();
 
 	public GameData() {

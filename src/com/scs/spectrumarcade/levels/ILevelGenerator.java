@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.SpectrumArcade;
 
@@ -27,9 +27,11 @@ public interface ILevelGenerator {
 	
 	String getHUDText();
 	
-	boolean isFollowCam();
+	void setupCameraSystem(CameraSystem sys);
 	
-	boolean isCamInCharge();
+	//boolean isFollowCam();
+	
+	//boolean isCamInCharge();
 	
 	void setInitialCameraDir(Camera cam);
 	

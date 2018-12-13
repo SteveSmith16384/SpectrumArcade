@@ -8,8 +8,10 @@ import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.IAvatar;
+import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
+import com.scs.spectrumarcade.models.Helicopter;
 
 public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
@@ -21,7 +23,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
-	public HeliAvatar(SpectrumArcade _game, float x, float y, float z) {
+	public HeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "Player");
 
 		/** Create a box to use as our player model */
@@ -29,7 +31,10 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		Geometry playerGeometry = new Geometry("Player", box1);
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
-
+		
+		Helicopter heli = new Helicopter(game.getAssetManager(), tex);
+		this.getMainNode().attachChild(heli);
+		
 		this.getMainNode().setLocalTranslation(x, y, z);
 
 		srb = new RigidBodyControl(1);
@@ -41,19 +46,14 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 
 	@Override
 	public void process(float tpf) {
-		Camera cam = game.getCamera();
-
 		double x = Math.cos(angleRads);
 		double z = Math.sin(angleRads);
 
-		//camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
-		//camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
-		//walkDirection.set(0, 0, 0);
 		if (left) {
-			turnSpeed -= .05f;
+			turnSpeed -= .01f;
 		}
 		if (right) {
-			turnSpeed += .05f;
+			turnSpeed += .01f;
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
@@ -77,15 +77,16 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 
 		// Gravity
-		fwdSpeed.y -= .005f;
 		if (fwdSpeed.y < 0) {
 			fwdSpeed.y = fwdSpeed.y * 1.005f;
+		} else {
+			fwdSpeed.y -= .005f;
 		}
 
 		// Drag
-		this.fwdSpeed.multLocal(.99f);
-		turnSpeed = turnSpeed * .99f;
-		tiltDiff = tiltDiff * .99f;
+		this.fwdSpeed.multLocal(.999f);
+		turnSpeed = turnSpeed * .999f;
+		tiltDiff = tiltDiff * .999f;
 
 		//Move
 		this.angleRads += turnSpeed * tpf;
@@ -105,14 +106,15 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		lookat.y += tiltDiff;
 		lookat.z += z;
 		this.getMainNode().lookAt(lookat, Vector3f.UNIT_Y);
-		game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
-
+		if (!Settings.FREE_CAM) {
+			game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
+		}
 		// Prevent falling through floor
 		/*		if (this.getMainNode().getWorldTranslation().y <= 1.2f) {
 			this.getMainNode().getLocalTranslation().y = 1.2f;
 		}
 		 */
-		Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
+		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
 
@@ -138,7 +140,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 
 	@Override
 	public void warp(Vector3f v) {
-		//playerControl.warp(v);
+		this.getMainNode().setLocalTranslation(v);
 	}
 
 
@@ -156,7 +158,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		Globals.p("heli collided with " + collidedWith);
 		this.getMainNode().getLocalTranslation().y += .01f;
-
+		fwdSpeed.y = 0;
 	}
 
 

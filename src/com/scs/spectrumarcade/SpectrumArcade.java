@@ -31,17 +31,17 @@ import com.jme3.light.LightList;
 import com.jme3.light.SpotLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.EscapeFromKrakatoa;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+
+import ssmith.util.FixedLoopTime;
 
 public class SpectrumArcade extends SimpleApplication implements ActionListener, PhysicsCollisionListener {
 
@@ -76,6 +76,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private Class<? extends ILevelGenerator> nextLevel;
 	private int nextLevelNum;
 	private CameraSystem camSys;
+	protected FixedLoopTime loopTimer = new FixedLoopTime(5);
 
 	public static void main(String[] args) {
 		try {
@@ -119,7 +120,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
 
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
-		cam.lookAt(new Vector3f(1, 1, 1), Vector3f.UNIT_Y);
+		//cam.lookAt(new Vector3f(1, 1, 1), Vector3f.UNIT_Y);
 
 		// Set up Physics
 		bulletAppState = new BulletAppState();//PhysicsSpace.BroadphaseType.DBVT);
@@ -127,7 +128,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		stateManager.attach(bulletAppState);
 		//bulletAppState.getPhysicsSpace().enableDebug(assetManager);
 
-		setUpKeys();
+		if (Settings.FREE_CAM) {
+			Globals.p("FREE CAM ENABLED");
+			this.flyCam.setMoveSpeed(12f);
+			
+		} else {
+			setUpKeys();
+		}
 		setUpLight();
 
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
@@ -239,11 +246,16 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.addEntity((AbstractPhysicalEntity)player);
 		loadingLevel = false;
 		this.getViewPort().setBackgroundColor(level.getBackgroundColour());
-		
-		camSys = new CameraSystem(this);
-		if (true) {
-			camSys.setupCam(level.isFollowCam(), 3f, .1f, level.isCamInCharge());
+
+		if (!Settings.FREE_CAM) {
+			camSys = new CameraSystem(this);
+			level.setupCameraSystem(camSys);
+		} else {
+			this.getCamera().setLocation(this.player.getMainNode().getWorldTranslation());
 		}
+		/*if (true) {
+			//camSys.setupCam(level.isFollowCam(), 3f, .1f, level.isCamInCharge());
+		}*/
 
 		IAvatar a = (IAvatar)player;
 		a.setCameraLocation(cam); // Ready to set direction
@@ -304,8 +316,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 			//IAvatar a = (IAvatar)player;
 			//a.setCameraLocation(cam);
-			
-			camSys.process(cam, player);
+
+			if (!Settings.FREE_CAM) {
+				camSys.process(cam, player);
+			}
+
+			loopTimer.waitForFinish();
+			loopTimer.start();
 
 		}
 
@@ -329,7 +346,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}
 	}
 
-	
+
 	public void onAction(String binding, boolean isPressed, float tpf) {
 		IAvatar a = (IAvatar)player;
 		// DO NOT DO ANY MAJOR ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
@@ -451,9 +468,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}*/
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.add((IProcessable)e);
-		}
-		if (e instanceof Key) {
-			gameData.numKeys++;
 		}
 	}
 

@@ -22,20 +22,25 @@ public class CameraSystem {
 	private float followDist = 1f;
 	private float shoulderAngleRads = 0f;
 	private float fixedHeight = -1;
+	private float heightOffset;
 	private boolean camInCharge;
 	private SpectrumArcade game;
 
+	// Temp vars
+	private Vector3f dirTmp = new Vector3f();
+	
 	public CameraSystem(SpectrumArcade _game) {
 		game = _game;
 		//followCam = _followCam;
 	}
 
 
-	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge) {
+	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge, float _heightOffset) {
 		followCam = _followCam;
 		this.followDist = dist;
 		shoulderAngleRads = angleRads;
 		camInCharge = _camInCharge;
+		heightOffset = _heightOffset;
 	}
 
 
@@ -50,20 +55,20 @@ public class CameraSystem {
 
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time
-			avatarPos.y += 1f;//avatar.avatarModel.getCameraHeight() + .1f;
+			avatarPos.y += heightOffset;//avatar.avatarModel.getCameraHeight() + .1f;
 
-			Vector3f dir = null;
+			//Vector3f dir = null;
 			if (camInCharge) {
-				dir = cam.getDirection().mult(-1); // todo - don't create every time
+				dirTmp = cam.getDirection().mult(-1, dirTmp);
 			} else {
-				dir = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1); // todo - don't create every time
+				dirTmp = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1, dirTmp);
 			}
 			if (shoulderAngleRads != 0) {
 				Quaternion rotQ = new Quaternion();
 				rotQ.fromAngleAxis(shoulderAngleRads, Vector3f.UNIT_Y);
-				rotQ.multLocal(dir).normalizeLocal();
+				rotQ.multLocal(dirTmp).normalizeLocal();
 			}
-			Ray r = new Ray(avatarPos, dir);
+			Ray r = new Ray(avatarPos, dirTmp);
 			r.setLimit(followDist);
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
@@ -89,7 +94,7 @@ public class CameraSystem {
 							if (dist > 0.1f) { // Move cam forward slightly
 								dist -= 0.1f;
 							}
-							Vector3f add = dir.multLocal(dist);
+							Vector3f add = dirTmp.multLocal(dist);
 							cam.setLocation(avatarPos.add(add));
 							found = true;
 							break;
@@ -99,7 +104,7 @@ public class CameraSystem {
 			}
 
 			if (!found) {
-				Vector3f add = dir.multLocal(followDist);
+				Vector3f add = dirTmp.multLocal(followDist);
 				cam.setLocation(avatarPos.add(add));
 			}
 

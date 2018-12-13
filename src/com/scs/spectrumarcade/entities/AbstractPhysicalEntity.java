@@ -57,6 +57,10 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
 	@Override
 	public void actuallyRemove() {
+		if (!this.isMarkedForRemoval()) {
+			throw new RuntimeException("You must mark an item for removal!");
+		}
+		
 		this.mainNode.removeFromParent();
 		if (srb != null) {
 			this.game.bulletAppState.getPhysicsSpace().remove(this.srb);

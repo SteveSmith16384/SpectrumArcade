@@ -103,10 +103,10 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void setCameraLocation(Camera cam) {
-		if (!TrailblazerLevel.FOLLOW_CAM) {
+		/*if (!TrailblazerLevel.FOLLOW_CAM) {
 			camPos.set(getMainNode().getWorldTranslation());
 			cam.setLocation(camPos);
-		}
+		}*/
 	}
 
 

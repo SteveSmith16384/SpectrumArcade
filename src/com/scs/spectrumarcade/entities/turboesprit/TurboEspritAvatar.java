@@ -35,8 +35,8 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 	
 	@Override
 	public void setCameraLocation(Camera cam) {
-		game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
-		cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
+		//game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
+		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
 	}
 
