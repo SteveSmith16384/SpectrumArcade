@@ -18,18 +18,10 @@ import mygame.util.Vector3Int;
 
 public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGenerator {
 
-	public static final boolean FOLLOW_CAM = true;
 	private static final int MAP_DEPTH = 5;
-
-	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) {
-		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
-		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0, true);
-		}*/
-
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, 64, 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 		VoxelTerrainEntity terrainPixel = new VoxelTerrainEntity(game, 0f, 0f, 0f, 32*8, 16, 1f/8f, 1f);
@@ -105,7 +97,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 3, 2, 3f, 7f, FOLLOW_CAM, "Textures/manicminer/avatar_white.png");
+		return new WalkingPlayer(game, 3, 2, 3f, 7f, "Textures/manicminer/avatar_white.png");
 	}
 
 

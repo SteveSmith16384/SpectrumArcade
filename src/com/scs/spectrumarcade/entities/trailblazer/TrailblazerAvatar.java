@@ -27,7 +27,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	//private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
-	private Vector3f camPos = new Vector3f();
+	//private Vector3f camPos = new Vector3f();
 	private int lastCheckX, lastCheckZ;
 
 	private boolean left = false, right = false, up = false, down = false, jump = false;
@@ -37,19 +37,16 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	private Geometry geometry;
 	
-	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z, boolean followCam) {
+	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z) {
 		super(_game, "TrailblazerAvatar");
 
 		level = _level;
 
 		Mesh sphere = new Sphere(16, 16, RAD, true, false);
 		geometry = new Geometry("TrailblazerAvatarEntitySphere", sphere);
-		if (!followCam) {
-			geometry.setCullHint(CullHint.Always);
-		} else {
 			JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/trailblazer/avatar.png");
 			geometry.setShadowMode(ShadowMode.CastAndReceive);
-		}
+
 
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
@@ -133,11 +130,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 		//walking = up || down || left || right;
 		forceDirFwd.set(game.getCamera().getDirection());
-		//forceDirFwd.y = 0.5f;
+		forceDirFwd.y = 0f;
 		forceDirFwd.normalizeLocal();
 
 		forceDirLeft.set(game.getCamera().getLeft());
-		//forceDirLeft.y = 0.2f;
+		forceDirLeft.y = 0f;
 		forceDirLeft.normalizeLocal();
 
 		if (up) {
@@ -225,6 +222,16 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		}
 	}
 
+
+	@Override
+	public void setAvatarVisible(boolean b) {
+		if (b) {
+			geometry.setCullHint(CullHint.Never);
+		} else {
+			geometry.setCullHint(CullHint.Always);
+		}
+
+	}
 
 
 }

@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.stockcarchamp;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial.CullHint;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -10,7 +11,7 @@ import com.scs.spectrumarcade.components.IAvatar;
 
 public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
-	private Node camNode; // todo - remove?
+	//private Node camNode; // todo - remove?
 
 	protected static final float accelerationForce = 1000.0f;
 	protected static final float brakeForce = 100.0f;
@@ -20,10 +21,10 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z, Vector3f lookAt) {
 		super(_game, "StockCarAvatar", x, y, z, lookAt, true, 1);
-
+/*
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.8f, -4);
-		this.mainNode.attachChild(camNode);
+		this.mainNode.attachChild(camNode);*/
 	}
 
 
@@ -101,5 +102,15 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		vehicle.clearForces();
 	}
 
+
+	@Override
+	public void setAvatarVisible(boolean b) {
+		if (b) {
+			carModel.setCullHint(CullHint.Never);
+		} else {
+			carModel.setCullHint(CullHint.Always);
+		}
+
+	}
 
 }

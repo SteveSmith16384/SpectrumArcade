@@ -26,7 +26,7 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 	private static final boolean SHOW_WHEELS = true;
 
 	public VehicleControl vehicle;
-
+	protected FordFocusModel carModel;
 
 	public AbstractStockCar(SpectrumArcade _game, String name, float x, float y, float z, Vector3f lookAt, boolean player, int texNum) {
 		super(_game, name);
@@ -146,7 +146,8 @@ public abstract class AbstractStockCar extends AbstractPhysicalEntity {
 		this.mainNode.setLocalTranslation(x, y, z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
 		
-		this.mainNode.attachChild(new FordFocusModel(game.getAssetManager(), texNum));
+		carModel = new FordFocusModel(game.getAssetManager(), texNum);
+		this.mainNode.attachChild(carModel);
 	}
 
 

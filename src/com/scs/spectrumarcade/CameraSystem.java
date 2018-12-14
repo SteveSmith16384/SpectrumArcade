@@ -18,25 +18,25 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
  */
 public class CameraSystem {
 
-	private boolean followCam;
+	public enum View {First, Third, TopDown, Cinema };
+
+	private SpectrumArcade game;
 	private float followDist = 1f;
 	private float shoulderAngleRads = 0f;
 	private float fixedHeight = -1;
 	private float heightOffset;
 	private boolean camInCharge;
-	private SpectrumArcade game;
+	private View currentView = View.First;
 
 	// Temp vars
 	private Vector3f dirTmp = new Vector3f();
-	
+
 	public CameraSystem(SpectrumArcade _game) {
 		game = _game;
-		//followCam = _followCam;
 	}
 
 
-	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge, float _heightOffset) {
-		followCam = _followCam;
+	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge, float _heightOffset) { // todo - remove boolean _followCam, 
 		this.followDist = dist;
 		shoulderAngleRads = angleRads;
 		camInCharge = _camInCharge;
@@ -45,31 +45,43 @@ public class CameraSystem {
 
 
 	public void process(Camera cam, AbstractPhysicalEntity avatar) {
-		if (!followCam) {
+		if (this.currentView == View.First) {
 			// Position camera at node
 			Vector3f vec = avatar.getMainNode().getWorldTranslation();
 			cam.getLocation().x = vec.x;
 			cam.getLocation().y = vec.y;// + avatar.avatarModel.getCameraHeight();
 			cam.getLocation().z = vec.z;
-			//cam.update();
-
+		} else if (this.currentView == View.Cinema) {
+			Vector3f pos = avatar.getMainNode().getWorldTranslation();
+			cam.lookAt(pos, Vector3f.UNIT_Y);
+			cam.getLocation().x = (int)(pos.x / 15) * 15;
+			cam.getLocation().z = (int)(pos.z / 15) * 15;
+			cam.getLocation().y = 10f;
 		} else {
-			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time
+			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time - todo - use physics node!
 			avatarPos.y += heightOffset;//avatar.avatarModel.getCameraHeight() + .1f;
+			if (this.currentView == View.Third) {
+				if (camInCharge) {
+					dirTmp = cam.getDirection().mult(-1, dirTmp);
+				} else {
+					dirTmp = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1, dirTmp);
+				}
+				if (shoulderAngleRads != 0) {
+					Quaternion rotQ = new Quaternion();
+					rotQ.fromAngleAxis(shoulderAngleRads, Vector3f.UNIT_Y);
+					rotQ.multLocal(dirTmp).normalizeLocal();
+				}
+			} else if (this.currentView == View.TopDown) {
+				//dirTmp = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1, dirTmp);
+				dirTmp.set(0, 1, 0);
+			}
 
-			//Vector3f dir = null;
-			if (camInCharge) {
-				dirTmp = cam.getDirection().mult(-1, dirTmp);
-			} else {
-				dirTmp = avatar.getMainNode().getWorldRotation().getRotationColumn(2).mult(-1, dirTmp);
-			}
-			if (shoulderAngleRads != 0) {
-				Quaternion rotQ = new Quaternion();
-				rotQ.fromAngleAxis(shoulderAngleRads, Vector3f.UNIT_Y);
-				rotQ.multLocal(dirTmp).normalizeLocal();
-			}
 			Ray r = new Ray(avatarPos, dirTmp);
-			r.setLimit(followDist);
+			if (this.currentView == View.Third) {
+				r.setLimit(followDist);
+			} else if (this.currentView == View.TopDown) {
+				r.setLimit(10f);
+			}
 			CollisionResults res = new CollisionResults();
 			int c = game.getRootNode().collideWith(r, res);
 			boolean found = false;
@@ -104,7 +116,7 @@ public class CameraSystem {
 			}
 
 			if (!found) {
-				Vector3f add = dirTmp.multLocal(followDist);
+				Vector3f add = dirTmp.multLocal(r.limit);
 				cam.setLocation(avatarPos.add(add));
 			}
 
@@ -119,6 +131,11 @@ public class CameraSystem {
 		}
 
 		cam.update();
+	}
+
+
+	public void setView(View v) {
+		currentView = v;
 	}
 
 }

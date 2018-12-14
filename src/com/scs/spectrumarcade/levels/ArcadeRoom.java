@@ -66,8 +66,11 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine9 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Androids", AndroidsLevel.class);
 		game.addEntity(machine9);
 
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 10, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		ArcadeMachine machine2 = new ArcadeMachine(game, this, 10, 0, 2, "ArcadeMachine_Krakatoa", EscapeFromKrakatoa.class);
 		game.addEntity(machine2);
+
+		ArcadeMachine machine10 = new ArcadeMachine(game, this, 11, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		game.addEntity(machine10);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
 		//game.addEntity(machine7);
@@ -87,7 +90,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, false, null);
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, "Textures/arcaderoom/black.png");
 	}
 
 

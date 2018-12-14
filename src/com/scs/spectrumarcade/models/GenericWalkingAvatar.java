@@ -7,9 +7,10 @@ import com.jme3.asset.AssetManager;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.scs.spectrumarcade.components.IAvatarModel;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-public class GenericWalkingAvatar extends Node {
+public class GenericWalkingAvatar extends Node implements IAvatarModel {
 
 	public static final float MODEL_HEIGHT = 1.7f;
 
@@ -19,7 +20,6 @@ public class GenericWalkingAvatar extends Node {
 
 	public GenericWalkingAvatar(AssetManager assetManager, String tex) {
 		super("MinerModel");
-		//assetManager = _assetManager;
 
 		Spatial model = assetManager.loadModel("Models/AnimatedHuman/Animated Human.blend");
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, tex);//"Models/AnimatedHuman/Textures/ClothedLightSkin.png");

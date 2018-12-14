@@ -25,7 +25,7 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 	private final float brakeForce = 100.0f;
 	private float steeringValue = 0;
 	private float accelerationValue = 0;
-
+	protected Node carModel;
 	
 	public AbstractTurboEspritCar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "PlayerCar");
@@ -115,7 +115,8 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 		this.mainNode.setLocalTranslation(x,  y,  z);
 		vehicle.setPhysicsLocation(new Vector3f(x, y, z));
 		
-		this.mainNode.attachChild(getModel());
+		carModel = getModel();
+		this.mainNode.attachChild(carModel);
 	}
 
 	

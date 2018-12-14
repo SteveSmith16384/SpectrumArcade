@@ -11,7 +11,8 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 public class Helicopter extends Node {
 
 	public Helicopter(AssetManager assetManager, String tex) {
-		Spatial model = assetManager.loadModel("Models/chopper.blend");
+		Node model = (Node)assetManager.loadModel("Models/chopper.blend");
+		((Node)model.getChild(0)).getChild(1).removeFromParent(); // Remove the cube
 		JMEModelFunctions.setTextureOnSpatial(assetManager, model, tex);
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		JMEModelFunctions.scaleModelToHeight(model, 2f);

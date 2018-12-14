@@ -26,7 +26,7 @@ import mygame.util.Vector3Int;
 
 public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
-	public static final boolean FOLLOW_CAM = true;
+	//public static final boolean FOLLOW_CAM = true;
 	private static final int WALL_HEIGHT = 2;
 	private static final int BLOCK_SIZE = 2;
 
@@ -116,7 +116,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 0f, FOLLOW_CAM, "Textures/androids/avatar_blue.png");
+		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 0f, "Textures/androids/avatar_blue.png");
 		//game.setAbility(1, new LaserRifle(game));
 		return wp;
 	}

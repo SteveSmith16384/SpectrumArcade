@@ -8,11 +8,14 @@ import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
+import com.scs.spectrumarcade.components.IAvatarModel;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
@@ -24,11 +27,11 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public static final float speed = 4;
 	private static final float strafeSpeed = 4f;
 
-	private GenericWalkingAvatar minerModel; 
+	private IAvatarModel avatarModel; // GenericWalkingAvatar 
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
-	private boolean followCam;
+	//private boolean followCam;
 
 	//Temporary vectors used on each frame.
 	private Vector3f camDir = new Vector3f();
@@ -42,11 +45,11 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public boolean walking = false;
 	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, boolean _followCam, String tex) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, String tex) {
 		super(_game, "Player");
 
 		canJump = jumpPower > 0;
-		followCam = _followCam;
+		//followCam = _followCam;
 
 		/** Create a box to use as our player model */
 		Box box1 = new Box(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, Settings.PLAYER_RAD);
@@ -63,12 +66,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
-		if (followCam) {
-			minerModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
-			//if (!Settings.TEST_BILLBOARD) {
-			this.getMainNode().attachChild(minerModel);
-			//}
-		}
+		//if (followCam) {
+		avatarModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
+		this.getMainNode().attachChild((Node)avatarModel);
+		//}
 
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
@@ -85,12 +86,12 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public void process(float tpf) {
 		Camera cam = game.getCamera();
 
-		if (this.minerModel != null) {
+		if (this.avatarModel != null) {
 			// Set position and direction of avatar model, which doesn't get moved automatically
 			//this.container.setLocalTranslation(this.getWorldTranslation());
 			tempAvatarDir.set(game.getCamera().getDirection());
 			tempAvatarDir.y = 0;
-			JMEAngleFunctions.rotateToWorldDirection(this.minerModel, tempAvatarDir);
+			JMEAngleFunctions.rotateToWorldDirection((Spatial)this.avatarModel, tempAvatarDir);
 
 		}
 
@@ -113,8 +114,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		playerControl.setWalkDirection(walkDirection);
 
 		if (walking) {
-			if (this.minerModel != null) {
-				this.minerModel.walkAnim();
+			if (this.avatarModel != null) {
+				this.avatarModel.walkAnim();
 			}
 			/*
 				time_until_next_footstep_sfx -= tpf;
@@ -134,8 +135,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			 */
 		} else {
 			//time_until_next_footstep_sfx = 0;
-			if (this.minerModel != null) {
-				this.minerModel.idleAnim();
+			if (this.avatarModel != null) {
+				this.avatarModel.idleAnim();
 			}
 		}
 
@@ -156,7 +157,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			if (canJump) {
 				if (isPressed) { 
 					playerControl.jump();
-					this.minerModel.jumpAnim();
+					this.avatarModel.jumpAnim();
 				}
 			}
 		}
@@ -174,7 +175,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public void setCameraLocation(Camera cam) {
 		//Vector3f vec = getMainNode().getWorldTranslation();
 		//if (!Settings.FREE_CAM) {
-			/*if (!followCam) {
+		/*if (!followCam) {
 				cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
 			} else {
 				// Camera system in level handles it
@@ -200,5 +201,15 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public void clearForces() {
 	}
 
+
+	@Override
+	public void setAvatarVisible(boolean b) {
+		if (b) {
+			((Node)avatarModel).setCullHint(CullHint.Never);
+		} else {
+			((Node)avatarModel).setCullHint(CullHint.Always);
+		}
+
+	}
 
 }

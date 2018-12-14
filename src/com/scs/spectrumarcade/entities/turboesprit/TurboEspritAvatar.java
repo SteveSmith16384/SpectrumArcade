@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.turboesprit;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial.CullHint;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.models.VWCorradon;
@@ -46,5 +47,15 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		vehicle.clearForces();
 	}
 
+
+	@Override
+	public void setAvatarVisible(boolean b) {
+		if (b) {
+			carModel.setCullHint(CullHint.Never);
+		} else {
+			carModel.setCullHint(CullHint.Always);
+		}
+
+	}
 
 }

@@ -28,13 +28,10 @@ import ssmith.lang.NumberFunctions;
 
 public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
-	public static final boolean FOLLOW_CAM = true;
-
 	private static int MAP_BORDER = 10;
 	private static int MAP_SIZE = 128;
 
 	private Damsel damsel;
-	//private CameraSystem camSys;
 
 	public AntAttackLevel() {
 		super();
@@ -46,12 +43,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		if (Settings.TEST_ANT_AI) {
 			MAP_SIZE = 20;
 		}
-/*
-		camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
-		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0, true);
-		}
-*/
+
 		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
@@ -123,15 +115,9 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		if (Settings.AA_FIND_START) {
-			WalkingPlayer wp = new WalkingPlayer(game, 0, 2f, 0, 4f, FOLLOW_CAM, "Textures/antattack/avatar_black.png");
-			game.setAbility(1, new BombGun_AA(game));
-			return wp;
-		} else {
-			WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, FOLLOW_CAM, "Textures/antattack/avatar_black.png");
-			game.setAbility(1, new BombGun_AA(game));
-			return wp;
-		}
+		WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, "Textures/antattack/avatar_black.png");
+		game.setAbility(1, new BombGun_AA(game));
+		return wp;
 	}
 
 
@@ -143,11 +129,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		//camSys.process(game.getCamera(), game.player);
-
-		if (Settings.AA_FIND_START) {
-			Globals.p("Avatar Pos: " + game.player.getMainNode().getWorldTranslation());
-		}
+		//Globals.p("Avatar Pos: " + game.player.getMainNode().getWorldTranslation());
 
 	}
 

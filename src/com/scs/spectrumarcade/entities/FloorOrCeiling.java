@@ -18,6 +18,8 @@ import com.scs.spectrumarcade.Settings;
 
 public class FloorOrCeiling extends AbstractPhysicalEntity {
 
+	public Geometry geometry;
+	
 	public FloorOrCeiling(SpectrumArcade _game, float x, float yTop, float z, float w, float h, float d, String tex) {
 		super(_game, "FloorOrCeiling");
 
@@ -32,7 +34,7 @@ public class FloorOrCeiling extends AbstractPhysicalEntity {
 				w, 0, w, d, 0, d, 0, 0  // bottom
 		}));
 
-		Geometry geometry = new Geometry("FloorGeom", box1);
+		geometry = new Geometry("FloorGeom", box1);
 		geometry.setShadowMode(ShadowMode.Receive);
 
 		TextureKey key3 = new TextureKey(tex);

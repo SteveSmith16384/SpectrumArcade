@@ -45,7 +45,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 
 	@Override
 	public void collected(IAvatar avatar) {
-		game.keyCollected();
+		//game.keyCollected();
 	}
 
 }

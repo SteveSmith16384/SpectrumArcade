@@ -22,7 +22,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 	private float angleRads = 0;
 	private float tiltDiff = 0;
 	private Vector3f fwdSpeed = new Vector3f();
-
+	private Helicopter heli;
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
 	public HeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
@@ -34,7 +34,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
 		
-		Helicopter heli = new Helicopter(game.getAssetManager(), tex);
+		heli = new Helicopter(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
 		
 		this.getMainNode().setLocalTranslation(x, y, z);
@@ -49,7 +49,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 
 
 	@Override
-	public void process(float tpf) {
+	public void process(float tpfSecs) {
 		double x = Math.cos(angleRads);
 		double z = Math.sin(angleRads);
 
@@ -61,14 +61,14 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
-				tiltDiff -= tpf*.5;
+				tiltDiff -= tpfSecs *.5;
 				fwdSpeed.x += x * .2f;
 				fwdSpeed.z += z * .2f;
 			}
 		}
 		if (backwards) {
 			if (tiltDiff < 4) {
-				tiltDiff += tpf*.5f;
+				tiltDiff += tpfSecs * .5f;
 				fwdSpeed.x -= x * .2f;
 				fwdSpeed.z -= z * .2f;
 			}
@@ -90,17 +90,17 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		// Drag
 		this.fwdSpeed.multLocal(.999f);
 		turnSpeed = turnSpeed * .999f;
-		tiltDiff = tiltDiff * .999f;
+		tiltDiff = tiltDiff - (tiltDiff * .1f * tpfSecs);
 
 		//Move
-		this.angleRads += turnSpeed * tpf;
+		this.angleRads += turnSpeed * tpfSecs;
 		while (angleRads > Math.PI) {
 			this.angleRads -= Math.PI*2;
 		}
 		while (angleRads < -Math.PI) {
 			this.angleRads += Math.PI*2;
 		}
-		this.getMainNode().move(fwdSpeed.mult(tpf));
+		this.getMainNode().move(fwdSpeed.mult(tpfSecs));
 
 		x = Math.cos(angleRads);
 		z = Math.sin(angleRads);
@@ -165,6 +165,18 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		this.getMainNode().getLocalTranslation().y += .01f;
 		fwdSpeed.y = 0;
 	}
+
+	
+	@Override
+	public void setAvatarVisible(boolean b) {
+		if (b) {
+			heli.setCullHint(CullHint.Never);
+		} else {
+			heli.setCullHint(CullHint.Always);
+		}
+
+	}
+
 
 
 }

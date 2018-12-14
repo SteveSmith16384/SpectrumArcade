@@ -26,8 +26,6 @@ import ssmith.util.RealtimeInterval;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
-	public static final boolean FOLLOW_CAM = true;
-
 	private static final boolean SHOW_MINES = false;
 	private static final int MAP_SIZE_X = 30;
 	private static final int MAP_SIZE_Z = 20;
@@ -91,7 +89,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, 0f, FOLLOW_CAM, "Textures/minedout/avatar_black.png");
+		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, 0f, "Textures/minedout/avatar_black.png");
 	}
 
 

@@ -111,7 +111,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, 0f, false, "todo");
+		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, 0f, "Textures/ericandthefloaters/eric_avatar.png");
 		game.setAbility(1, new BombGun_EATF(game));
 		return wp;
 	}

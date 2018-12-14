@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -21,8 +22,6 @@ import ssmith.lang.Functions;
 import ssmith.util.RealtimeInterval;
 
 public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
-
-	public static final boolean FOLLOW_CAM = true;
 
 	public static final int MAP_HOLE = 1;
 	public static final int MAP_WALL = 2;
@@ -41,11 +40,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
-
-		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
-		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0, true);
-		}*/
 
 		if (Settings.TEST_BALL_ROLLING) {
 			FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 100, 2, 100, "Textures/blocks/antattack.png");
@@ -140,9 +134,9 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		if (Settings.TEST_BALL_ROLLING) {
-			return new TrailblazerAvatar(game, this, 10f, 2f, 1f, FOLLOW_CAM);
+			return new TrailblazerAvatar(game, this, 10f, 2f, 1f);
 		} else {
-			return new TrailblazerAvatar(game, this, map.length/2, 2f, 1f, FOLLOW_CAM);
+			return new TrailblazerAvatar(game, this, map.length/2, 2f, 1f);
 		}
 	}
 
@@ -181,5 +175,11 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
 
+
+	@Override
+	public void setupCameraSystem(CameraSystem sys) {
+		sys.setupCam(true, 3f, 0, true, 1f);
+	}
+	
 
 }

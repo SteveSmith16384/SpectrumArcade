@@ -26,7 +26,6 @@ import mygame.util.Vector3Int;
 
 public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
-	public static final boolean FOLLOW_CAM = true;
 	private static final int WALL_HEIGHT = 4;
 
 	private int levelNum;
@@ -109,7 +108,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, 5f, FOLLOW_CAM, "Textures/gauntlet/todo.png");
+		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, 5f, "Textures/gauntlet/todo.png");
 		game.setAbility(1, new GauntletAxeThrower(game));
 		return wp;
 	}

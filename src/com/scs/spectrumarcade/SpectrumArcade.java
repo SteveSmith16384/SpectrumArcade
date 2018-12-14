@@ -35,6 +35,7 @@ import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.system.AppSettings;
+import com.scs.spectrumarcade.CameraSystem.View;
 import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.IEntity;
@@ -138,7 +139,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		if (Settings.FREE_CAM) {
 			Globals.p("FREE CAM ENABLED");
 			this.flyCam.setMoveSpeed(12f);
-			
+
 		} else {
 			setUpKeys();
 		}
@@ -179,7 +180,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			this.getStateManager().attach(video_recorder);
 
 		}
-		
+
 		loopTimer.start();
 	}
 
@@ -220,6 +221,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addMapping("Down", new KeyTrigger(KeyInput.KEY_Q));
 		inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
 		inputManager.addMapping("Test", new KeyTrigger(KeyInput.KEY_T));
+		inputManager.addMapping("Cam1", new KeyTrigger(KeyInput.KEY_1));
+		inputManager.addMapping("Cam2", new KeyTrigger(KeyInput.KEY_2));
+		inputManager.addMapping("Cam3", new KeyTrigger(KeyInput.KEY_3));
+		inputManager.addMapping("Cam4", new KeyTrigger(KeyInput.KEY_4));
 		inputManager.addMapping(KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
 		inputManager.addMapping(KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
 
@@ -231,6 +236,10 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Down");
 		inputManager.addListener(this, "Jump");
 		inputManager.addListener(this, "Test");
+		inputManager.addListener(this, "Cam1");
+		inputManager.addListener(this, "Cam2");
+		inputManager.addListener(this, "Cam3");
+		inputManager.addListener(this, "Cam4");
 		inputManager.addListener(this, KEY_RECORD);
 		inputManager.addListener(this, KEY_RETURN_TO_ARCADE);
 
@@ -244,6 +253,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		// Clear previous
 		this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 		this.rootNode.detachAllChildren();
+		this.guiNode.detachAllChildren();
 		this.entities.clear();
 		this.entitiesToAdd.clear();
 		this.entitiesToRemove.clear();
@@ -267,8 +277,15 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}*/
 
 		IAvatar a = (IAvatar)player;
-		a.setCameraLocation(cam); // Ready to set direction
+		//a.setCameraLocation(cam); // Ready to set direction
 		level.setInitialCameraDir(cam);
+		
+		// Default to 3rd person
+		if (!Settings.FREE_CAM) {
+		this.camSys.setView(View.Third);
+		a.setAvatarVisible(true);
+		}
+
 	}
 
 
@@ -359,34 +376,52 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public void onAction(String binding, boolean isPressed, float tpf) {
 		IAvatar a = (IAvatar)player;
 		// DO NOT DO ANY MAJOR ACTIONS IN THIS, DO THEM IN THE MAIN THREAD!
-		if (this.game_over == false) {
-			a.onAction(binding, isPressed, tpf);
-			if (binding.equals("Ability1")) {
+		a.onAction(binding, isPressed, tpf);
+
+		if (binding.equals("Ability1")) {
+			if (this.game_over == false) {
 				abilityActivated[1] = isPressed;
-			} else if (binding.equals(KEY_RECORD)) {
-				if (isPressed) {
-					if (video_recorder == null) {
-						//log("RECORDING VIDEO");
-						video_recorder = new VideoRecorderAppState();
-						stateManager.attach(video_recorder);
-						/*if (Statics.MUTE) {
+			}
+		} else if (binding.equals("Cam1")) {
+			this.camSys.setView(View.First);
+			a.setAvatarVisible(false);
+			Globals.p("Setting view to 1");
+		} else if (binding.equals("Cam2")) {
+			this.camSys.setView(View.Third);
+			a.setAvatarVisible(true);
+			Globals.p("Setting view to 2");
+		} else if (binding.equals("Cam3")) {
+			this.camSys.setView(View.TopDown);
+			a.setAvatarVisible(true);
+			Globals.p("Setting view to 3");
+		} else if (binding.equals("Cam4")) {
+			this.camSys.setView(View.Cinema);
+			a.setAvatarVisible(true);
+			Globals.p("Setting view to 4");
+		} else if (binding.equals(KEY_RECORD)) {
+			if (isPressed) {
+				if (video_recorder == null) {
+					//log("RECORDING VIDEO");
+					video_recorder = new VideoRecorderAppState();
+					stateManager.attach(video_recorder);
+					/*if (Statics.MUTE) {
 						log("Warning: sounds are muted");
 					}*/
-					} else {
-						//log("STOPPED RECORDING");
-						stateManager.detach(video_recorder);
-						video_recorder = null;
-					}
+				} else {
+					//log("STOPPED RECORDING");
+					stateManager.detach(video_recorder);
+					video_recorder = null;
 				}
-			} else if (binding.equals(KEY_RETURN_TO_ARCADE)) {
-				// this.startNewLevel(new ArcadeRoom(), -1);
-				mode = MODE_RETURNING_TO_ARCADE;
-				Vector3f pos = this.getCamera().getLocation().clone();
-				pos.y = 0; // In case we've fallen off edge
-				this.getCamera().setLocation(pos);
-				this.setNextLevel(ArcadeRoom.class, -1);
 			}
+		} else if (binding.equals(KEY_RETURN_TO_ARCADE)) {
+			// this.startNewLevel(new ArcadeRoom(), -1);
+			mode = MODE_RETURNING_TO_ARCADE;
+			Vector3f pos = this.getCamera().getLocation().clone();
+			pos.y = 0; // In case we've fallen off edge
+			this.getCamera().setLocation(pos);
+			this.setNextLevel(ArcadeRoom.class, -1);
 		}
+
 	}
 
 
@@ -463,18 +498,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private void actuallyAddEntity(IEntity e) {
 		this.entities.add(e);
 		e.actuallyAdd();
-		/*if (e instanceof AbstractPhysicalEntity) {
-			AbstractPhysicalEntity ape = (AbstractPhysicalEntity)e;
-			this.getRootNode().attachChild(ape.getMainNode());
-			bulletAppState.getPhysicsSpace().add(ape.getPhysicsNode());
-			if (e instanceof PhysicsTickListener) {
-				bulletAppState.getPhysicsSpace().addTickListener((PhysicsTickListener)e);
-			}
-		}*/
-		/*if (e instanceof IHudItem) {
-			IHudItem hi = (IHudItem)e;
-			this.getGuiNode().attachChild(hi.getSpatial());
-		}*/
 		if (e instanceof IProcessable) {
 			this.entitiesForProcessing.add((IProcessable)e);
 		}
@@ -500,22 +523,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	public void keyCollected() { // todo - remove
-		hud.showCollectBox();
-		/*this.gameData.numKeys--;
-		if (gameData.numKeys <= 0) {
-			ArcadeRoom room = new ArcadeRoom();
-			room.setGame(this);
-			this.startNewLevel(room, -1);
-		}*/
-	}
-
-
 	public String getHUDText() {
 		if (this.loadingLevel) {
 			return "LOAD \"\"";
 		} else if (mode == MODE_GAME) {
-			return level.getHUDText();//"keys Remaining: " + gameData.numKeys + "\n" + level.getHUDText();
+			return level.getHUDText();
 		} else {
 			return "C NONSENCE IN BASIC";
 		}

@@ -14,13 +14,13 @@ public class Tanker extends AbstractPhysicalEntity {
 	public Tanker(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Tanker");
 
-		Spatial model = game.getAssetManager().loadModel("Models/cimpletoon/transport.blend");
-		//model.setLocalScale(4f);
-		model.setLocalScale(8, 5, 5);
+		Spatial model = game.getAssetManager().loadModel("Models/Tanker/Tanker_Ship.obj");
+		model.setLocalScale(4f);
+		//model.setLocalScale(8, 5, 5);
 		//JMEModelFunctions.scaleModelToWidth(geometry, 1f);
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), model, "Textures/krakatoa/tanker.png");
+		//JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), model, "Textures/krakatoa/tanker.png");
 		JMEModelFunctions.moveYOriginTo(model, 0f);
-		//JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(1, 0, 0));
+		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(1, 0, 0));
 
 		model.setShadowMode(ShadowMode.CastAndReceive);
 
@@ -28,8 +28,9 @@ public class Tanker extends AbstractPhysicalEntity {
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(0);
+		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);
+		srb.setKinematic(true);
 		
 	}
 
