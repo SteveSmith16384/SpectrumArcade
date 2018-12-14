@@ -66,10 +66,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
-		//if (followCam) {
 		avatarModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
 		this.getMainNode().attachChild((Node)avatarModel);
-		//}
 
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);

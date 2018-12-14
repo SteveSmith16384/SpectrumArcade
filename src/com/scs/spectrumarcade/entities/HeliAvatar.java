@@ -119,7 +119,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 		 */
 		
-		Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
+		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
 

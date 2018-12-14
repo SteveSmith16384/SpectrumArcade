@@ -14,6 +14,7 @@ import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.Wall;
 import com.scs.spectrumarcade.entities.arcaderoom.ArcadeMachine;
 import com.scs.spectrumarcade.entities.arcaderoom.Magazine;
+import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
@@ -66,10 +67,14 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine9 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Androids", AndroidsLevel.class);
 		game.addEntity(machine9);
 
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 10, 0, 2, "ArcadeMachine_Krakatoa", EscapeFromKrakatoa.class);
+		// -----------
+		
+		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", EscapeFromKrakatoa.class);
+		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(1, 0, 0));
 		game.addEntity(machine2);
 
-		ArcadeMachine machine10 = new ArcadeMachine(game, this, 11, 0, 2, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(1, 0, 0));
 		game.addEntity(machine10);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);

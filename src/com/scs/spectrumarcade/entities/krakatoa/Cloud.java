@@ -22,7 +22,7 @@ public class Cloud extends AbstractPhysicalEntity implements IProcessable {
 		//JMEAngleFunctions.turnOnXAxis(geometry, NumberFunctions.rndFloat(0f,  (float)Math.PI));
 		//JMEModelFunctions.scaleModelToWidth(geometry, NumberFunctions.rndFloat(1f, 2f));
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/krakatoa/cloud.png");
-		geometry.setShadowMode(ShadowMode.CastAndReceive);
+		geometry.setShadowMode(ShadowMode.Off);
 
 		JMEModelFunctions.moveYOriginTo(geometry, 0f);
 

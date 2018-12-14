@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.water.WaterFilter;
@@ -105,16 +106,16 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 			Cloud cloud = new Cloud(game, x, y, z, scale);
 			game.addEntity(cloud);
 		}
-		/*
+/*
 		// Fog
         FilterPostProcessor fpp2 = new FilterPostProcessor(game.getAssetManager());
         FogFilter fog=new FogFilter();
-        fog.setFogColor(new ColorRGBA(0.0f, 0.0f, 0.0f, 1.0f));
-        fog.setFogDistance(100);
-        fog.setFogDensity(2.0f);
+        fog.setFogColor(new ColorRGBA(0.9f, 0.9f, 0.9f, 1.0f));
+        fog.setFogDistance(150);
+        fog.setFogDensity(1f);
         fpp.addFilter(fog);
         game.getViewPort().addProcessor(fpp2);
-		 */
+*/
 	}
 
 

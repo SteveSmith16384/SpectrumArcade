@@ -3,6 +3,8 @@ package com.scs.spectrumarcade.entities;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
@@ -78,5 +80,24 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 		return dist;
 	}
 
-
+/*
+	protected void checkHUDNode(Node hudParent, Node hudItem, Camera cam, float maxDist, float yOffset) {
+		boolean show = this.getWorldTranslation().distance(cam.getLocation()) < maxDist;
+		show = show && cam.contains(this.getMainNode().getWorldBound()) != FrustumIntersect.Outside;
+		if (show) {
+			if (hudItem.getParent() == null) {
+				hudParent.attachChild(hudItem);
+			}
+			tmpHudPos.set(this.getWorldTranslation());
+			tmpHudPos.y += yOffset;
+			Vector3f screen_pos = cam.getScreenCoordinates(tmpHudPos, tmpScreenPos);
+			hudItem.setLocalTranslation(screen_pos.x, screen_pos.y, 0);
+		} else {
+			if (hudItem.getParent() != null) {
+				hudItem.removeFromParent();
+			}
+		}
+	}
+	*/
+	
 }
