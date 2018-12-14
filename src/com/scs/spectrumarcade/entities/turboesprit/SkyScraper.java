@@ -19,7 +19,7 @@ public class SkyScraper extends AbstractPhysicalEntity {
 	public SkyScraper(SpectrumArcade _game, float leftX, float backZ, float w, float h, float d) {
 		super(_game, "SkyScraper");
 
-		String tex = "Textures/drywall-ceiling-texture.jpg";
+		String tex = "Textures/drywall-ceiling-texture.jpg"; // todo - change
 
 		Box box1 = new Box(w/2, h/2, d/2);
 

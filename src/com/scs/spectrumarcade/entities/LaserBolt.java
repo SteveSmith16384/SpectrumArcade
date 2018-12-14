@@ -4,9 +4,9 @@ import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
+import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.models.BeamLaserModel;
 
 public class LaserBolt extends AbstractPhysicalEntity implements IProcessable, INotifiedOfCollision {

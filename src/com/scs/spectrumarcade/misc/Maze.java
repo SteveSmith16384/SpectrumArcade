@@ -1,7 +1,9 @@
-package com.scs.spectrumarcade;
+package com.scs.spectrumarcade.misc;
 
 import java.util.LinkedList;
 import java.util.Random;
+
+import com.scs.spectrumarcade.Globals;
 
 public class Maze {
 	

@@ -8,11 +8,11 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import com.scs.spectrumarcade.IAvatar;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
@@ -182,7 +182,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			float x = pos.x + NumberFunctions.rndFloat(-.2f,  .2f);
 			float y = pos.y + NumberFunctions.rndFloat(-.2f,  .2f);
 			float z = pos.z + NumberFunctions.rndFloat(-.2f,  .2f);
-			ExplosionShard shard = new ExplosionShard(game, x, y, z, .2f, "Textures/minedout_cyan.png");
+			ExplosionShard shard = new ExplosionShard(game, x, y, z, .2f, "Textures/blocks/minedout_cyan.png");
 			game.addEntity(shard);
 		}
 

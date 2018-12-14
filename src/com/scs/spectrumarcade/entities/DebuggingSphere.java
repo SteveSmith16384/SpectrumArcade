@@ -7,8 +7,8 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.texture.Texture;
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IProcessable;
 
 public class DebuggingSphere extends AbstractPhysicalEntity implements IProcessable {
 

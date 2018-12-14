@@ -13,9 +13,9 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.BufferUtils;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public class KillingWall extends AbstractPhysicalEntity implements IProcessable  {

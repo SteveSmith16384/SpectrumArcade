@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade;
+package com.scs.spectrumarcade.components;
 
 public interface IProcessable {
 

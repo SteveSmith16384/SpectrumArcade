@@ -5,10 +5,10 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
-import com.scs.spectrumarcade.IEntity;
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IHudItem;
+import com.scs.spectrumarcade.components.IProcessable;
 
 import ssmith.util.RealtimeInterval;
 

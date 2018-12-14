@@ -2,7 +2,7 @@ package com.scs.spectrumarcade.entities;
 
 import com.jme3.bounding.BoundingBox;
 import com.jme3.math.Vector3f;
-import com.scs.spectrumarcade.IProcessable;
+
 import com.scs.spectrumarcade.SpectrumArcade;
 /*
 public class TextBillboardEntity extends AbstractPhysicalEntity implements IProcessable { // todo - delete
@@ -37,3 +37,4 @@ public class TextBillboardEntity extends AbstractPhysicalEntity implements IProc
 
 }
 */
+import com.scs.spectrumarcade.components.IProcessable;

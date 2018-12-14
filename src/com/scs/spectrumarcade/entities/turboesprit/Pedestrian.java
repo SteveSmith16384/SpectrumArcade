@@ -3,8 +3,8 @@ package com.scs.spectrumarcade.entities.turboesprit;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 

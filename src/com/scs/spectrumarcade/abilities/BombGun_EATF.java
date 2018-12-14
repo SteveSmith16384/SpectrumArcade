@@ -3,7 +3,6 @@ package com.scs.spectrumarcade.abilities;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.math.Vector3f;
-import com.scs.spectrumarcade.ForceData;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;

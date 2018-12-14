@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade;
 
+import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.ICausesHarmOnContact;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.components.IPlayerCollectable;

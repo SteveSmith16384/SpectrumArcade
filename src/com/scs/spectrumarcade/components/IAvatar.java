@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade;
+package com.scs.spectrumarcade.components;
 
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;

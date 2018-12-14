@@ -1,7 +1,7 @@
 package com.scs.spectrumarcade.entities.manicminer;
 
-import com.scs.spectrumarcade.IProcessable;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 public class Robot extends AbstractPhysicalEntity implements IProcessable  {
