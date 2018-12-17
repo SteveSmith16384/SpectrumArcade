@@ -23,7 +23,6 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 public class ModelViewer_SpectrumArcade extends SimpleApplication implements AnimEventListener {
 
 	private AnimControl control;
-	//private FilterPostProcessor fpp;
 
 	public static void main(String[] args) {
 		ModelViewer_SpectrumArcade app = new ModelViewer_SpectrumArcade();
@@ -48,7 +47,7 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 		//Spatial model = assetManager.loadModel("Models/QuaterniusCars2/OBJ/Cop.obj");
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/Car pack by Quaternius/CopTexture.png");
 
-		Node model = (Node)assetManager.loadModel("Models/Tanker/Tanker_Ship.obj");
+		Node model = (Node)assetManager.loadModel("Models/helic.obj");
 		model.setLocalScale(3);
 		
 		//JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/suburb_assets_pt1/models/textures/buildings-houses_v1.jpg");

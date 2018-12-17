@@ -58,30 +58,30 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 		game.addEntity(terrainUDG);
 
 		// Start island
-		this.generateHill(new Vector3f(100, 50, 100), 20, 15);
-		House h = new House(game, 94, 21, 100);
+		this.generateHill(new Vector3f(100, 50, 100), 20, 12);
+		House h = new House(game, 94, 13, 100);
 		game.addEntity(h);
 		// Helipad
-		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 20, 98), new Vector3Int(4, 1, 4));
+		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 12, 98), new Vector3Int(4, 1, 4));
 
-		this.generateHill(new Vector3f(105, 50, 110), 20, 12); // Hill 2
-		this.generateHill(new Vector3f(100, 50, 120), 20, 9); // Hill 3
+		this.generateHill(new Vector3f(105, 50, 110), 17, 9); // Hill 2
+		this.generateHill(new Vector3f(95, 50, 118), 10, 6); // Hill 3
 
-		tanker = new Tanker(game, 100, 1, 165);
+		tanker = new Tanker(game, 100, 1, 175);
 		game.addEntity(tanker);
 
-		Submarine sub = new Submarine(game, 70, 0, 165);
+		Submarine sub = new Submarine(game, 70, -1, 165);
 		game.addEntity(sub);
 
 		// Volcano
 		generateVolcano(new Vector3f(100, 30, 230), 20);
 		this.generateHill(new Vector3f(100, 50, 240), 18, 12); // Hill 3
 		this.generateHill(new Vector3f(100, 22, 250), 20, -1); // Hill 2
-		House h1 = new House(game, 95, 13, 235);
+		House h1 = new House(game, 92, 13, 240);
 		game.addEntity(h1);
-		House h2 = new House(game, 105, 13, 240);
+		House h2 = new House(game, 105, 13, 242);
 		game.addEntity(h2);
-		House h3 = new House(game, 95, 13, 245);
+		House h3 = new House(game, 110, 13, 247);
 		game.addEntity(h3);
 
 

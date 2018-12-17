@@ -29,7 +29,7 @@ public class Missile extends AbstractPhysicalEntity implements ICausesHarmOnCont
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/krakatoa/missile.png");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);
 
-		JMEAngleFunctions.rotateToWorldDirection(geometry, new Vector3f(0, 0, 1)); // Point model fwds
+		JMEAngleFunctions.rotateToWorldDirection(geometry, new Vector3f(0, 0, -1)); // Point model fwds
 
 		JMEModelFunctions.moveYOriginTo(geometry, 0f);
 

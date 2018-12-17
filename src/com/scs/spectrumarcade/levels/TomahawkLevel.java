@@ -38,12 +38,12 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	private VoxelTerrainEntity terrainUDG;
 	private int levelNum;
 	//private RealtimeInterval lavaInt = new RealtimeInterval(500);
-	
+
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/krakatoa/water2.png"); // make water a better colour?
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/tomahawk/heli_green.png"); // make water a better colour?
 		floor.geometry.setShadowMode(ShadowMode.Off);
 
 		game.addEntity(floor);
@@ -56,8 +56,8 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 
 		// Scenery
 		int sections = MAP_SIZE/MAP_SECTION_SIZE;
-		for (int z=0 ; z<sections ; z++) {
-			for (int x=0 ; x<sections ; x++) {
+		for (int z=1 ; z<sections-1 ; z++) {
+			for (int x=1 ; x<sections-1 ; x++) {
 				int sx = NumberFunctions.rnd(x*MAP_SECTION_SIZE, x*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int sz = NumberFunctions.rnd(z*MAP_SECTION_SIZE, z*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int h = NumberFunctions.rnd(4, 40);
@@ -65,7 +65,7 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 				this.generateHill(new Vector3f(sx, h, sz), rad, -1);
 			}
 		}
-		
+
 		// Clouds
 		for (int i=0 ; i<10 ; i++) {
 			float x = NumberFunctions.rndFloat(0,  MAP_SIZE);
@@ -165,13 +165,18 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 						} else {
 							height = height + (NumberFunctions.rnd(-1, 0));
 						}
-						for (int y=0 ; y<= height ; y++) {
+						int y = height;
+						//for (int y=0 ; y<= height ; y++) {
 							int blockType = BlockCodes.GRASS_LONG;
 							if (y <= 2) {
 								blockType = BlockCodes.SAND;
 							}
-							this.terrainUDG.addRectRange_Blocks(blockType, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
-						}
+							try {
+								this.terrainUDG.addRectRange_Blocks(blockType, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
+							} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+								ex.printStackTrace();
+							}
+						//}
 					}
 				}
 			}			

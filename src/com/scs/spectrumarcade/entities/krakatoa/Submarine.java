@@ -35,7 +35,7 @@ public class Submarine extends AbstractPhysicalEntity implements IProcessable {
 	@Override
 	public void process(float tpfSecs) {
 		JMEAngleFunctions.moveForwards(this.getMainNode(), tpfSecs * 1f);
-		JMEAngleFunctions.turnSpatialLeft(this.getMainNode(), tpfSecs * 7f);
+		JMEAngleFunctions.turnSpatialLeft(this.getMainNode(), tpfSecs * 1.8f);
 		
 		// todo - shoot at player?
 		

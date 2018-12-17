@@ -40,6 +40,7 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		this.getMainNode().setLocalTranslation(x, y, z);
 
 		BoundingBox bb = (BoundingBox) heli.getWorldBound();
+		heli.setLocalTranslation(0, -bb.getYExtent(), 0);
 		BoxCollisionShape bcs = new BoxCollisionShape(new Vector3f(bb.getXExtent(), bb.getYExtent(), bb.getZExtent()));
 		srb = new RigidBodyControl(bcs);
 		mainNode.addControl(srb);
@@ -61,14 +62,14 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
-				tiltDiff -= tpfSecs *.5;
+				tiltDiff -= tpfSecs *.2;
 				fwdSpeed.x += x * .2f;
 				fwdSpeed.z += z * .2f;
 			}
 		}
 		if (backwards) {
 			if (tiltDiff < 4) {
-				tiltDiff += tpfSecs * .5f;
+				tiltDiff += tpfSecs * .2f;
 				fwdSpeed.x -= x * .2f;
 				fwdSpeed.z -= z * .2f;
 			}
@@ -84,13 +85,17 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 		if (fwdSpeed.y < 0) {
 			fwdSpeed.y = fwdSpeed.y * 1.005f;
 		} else {
-			fwdSpeed.y -= .005f;
+			//fwdSpeed.y -= .005f;
 		}
+		fwdSpeed.y -= .005f;
 
 		// Drag
 		this.fwdSpeed.multLocal(.999f);
+		if (Math.abs(turnSpeed) < 0.01f) {
+			turnSpeed = 0;
+		}
 		turnSpeed = turnSpeed * .999f;
-		tiltDiff = tiltDiff - (tiltDiff * .1f * tpfSecs);
+		tiltDiff = tiltDiff - (tiltDiff * .5f * tpfSecs);
 
 		//Move
 		this.angleRads += turnSpeed * tpfSecs;
