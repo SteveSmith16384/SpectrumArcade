@@ -56,30 +56,30 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		fwdSpeed.set(0, 0, 0);
 		
 		if (left) {
-			this.angleRads -= .01f * tpfSecs;
+			this.angleRads -= 1f * tpfSecs;
 		}
 		if (right) {
-			this.angleRads += .01f * tpfSecs;
+			this.angleRads += 1f * tpfSecs;
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
 				tiltDiff -= tpfSecs *.2;
-				fwdSpeed.x += x * .2f;
-				fwdSpeed.z += z * .2f;
+				fwdSpeed.x += x * 10f;
+				fwdSpeed.z += z * 10f;
 			}
 		}
 		if (backwards) {
 			if (tiltDiff < 4) {
 				tiltDiff += tpfSecs * .2f;
-				fwdSpeed.x -= x * .2f;
-				fwdSpeed.z -= z * .2f;
+				fwdSpeed.x -= x * 10f;
+				fwdSpeed.z -= z * 10f;
 			}
 		}
 		if (up) {
-			fwdSpeed.y += .05f;
+			fwdSpeed.y += 5f;
 		}
 		if (down) {
-			fwdSpeed.y -= .05f;
+			fwdSpeed.y -= 5f;
 		}
 
 		// Drag

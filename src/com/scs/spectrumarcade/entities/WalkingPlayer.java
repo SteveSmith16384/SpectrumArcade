@@ -48,7 +48,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		super(_game, "Player");
 
 		canJump = jumpPower > 0;
-		//followCam = _followCam;
 
 		/** Create a box to use as our player model */
 		Box box1 = new Box(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, Settings.PLAYER_RAD);

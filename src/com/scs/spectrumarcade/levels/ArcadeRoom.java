@@ -71,11 +71,11 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		// -----------
 		
 		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
-		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(1, 0, 0));
+		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(0, 0, -1));
 		game.addEntity(machine2);
 
 		ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
-		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(1, 0, 0));
+		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
 		game.addEntity(machine10);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
@@ -96,7 +96,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, new SimpleManModel(game.getAssetManager()));
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 0, new SimpleManModel(game.getAssetManager()));
 	}
 
 

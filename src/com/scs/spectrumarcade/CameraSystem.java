@@ -55,8 +55,8 @@ public class CameraSystem {
 			Vector3f pos = avatar.getMainNode().getWorldTranslation();
 			cam.lookAt(pos, Vector3f.UNIT_Y);
 			cam.getLocation().x = (int)(pos.x / 15) * 15;
+			cam.getLocation().y = (int)(pos.y / 10) * 10;
 			cam.getLocation().z = (int)(pos.z / 15) * 15;
-			cam.getLocation().y = 10f;
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time - todo - use physics node!
 			avatarPos.y += heightOffset;//avatar.avatarModel.getCameraHeight() + .1f;
