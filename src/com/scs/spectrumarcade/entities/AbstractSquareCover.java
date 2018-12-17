@@ -7,7 +7,7 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public abstract class AbstractSquareCover extends AbstractPhysicalEntity {
 
-	public AbstractSquareCover(SpectrumArcade _game, float x, float z, float size, String tex) {
+	public AbstractSquareCover(SpectrumArcade _game, float x, float y, float z, float size, String tex) {
 		super(_game, "AbstractSquareCover");
 
 		Box box1 = new Box(size/2, .01f, size/2);
@@ -17,7 +17,7 @@ public abstract class AbstractSquareCover extends AbstractPhysicalEntity {
 		this.mainNode.attachChild(geometry);
 		geometry.setLocalTranslation(size/2, 0, size/2);
 		mainNode.updateModelBound();
-		this.mainNode.setLocalTranslation(x, 0.01f, z);
+		this.mainNode.setLocalTranslation(x, y+0.01f, z);
 
 	}
 

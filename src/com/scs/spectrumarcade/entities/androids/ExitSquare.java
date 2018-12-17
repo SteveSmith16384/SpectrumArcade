@@ -8,7 +8,7 @@ import com.scs.spectrumarcade.entities.AbstractSquareCover;
 public class ExitSquare extends AbstractSquareCover implements INotifiedOfCollision {
 
 	public ExitSquare(SpectrumArcade game, float x, float z) {
-		super(game, x, z, 2f, "Textures/androids/exit.png");
+		super(game, x, 0, z, 2f, "Textures/androids/exit.png");
 	}
 
 	@Override

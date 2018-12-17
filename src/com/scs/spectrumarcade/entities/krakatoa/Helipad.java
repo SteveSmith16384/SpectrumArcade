@@ -1,20 +1,21 @@
-package com.scs.spectrumarcade.entities.androids;
+package com.scs.spectrumarcade.entities.krakatoa;
 
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.AbstractSquareCover;
 
-public class GSquare extends AbstractSquareCover implements INotifiedOfCollision {
+public class Helipad extends AbstractSquareCover implements INotifiedOfCollision {
 
-	public GSquare(SpectrumArcade game, float x, float z) {
-		super(game, x, 0, z, 2f, "Textures/androids/g_square.png");
+	public Helipad(SpectrumArcade game, float x, float y, float z) {
+		super(game, x, y, z, 4f, "Textures/krakatoa/helipadasph.jpg");
 	}
 
+	
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith == game.player) {
-			// todo
+			// todo - refuel
 		}
 		
 	}

@@ -24,8 +24,8 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	private static final float FOOTSTEP_INTERVAL = .3f;
 
 	// Our movement speed
-	public static final float speed = 4;
-	private static final float strafeSpeed = 4f;
+	public float speed = 4;
+	//private static final float strafeSpeed = 4f;
 
 	private IAvatarModel avatarModel; // GenericWalkingAvatar 
 	public BetterCharacterControl playerControl;
@@ -44,9 +44,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public boolean walking = false;
 	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, IAvatarModel _avatarModel) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float _speed, float jumpPower, IAvatarModel _avatarModel) {
 		super(_game, "Player");
 
+		speed = _speed;
 		canJump = jumpPower > 0;
 
 		/** Create a box to use as our player model */
@@ -92,7 +93,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		}
 
 		camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
-		camLeft.set(cam.getLeft()).multLocal(strafeSpeed);
+		camLeft.set(cam.getLeft()).multLocal(speed);
 		walkDirection.set(0, 0, 0);
 		walking = up || down || left || right;
 		if (left) {

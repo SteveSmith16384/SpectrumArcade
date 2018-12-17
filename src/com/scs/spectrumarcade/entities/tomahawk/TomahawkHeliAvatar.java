@@ -4,7 +4,6 @@ import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial.CullHint;
 import com.jme3.scene.shape.Box;
@@ -14,7 +13,8 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.models.Helicopter;
+import com.scs.spectrumarcade.models.ApacheHeli;
+import com.scs.spectrumarcade.models.KrakatoaHelicopter;
 
 public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
@@ -23,7 +23,7 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	private float angleRads = 0;
 	private float tiltDiff = 0;
 	private Vector3f fwdSpeed = new Vector3f();
-	private Helicopter heli;
+	private ApacheHeli heli;
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
 	public TomahawkHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
@@ -35,7 +35,7 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
 		
-		heli = new Helicopter(game.getAssetManager(), tex);
+		heli = new ApacheHeli(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
 		
 		this.getMainNode().setLocalTranslation(x, y, z);

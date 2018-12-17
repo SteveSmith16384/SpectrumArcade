@@ -77,7 +77,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 5, 3, 5f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/splat/black.png"));
+		return new WalkingPlayer(game, 5, 3, 5f, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/splat/black.png"));
 	}
 
 

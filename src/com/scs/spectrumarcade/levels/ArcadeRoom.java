@@ -40,7 +40,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		game.addEntity(mag);
 		mag = new Magazine(game, 5, .3f, 3, "Textures/mags/Crash_Magazine_Cover_Issue_1.jpg");
 		game.addEntity(mag);
-		mag = new Magazine(game, 7, .3f, 2, "Textures/mags/Yscover1.jpg");
+		mag = new Magazine(game, 7, .3f, 4, "Textures/mags/Yscover1.jpg");
 		game.addEntity(mag);
 
 		// Arcade machines
@@ -74,9 +74,9 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(0, 0, -1));
 		game.addEntity(machine2);
 
-		ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
-		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
-		game.addEntity(machine10);
+		//ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		//JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
+		//game.addEntity(machine10);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
 		//game.addEntity(machine7);
@@ -96,7 +96,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 0, new SimpleManModel(game.getAssetManager()));
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 1.7f, 0, new SimpleManModel(game.getAssetManager()));
 	}
 
 

@@ -20,13 +20,13 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.androids.GSquare;
 import com.scs.spectrumarcade.entities.androids.SSquare;
+import com.scs.spectrumarcade.entities.androids.SlidingDoor;
 import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 
 public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
-	//public static final boolean FOLLOW_CAM = true;
 	private static final int WALL_HEIGHT = 2;
 	private static final int BLOCK_SIZE = 2;
 
@@ -75,6 +75,8 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 				case -15808822: // door?
 					//terrainUDG.addRectRange_Blocks(BlockCodes.GAUNTLET_DOOR, new Vector3Int(mapX, 0, mapZ), new Vector3Int(1, WALL_HEIGHT, 1));
+					SlidingDoor door = new SlidingDoor(game, mapX*BLOCK_SIZE, 0f, mapZ*BLOCK_SIZE, BLOCK_SIZE, WALL_HEIGHT, "Textures/androids/door.png");
+					game.addEntity(door);
 					break;
 
 				case -11550134: // baddy?
@@ -116,8 +118,8 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
-		//game.setAbility(1, new LaserRifle(game));
+		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
+		//game.setAbility(1, new LaserRifle(game)); todo
 		return wp;
 	}
 

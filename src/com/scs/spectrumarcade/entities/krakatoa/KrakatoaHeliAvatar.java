@@ -14,14 +14,14 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.models.Helicopter;
+import com.scs.spectrumarcade.models.KrakatoaHelicopter;
 
 public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
 	private float angleRads = 0;
 	private float tiltDiff = 0;
 	private Vector3f fwdSpeed = new Vector3f();
-	private Helicopter heli;
+	private KrakatoaHelicopter heli;
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
 	public KrakatoaHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
@@ -33,7 +33,7 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
 		
-		heli = new Helicopter(game.getAssetManager(), tex);
+		heli = new KrakatoaHelicopter(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
 		
 		this.getMainNode().setLocalTranslation(x, y, z);

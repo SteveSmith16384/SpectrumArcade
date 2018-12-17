@@ -25,11 +25,7 @@ public class Submarine extends AbstractPhysicalEntity implements IProcessable {
 		this.mainNode.attachChild(model);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
-/*
-		srb = new RigidBodyControl(1);
-		mainNode.addControl(srb);
-		srb.setKinematic(true);
-	*/	
+
 	}
 
 	@Override

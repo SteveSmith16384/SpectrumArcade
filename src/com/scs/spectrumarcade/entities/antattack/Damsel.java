@@ -111,7 +111,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	private void moveFwds() {
 		Vector3f walkDirection = this.playerControl.getViewDirection();
-		playerControl.setWalkDirection(walkDirection.mult(WalkingPlayer.speed + 0.1f));
+		playerControl.setWalkDirection(walkDirection.mult(4.1f));
 
 	}
 

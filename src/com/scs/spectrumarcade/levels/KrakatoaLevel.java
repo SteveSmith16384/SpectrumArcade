@@ -8,7 +8,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.FogFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.water.WaterFilter;
@@ -20,6 +19,7 @@ import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.krakatoa.Cloud;
+import com.scs.spectrumarcade.entities.krakatoa.Helipad;
 import com.scs.spectrumarcade.entities.krakatoa.House;
 import com.scs.spectrumarcade.entities.krakatoa.KrakatoaHeliAvatar;
 import com.scs.spectrumarcade.entities.krakatoa.LavaRock;
@@ -62,8 +62,10 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 		House h = new House(game, 94, 13, 100, false);
 		game.addEntity(h);
 		// Helipad
-		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 12, 98), new Vector3Int(4, 1, 4));
-
+		//terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 12, 98), new Vector3Int(4, 1, 4));
+		Helipad pad = new Helipad(game, 98, 13, 98);
+		game.addEntity(pad);
+		
 		this.generateHill(new Vector3f(105, 50, 110), 10, 9); // Hill 2
 		this.generateHill(new Vector3f(97, 50, 117), 7, 6); // Hill 3
 
