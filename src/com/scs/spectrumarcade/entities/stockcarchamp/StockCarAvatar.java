@@ -84,7 +84,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		vehicle.setPhysicsLocation(vec);
 
 	}
-
+/*
 
 	@Override
 	public void setCameraLocation(Camera cam) {
@@ -93,7 +93,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		//game.getCamera().lookAt(new Vector3f(31, 0, 31), Vector3f.UNIT_Y);
 	}
 
-
+*/
 	@Override
 	public void clearForces() {
 		vehicle.setLinearVelocity(Vector3f.ZERO);

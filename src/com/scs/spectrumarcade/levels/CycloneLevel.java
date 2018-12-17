@@ -44,12 +44,12 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE+(MAP_BORDER*2), 1, MAP_SIZE+(MAP_BORDER*2), "Textures/krakatoa/water2.png"); // make water a better colour?
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, MAP_SIZE+(MAP_BORDER*2), 16, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, new Vector3Int(MAP_SIZE+(MAP_BORDER*2), 8, MAP_SIZE+(MAP_BORDER*2)), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		// Start island
 		this.generateHill(new Vector3f(100, 50, 100), 20, 15);
-		House h = new House(game, 94, 21, 100);
+		House h = new House(game, 94, 21, 100, false);
 		game.addEntity(h);
 		// Helipad
 		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 20, 98), new Vector3Int(4, 1, 4));

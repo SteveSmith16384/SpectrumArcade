@@ -50,7 +50,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE*SQ_SIZE, 1, MAP_SIZE*SQ_SIZE, "Textures/road2.png");
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE, MAP_SIZE+1, SQ_SIZE, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(MAP_SIZE, 1, MAP_SIZE), 16, SQ_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
 		waypoints = new ArrayList<>();

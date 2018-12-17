@@ -33,14 +33,14 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 		return new VWCorradon(game.getAssetManager(), 1);
 	}
 
-	
+	/*
 	@Override
 	public void setCameraLocation(Camera cam) {
 		//game.getCamera().lookAt(this.mainNode.getWorldTranslation(), Vector3f.UNIT_Y);
 		//cam.setLocation(camNode.getWorldTranslation()); //this.mainNode;
 		
 	}
-
+*/
 
 	@Override
 	public void clearForces() {

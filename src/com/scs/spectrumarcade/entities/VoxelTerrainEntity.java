@@ -19,26 +19,27 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
 	public BlockTerrainControl blocks;
 	private float blockSize;
-	private int worldSizeBlocks;
+	//private int worldSizeBlocks;
 /*
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize, float friction) {
 		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize, friction);
 	}
 */
 
-	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, int chunkSize, float _blockSize, float friction) {
+	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, Vector3Int worldSizeBlocks, int chunkSize, float _blockSize, float friction) {
 		super(_game, "VoxelTerrainEntity");
 
-		worldSizeBlocks = _worldSizeBlocks;
+		//worldSizeBlocks = _worldSizeBlocks;
 		blockSize = _blockSize;
 
 		final BlockSettings blockSettings = new BlockSettings();
 		blockSettings.setChunkSize(new Vector3Int(chunkSize, chunkSize, chunkSize));
 		blockSettings.setBlockSize(blockSize);
 		blockSettings.setMaterial(game.getAssetManager().loadMaterial("Materials/BlockTexture.j3m"));
-		int s = (int)Math.ceil(worldSizeBlocks / chunkSize);
-		blockSettings.setWorldSizeInChunks(new Vector3Int(s+1, s+1, s+1));
-		blockSettings.setViewDistance(200f);
+		//int s = (int)Math.ceil(worldSizeBlocks / chunkSize);
+		worldSizeBlocks.set(worldSizeBlocks.getX() / chunkSize + 1, worldSizeBlocks.getY() / chunkSize + 1, worldSizeBlocks.getZ() / chunkSize + 1);
+		blockSettings.setWorldSizeInChunks(worldSizeBlocks);//new Vector3Int(s+1, s+1, s+1));
+		//blockSettings.setViewDistance(viewDist);
 		blockSettings.texturesPerSheet = Settings.TEX_PER_SHEET;
 
 		blocks = new BlockTerrainControl(blockSettings);

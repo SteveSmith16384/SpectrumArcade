@@ -18,8 +18,6 @@ import com.scs.spectrumarcade.models.Helicopter;
 
 public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
-	// Our movement speed
-	private float turnSpeed = 0;
 	private float angleRads = 0;
 	private float tiltDiff = 0;
 	private Vector3f fwdSpeed = new Vector3f();
@@ -55,11 +53,13 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		double x = Math.cos(angleRads);
 		double z = Math.sin(angleRads);
 
+		fwdSpeed.set(0, 0, 0);
+		
 		if (left) {
-			turnSpeed -= .01f;
+			this.angleRads -= .01f * tpfSecs;
 		}
 		if (right) {
-			turnSpeed += .01f;
+			this.angleRads += .01f * tpfSecs;
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
@@ -82,24 +82,11 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 			fwdSpeed.y -= .05f;
 		}
 
-		// Gravity
-		if (fwdSpeed.y < 0) {
-			fwdSpeed.y = fwdSpeed.y * 1.005f;
-		} else {
-			//fwdSpeed.y -= .005f;
-		}
-		fwdSpeed.y -= .005f;
-
 		// Drag
-		this.fwdSpeed.multLocal(.999f);
-		if (Math.abs(turnSpeed) < 0.01f) {
-			turnSpeed = 0;
-		}
-		turnSpeed = turnSpeed * .999f;
 		tiltDiff = tiltDiff - (tiltDiff * .5f * tpfSecs);
 
 		//Move
-		this.angleRads += turnSpeed * tpfSecs;
+		//this.angleRads += turnSpeed * tpfSecs;
 		while (angleRads > Math.PI) {
 			this.angleRads -= Math.PI*2;
 		}
@@ -119,12 +106,7 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		if (!Settings.FREE_CAM) {
 			game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
 		}
-		// Prevent falling through floor
-		/*		if (this.getMainNode().getWorldTranslation().y <= 1.2f) {
-			this.getMainNode().getLocalTranslation().y = 1.2f;
-		}
-		 */
-		
+
 		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
@@ -154,11 +136,11 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		this.getMainNode().setLocalTranslation(v);
 	}
 
-
+/*
 	@Override
 	public void setCameraLocation(Camera cam) {
 	}
-
+*/
 
 	@Override
 	public void clearForces() {

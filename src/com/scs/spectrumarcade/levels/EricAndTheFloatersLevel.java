@@ -44,7 +44,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 
 		int gridSize = MAP_SIZE/SEGMENT_SIZE;
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, gridSize, 16, SEGMENT_SIZE, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(gridSize, 1, gridSize), 16, SEGMENT_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
 		//  outer walls

@@ -51,7 +51,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling ceiling = new FloorOrCeiling(game, 0, WALL_HEIGHT+1, 0, BLOCK_SIZE*image.getWidth()/16, 1, BLOCK_SIZE*image.getHeight()/16, "Textures/blocks/white.png");
 		//game.addEntity(ceiling);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, image.getWidth(), 16, BLOCK_SIZE, 1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(image.getWidth(), WALL_HEIGHT+1, image.getHeight()), 16, BLOCK_SIZE, 1f);
 		game.addEntity(terrainUDG);
 
 		int mapZ = 0;

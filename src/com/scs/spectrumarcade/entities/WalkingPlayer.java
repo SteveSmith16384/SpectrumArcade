@@ -167,7 +167,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		playerControl.warp(v);
 	}
 
-
+/*
 	@Override
 	public void setCameraLocation(Camera cam) {
 		//Vector3f vec = getMainNode().getWorldTranslation();
@@ -181,7 +181,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z));
 		}*/
 
-	}
+	//}
 
 
 	@Override

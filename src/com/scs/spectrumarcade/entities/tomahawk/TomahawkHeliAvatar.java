@@ -154,12 +154,12 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		this.getMainNode().setLocalTranslation(v);
 	}
 
-
+/*
 	@Override
 	public void setCameraLocation(Camera cam) {
 	}
 
-
+*/
 	@Override
 	public void clearForces() {
 	}

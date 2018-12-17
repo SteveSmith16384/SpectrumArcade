@@ -44,7 +44,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 		levelNum = _levelNum;
 
-		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE_X, 16, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(MAP_SIZE_X, 1, MAP_SIZE_Z), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		terrainUDG.addRectRange_Blocks(BlockCodes.MINED_OUT_FRESH, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE_X, 1, MAP_SIZE_Z));

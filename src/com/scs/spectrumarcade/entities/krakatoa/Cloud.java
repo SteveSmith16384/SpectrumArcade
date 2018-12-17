@@ -1,5 +1,7 @@
 package com.scs.spectrumarcade.entities.krakatoa;
 
+import com.jme3.material.RenderState.BlendMode;
+import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -21,7 +23,7 @@ public class Cloud extends AbstractPhysicalEntity implements IProcessable {
 		geometry.setLocalScale(scale);
 		//JMEAngleFunctions.turnOnXAxis(geometry, NumberFunctions.rndFloat(0f,  (float)Math.PI));
 		//JMEModelFunctions.scaleModelToWidth(geometry, NumberFunctions.rndFloat(1f, 2f));
-		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/krakatoa/cloud.png");
+		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/krakatoa/cloud.png", true);
 		geometry.setShadowMode(ShadowMode.Off);
 
 		JMEModelFunctions.moveYOriginTo(geometry, 0f);
@@ -29,6 +31,10 @@ public class Cloud extends AbstractPhysicalEntity implements IProcessable {
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
+		
+		//geometry.getma.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		//geometry.setQueueBucket(Bucket.Transparent);
+
 
 	}
 

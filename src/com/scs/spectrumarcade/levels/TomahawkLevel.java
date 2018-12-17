@@ -43,12 +43,12 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/tomahawk/heli_green.png"); // make water a better colour?
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/blocks/grass.jpg");
 		floor.geometry.setShadowMode(ShadowMode.Off);
 
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, MAP_SIZE, 32, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, new Vector3Int(MAP_SIZE, 32, MAP_SIZE), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		// Helipad
@@ -60,7 +60,7 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 			for (int x=1 ; x<sections-1 ; x++) {
 				int sx = NumberFunctions.rnd(x*MAP_SECTION_SIZE, x*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int sz = NumberFunctions.rnd(z*MAP_SECTION_SIZE, z*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
-				int h = NumberFunctions.rnd(4, 40);
+				int h = NumberFunctions.rnd(4, 20);
 				int rad = NumberFunctions.rnd(h, h*2);
 				this.generateHill(new Vector3f(sx, h, sz), rad, -1);
 			}
@@ -165,18 +165,15 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 						} else {
 							height = height + (NumberFunctions.rnd(-1, 0));
 						}
-						int y = height;
-						//for (int y=0 ; y<= height ; y++) {
+						//int y = height;
+						for (int y=0 ; y<= height ; y++) {
 							int blockType = BlockCodes.GRASS_LONG;
-							if (y <= 2) {
-								blockType = BlockCodes.SAND;
-							}
 							try {
 								this.terrainUDG.addRectRange_Blocks(blockType, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
 							} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
 								ex.printStackTrace();
 							}
-						//}
+						}
 					}
 				}
 			}			

@@ -97,14 +97,14 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		this.srb.setPhysicsLocation(vec.clone());
 	}
 
-
+/*
 	@Override
 	public void setCameraLocation(Camera cam) {
 		/*if (!TrailblazerLevel.FOLLOW_CAM) {
 			camPos.set(getMainNode().getWorldTranslation());
 			cam.setLocation(camPos);
 		}*/
-	}
+	//}
 
 
 	@Override

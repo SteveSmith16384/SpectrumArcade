@@ -31,7 +31,7 @@ import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
-public class Krakatoa extends AbstractLevel implements ILevelGenerator {
+public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 500;
 	private static final int MAP_BORDER = 50;
@@ -54,12 +54,12 @@ public class Krakatoa extends AbstractLevel implements ILevelGenerator {
 
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, MAP_SIZE+(MAP_BORDER*2), 16, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, new Vector3Int(MAP_SIZE+(MAP_BORDER*2), 32, MAP_SIZE+(MAP_BORDER*2)), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		// Start island
 		this.generateHill(new Vector3f(100, 50, 100), 20, 12);
-		House h = new House(game, 94, 13, 100);
+		House h = new House(game, 94, 13, 100, false);
 		game.addEntity(h);
 		// Helipad
 		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 12, 98), new Vector3Int(4, 1, 4));
@@ -77,11 +77,11 @@ public class Krakatoa extends AbstractLevel implements ILevelGenerator {
 		generateVolcano(new Vector3f(100, 30, 230), 20);
 		this.generateHill(new Vector3f(100, 50, 240), 18, 12); // Hill 3
 		this.generateHill(new Vector3f(100, 22, 250), 20, -1); // Hill 2
-		House h1 = new House(game, 92, 13, 240);
+		House h1 = new House(game, 92, 13, 240, false);
 		game.addEntity(h1);
-		House h2 = new House(game, 105, 13, 242);
+		House h2 = new House(game, 105, 13, 242, false);
 		game.addEntity(h2);
-		House h3 = new House(game, 110, 13, 247);
+		House h3 = new House(game, 110, 13, 247, true);
 		game.addEntity(h3);
 
 

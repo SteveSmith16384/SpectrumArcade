@@ -98,15 +98,11 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 		this.srb.setPhysicsLocation(vec.clone());
 	}
 
-
+/*
 	@Override
 	public void setCameraLocation(Camera cam) {
-		/*if (!MotosLevel.FOLLOW_CAM) {
-			camPos.set(getMainNode().getWorldTranslation());
-			cam.setLocation(camPos);
-		}*/
 	}
-
+*/
 
 	@Override
 	public void clearForces() {

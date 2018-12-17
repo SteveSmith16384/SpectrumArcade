@@ -46,7 +46,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
-		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, MAP_SIZE+2, 16, 1f, .1f);
+		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(MAP_SIZE+2, 9, MAP_SIZE+2), 16, 1f, .1f);
 		game.addEntity(terrainUDG);
 
 		if (Settings.TEST_ANT_AI) {
