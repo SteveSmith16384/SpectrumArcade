@@ -31,7 +31,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public BetterCharacterControl playerControl;
 	private Vector3f walkDirection = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false;
-	//private boolean followCam;
 
 	//Temporary vectors used on each frame.
 	private Vector3f camDir = new Vector3f();
@@ -45,7 +44,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public boolean walking = false;
 	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, String tex) {
+	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float jumpPower, IAvatarModel _avatarModel) {
 		super(_game, "Player");
 
 		canJump = jumpPower > 0;
@@ -66,7 +65,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
-		avatarModel = new GenericWalkingAvatar(game.getAssetManager(), tex);
+		avatarModel = _avatarModel;//new GenericWalkingAvatar(game.getAssetManager(), tex);
 		this.getMainNode().attachChild((Node)avatarModel);
 
 		for (int i=1 ; i<=8 ; i++) {

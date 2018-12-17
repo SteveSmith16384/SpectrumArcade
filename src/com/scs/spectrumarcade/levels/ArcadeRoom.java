@@ -15,6 +15,7 @@ import com.scs.spectrumarcade.entities.Wall;
 import com.scs.spectrumarcade.entities.arcaderoom.ArcadeMachine;
 import com.scs.spectrumarcade.entities.arcaderoom.Magazine;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
+import com.scs.spectrumarcade.models.SimpleManModel;
 
 public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
@@ -69,7 +70,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 		// -----------
 		
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", EscapeFromKrakatoa.class);
+		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", Krakatoa.class);
 		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(1, 0, 0));
 		game.addEntity(machine2);
 
@@ -95,7 +96,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, "Textures/arcaderoom/black.png");
+		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 3f, new SimpleManModel(game.getAssetManager()));
 	}
 
 

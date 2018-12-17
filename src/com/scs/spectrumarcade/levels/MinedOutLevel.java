@@ -7,22 +7,19 @@ import java.net.URISyntaxException;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
-import com.scs.spectrumarcade.entities.manicminer.Key;
 import com.scs.spectrumarcade.entities.minedout.Fence;
 import com.scs.spectrumarcade.entities.minedout.SquareIndicator;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
-import ssmith.util.RealtimeInterval;
 
 public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
@@ -89,7 +86,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, 0f, "Textures/minedout/avatar_black.png");
+		return new WalkingPlayer(game, MAP_SIZE_X/2, 1.1f, 2f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/minedout/avatar_black.png"));
 	}
 
 

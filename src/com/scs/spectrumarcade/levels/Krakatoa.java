@@ -18,10 +18,10 @@ import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
-import com.scs.spectrumarcade.entities.HeliAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.krakatoa.Cloud;
 import com.scs.spectrumarcade.entities.krakatoa.House;
+import com.scs.spectrumarcade.entities.krakatoa.KrakatoaHeliAvatar;
 import com.scs.spectrumarcade.entities.krakatoa.LavaRock;
 import com.scs.spectrumarcade.entities.krakatoa.Missile;
 import com.scs.spectrumarcade.entities.krakatoa.Submarine;
@@ -31,7 +31,7 @@ import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
-public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator {
+public class Krakatoa extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE = 500;
 	private static final int MAP_BORDER = 50;
@@ -127,7 +127,7 @@ public class EscapeFromKrakatoa extends AbstractLevel implements ILevelGenerator
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new HeliAvatar(game, 100, 22f, 100, "Textures/krakatoa/heli_red.png");
+		return new KrakatoaHeliAvatar(game, 100, 22f, 100, "Textures/krakatoa/heli_red.png");
 	}
 
 

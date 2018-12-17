@@ -25,7 +25,7 @@ public class SimpleManModel extends Node implements IAvatarModel {
 		JMEModelFunctions.moveYOriginTo(model, 0);
 		//s.rotate(0, 90 * FastMath.DEG_TO_RAD, 0);
 	
-		AnimControl control = JMEModelFunctions.getNodeWithControls(null, (Node)model);
+		AnimControl control = JMEModelFunctions.getNodeWithControls("uomo (Node)", (Node)model);
 		channel = control.createChannel();
 
 		model.setShadowMode(ShadowMode.CastAndReceive);
@@ -36,9 +36,9 @@ public class SimpleManModel extends Node implements IAvatarModel {
 
 	public void walkAnim() {
 		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
-			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Walk")) {
+			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("walkLikeMan")) {
 				channel.setLoopMode(LoopMode.Loop);
-				channel.setAnim("Walk");
+				channel.setAnim("walkLikeMan");
 			}
 		}
 	}
@@ -46,15 +46,17 @@ public class SimpleManModel extends Node implements IAvatarModel {
 
 	public void idleAnim() {
 		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
-			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
+			channel.reset(true);
+			/*if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
 				channel.setLoopMode(LoopMode.Loop);
 				channel.setAnim("Idle");
-			}
+			}*/
 		}
 	}
 
 
 	public void jumpAnim() {
 		// Cannot jump
+		channel.reset(true);
 	}
 }

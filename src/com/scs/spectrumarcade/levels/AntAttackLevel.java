@@ -8,8 +8,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.abilities.BombGun_AA;
@@ -21,6 +19,7 @@ import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.antattack.AAScanner;
 import com.scs.spectrumarcade.entities.antattack.Ant;
 import com.scs.spectrumarcade.entities.antattack.Damsel;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.Functions;
@@ -115,7 +114,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, "Textures/antattack/avatar_black.png");
+		WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/antattack/avatar_black.png"));
 		game.setAbility(1, new BombGun_AA(game));
 		return wp;
 	}

@@ -17,7 +17,7 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.ericandfloaters.DestroyableWall;
 import com.scs.spectrumarcade.entities.ericandfloaters.Floater;
-import com.scs.spectrumarcade.entities.motos.AbstractMotosEnemyBall;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
@@ -111,7 +111,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, 0f, "Textures/ericandthefloaters/eric_avatar.png");
+		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/ericandthefloaters/eric_avatar.png"));
 		game.setAbility(1, new BombGun_EATF(game));
 		return wp;
 	}

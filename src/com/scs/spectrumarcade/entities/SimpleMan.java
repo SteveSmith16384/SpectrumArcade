@@ -7,7 +7,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.models.SimpleManModel;
 
-public class SimpleMan extends AbstractPhysicalEntity implements IProcessable  {
+public class SimpleMan extends AbstractPhysicalEntity implements IProcessable  { // todo - remove?
 	
 	private Spatial model;
 	

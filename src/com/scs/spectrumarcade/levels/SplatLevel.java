@@ -16,6 +16,7 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.splat.KillingWall;
 import com.scs.spectrumarcade.entities.splat.PoisonousGrass;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 
@@ -76,7 +77,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 5, 3, 5f, 0f, "Textures/splat/black.png");
+		return new WalkingPlayer(game, 5, 3, 5f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/splat/black.png"));
 	}
 
 

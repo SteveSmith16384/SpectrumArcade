@@ -14,13 +14,13 @@ import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.LaserRifle;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.androids.GSquare;
 import com.scs.spectrumarcade.entities.androids.SSquare;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 
@@ -116,7 +116,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 0f, "Textures/androids/avatar_blue.png");
+		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
 		//game.setAbility(1, new LaserRifle(game));
 		return wp;
 	}

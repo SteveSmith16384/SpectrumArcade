@@ -4,15 +4,15 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
-import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
+import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.entities.manicminer.MMRock;
 import com.scs.spectrumarcade.entities.manicminer.PoisonousPlant;
 import com.scs.spectrumarcade.entities.manicminer.Robot;
-import com.scs.spectrumarcade.entities.manicminer.MMRock;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 
@@ -97,7 +97,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 3, 2, 3f, 7f, "Textures/manicminer/avatar_white.png");
+		return new WalkingPlayer(game, 3, 2, 3f, 7f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/manicminer/avatar_white.png"));
 	}
 
 

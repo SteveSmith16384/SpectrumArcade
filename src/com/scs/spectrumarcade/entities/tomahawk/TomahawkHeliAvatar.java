@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.entities;
+package com.scs.spectrumarcade.entities.tomahawk;
 
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -13,9 +13,10 @@ import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.models.Helicopter;
 
-public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
+public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
 	// Our movement speed
 	private float turnSpeed = 0;
@@ -25,8 +26,8 @@ public class HeliAvatar extends AbstractPhysicalEntity implements IAvatar, INoti
 	private Helicopter heli;
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 
-	public HeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
-		super(_game, "Player");
+	public TomahawkHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
+		super(_game, "TomahawkHeliAvatar");
 
 		/** Create a box to use as our player model */
 		Box box1 = new Box(1, 2, 1);

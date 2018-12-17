@@ -21,6 +21,7 @@ import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.entities.gauntlet.Ghost_Gauntlet;
 import com.scs.spectrumarcade.entities.manicminer.Key;
+import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
 
@@ -108,7 +109,7 @@ public class GauntletLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, 5f, "Textures/gauntlet/todo.png");
+		WalkingPlayer wp = new WalkingPlayer(game, 2, 2f, 3f, 5f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/gauntlet/todo.png"));
 		game.setAbility(1, new GauntletAxeThrower(game));
 		return wp;
 	}
