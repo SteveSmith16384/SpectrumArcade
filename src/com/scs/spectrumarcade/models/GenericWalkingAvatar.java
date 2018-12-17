@@ -66,4 +66,12 @@ public class GenericWalkingAvatar extends Node implements IAvatarModel {
 	}
 
 
+	public void diedAnim() {
+		//if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Jump")) {
+		channel.setLoopMode(LoopMode.DontLoop);
+		channel.setAnim("Died");
+		//isJumping = true;
+		//jumpEndTime = System.currentTimeMillis() + (long)(channel.getAnimMaxTime() * 1000) - 300;
+	}
 }
+

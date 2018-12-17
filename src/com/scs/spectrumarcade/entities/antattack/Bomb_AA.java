@@ -119,7 +119,6 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
 
 	}
 

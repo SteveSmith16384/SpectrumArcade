@@ -13,8 +13,8 @@ import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
 public class SimpleManModel extends Node implements IAvatarModel {
 	
-	private boolean isJumping = false;
-	private long jumpEndTime;
+	//private boolean isJumping = false;
+	//private long jumpEndTime;
 	private AnimChannel channel;
 
 	public SimpleManModel(AssetManager assetManager) {
@@ -35,28 +35,35 @@ public class SimpleManModel extends Node implements IAvatarModel {
 
 
 	public void walkAnim() {
-		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
+		//if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
 			if (channel.getAnimationName() == null || !channel.getAnimationName().equals("walkLikeMan")) {
 				channel.setLoopMode(LoopMode.Loop);
 				channel.setAnim("walkLikeMan");
 			}
-		}
+		//}
 	}
 
 
 	public void idleAnim() {
-		if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
+		//if (!this.isJumping || this.jumpEndTime < System.currentTimeMillis()) {
 			channel.reset(true);
 			/*if (channel.getAnimationName() == null || !channel.getAnimationName().equals("Idle")) {
 				channel.setLoopMode(LoopMode.Loop);
 				channel.setAnim("Idle");
 			}*/
-		}
+		//}
 	}
 
 
 	public void jumpAnim() {
 		// Cannot jump
 		channel.reset(true);
+	}
+
+
+	@Override
+	public void diedAnim() {
+		// No such anim
+		
 	}
 }

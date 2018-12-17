@@ -173,4 +173,15 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	}
 
 
+	@Override
+	public float getCameraHeight() {
+		return .5f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		
+	}
+
 }

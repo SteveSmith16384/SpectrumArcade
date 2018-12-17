@@ -9,6 +9,7 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
+import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 
 /**
@@ -45,17 +46,18 @@ public class CameraSystem {
 
 
 	public void process(Camera cam, AbstractPhysicalEntity avatar) {
+		IAvatar ava = (IAvatar)avatar;
 		if (this.currentView == View.First) {
 			// Position camera at node
 			Vector3f vec = avatar.getMainNode().getWorldTranslation();
 			cam.getLocation().x = vec.x;
-			cam.getLocation().y = vec.y;// + avatar.avatarModel.getCameraHeight();
+			cam.getLocation().y = vec.y + ava.getCameraHeight();
 			cam.getLocation().z = vec.z;
 		} else if (this.currentView == View.Cinema) {
 			Vector3f pos = avatar.getMainNode().getWorldTranslation();
 			cam.lookAt(pos, Vector3f.UNIT_Y);
 			cam.getLocation().x = (int)(pos.x / 15) * 15;
-			cam.getLocation().y = (int)(pos.y / 10) * 10;
+			cam.getLocation().y = (int)(pos.y / 10) * 10 + 5;
 			cam.getLocation().z = (int)(pos.z / 15) * 15;
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time - todo - use physics node!

@@ -11,8 +11,6 @@ import com.scs.spectrumarcade.components.IAvatar;
 
 public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
-	//private Node camNode; // todo - remove?
-
 	protected static final float accelerationForce = 1000.0f;
 	protected static final float brakeForce = 100.0f;
 
@@ -21,10 +19,6 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 	public StockCarAvatar(SpectrumArcade _game, float x, float y, float z, Vector3f lookAt) {
 		super(_game, "StockCarAvatar", x, y, z, lookAt, true, 1);
-/*
-		camNode = new Node("CameraNode");
-		camNode.setLocalTranslation(0f, 1.8f, -4);
-		this.mainNode.attachChild(camNode);*/
 	}
 
 
@@ -111,6 +105,19 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 			carModel.setCullHint(CullHint.Always);
 		}
 
+	}
+
+
+	@Override
+	public float getCameraHeight() {
+		return 1f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

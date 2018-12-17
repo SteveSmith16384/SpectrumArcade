@@ -33,12 +33,11 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
-
+/*
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/blocks/grass.jpg");
 		floor.geometry.setShadowMode(ShadowMode.Off);
-
 		game.addEntity(floor);
-
+*/
 		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, new Vector3Int(MAP_SIZE, 32, MAP_SIZE), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
@@ -47,8 +46,12 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 
 		// Scenery
 		int sections = MAP_SIZE/MAP_SECTION_SIZE;
-		for (int z=1 ; z<sections-1 ; z++) {
-			for (int x=1 ; x<sections-1 ; x++) {
+		for (int z=0 ; z<sections ; z++) {
+			for (int x=0 ; x<sections ; x++) {
+				FloorOrCeiling floor = new FloorOrCeiling(game, x*MAP_SECTION_SIZE, 0, z*MAP_SECTION_SIZE, MAP_SECTION_SIZE, 1, MAP_SECTION_SIZE, "Textures/blocks/grass.jpg");
+				floor.geometry.setShadowMode(ShadowMode.Off);
+				game.addEntity(floor);
+
 				int sx = NumberFunctions.rnd(x*MAP_SECTION_SIZE, x*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int sz = NumberFunctions.rnd(z*MAP_SECTION_SIZE, z*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int h = NumberFunctions.rnd(4, 20);

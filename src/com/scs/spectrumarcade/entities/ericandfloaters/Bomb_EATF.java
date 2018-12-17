@@ -2,16 +2,20 @@ package com.scs.spectrumarcade.entities.ericandfloaters;
 
 import java.util.Iterator;
 
+import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.Ray;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
@@ -23,11 +27,12 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 import ssmith.lang.NumberFunctions;
 
-public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
+public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable, PhysicsTickListener {
 
 	public static final float SPEED = 10f;
 
 	private long explodeTime = System.currentTimeMillis() + 3000;
+	private boolean launched = false;
 
 	public Bomb_EATF(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Bomb");
@@ -129,4 +134,24 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable  {
 
 	}
 
+
+	@Override
+	public void physicsTick(PhysicsSpace arg0, float arg1) {
+
+	}
+
+
+	@Override
+	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (!launched) {
+			launched = true;
+			Vector3f force = game.getCamera().getDirection().mult(10);
+			srb.setLinearVelocity(force);
+			Globals.p("Force=" + force);
+		}
+
+	}
+
+
 }
+

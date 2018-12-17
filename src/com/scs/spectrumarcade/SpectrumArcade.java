@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.prefs.BackingStoreException;
 
+import javax.swing.JOptionPane;
+
 import com.atr.jme.font.asset.TrueTypeLoader;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -42,8 +44,8 @@ import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TomahawkLevel;
 
 import ssmith.util.FixedLoopTime;
 
@@ -86,8 +88,17 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private CameraSystem camSys;
 	protected FixedLoopTime loopTimer = new FixedLoopTime(5);
 
+	private boolean playerDead = false;
+	private long restartPlayerAt;
+
 	public static void main(String[] args) {
 		try {
+			if (Settings.RELEASE_MODE) {
+				String msg = "Please note this game is very early in development!  It will probably frequently crash, and the games are unfinished and poorly balanced with few features.";
+				JOptionPane.showMessageDialog(null, msg);
+			}
+
+
 			AppSettings settings = new AppSettings(true);
 			try {
 				settings.load(Settings.NAME);
@@ -165,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(TomahawkLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(EricAndTheFloatersLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 
@@ -279,11 +290,11 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		IAvatar a = (IAvatar)player;
 		//a.setCameraLocation(cam); // Ready to set direction
 		level.setInitialCameraDir(cam);
-		
+
 		// Default to 3rd person
 		if (!Settings.FREE_CAM) {
-		this.camSys.setView(View.Third);
-		a.setAvatarVisible(true);
+			this.camSys.setView(View.Third);
+			a.setAvatarVisible(true);
 		}
 
 	}
@@ -326,12 +337,20 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				this.nextLevel = null;
 			}
 
-			for (int i=1 ; i<=2 ; i++) {
-				if (this.abilityActivated[i]) {
-					activateAbility(i);
+			if (this.playerDead) {
+				if (this.restartPlayerAt < System.currentTimeMillis()) {
+					this.playerDead = false;
+					IAvatar a = (IAvatar)player;
+					a.warp(level.getAvatarStartPos());
+					a.clearForces();
+				}
+			} else {
+				for (int i=1 ; i<=2 ; i++) {
+					if (this.abilityActivated[i]) {
+						activateAbility(i);
+					}
 				}
 			}
-
 			level.process(tpfSecs);
 
 			for(IProcessable ip : this.entitiesForProcessing) {
@@ -339,9 +358,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			}
 
 			hud.processByClient(tpfSecs);
-
-			//IAvatar a = (IAvatar)player;
-			//a.setCameraLocation(cam);
 
 			if (!Settings.FREE_CAM) {
 				camSys.process(cam, player);
@@ -535,11 +551,16 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void playerKilled() {
-		hud.showDamageBox();
-		IAvatar a = (IAvatar)player;
+		if (!playerDead) {
+			playerDead = true;
+			this.restartPlayerAt = System.currentTimeMillis() + 3000;
+			//hud.showDamageBox();
+			IAvatar a = (IAvatar)player;
+			/*
 		a.warp(level.getAvatarStartPos());
-		//clearForces = true;
-		a.clearForces();
+		a.clearForces();*/
+		}
+
 	}
 
 

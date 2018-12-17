@@ -7,4 +7,6 @@ public interface IAvatarModel {
 	void idleAnim();
 	
 	void jumpAnim();
+	
+	void diedAnim();
 }

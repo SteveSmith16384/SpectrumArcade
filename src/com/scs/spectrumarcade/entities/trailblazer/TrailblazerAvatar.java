@@ -27,7 +27,6 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	//private static final float JUMP_FORCE = 3f;
 
 	private TrailblazerLevel level;
-	//private Vector3f camPos = new Vector3f();
 	private int lastCheckX, lastCheckZ;
 
 	private boolean left = false, right = false, up = false, down = false, jump = false;
@@ -96,15 +95,6 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	public void warp(Vector3f vec) {
 		this.srb.setPhysicsLocation(vec.clone());
 	}
-
-/*
-	@Override
-	public void setCameraLocation(Camera cam) {
-		/*if (!TrailblazerLevel.FOLLOW_CAM) {
-			camPos.set(getMainNode().getWorldTranslation());
-			cam.setLocation(camPos);
-		}*/
-	//}
 
 
 	@Override
@@ -233,5 +223,16 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	}
 
+
+	@Override
+	public float getCameraHeight() {
+		return RAD;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		
+	}
 
 }

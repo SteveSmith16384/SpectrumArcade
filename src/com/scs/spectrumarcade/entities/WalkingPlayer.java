@@ -92,8 +92,13 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 		}
 
-		camDir.set(cam.getDirection()).multLocal(speed, 0.0f, speed);
+		camDir.set(cam.getDirection());
+		camDir.y = 0;
+		camDir.normalizeLocal(); // scs new
+		camDir.multLocal(speed, 0.0f, speed);
+		
 		camLeft.set(cam.getLeft()).multLocal(speed);
+		
 		walkDirection.set(0, 0, 0);
 		walking = up || down || left || right;
 		if (left) {
@@ -207,6 +212,18 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			((Node)avatarModel).setCullHint(CullHint.Always);
 		}
 
+	}
+
+
+	@Override
+	public float getCameraHeight() {
+		return 1f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		avatarModel.diedAnim();		
 	}
 
 }

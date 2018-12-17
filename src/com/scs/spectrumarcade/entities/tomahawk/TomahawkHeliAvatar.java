@@ -34,10 +34,10 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		Geometry playerGeometry = new Geometry("Player", box1);
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
-		
+
 		heli = new ApacheHeli(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
-		
+
 		this.getMainNode().setLocalTranslation(x, y, z);
 
 		BoundingBox bb = (BoundingBox) heli.getWorldBound();
@@ -57,9 +57,18 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 
 		if (left) {
 			turnSpeed -= .01f;
+		} else {
+			if (Math.abs(turnSpeed) < 0.01f) {
+				//turnSpeed = 0;
+			}
+
 		}
 		if (right) {
 			turnSpeed += .01f;
+		} else {
+			if (Math.abs(turnSpeed) < 0.01f) {
+				//turnSpeed = 0;
+			}
 		}
 		if (fwd) {
 			if (tiltDiff > -4) {
@@ -116,15 +125,10 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		lookat.y += tiltDiff;
 		lookat.z += z;
 		this.getMainNode().lookAt(lookat, Vector3f.UNIT_Y);
-		if (!Settings.FREE_CAM) {
+		/*if (!Settings.FREE_CAM) {
 			game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
-		}
-		// Prevent falling through floor
-		/*		if (this.getMainNode().getWorldTranslation().y <= 1.2f) {
-			this.getMainNode().getLocalTranslation().y = 1.2f;
-		}
-		 */
-		
+		}*/
+
 		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
 	}
@@ -154,12 +158,7 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		this.getMainNode().setLocalTranslation(v);
 	}
 
-/*
-	@Override
-	public void setCameraLocation(Camera cam) {
-	}
 
-*/
 	@Override
 	public void clearForces() {
 	}
@@ -172,7 +171,7 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		fwdSpeed.y = 0;
 	}
 
-	
+
 	@Override
 	public void setAvatarVisible(boolean b) {
 		if (b) {
@@ -183,6 +182,18 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 
 	}
 
+
+	@Override
+	public float getCameraHeight() {
+		return 1f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

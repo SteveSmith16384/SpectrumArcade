@@ -58,4 +58,17 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 
 	}
 
+
+	@Override
+	public float getCameraHeight() {
+		return 1f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

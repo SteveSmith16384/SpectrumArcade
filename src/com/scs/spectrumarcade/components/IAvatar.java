@@ -6,6 +6,8 @@ import com.scs.spectrumarcade.abilities.IAbility;
 
 public interface IAvatar extends IProcessable { 
 
+	float getCameraHeight();
+	
 	void onAction(String binding, boolean isPressed, float tpf);
 	
 	void setAvatarVisible(boolean b);
@@ -13,6 +15,8 @@ public interface IAvatar extends IProcessable {
 	void warp(Vector3f vec);
 	
 	void clearForces();
+	
+	void showKilledAnim();
 
 	//void setCameraLocation(Camera cam); // todo - remove
 	

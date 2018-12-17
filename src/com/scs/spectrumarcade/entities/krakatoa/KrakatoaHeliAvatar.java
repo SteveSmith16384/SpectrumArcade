@@ -103,9 +103,9 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		lookat.y += tiltDiff;
 		lookat.z += z;
 		this.getMainNode().lookAt(lookat, Vector3f.UNIT_Y);
-		if (!Settings.FREE_CAM) {
+		/*if (!Settings.FREE_CAM) {
 			game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
-		}
+		}*/
 
 		//Globals.p("Pos" + this.getMainNode().getWorldTranslation() + ", ang=" + this.angleRads);
 
@@ -166,5 +166,16 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	}
 
 
+	@Override
+	public float getCameraHeight() {
+		return 1f;
+	}
+
+
+	@Override
+	public void showKilledAnim() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
