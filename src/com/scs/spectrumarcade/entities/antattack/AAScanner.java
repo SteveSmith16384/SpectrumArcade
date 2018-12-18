@@ -9,6 +9,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.components.IProcessable;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 
 import ssmith.util.RealtimeInterval;
 
@@ -27,21 +28,21 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 		game = _game;
 		damsel = _damsel;
 
-		this.setLocalTranslation(50, 0, 0);
+		this.setLocalTranslation(20, 20, 0);
 
 		mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		mat.setColor("Color", ColorRGBA.Green);
 		this.setMaterial(mat);
 	}
 
-	
+
 	@Override
 	public void markForRemoval() {
 		// TODO Auto-generated method stub
 
 	}
 
-	
+
 	@Override
 	public void actuallyRemove() {
 		this.removeFromParent();
@@ -51,28 +52,41 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 	@Override
 	public void process(float tpfSecs) {
 		if (checkInt.hitInterval()) {
-			float dist = game.player.distance(damsel);
-			if (dist > prevDist) {
-				mat.setColor("Color", ColorRGBA.Red);
-			} else if (dist < prevDist) {
-				mat.setColor("Color", ColorRGBA.Green);
+			if (damsel.followingPlayer) {
+				this.setLocalTranslation(20, 20, 0);
+				float dist = game.player.distance(damsel);
+				if (dist > prevDist) {
+					mat.setColor("Color", ColorRGBA.Red);
+				} else if (dist < prevDist) {
+					mat.setColor("Color", ColorRGBA.Green);
+				}
+				prevDist = dist;
+			} else {
+				// Finding exit
+				this.setLocalTranslation(game.getCamera().getWidth() - 70, 20, 0);
+				float dist = game.player.distance(AntAttackLevel.exitPos);
+				if (dist > prevDist) {
+					mat.setColor("Color", ColorRGBA.Red);
+				} else if (dist < prevDist) {
+					mat.setColor("Color", ColorRGBA.Green);
+				}
+				prevDist = dist;
 			}
-			prevDist = dist;
 		}
 
 	}
 
-/*
+	/*
 	@Override
 	public Spatial getSpatial() {
 		return this;
 	}
-*/
+	 */
 
 	@Override
 	public void actuallyAdd() {
 		game.getGuiNode().attachChild(this);
-		
+
 	}
 
 }

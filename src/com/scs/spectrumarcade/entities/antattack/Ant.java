@@ -17,7 +17,7 @@ import com.scs.spectrumarcade.models.AntModel;
 
 import ssmith.util.RealtimeInterval;
 
-public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, INotifiedOfCollision, IProcessable {
+public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact, IProcessable { // INotifiedOfCollision
 
 	private static final int MODE_TOWARDS_PLAYER = 0;
 	private static final int MODE_FWDS = 1;
@@ -65,8 +65,10 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	@Override
 	public void process(float tpfSecs) {
-		//this.showDir();
-
+		if (game.playerDead) {
+			return; // Stop us pushing the player
+		}
+		
 		//Globals.p("Ant pos: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < -5) {
 			Globals.pe("ANT OFF EDGE");
@@ -149,7 +151,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 		//this.srb.applyTorqueImpulse(turnDir);
 	}
 
-
+/*
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof FloorOrCeiling) {
@@ -159,7 +161,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			//this.setMode(MODE_TURNING);
 		}
 	}
-
+*/
 
 	public void hitByBomb() {
 		Globals.p("Ant hit!");

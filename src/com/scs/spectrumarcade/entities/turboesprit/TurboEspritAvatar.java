@@ -1,24 +1,21 @@
 package com.scs.spectrumarcade.entities.turboesprit;
 
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial.CullHint;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.abilities.IAbility;
 import com.scs.spectrumarcade.models.VWCorradon;
 
 public class TurboEspritAvatar extends AbstractTurboEspritCar {
 	
-	private Node camNode;
+	//private Node camNode;
 
 	public TurboEspritAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, x, y, z);
-		
+		/*
 		camNode = new Node("CameraNode");
 		camNode.setLocalTranslation(0f, 1.2f, -4);
 		this.mainNode.attachChild(camNode);
-		
+		*/
 	}
 
 
@@ -61,13 +58,12 @@ public class TurboEspritAvatar extends AbstractTurboEspritCar {
 
 	@Override
 	public float getCameraHeight() {
-		return 1f;
+		return .2f;
 	}
 
 
 	@Override
 	public void showKilledAnim() {
-		// TODO Auto-generated method stub
 		
 	}
 

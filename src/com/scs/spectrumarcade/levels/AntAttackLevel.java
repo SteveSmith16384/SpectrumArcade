@@ -27,6 +27,8 @@ import ssmith.lang.NumberFunctions;
 
 public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
+	public static final Vector3f exitPos = new Vector3f(54, 0, 124);
+
 	private static int MAP_BORDER = 10;
 	private static int MAP_SIZE = 128;
 
@@ -108,13 +110,13 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(54, 2f, 124f);
+		return new Vector3f(exitPos.x, 2f, exitPos.z);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, 54, 2f, 124, 4f, 4f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/antattack/avatar_black.png"));
+		WalkingPlayer wp = new WalkingPlayer(game, exitPos.x, 2f, exitPos.z, 4f, 4f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/antattack/avatar_black.png"));
 		game.setAbility(1, new BombGun_AA(game));
 		return wp;
 	}

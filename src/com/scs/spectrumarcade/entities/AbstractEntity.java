@@ -51,9 +51,15 @@ public abstract class AbstractEntity implements IEntity, Savable {
 	}
 	
 	
+	
 	@Override
 	public String toString() {
 		return "Entity:" + name;
+	}
+
+
+	public String getName() {
+		return name;
 	}
 
 

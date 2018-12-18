@@ -75,7 +75,7 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 
 
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(true, 3f, 0, false, 2f);
+		sys.setupCam(3f, 0, false, 1f);
 	}
 
 

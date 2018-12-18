@@ -6,6 +6,7 @@ public class Settings {
 	public static final boolean RELEASE_MODE = false;
 	public static final boolean FREE_CAM = false; // For viewing maps
 	
+	public static final boolean TEST_BOMBS = false;
 	public static final boolean TEST_BILLBOARD = false;	
 	public static final boolean TEST_BALL_ROLLING = false;
 	public static final boolean TEST_ANT_AI = false;

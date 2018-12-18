@@ -113,7 +113,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable, P
 						// Stop checking
 						break;
 					} else if (pe == game.player) {
-						game.playerKilled();
+						game.playerKilled(this.name);
 					}
 				}
 			}

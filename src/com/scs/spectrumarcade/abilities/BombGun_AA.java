@@ -21,7 +21,7 @@ public class BombGun_AA extends AbstractAbility implements IAbility {//, Physics
 	@Override
 	public void activate() {
 		if (nextShotTime < System.currentTimeMillis()) {
-			Globals.p("Throwing bomb");
+			//Globals.p("Throwing bomb");
 			nextShotTime = System.currentTimeMillis() + SHOT_INTERVAL;
 
 			Vector3f pos = game.player.getMainNode().getWorldTranslation().clone();
@@ -33,23 +33,4 @@ public class BombGun_AA extends AbstractAbility implements IAbility {//, Physics
 		}
 	}
 
-/*
-	@Override
-	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
-		if (bomb != null) {
-			Vector3f force = game.getCamera().getDirection().mult(50);
-			bomb.srb.setLinearVelocity(force);
-			Globals.p("Force=" + force);
-			bomb = null;
-		}
-		
-	}
-*/
 }

@@ -141,7 +141,7 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 
 
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(true, 6f, 0f, false, 3f);
+		sys.setupCam(6f, 0f, false, 3f);
 	}
 
 

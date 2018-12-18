@@ -14,12 +14,12 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
+import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
@@ -78,12 +78,15 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 	}
 
 
-	private void checkForHitAnts(Ant ant) {		
-		Ray r = new Ray(this.mainNode.getWorldTranslation(), ant.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
+	private void checkForHitAnts(Ant ant) {
+		if (this.distance(ant) > DAM_RANGE) {
+			return;
+		}
+		Ray r = new Ray(this.getCentre(), ant.getCentre().subtract(this.getCentre()).normalizeLocal());
+		//Ray r = new Ray(this.mainNode.getWorldTranslation(), ant.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
 		r.setLimit(DAM_RANGE);
 		CollisionResults res = new CollisionResults();
 		int c = game.getRootNode().collideWith(r, res);
-		//boolean found = false;
 		if (c > 0) {
 			Iterator<CollisionResult> it = res.iterator();
 			while (it.hasNext()) {
@@ -103,8 +106,13 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 					if (pe == this) {
 						// Continue - ignore bomb
 					} else if (pe == ant) {
-						ant.hitByBomb(); 
+						ant.hitByBomb();
+						if (Settings.TEST_BOMBS) {
+							ant.markForRemoval();
+						}
 						//break;
+					} else if (pe instanceof FloorOrCeiling) {
+						// Continue - should not happen but does
 					} else if (pe instanceof VoxelTerrainEntity) {
 						// Stop checking
 						break;
@@ -113,7 +121,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 					}
 				}
 			}
-		}		
+		}
 	}
 
 
@@ -129,7 +137,7 @@ public class Bomb_AA extends AbstractPhysicalEntity implements IProcessable, Phy
 			launched = true;
 			Vector3f force = game.getCamera().getDirection().mult(10);
 			srb.setLinearVelocity(force);
-			Globals.p("Force=" + force);
+			//Globals.p("Force=" + force);
 		}
 
 	}

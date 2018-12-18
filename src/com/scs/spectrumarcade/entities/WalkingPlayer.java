@@ -81,8 +81,10 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 	@Override
 	public void process(float tpf) {
-		Camera cam = game.getCamera();
-
+		if (game.playerDead) {
+			return; // Stop us changing the anim to idle or something.
+		}
+		
 		if (this.avatarModel != null) {
 			// Set position and direction of avatar model, which doesn't get moved automatically
 			//this.container.setLocalTranslation(this.getWorldTranslation());
@@ -92,6 +94,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 		}
 
+		Camera cam = game.getCamera();
 		camDir.set(cam.getDirection());
 		camDir.y = 0;
 		camDir.normalizeLocal(); // scs new

@@ -1,10 +1,9 @@
 package com.scs.spectrumarcade.entities;
 
+import com.jme3.bounding.BoundingVolume;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
@@ -34,6 +33,11 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
 	}
 
+	
+	public Vector3f getCentre() {
+		BoundingVolume bb = this.getMainNode().getWorldBound();
+		return bb.getCenter();
+	}
 
 	public Node getMainNode() {
 		return mainNode;

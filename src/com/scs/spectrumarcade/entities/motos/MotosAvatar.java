@@ -67,7 +67,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 		this.getMainNode().setLocalTranslation(pos);
 		
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
-			game.playerKilled();
+			game.playerKilled("Falling");
 		}
 	}
 

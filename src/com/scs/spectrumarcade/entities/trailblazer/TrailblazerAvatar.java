@@ -65,7 +65,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 		this.getMainNode().setLocalTranslation(this.geometry.getWorldTranslation());
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
-			game.playerKilled();
+			game.playerKilled("Falling");
 		}
 	}
 

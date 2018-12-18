@@ -20,7 +20,7 @@ public class SimpleManModel extends Node implements IAvatarModel {
 	public SimpleManModel(AssetManager assetManager) {
 		super("SimpleMan");
 		
-		Spatial model = assetManager.loadModel("Models/simpleMan2.6.blend");
+		Spatial model = assetManager.loadModel("Models/SimpleHumans/simpleMan2.6.blend");
 		JMEModelFunctions.scaleModelToHeight(model, Settings.PLAYER_HEIGHT);
 		JMEModelFunctions.moveYOriginTo(model, 0);
 		//s.rotate(0, 90 * FastMath.DEG_TO_RAD, 0);

@@ -18,7 +18,7 @@ import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import ssmith.util.RealtimeInterval;
 
-public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollision, IProcessable {
+public class Damsel extends AbstractPhysicalEntity implements IProcessable { // INotifiedOfCollision
 
 	private static final float TURN_SPEED = 1f;
 
@@ -42,7 +42,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 		BoundingBox bb = (BoundingBox)model.getWorldBound();
 		playerControl = new BetterCharacterControl(bb.getZExtent(), bb.getYExtent()*2, 10f);
-		playerControl.setJumpForce(new Vector3f(0, 7f, 0)); 
+		playerControl.setJumpForce(new Vector3f(0, 5f, 0)); 
 		playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
@@ -115,7 +115,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 
 	}
 
-
+/*
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		/*if (collidedWith == game.player) {
@@ -125,7 +125,7 @@ public class Damsel extends AbstractPhysicalEntity implements INotifiedOfCollisi
 			//this.model.jumpAnim();
 		}*/
 
-	}
+//	}
 
 
 	@Override

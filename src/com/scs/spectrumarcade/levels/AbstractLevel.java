@@ -20,7 +20,7 @@ public abstract class AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(true, 3f, .1f, true, 1f);
+		sys.setupCam(3f, .1f, true, 1f);
 	}
 	
 

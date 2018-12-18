@@ -25,7 +25,7 @@ public class CameraSystem {
 	private float followDist = 1f;
 	private float shoulderAngleRads = 0f;
 	private float fixedHeight = -1;
-	private float heightOffset;
+	private float heightOffset3rdPerson;
 	private boolean camInCharge;
 	private View currentView = View.First;
 
@@ -37,11 +37,11 @@ public class CameraSystem {
 	}
 
 
-	public void setupCam(boolean _followCam, float dist, float angleRads, boolean _camInCharge, float _heightOffset) { // todo - remove boolean _followCam, 
+	public void setupCam(float dist, float angleRads, boolean _camInCharge, float _heightOffset3rdPerson) { 
 		this.followDist = dist;
 		shoulderAngleRads = angleRads;
 		camInCharge = _camInCharge;
-		heightOffset = _heightOffset;
+		heightOffset3rdPerson = _heightOffset3rdPerson;
 	}
 
 
@@ -61,7 +61,7 @@ public class CameraSystem {
 			cam.getLocation().z = (int)(pos.z / 15) * 15;
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time - todo - use physics node!
-			avatarPos.y += heightOffset;//avatar.avatarModel.getCameraHeight() + .1f;
+			avatarPos.y += heightOffset3rdPerson;//avatar.avatarModel.getCameraHeight() + .1f;
 			if (this.currentView == View.Third) {
 				if (camInCharge) {
 					dirTmp = cam.getDirection().mult(-1, dirTmp);

@@ -110,7 +110,7 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 			if (mines[x][z]) {
 				Globals.p("You have stood on a mine!");
 				this.explosion(pos);
-				game.playerKilled();
+				game.playerKilled("Mine");
 			} else {
 				this.terrainUDG.addBlock_Block(new Vector3Int((int)pos.x, 0, (int)pos.z), BlockCodes.MINED_OUT_WALKED_ON);
 			}

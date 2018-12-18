@@ -48,7 +48,8 @@ public class CollisionLogic {
 	
 	
 	private static void Player_Harm(SpectrumArcade game, IAvatar player, ICausesHarmOnContact col) {
-		game.playerKilled();
+		Globals.p("Player hit by " + col);
+		game.playerKilled(col.toString());
 	}
 	
 	

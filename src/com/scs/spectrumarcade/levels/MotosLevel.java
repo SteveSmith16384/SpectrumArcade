@@ -177,7 +177,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(true, 3f, 0, true, 1f);
+		sys.setupCam(3f, 0, true, 1f);
 	}
 	
 
