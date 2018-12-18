@@ -203,7 +203,7 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 
 
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(6f, 0f, false, 3f);
+		sys.setupCam(6f, 0f, true, 3f);
 	}
 
 
