@@ -1,6 +1,6 @@
 # SPECTRUM ARCADE
 
-Play various classic Spectrum games in 3D.  Just walk into the arcade.
+Play various classic Spectrum games in 3D.  Just walk into the arcade to play.  No 10p required.
 
 Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlmail.com)
 
@@ -8,6 +8,7 @@ Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlmail.com)
 * W, A, S, D to move, and mouse to look around.
 * Space to brake if in a car, or jump when walking around.
 * X to return to the arcade.
+* 1 - 4 to change the view
 
 
 ## CREDITS

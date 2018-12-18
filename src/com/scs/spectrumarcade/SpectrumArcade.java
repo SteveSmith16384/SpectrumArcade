@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(KrakatoaLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(ArcadeRoom.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 

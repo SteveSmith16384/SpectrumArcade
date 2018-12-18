@@ -65,15 +65,13 @@ public class Damsel extends AbstractPhysicalEntity implements IProcessable { // 
 					if (checkPosInterval.hitInterval()) {
 						if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
 							Globals.p("Damsel stuck; jumping");
-							//playerControl.setWalkDirection(new Vector3f());
 
 							Vector3f walkDirection = this.playerControl.getViewDirection();
 							playerControl.setWalkDirection(walkDirection.mult(-2.4f));
 
 							playerControl.setJumpForce(new Vector3f(0, 50f, 0)); 
 							this.playerControl.jump();
-							//this.model.jumpAnim();
-							//dontWalkUntil = System.currentTimeMillis() + 500;
+							this.model.jumpAnim();
 						} 
 						prevPos.set(this.mainNode.getWorldTranslation());
 					}
