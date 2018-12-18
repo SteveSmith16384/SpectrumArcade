@@ -16,14 +16,9 @@ All games copyrights owned by their respective owners.
 
 
 ### OTHER CREDITS
-Spectrum Font from https://www.dafont.com/zx-spectrum-7.font
+JMonkeyEngine
 TTF font loader from https://1337atr.weebly.com/jttf.html
-Arcade Machine: https://free3d.com/3d-model/arcade-machine-cabinet-41196.html
-Spider (pretending to be an ant) by https://opengameart.org/content/spider-animated
-Key by https://opengameart.org/content/antique-key
-RocksFlowersGrassPack by Quaternius (http://quaternius.com/)
-Stock car model from https://opengameart.org/content/low-poly-ford-focus
-AnimatedHuman by Quaternius (http://quaternius.com/)
+For all other credits, please see the credits.txt in the asset's folder.
 
 
 ## LICENCES
