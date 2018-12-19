@@ -32,7 +32,7 @@ public class KillingWall extends AbstractPhysicalEntity implements IProcessable 
 		Mesh sphere = new Sphere(10, 10, 10, true, true);
 		Geometry geometry = new Geometry("KillingWallGeom", sphere);
 
-		TextureKey key3 = new TextureKey("Textures/mm_bricks.png");
+		TextureKey key3 = new TextureKey("Textures/splat/splat_bricks.png");
 		key3.setGenerateMips(true);
 		Texture tex3 = game.getAssetManager().loadTexture(key3);
 		tex3.setWrap(WrapMode.Repeat);

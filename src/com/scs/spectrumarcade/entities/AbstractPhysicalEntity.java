@@ -1,5 +1,7 @@
 package com.scs.spectrumarcade.entities;
 
+import java.awt.Point;
+
 import com.jme3.bounding.BoundingVolume;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -8,6 +10,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
@@ -83,6 +86,13 @@ public abstract class AbstractPhysicalEntity extends AbstractEntity {
 		float dist = this.getMainNode().getWorldTranslation().distance(pos);
 		return dist;
 	}
+
+	
+	public Point getMapPos(int sqSize) {
+		Vector3f pos = this.getMainNode().getLocalTranslation();
+		return new Point((int)(pos.x / sqSize), (int)(pos.z / sqSize));
+	}
+
 
 /*
 	protected void checkHUDNode(Node hudParent, Node hudItem, Camera cam, float maxDist, float yOffset) {

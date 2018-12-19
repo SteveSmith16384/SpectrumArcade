@@ -32,8 +32,6 @@ public class DestroyableWall extends AbstractPhysicalEntity {
 		srb = new RigidBodyControl(0);
 		mainNode.addControl(srb);
 		
-		//this.mainNode.getWorldBound();
-		
 	}
 
 

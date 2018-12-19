@@ -115,7 +115,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(1, 3f, 1f);
+		return new Vector3f(2, 1f, 2f);
 	}
 
 

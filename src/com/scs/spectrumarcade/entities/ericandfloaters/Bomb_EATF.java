@@ -1,27 +1,16 @@
 package com.scs.spectrumarcade.entities.ericandfloaters;
 
-import java.util.Iterator;
+import java.awt.Point;
 
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.collision.CollisionResult;
-import com.jme3.collision.CollisionResults;
-import com.jme3.math.Ray;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
-import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
@@ -33,10 +22,13 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 
 	private long explodeTime = System.currentTimeMillis() + 3000;
 	//private boolean launched = false;
+	private int range;
 
-	public Bomb_EATF(SpectrumArcade _game, float x, float y, float z) {
+	public Bomb_EATF(SpectrumArcade _game, float x, float y, float z, int _range) {
 		super(_game, "Bomb");
 
+		range = _range;
+		
 		if (y < .3f) {
 			y = .3f;
 		}
@@ -59,7 +51,19 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 	@Override
 	public void process(float tpfSecs) {
 		if (explodeTime < System.currentTimeMillis()) {
-			for (IEntity e : game.entities) {
+			
+			Point p = this.getMapPos(EricAndTheFloatersLevel.SEGMENT_SIZE);
+			for (int z=p.y-range ; z<= p.y+range ; z++) {
+				for (int x=p.x-range ; x<=p.x+range ; x++) {
+					if (x == p.x || z == p.y) {
+						ExplosionWall expl = new ExplosionWall(game, x, z);
+						game.addEntity(expl);
+					}
+				}
+			}
+			
+			
+			/*for (IEntity e : game.entities) {
 				if (e instanceof Floater) {
 					checkForHitFloaters((Floater)e);
 				} else if (e instanceof DestroyableWall) {
@@ -80,7 +84,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 		}
 	}
 
-
+/*
 	private void checkForHitFloaters(AbstractPhysicalEntity entity) {		
 		Ray r = new Ray(this.mainNode.getWorldTranslation(), entity.getMainNode().getWorldTranslation().subtract(this.mainNode.getWorldTranslation()).normalizeLocal());
 		r.setLimit(EricAndTheFloatersLevel.SEGMENT_SIZE*2);
@@ -119,7 +123,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 			}
 		}		
 	}
-
+*/
 	
 	private void explosion(Node node) {
 		// Shards
@@ -133,25 +137,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 		this.markForRemoval();
 
 	}
-
-/*
-	@Override
-	public void physicsTick(PhysicsSpace arg0, float arg1) {
-
-	}
-
-
-	@Override
-	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
-		if (!launched) {
-			launched = true;
-			Vector3f force = game.getCamera().getDirection().mult(10);
-			srb.setLinearVelocity(force);
-			Globals.p("Force=" + force);
-		}
-
-	}
-*/
+		
 
 }
 
