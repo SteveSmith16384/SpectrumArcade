@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.abilities;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.entities.LaserBolt;
 
 public class LaserRifle extends AbstractAbility implements IAbility {
@@ -10,9 +11,12 @@ public class LaserRifle extends AbstractAbility implements IAbility {
 	private static final long SHOT_INTERVAL = 1000;
 
 	private long nextShotTime = 0;
+	private AbstractPhysicalEntity shooter; 
 
-	public LaserRifle(SpectrumArcade game) {
+	public LaserRifle(SpectrumArcade game, AbstractPhysicalEntity _shooter) {
 		super(game);
+		
+		shooter = _shooter;
 	}
 
 
@@ -25,8 +29,8 @@ public class LaserRifle extends AbstractAbility implements IAbility {
 			pos.y += Settings.PLAYER_HEIGHT;
 			pos.addLocal(game.getCamera().getDirection().mult(2));
 
-			LaserBolt axe = new LaserBolt(game, pos.x, pos.y, pos.z, new Vector3f()); // todo
-			game.addEntity(axe);
+			LaserBolt laser = new LaserBolt(game, shooter, pos.x, pos.y, pos.z, game.getCamera().getDirection());
+			game.addEntity(laser);
 
 		}
 	}

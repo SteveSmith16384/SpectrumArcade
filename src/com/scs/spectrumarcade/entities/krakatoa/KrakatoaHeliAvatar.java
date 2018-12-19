@@ -20,13 +20,12 @@ import com.scs.spectrumarcade.models.KrakatoaHelicopter;
 
 public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvatar, INotifiedOfCollision {
 
-	//private float angleRads = 0;
 	private float tiltDiff = 0;
-	//private Vector3f fwdSpeed = new Vector3f();
 	private KrakatoaHelicopter heli;
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 	private Vector3f tempAvatarDir = new Vector3f();
-
+	private Vector3f lastSafePos = new Vector3f();
+	
 	public KrakatoaHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "Player");
 
@@ -54,6 +53,8 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 
 	@Override
 	public void process(float tpfSecs) {
+		this.lastSafePos.set(this.getMainNode().getLocalTranslation());
+		
 		tempAvatarDir.set(game.getCamera().getDirection());
 		tempAvatarDir.y = 0;
 		//tempAvatarDir.multLocal(-1);
@@ -177,7 +178,8 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		Globals.p("heli collided with " + collidedWith);
-		this.getMainNode().getLocalTranslation().y += .01f;
+		
+		this.getMainNode().setLocalTranslation(this.lastSafePos);
 		//fwdSpeed.y = 0;
 	}
 

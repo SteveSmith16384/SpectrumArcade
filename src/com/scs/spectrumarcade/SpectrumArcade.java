@@ -45,7 +45,7 @@ import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.KrakatoaLevel;
+import com.scs.spectrumarcade.levels.TomahawkLevel;
 
 import ssmith.util.FixedLoopTime;
 
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(ArcadeRoom.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(TomahawkLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 
@@ -557,9 +557,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			//hud.showDamageBox();
 			IAvatar a = (IAvatar)player;
 			a.showKilledAnim();
-			/*
-		a.warp(level.getAvatarStartPos());
-		a.clearForces();*/
 		}
 
 	}

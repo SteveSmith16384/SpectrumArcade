@@ -12,8 +12,10 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
+import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
+import com.scs.spectrumarcade.abilities.LaserRifle;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
@@ -119,7 +121,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public IAvatar createAndPositionAvatar() {
 		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
-		//game.setAbility(1, new LaserRifle(game)); todo
+		game.setAbility(1, new LaserRifle(game, wp));
 		return wp;
 	}
 
@@ -146,5 +148,12 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
+
+
+	@Override
+	public void setupCameraSystem(CameraSystem sys) {
+		sys.setupCam(3f, .2f, true, 1f);
+	}
+	
 
 }

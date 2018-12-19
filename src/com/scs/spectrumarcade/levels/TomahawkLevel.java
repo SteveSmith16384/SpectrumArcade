@@ -8,7 +8,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
-import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -16,9 +15,9 @@ import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.krakatoa.Cloud;
+import com.scs.spectrumarcade.entities.tomahawk.Hill;
 import com.scs.spectrumarcade.entities.tomahawk.TomahawkHeliAvatar;
 
-import mygame.util.Vector3Int;
 import ssmith.lang.NumberFunctions;
 
 public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
@@ -33,17 +32,13 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
-/*
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, -4, 0, MAP_SIZE, 1, MAP_SIZE, "Textures/blocks/grass.jpg");
-		floor.geometry.setShadowMode(ShadowMode.Off);
-		game.addEntity(floor);
-*/
-		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, new Vector3Int(MAP_SIZE, 32, MAP_SIZE), 16, 1f, 1f);
-		game.addEntity(terrainUDG);
 
-		// Helipad
-		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(MAP_SIZE, 0, MAP_SIZE), new Vector3Int(4, 1, 4));
+//		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, new Vector3Int(MAP_SIZE, 32, MAP_SIZE), 16, 1f, 1f);
+//		game.addEntity(terrainUDG);
 
+		Hill hill = new Hill(game, 250, 0, 260, 10, 5, "Textures/blocks/grass.jpg");
+		game.addEntity(hill);
+		
 		// Scenery
 		int sections = MAP_SIZE/MAP_SECTION_SIZE;
 		for (int z=0 ; z<sections ; z++) {
@@ -56,7 +51,7 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 				int sz = NumberFunctions.rnd(z*MAP_SECTION_SIZE, z*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int h = NumberFunctions.rnd(4, 20);
 				int rad = NumberFunctions.rnd(h, h*2);
-				this.generateHill(new Vector3f(sx, h, sz), rad, -1);
+				//this.generateHill(new Vector3f(sx, h, sz), rad, -1);
 			}
 		}
 
@@ -142,36 +137,6 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(6f, 0f, false, 3f);
-	}
-
-
-
-	private void generateHill(Vector3f peak, int rad, int plateau) {
-		for (int z = (int)peak.z - rad ; z<=peak.z+rad ; z++) {
-			for (int x = (int)peak.x - rad ; x<=peak.x+rad ; x++) {
-				float dist = peak.distance(new Vector3f(x, peak.y, z));
-				if (dist <= rad) {
-					float frac = (dist+1) / rad;
-					int height = (int)(peak.y - (peak.y * frac));
-					if (height > 0) {
-						if (plateau > 0 && height > plateau) {
-							height = plateau;
-						} else {
-							height = height + (NumberFunctions.rnd(-1, 0));
-						}
-						//int y = height;
-						for (int y=0 ; y<= height ; y++) {
-							int blockType = BlockCodes.GRASS_LONG;
-							try {
-								this.terrainUDG.addRectRange_Blocks(blockType, new Vector3Int(x, 1, z), new Vector3Int(1, height, 1));
-							} catch (java.lang.ArrayIndexOutOfBoundsException ex) {
-								ex.printStackTrace();
-							}
-						}
-					}
-				}
-			}			
-		}
 	}
 
 
