@@ -23,14 +23,14 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 
 	private static final float FORCE = 3f;//15f;
 
-	//private Vector3f camPos = new Vector3f();
 	private boolean left = false, right = false, up = false, down = false, jump = false;
 	private Vector3f forceDirFwd = new Vector3f();
 	private Vector3f forceDirLeft = new Vector3f();
 	private boolean clearForces;
 
 	private Geometry geometry;
-	private Vector3f pos = new Vector3f(); // todo - rename; todo - copy to trailblazer
+	private Vector3f tmpPos = new Vector3f();
+	private Vector3f warpPos;
 
 	public MotosAvatar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "MotosAvatar");
@@ -64,7 +64,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 	public void process(float tpfSecs) {
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
 
-		this.getMainNode().setLocalTranslation(pos);
+		this.getMainNode().setLocalTranslation(tmpPos); // Move main node to physics node
 		
 		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
 			game.playerKilled("Falling");
@@ -95,39 +95,36 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 
 	@Override
 	public void warp(Vector3f vec) {
-		this.srb.setPhysicsLocation(vec.clone());
+		warpPos = vec.clone();
 	}
 
-/*
-	@Override
-	public void setCameraLocation(Camera cam) {
-	}
-*/
 
 	@Override
 	public void clearForces() {
 		srb.clearForces();
-		//srb.setLinearVelocity(new Vector3f());
-		//game.addForce(this, ForceData.LINEAR_VELOCITY, new Vector3f());
 	}
 
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
-		pos.set(this.srb.getPhysicsLocation());
-		
+		tmpPos.set(this.srb.getPhysicsLocation());
 
 	}
 
 
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (this.warpPos != null) {
+			this.srb.setPhysicsLocation(warpPos);
+			warpPos = null;
+		}
+		
 		if (this.clearForces) {
 			this.clearForces = false;
 			srb.clearForces();
 			srb.setLinearVelocity(new Vector3f());
 		}
-		//walking = up || down || left || right;
+
 		forceDirFwd.set(game.getCamera().getDirection());
 		forceDirFwd.y = 0f;
 		forceDirFwd.normalizeLocal();
@@ -181,7 +178,7 @@ public class MotosAvatar extends AbstractPhysicalEntity implements IAvatar, Phys
 
 	@Override
 	public void showKilledAnim() {
-		
+		// Nothing to do?
 	}
 
 }

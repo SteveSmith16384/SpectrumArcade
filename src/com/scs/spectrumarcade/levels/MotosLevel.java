@@ -27,7 +27,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 
 	private static final int MAP_SIZE_BLOCKS = 22;
 	public static final int SEGMENT_SIZE = 2;
-	public static final float FALL_DIST = -20f;
+	public static final float FALL_DIST = -3f;
 
 	private int levelNum;
 	private VoxelTerrainEntity terrainUDG;
@@ -96,7 +96,7 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 			break;
 
 		default:
-			throw new RuntimeException("No such level: " + this.levelNum);
+			//throw new RuntimeException("No such level: " + this.levelNum);
 		}
 
 		//if (levelNum > 1) { todo - re-add

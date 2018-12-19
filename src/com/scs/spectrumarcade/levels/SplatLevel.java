@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.levels;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,17 +14,12 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.Globals;
-import com.scs.spectrumarcade.MapLoader;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
-import com.scs.spectrumarcade.entities.androids.GSquare;
-import com.scs.spectrumarcade.entities.androids.SSquare;
-import com.scs.spectrumarcade.entities.androids.SlidingDoor;
 import com.scs.spectrumarcade.entities.splat.KillingWall;
-import com.scs.spectrumarcade.entities.splat.PoisonousGrass;
 import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
@@ -34,46 +30,52 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 	private static final int WALL_HEIGHT = 5;
 
 	private KillingWall killingWall;
-	
+
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/splatmap1.png");
+		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/splatmap1.jpg");
 		BufferedImage image = ImageIO.read(inputStream);
 
-		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, 50, 1, 50, "Textures/white.png");
+		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/splat/white.png");
 		game.addEntity(floor);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(image.getWidth(), WALL_HEIGHT, image.getHeight()), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		int mapZ = 0;
-		for (int z=2 ; z<image.getHeight() ; z+=5) {
+		for (int z=3 ; z<image.getHeight() ; z+=5) {
 			int mapX = 0;
-			for (int x=2 ; x<image.getWidth() ; x+=5) {
-				int col = image.getRGB(x, z);
-				switch (col) {
+			for (int x=3 ; x<image.getWidth() ; x+=5) {
+				Color col = new Color(image.getRGB(x, z));
+				int red = col.getRed();
+				int green = col.getGreen();
+				int blue = col.getBlue();
 
-				default:
-					Globals.p("Unknown colour at " + mapX + "," + mapZ + ":" + col);
-					Globals.p("Unknown colour at " + mapX + "," + mapZ + ":" + col);
+				if (red > 230 && green > 230 && blue > 230) { // Floor
+					// Do nothing
+				} else { //if (red < 50 && green < 50 && blue < 50) { // Wall
+					terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(mapX, 0, mapZ), new Vector3Int(1, WALL_HEIGHT, 1));
+				//} else {
+				//	Globals.p("Unknown colour at " + mapX + "," + mapZ + ":" + col);
+				//	Globals.p("Unknown colour at " + mapX + "," + mapZ + ":" + col);
 				}
 				mapX++;
 			}
 			mapZ++;
 		}
-		
-		
+
+
 		// Border
 		/*
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
 		terrainUDG.addRectRange_Blocks(BlockCodes.SPLAT, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-		*/
-/*
+		 */
+		/*
 		int map[][] = MapLoader.loadMap("maps/splat_map1.csv");
-		
+
 		// Create heightmap
 		int heightMap[][] = new int[map.length][map[0].length];
 		for (int z=0 ; z<map[0].length ; z++) {
@@ -99,7 +101,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 				}
 			}
 		}
-	*/	
+		 */	
 		this.killingWall = new KillingWall(game, 2, 2);
 		//game.addEntity(killingWall);
 	}
@@ -107,13 +109,13 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 5, 3, 5f, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/splat/black.png"));
+		return new WalkingPlayer(game, getAvatarStartPos(), 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/splat/black.png"));
 	}
 
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(5, 3f, 5f);
+		return new Vector3f(1, 3f, 1f);
 	}
 
 

@@ -33,11 +33,8 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-//		terrainUDG = new VoxelTerrainEntity(game, 0, 1f, 0, new Vector3Int(MAP_SIZE, 32, MAP_SIZE), 16, 1f, 1f);
-//		game.addEntity(terrainUDG);
-
-		Hill hill = new Hill(game, 250, 0, 260, 10, 5, "Textures/blocks/grass.jpg");
-		game.addEntity(hill);
+		//Hill hill = new Hill(game, 250, 0, 260, 10, 5, "Textures/blocks/grass.jpg");
+		//game.addEntity(hill);
 		
 		// Scenery
 		int sections = MAP_SIZE/MAP_SECTION_SIZE;
@@ -51,7 +48,8 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 				int sz = NumberFunctions.rnd(z*MAP_SECTION_SIZE, z*MAP_SECTION_SIZE+MAP_SECTION_SIZE);
 				int h = NumberFunctions.rnd(4, 20);
 				int rad = NumberFunctions.rnd(h, h*2);
-				//this.generateHill(new Vector3f(sx, h, sz), rad, -1);
+				Hill hill = new Hill(game, sx, 0, sz, rad, h, "Textures/blocks/grass.jpg");
+				game.addEntity(hill);
 			}
 		}
 

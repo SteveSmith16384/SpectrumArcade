@@ -97,7 +97,7 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, 3, 2, 3f, 4f, 7f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/manicminer/avatar_white.png"));
+		return new WalkingPlayer(game, getAvatarStartPos(), 4f, 7f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/manicminer/avatar_white.png"));
 	}
 
 

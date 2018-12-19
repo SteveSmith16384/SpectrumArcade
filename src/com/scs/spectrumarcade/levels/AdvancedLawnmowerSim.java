@@ -59,7 +59,7 @@ public class AdvancedLawnmowerSim extends AbstractLevel implements ILevelGenerat
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new WalkingPlayer(game, MAP_SIZE_X/2, 3f, 2f, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "todo"));
+		return new WalkingPlayer(game, getAvatarStartPos(), 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "todo"));
 	}
 
 

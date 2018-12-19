@@ -53,6 +53,13 @@ public class CameraSystem {
 			cam.getLocation().x = vec.x;
 			cam.getLocation().y = vec.y + ava.getCameraHeight();
 			cam.getLocation().z = vec.z;
+
+			if (!camInCharge) { // Need for Stock Car
+				Vector3f dir = avatar.getMainNode().getWorldRotation().getRotationColumn(2);
+				dir.y = cam.getLocation().y;
+				cam.lookAt(avatar.getMainNode().getWorldTranslation().add(dir), Vector3f.UNIT_Y); // todo - dcet
+			}
+		
 		} else if (this.currentView == View.Cinema) {
 			Vector3f pos = avatar.getMainNode().getWorldTranslation();
 			cam.lookAt(pos, Vector3f.UNIT_Y);

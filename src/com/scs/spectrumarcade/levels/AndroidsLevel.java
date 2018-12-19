@@ -120,7 +120,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, startpos.x, startpos.y, startpos.z, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
+		WalkingPlayer wp = new WalkingPlayer(game, startpos, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/androids/avatar_blue.png"));
 		game.setAbility(1, new LaserRifle(game, wp));
 		return wp;
 	}

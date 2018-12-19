@@ -27,12 +27,12 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 import ssmith.lang.NumberFunctions;
 
-public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable, PhysicsTickListener {
+public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {//, PhysicsTickListener {
 
-	public static final float SPEED = 10f;
+	//public static final float SPEED = 10f;
 
 	private long explodeTime = System.currentTimeMillis() + 3000;
-	private boolean launched = false;
+	//private boolean launched = false;
 
 	public Bomb_EATF(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Bomb");
@@ -134,7 +134,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable, P
 
 	}
 
-
+/*
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
 
@@ -151,7 +151,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable, P
 		}
 
 	}
-
+*/
 
 }
 

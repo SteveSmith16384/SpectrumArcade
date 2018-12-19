@@ -35,7 +35,9 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 	private boolean clearForces;
 
 	private Geometry geometry;
-	
+	private Vector3f tmpPos = new Vector3f();
+	private Vector3f warpPos;
+
 	public TrailblazerAvatar(SpectrumArcade _game, TrailblazerLevel _level, float x, float y, float z) {
 		super(_game, "TrailblazerAvatar");
 
@@ -62,9 +64,11 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void process(float tpfSecs) {
-		this.getMainNode().setLocalTranslation(this.geometry.getWorldTranslation());
+		//this.getMainNode().setLocalTranslation(this.geometry.getWorldTranslation());
+		this.getMainNode().setLocalTranslation(tmpPos); // Move main node to physics node
+		
 		//Globals.p("Player: " + this.getMainNode().getWorldTranslation());
-		if (this.getMainNode().getWorldTranslation().y < MotosLevel.FALL_DIST) {
+		if (this.getMainNode().getWorldTranslation().y < 2) {
 			game.playerKilled("Falling");
 		}
 	}
@@ -93,7 +97,7 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void warp(Vector3f vec) {
-		this.srb.setPhysicsLocation(vec.clone());
+		warpPos = vec.clone();
 	}
 
 
@@ -107,12 +111,18 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 	@Override
 	public void physicsTick(PhysicsSpace arg0, float arg1) {
+		tmpPos.set(this.srb.getPhysicsLocation());
 
 	}
 
 
 	@Override
 	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
+		if (this.warpPos != null) {
+			this.srb.setPhysicsLocation(warpPos);
+			warpPos = null;
+		}
+		
 		if (this.clearForces) {
 			this.clearForces = false;
 			srb.clearForces();
@@ -129,24 +139,19 @@ public class TrailblazerAvatar extends AbstractPhysicalEntity implements IAvatar
 
 		if (up) {
 			this.srb.applyCentralForce(forceDirFwd.mult(FORCE));
-			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(FORCE));
 		}
 		if (down) {
 			this.srb.applyCentralForce(forceDirFwd.mult(-FORCE*2));
-			//game.addForce(this, ForceData.CENTRAL_FORCE, game.getCamera().getDirection().mult(-FORCE));
 		}
 		if (left) {
 			this.srb.applyCentralForce(forceDirLeft.mult(FORCE*2));
-			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(FORCE));
 		}
 		if (right) {
 			this.srb.applyCentralForce(forceDirLeft.mult(-FORCE*2));
-			//game.addForce(this, ForceData.CENTRAL_FORCE, dir.mult(-FORCE));
 		}
 		if (jump) {
 			Globals.p("Jumping");
 			this.srb.applyCentralForce(new Vector3f(0, 250f, 0));
-			//game.addForce(this, ForceData.CENTRAL_FORCE, new Vector3f(0, 150f, 0));
 			jump = false;
 		}
 

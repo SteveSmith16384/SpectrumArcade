@@ -21,12 +21,12 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 		super(_game, "StockCarAvatar", x, y, z, lookAt, true, 1);
 	}
 
-
+/*
 	@Override
 	public void process(float tpfSecs) {
 		super.process(tpfSecs);
 	}
-
+*/
 
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {
@@ -99,18 +99,18 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 	@Override
 	public void setAvatarVisible(boolean b) {
-		if (b) {
+		/*if (b) { No, since we look through window!
 			carModel.setCullHint(CullHint.Never);
 		} else {
 			carModel.setCullHint(CullHint.Always);
-		}
+		}*/
 
 	}
 
 
 	@Override
 	public float getCameraHeight() {
-		return 1f;
+		return .6f; // Correct height to see bonnet!
 	}
 
 

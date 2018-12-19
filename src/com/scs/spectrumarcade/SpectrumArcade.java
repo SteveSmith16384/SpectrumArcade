@@ -45,7 +45,7 @@ import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
-import com.scs.spectrumarcade.levels.TomahawkLevel;
+import com.scs.spectrumarcade.levels.MotosLevel;
 
 import ssmith.util.FixedLoopTime;
 
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(TomahawkLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(MotosLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 
@@ -339,6 +339,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 			if (this.playerDead) {
 				if (this.restartPlayerAt < System.currentTimeMillis()) {
+					Globals.p("Restarting player");
 					this.playerDead = false;
 					IAvatar a = (IAvatar)player;
 					a.warp(level.getAvatarStartPos());
@@ -552,6 +553,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	public void playerKilled(String name) {
 		if (!playerDead) {
+			Globals.p("Player killed by " + name);
 			playerDead = true;
 			this.restartPlayerAt = System.currentTimeMillis() + 3000;
 			//hud.showDamageBox();

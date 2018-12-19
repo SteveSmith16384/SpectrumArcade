@@ -5,6 +5,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
+import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IHudItem;
@@ -52,10 +53,11 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 	@Override
 	public void process(float tpfSecs) {
 		if (checkInt.hitInterval()) {
-			if (damsel.followingPlayer) {
+			if (!damsel.followingPlayer) {
 				this.setLocalTranslation(20, 20, 0);
 				float dist = game.player.distance(damsel);
-				if (dist > prevDist) {
+				//Globals.p("Disty:" + dist);
+				if (dist - 0.001f > prevDist) {
 					mat.setColor("Color", ColorRGBA.Red);
 				} else if (dist < prevDist) {
 					mat.setColor("Color", ColorRGBA.Green);

@@ -87,7 +87,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public Vector3f getAvatarStartPos() {
 		if (this.lastPos != null) {
-			return lastPos.add(0, 0, 1f);
+			return lastPos.add(0, 0, .1f);
 		}
 		return new Vector3f(5, 1f, 5f);
 	}
@@ -95,8 +95,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		Vector3f pos = this.getAvatarStartPos();
-		return new WalkingPlayer(game, pos.x, pos.y, pos.z, 1.7f, 0, new SimpleManModel(game.getAssetManager()));
+		return new WalkingPlayer(game, getAvatarStartPos(), 1.7f, 0, new SimpleManModel(game.getAssetManager()));
 	}
 
 

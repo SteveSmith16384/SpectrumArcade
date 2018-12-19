@@ -95,14 +95,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 */
 	}
 
-/*
-	@Override
-	public void moveAvatarToStartPosition(Avatar avatar) {
-		avatar.warp(new Vector3f(SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f));
 
-	}
-	*/
-	
 	@Override
 	public Vector3f getAvatarStartPos() {
 		return new Vector3f(SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f);
@@ -111,7 +104,7 @@ public class EricAndTheFloatersLevel extends AbstractLevel implements ILevelGene
 	
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		WalkingPlayer wp = new WalkingPlayer(game, SEGMENT_SIZE+1f, .5f, SEGMENT_SIZE+1f, 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/ericandthefloaters/eric_avatar.png"));
+		WalkingPlayer wp = new WalkingPlayer(game, getAvatarStartPos(), 4f, 0f, new GenericWalkingAvatar(game.getAssetManager(), "Textures/ericandthefloaters/eric_avatar.png"));
 		game.setAbility(1, new BombGun_EATF(game));
 		return wp;
 	}

@@ -1,14 +1,12 @@
 package com.scs.spectrumarcade.abilities;
 
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.math.Vector3f;
 import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.ericandfloaters.Bomb_EATF;
 
-public class BombGun_EATF extends AbstractAbility implements IAbility {//, PhysicsTickListener {
+public class BombGun_EATF extends AbstractAbility implements IAbility {
 
 	private static final long SHOT_INTERVAL = 4000;
 
@@ -35,24 +33,4 @@ public class BombGun_EATF extends AbstractAbility implements IAbility {//, Physi
 		}
 	}
 
-/*
-	@Override
-	public void physicsTick(PhysicsSpace arg0, float arg1) {
-
-	}
-
-
-	@Override
-	public void prePhysicsTick(PhysicsSpace arg0, float arg1) {
-		if (bomb != null) {
-			Vector3f force = game.getCamera().getDirection().mult(10);
-			bomb.srb.setLinearVelocity(force);
-			//game.addForce(bomb, ForceData.LINEAR_VELOCITY, force);
-			Globals.p("Force=" + force);
-			bomb = null;
-		}
-
-
-	}
-*/
 }

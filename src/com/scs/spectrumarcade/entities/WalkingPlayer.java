@@ -44,7 +44,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public boolean walking = false;
 	private boolean canJump;
 
-	public WalkingPlayer(SpectrumArcade _game, float x, float y, float z, float _speed, float jumpPower, IAvatarModel _avatarModel) {
+	public WalkingPlayer(SpectrumArcade _game, Vector3f pos, float _speed, float jumpPower, IAvatarModel _avatarModel) {
 		super(_game, "Player");
 
 		speed = _speed;
@@ -55,19 +55,19 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		Geometry playerGeometry = new Geometry("Player", box1);
 		playerGeometry.setCullHint(CullHint.Always);
 		this.getMainNode().attachChild(playerGeometry);
-		this.getMainNode().setLocalTranslation(x, y, z);
+		this.getMainNode().setLocalTranslation(pos);
 
 		// create character control parameters (Radius,Height,Weight)
 		// Radius and Height determine the size of the collision bubble
 		// Weight determines how much gravity effects the control
 		playerControl = new BetterCharacterControl(Settings.PLAYER_RAD, Settings.PLAYER_HEIGHT, 1f);
 		playerControl.setJumpForce(new Vector3f(0, jumpPower, 0)); 
-		playerControl.setGravity(new Vector3f(0, 1f, 0));
+		//playerControl.setGravity(new Vector3f(0, 1f, 0));
 		this.getMainNode().addControl(playerControl);
 
 		avatarModel = _avatarModel;//new GenericWalkingAvatar(game.getAssetManager(), tex);
 		this.getMainNode().attachChild((Node)avatarModel);
-
+/*
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
 			an.setPositional(false);
@@ -75,7 +75,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			this.getMainNode().attachChild(an);
 			this.audio_node_footsteps.add(an);
 		}
-
+*/
 	}
 
 
