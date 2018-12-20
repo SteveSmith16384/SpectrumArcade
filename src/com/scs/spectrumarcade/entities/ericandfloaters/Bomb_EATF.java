@@ -79,7 +79,7 @@ public class Bomb_EATF extends AbstractPhysicalEntity implements IProcessable {/
 				ExplosionShard shard = new ExplosionShard(game, x, y, z, .4f, "Textures/ericwall.png");
 				game.addEntity(shard);
 			}*/
-			this.explosion(this.getMainNode());
+			//this.explosion(this.getMainNode());
 			this.markForRemoval();
 		}
 	}

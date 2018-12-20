@@ -30,11 +30,11 @@ public class TomahawkHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		super(_game, "TomahawkHeliAvatar");
 
 		/** Create a box to use as our player model */
-		Box box1 = new Box(1, 2, 1);
+/*		Box box1 = new Box(1, 2, 1);
 		Geometry playerGeometry = new Geometry("Player", box1);
 		playerGeometry.setCullHint(CullHint.Always); // todo
 		this.getMainNode().attachChild(playerGeometry);
-
+*/
 		heli = new ApacheHeli(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
 

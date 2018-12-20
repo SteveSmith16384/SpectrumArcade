@@ -128,7 +128,7 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.Green; // todo - black
+		return ColorRGBA.Black;
 	}
 
 

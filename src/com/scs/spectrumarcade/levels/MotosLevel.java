@@ -99,14 +99,14 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 			//throw new RuntimeException("No such level: " + this.levelNum);
 		}
 
-		//if (levelNum > 1) { todo - re-add
+		if (levelNum > 1) {
 			for (int i=0 ; i<levelNum*5 ; i++) {
 				int x = NumberFunctions.rnd(1, MAP_SIZE_BLOCKS-2);
 				int z = NumberFunctions.rnd(1, MAP_SIZE_BLOCKS-2);
 				terrainUDG.removeBlock(new Vector3Int(x, 0, z));
 
 			}
-		//}
+		}
 
 	}
 
@@ -179,6 +179,6 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(3f, 0, true, 1f);
 	}
-	
+
 
 }

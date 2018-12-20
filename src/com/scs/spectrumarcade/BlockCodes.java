@@ -51,7 +51,6 @@ public class BlockCodes {
 	public static final int SPLAT = 9;
 	public static final int RED_FLOOR_PXL = 10;
 	public static final int EATF_SOLID = 11;
-	//public static final int EATF_WEAK = 12; // todo - not required
 	public static final int EATF_OUTER_WALL = 13;
 	public static final int MINED_OUT_FRESH = 14;
 	public static final int MINED_OUT_WALKED_ON = 15;
@@ -92,7 +91,6 @@ public class BlockCodes {
 		case SPLAT: return SplatBlock.class;
 		case RED_FLOOR_PXL: return RedFloorBlockPxl.class;
 		case EATF_SOLID: return EATFSolidBlock.class;
-		//case EATF_WEAK: return EATFWeakBlock.class;
 		case EATF_OUTER_WALL: return EATFOuterWall.class;
 		case MINED_OUT_FRESH: return MinedOutPlain.class;
 		case MINED_OUT_WALKED_ON: return MinedOutWalkedOn.class;

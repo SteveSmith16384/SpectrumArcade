@@ -3,40 +3,40 @@ package com.scs.spectrumarcade.entities.antattack;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Geometry;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Quad;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
-import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.components.IProcessable;
+import com.scs.spectrumarcade.entities.AbstractEntity;
 import com.scs.spectrumarcade.levels.AntAttackLevel;
 
 import ssmith.util.RealtimeInterval;
 
-public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessable {
+public class AAScanner extends AbstractEntity implements IEntity, IProcessable {
 
 	private RealtimeInterval checkInt = new RealtimeInterval(1000);
 	private float prevDist = 0;
 	private Damsel damsel;
 
-	private SpectrumArcade game;
+	//private SpectrumArcade game;
+	private Geometry geom;
 	private Material mat;
 
-	public AAScanner(SpectrumArcade _game, Damsel _damsel) {
-		super("AAScanner", new Quad(50, 50));
+	public AAScanner(SpectrumArcade game, Damsel _damsel) {
+		super(game, "AAScanner");
 
-		game = _game;
+		//game = _game;
 		damsel = _damsel;
 
-		this.setLocalTranslation(20, 20, 0);
+		geom = new Geometry("AAScannerGeom", new Quad(50, 50));
+		geom.setLocalTranslation(20, 20, 0);
 
 		mat = new Material(game.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
 		mat.setColor("Color", ColorRGBA.Green);
-		this.setMaterial(mat);
+		geom.setMaterial(mat);
 	}
 
-
+/*
 	@Override
 	public void markForRemoval() {
 		// TODO Auto-generated method stub
@@ -49,12 +49,12 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 		this.removeFromParent();
 
 	}
-
+*/
 	@Override
 	public void process(float tpfSecs) {
 		if (checkInt.hitInterval()) {
 			if (!damsel.followingPlayer) {
-				this.setLocalTranslation(20, 20, 0);
+				geom.setLocalTranslation(20, 20, 0);
 				float dist = game.player.distance(damsel);
 				//Globals.p("Disty:" + dist);
 				if (dist - 0.001f > prevDist) {
@@ -65,7 +65,7 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 				prevDist = dist;
 			} else {
 				// Finding exit
-				this.setLocalTranslation(game.getCamera().getWidth() - 70, 20, 0);
+				geom.setLocalTranslation(game.getCamera().getWidth() - 70, 20, 0);
 				float dist = game.player.distance(AntAttackLevel.exitPos);
 				if (dist > prevDist) {
 					mat.setColor("Color", ColorRGBA.Red);
@@ -87,8 +87,14 @@ public class AAScanner extends Geometry implements IEntity, IHudItem, IProcessab
 
 	@Override
 	public void actuallyAdd() {
-		game.getGuiNode().attachChild(this);
+		game.getGuiNode().attachChild(geom);
 
+	}
+
+	@Override
+	public void actuallyRemove() {
+		geom.removeFromParent();
+		
 	}
 
 }

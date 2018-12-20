@@ -7,13 +7,11 @@ import com.atr.jme.font.shape.TrueTypeContainer;
 import com.atr.jme.font.util.StringContainer;
 import com.atr.jme.font.util.Style;
 import com.jme3.math.ColorRGBA;
-import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IEntity;
-import com.scs.spectrumarcade.components.IHudItem;
 import com.scs.spectrumarcade.components.IProcessable;
 
-public class HUDTextEntity extends AbstractEntity implements IEntity, IHudItem, IProcessable {
+public class HUDTextEntity extends AbstractEntity implements IEntity, IProcessable {
 
 	private TrueTypeContainer textArea;
 	private float duration;

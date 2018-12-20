@@ -116,7 +116,7 @@ public class StockCarAvatar extends AbstractStockCar implements IAvatar {
 
 	@Override
 	public void showKilledAnim() {
-		// TODO Auto-generated method stub
+		// Not used
 		
 	}
 

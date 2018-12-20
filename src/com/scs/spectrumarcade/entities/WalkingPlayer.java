@@ -17,7 +17,6 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.IAvatarModel;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
-import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
@@ -67,7 +66,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 
 		avatarModel = _avatarModel;//new GenericWalkingAvatar(game.getAssetManager(), tex);
 		this.getMainNode().attachChild((Node)avatarModel);
-/*
+		/*
 		for (int i=1 ; i<=8 ; i++) {
 			AudioNode an = new AudioNode(game.getAssetManager(), "Sounds/jute-dh-steps/stepdirt_" + i + ".ogg", false);
 			an.setPositional(false);
@@ -75,7 +74,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 			this.getMainNode().attachChild(an);
 			this.audio_node_footsteps.add(an);
 		}
-*/
+		 */
 	}
 
 
@@ -84,7 +83,7 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		if (game.playerDead) {
 			return; // Stop us changing the anim to idle or something.
 		}
-		
+
 		if (this.avatarModel != null) {
 			// Set position and direction of avatar model, which doesn't get moved automatically
 			//this.container.setLocalTranslation(this.getWorldTranslation());
@@ -99,9 +98,9 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 		camDir.y = 0;
 		camDir.normalizeLocal(); // scs new
 		camDir.multLocal(speed, 0.0f, speed);
-		
+
 		camLeft.set(cam.getLeft()).multLocal(speed);
-		
+
 		walkDirection.set(0, 0, 0);
 		walking = up || down || left || right;
 		if (left) {
@@ -174,22 +173,6 @@ public class WalkingPlayer extends AbstractPhysicalEntity implements IAvatar {
 	public void warp(Vector3f v) {
 		playerControl.warp(v);
 	}
-
-/*
-	@Override
-	public void setCameraLocation(Camera cam) {
-		//Vector3f vec = getMainNode().getWorldTranslation();
-		//if (!Settings.FREE_CAM) {
-		/*if (!followCam) {
-				cam.setLocation(new Vector3f(vec.x, vec.y + Settings.PLAYER_HEIGHT * .8f, vec.z)); // Drop cam slightly so we're looking out of our eye level - todo - don't create each time
-			} else {
-				// Camera system in level handles it
-			}*/
-		/*} else {
-			cam.setLocation(new Vector3f(vec.x, vec.y + 15f, vec.z));
-		}*/
-
-	//}
 
 
 	@Override

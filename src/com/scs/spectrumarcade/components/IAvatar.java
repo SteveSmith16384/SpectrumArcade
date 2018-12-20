@@ -18,6 +18,4 @@ public interface IAvatar extends IProcessable {
 	
 	void showKilledAnim();
 
-	//void setCameraLocation(Camera cam); // todo - remove
-	
 }

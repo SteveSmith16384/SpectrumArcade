@@ -25,13 +25,6 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	public KrakatoaHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
 		super(_game, "Player");
 
-		/** Create a box to use as our player model */
-		/*Box box1 = new Box(1, 2, 1);
-		Geometry playerGeometry = new Geometry("Player", box1);
-		playerGeometry.setCullHint(CullHint.Always); // todo
-		this.getMainNode().attachChild(playerGeometry);
-		*/
-		
 		heli = new KrakatoaHelicopter(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
 		
@@ -79,20 +72,15 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 			if (tiltDiff > -4) {
 				tiltDiff -= tpfSecs *.2;
 				this.moveFwds(tpfSecs);
-				//fwdSpeed.x += x * 10f;
-				//fwdSpeed.z += z * 10f;
 			}
 		}
 		if (backwards) {
 			if (tiltDiff < 4) {
 				tiltDiff += tpfSecs * .2f;
-				// todo
-				//fwdSpeed.x -= x * 10f;
-				//fwdSpeed.z -= z * 10f;
+				this.moveFwds(-tpfSecs);
 			}
 		}
 		if (up) {
-			//fwdSpeed.y += 5f;
 			moveUp(1, tpfSecs);
 		}
 		if (down) {

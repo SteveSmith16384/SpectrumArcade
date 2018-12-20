@@ -31,11 +31,6 @@ public class Cloud extends AbstractPhysicalEntity implements IProcessable {
 		this.mainNode.attachChild(geometry);
 		mainNode.setLocalTranslation(x, y, z);
 		mainNode.updateModelBound();
-		
-		//geometry.getma.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
-		//geometry.setQueueBucket(Bucket.Transparent);
-
-
 	}
 
 

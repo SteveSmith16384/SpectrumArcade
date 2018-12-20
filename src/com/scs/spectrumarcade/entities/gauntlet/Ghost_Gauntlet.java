@@ -73,7 +73,6 @@ public class Ghost_Gauntlet extends AbstractPhysicalEntity implements ICausesHar
 		Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		Vector3f force = dir.mult(1);
 		this.srb.setLinearVelocity(force); // todo - need this every frame?
-		//game.addForce(this, ForceData.LINEAR_VELOCITY, force);
 	}
 
 

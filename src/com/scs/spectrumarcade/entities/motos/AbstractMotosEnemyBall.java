@@ -38,8 +38,6 @@ public abstract class AbstractMotosEnemyBall extends AbstractPhysicalEntity impl
 
 		srb = new RigidBodyControl(mass);
 		mainNode.addControl(srb);
-		
-		//srb.setFriction(1f);  // todo - make param
 	}
 
 

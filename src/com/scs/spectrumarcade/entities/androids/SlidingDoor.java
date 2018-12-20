@@ -67,8 +67,8 @@ public class SlidingDoor extends AbstractPhysicalEntity implements INotifiedOfCo
 				this.getMainNode().move(MOVE_UP.mult(tpfSecs));
 				//this.getMainNode().move(MOVE_UP.mult(tpf_secs));
 				// position accurately at top in case of large jump
-				if (this.getMainNode().getWorldTranslation().y > topPos) {
-					this.getMainNode().getWorldTranslation().y = topPos; // todo - this is wwrong!
+				if (this.getMainNode().getLocalTranslation().y > topPos) {
+					this.getMainNode().getLocalTranslation().y = topPos;
 				}
 			} else {
 				this.isOpening = false;
@@ -78,8 +78,8 @@ public class SlidingDoor extends AbstractPhysicalEntity implements INotifiedOfCo
 				if (this.getMainNode().getWorldTranslation().y > 0) {
 					this.getMainNode().move(MOVE_UP.mult(tpfSecs).mult(-1));
 					// position accurately at top in case of large jump
-					if (this.getMainNode().getWorldTranslation().y < 0) {
-						this.getMainNode().getWorldTranslation().y = 0; // todo - this is wwrong!
+					if (this.getMainNode().getLocalTranslation().y < 0) {
+						this.getMainNode().getLocalTranslation().y = 0;
 					}
 				}
 			} else {

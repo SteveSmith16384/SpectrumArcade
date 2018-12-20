@@ -39,7 +39,7 @@ public class Missile extends AbstractPhysicalEntity implements ICausesHarmOnCont
 
 		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);
-		srb.setGravity(new Vector3f(0, -.001f, 0)); // todo - check
+		srb.setGravity(new Vector3f(0, -.001f, 0));
 		
 	}
 
