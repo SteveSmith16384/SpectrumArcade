@@ -1,11 +1,10 @@
 package ssmith.lang;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public class Functions {
 
@@ -38,20 +37,9 @@ public class Functions {
 	}
 
 
-	public static String readAllFileFromJar(String filename) throws IOException {
+	public static String readAllTextFileFromJar(String filename) throws IOException {
 		StringBuilder result = new StringBuilder("");
 
-		//Get file from resources folder
-		/*File file = new File(classLoader.getResource(filename).getFile());
-
-		try (Scanner scanner = new Scanner(file)) {
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				result.append(line).append("\n");
-			}
-			scanner.close();
-		}*/
-		
 		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream(filename);
 		InputStreamReader streamReader = new InputStreamReader(inputStream, "UTF-8");
 		BufferedReader in = new BufferedReader(streamReader);
@@ -61,6 +49,17 @@ public class Functions {
 		}
 
 		return result.toString();
+	}
+
+
+	public static byte[] readAllBinaryFileFromJar(String filename) throws IOException {
+		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream(filename);
+
+		BufferedInputStream is = new BufferedInputStream(inputStream);
+		
+		byte[] b = new byte[is.available()];
+		is.read(b);
+		return b;
 	}
 
 

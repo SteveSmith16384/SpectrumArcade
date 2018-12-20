@@ -9,7 +9,7 @@ import ssmith.lang.Functions;
 public class MapLoader {
 
 	public static int[][] loadMap(String s) throws FileNotFoundException, IOException, URISyntaxException {
-		String text = Functions.readAllFileFromJar(s);
+		String text = Functions.readAllTextFileFromJar(s);
 		String[] lines = text.split("\n");
 
 		int mapsize = Integer.parseInt(lines[0].split(",")[0]);

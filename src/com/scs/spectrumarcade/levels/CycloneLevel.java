@@ -25,6 +25,7 @@ import com.scs.spectrumarcade.entities.krakatoa.Submarine;
 import com.scs.spectrumarcade.entities.krakatoa.Tanker;
 
 import mygame.util.Vector3Int;
+import ssmith.lang.Functions;
 import ssmith.lang.NumberFunctions;
 import ssmith.util.RealtimeInterval;
 
@@ -40,6 +41,19 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
+		
+		byte b[] = Functions.readAllBinaryFileFromJar("maps/cyclone/Base Island.raw");
+		for (int i=0 ; i<b.length ; i++) {
+			switch (b[i]) {
+				default:
+					System.out.print(b[i]);
+			}
+			if (i % 150 == 0) {
+				System.out.println("");
+			}
+		}
+		
+		
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE+(MAP_BORDER*2), 1, MAP_SIZE+(MAP_BORDER*2), "Textures/krakatoa/water2.png"); // make water a better colour?
 		game.addEntity(floor);

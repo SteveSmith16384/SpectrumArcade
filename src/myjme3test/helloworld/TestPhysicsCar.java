@@ -1,4 +1,4 @@
-package com.scs.spectrumarcade.misc;
+package myjme3test.helloworld;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;

@@ -66,7 +66,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(ant);
 
 		} else {
-			String text = Functions.readAllFileFromJar("maps/antattack_map.txt");
+			String text = Functions.readAllTextFileFromJar("maps/antattack_map.txt");
 			String[] lines = text.split("\n");
 
 			for (String line : lines) {
@@ -93,9 +93,6 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		damsel = new Damsel(game, x, z);//54, 110);
 		game.addEntity(damsel);
 
-		//if (Settings.TEST_BILLBOARD) {
-		//TextBillboardEntity be = new TextBillboardEntity(game, "WELCOME TO ANTCHESTER", 54, 2f, 124f);
-		//TextBillboard be = new TextBillboard(game.getAssetManager(), "WELCOME TO ANTCHESTER", 24);
 		HUDTextEntity be = new HUDTextEntity(game, "WELCOME TO ANTCHESTER", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50, 5);
 		game.addEntity(be);
 
