@@ -41,19 +41,6 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
-		
-		byte b[] = Functions.readAllBinaryFileFromJar("maps/cyclone/Base Island.raw");
-		for (int i=0 ; i<b.length ; i++) {
-			switch (b[i]) {
-				default:
-					System.out.print(b[i]);
-			}
-			if (i % 150 == 0) {
-				System.out.println("");
-			}
-		}
-		
-		
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE+(MAP_BORDER*2), 1, MAP_SIZE+(MAP_BORDER*2), "Textures/krakatoa/water2.png"); // make water a better colour?
 		game.addEntity(floor);
@@ -61,13 +48,42 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, new Vector3Int(MAP_SIZE+(MAP_BORDER*2), 8, MAP_SIZE+(MAP_BORDER*2)), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
+		int mx=0;
+		int mz = 0;
+		byte b[] = Functions.readAllBinaryFileFromJar("maps/cyclone/Base Island.raw");
+		for (int i=0 ; i<b.length ; i++) {
+			mx++;
+			if (i % 150 == 0) {
+				//System.out.println("");
+				mx = 0;
+				mz++;
+			}
+
+			if (b[i] > 0 ) {
+				this.terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(mx, 1, mz), new Vector3Int(1, b[i], 1));
+			}
+
+			/*
+			if (b[i] == 0) {
+				System.out.print("W");
+			} else if (b[i] == 1) {
+				System.out.print("1");
+			} else if (b[i] == 2) {
+				System.out.print("2");
+			} else {
+				int c = b[i]+48;
+				char ch = (char)c;
+				System.out.print(ch);
+			}*/
+		}
+		/*
 		// Start island
 		this.generateHill(new Vector3f(100, 50, 100), 20, 15);
 		House h = new House(game, 94, 21, 100, false);
 		game.addEntity(h);
 		// Helipad
 		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 20, 98), new Vector3Int(4, 1, 4));
-
+		 */
 
 		// Water
 		FilterPostProcessor fpp = new FilterPostProcessor(game.getAssetManager());
@@ -76,7 +92,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		//water.setWaveScale(waveScale);
 		fpp.addFilter(water);
 		game.getViewPort().addProcessor(fpp);
-		
+
 		// Clouds
 		for (int i=0 ; i<10 ; i++) {
 			float x = NumberFunctions.rndFloat(0,  MAP_SIZE);
@@ -137,7 +153,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 			IAvatar p = (IAvatar)game.player;
 			p.warp(newPos);
 		}
-		
+
 	}
 
 
@@ -147,11 +163,11 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		return "";
 	}
 
-/*
+	/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 	}
-*/
+	 */
 
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(6f, 0f, false, 3f);
