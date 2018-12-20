@@ -143,12 +143,12 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 		return "";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
-
+*/
 
 	@Override
 	public void setupCameraSystem(CameraSystem sys) {

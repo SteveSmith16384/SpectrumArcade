@@ -84,7 +84,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new KrakatoaHeliAvatar(game, 100, 22f, 100, "Textures/cyclone/heli_black.png");
+		return new KrakatoaHeliAvatar(game, getAvatarStartPos(), "Textures/cyclone/heli_black.png");
 	}
 
 
@@ -133,11 +133,11 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		return "";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 	}
-
+*/
 
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(6f, 0f, false, 3f);

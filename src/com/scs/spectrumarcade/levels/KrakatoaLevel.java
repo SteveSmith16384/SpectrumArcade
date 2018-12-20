@@ -129,7 +129,7 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
-		return new KrakatoaHeliAvatar(game, 100, 22f, 100, "Textures/krakatoa/heli_red.png");
+		return new KrakatoaHeliAvatar(game, getAvatarStartPos(), "Textures/krakatoa/heli_red.png");
 	}
 
 
@@ -195,15 +195,15 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 		return "";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		//cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
-
+*/
 
 	public void setupCameraSystem(CameraSystem sys) {
-		sys.setupCam(6f, 0f, true, 3f);
+		sys.setupCam(10f, 0f, true, 3f);
 	}
 
 

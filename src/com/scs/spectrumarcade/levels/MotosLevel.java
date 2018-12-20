@@ -146,12 +146,12 @@ public class MotosLevel extends AbstractLevel implements ILevelGenerator {
 		return "Level " + this.levelNum;
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		// Do nothing
 	}
-
+*/
 
 	public void checkIfAllBaddiesDead() {
 		boolean any = false;

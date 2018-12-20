@@ -33,9 +33,9 @@ public class Fence extends AbstractPhysicalEntity {
 
 		Material mat = new Material(game.getAssetManager(),"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
 		mat.setTexture("DiffuseMap", tex3);
-		mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+		//mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 		geometry.setMaterial(mat);
-		geometry.setQueueBucket(Bucket.Transparent);
+		//geometry.setQueueBucket(Bucket.Transparent);
 
 		this.mainNode.attachChild(geometry);
 		float rads = (float)Math.toRadians(rot);

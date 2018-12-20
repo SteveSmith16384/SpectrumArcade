@@ -115,7 +115,7 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
-		return new Vector3f(2, 1f, 2f);
+		return new Vector3f(3, 1f, 3f);
 	}
 
 
@@ -135,10 +135,10 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 		return "SPLAT!";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
-
+*/
 }

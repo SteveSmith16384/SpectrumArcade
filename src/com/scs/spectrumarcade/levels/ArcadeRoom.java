@@ -71,7 +71,7 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		// -----------
 		
 		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
-		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode(), new Vector3f(0, 0, -1));
+		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode().getChild(0), new Vector3f(0, 0, -1));
 		game.addEntity(machine2);
 
 		//ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
@@ -116,10 +116,10 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		return "LOADING...";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
 	}
-
+*/
 }

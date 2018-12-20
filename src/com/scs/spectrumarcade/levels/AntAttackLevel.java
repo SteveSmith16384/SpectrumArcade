@@ -99,12 +99,8 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		HUDTextEntity be = new HUDTextEntity(game, "WELCOME TO ANTCHESTER", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50, 5);
 		game.addEntity(be);
 
-		//} else {
 		AAScanner scanner = new AAScanner(game, damsel);
 		game.addEntity(scanner);
-
-		//}
-
 	}
 
 
@@ -144,7 +140,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		}
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		if (Settings.TEST_BILLBOARD) {
@@ -153,5 +149,5 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
 		}
 	}
-
+*/
 }

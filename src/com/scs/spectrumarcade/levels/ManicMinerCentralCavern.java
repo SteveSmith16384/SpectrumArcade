@@ -118,10 +118,10 @@ public class ManicMinerCentralCavern extends AbstractLevel implements ILevelGene
 		return "CENTRAL CAVERN";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(1, 0, 0)), Vector3f.UNIT_Y);
 	}
-
+*/
 }

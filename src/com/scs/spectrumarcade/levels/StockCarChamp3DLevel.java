@@ -133,11 +133,11 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		return "Laps: [todo]";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		// No, camsys does it
-	}
+	}*/
 
 
 	public void setupCameraSystem(CameraSystem sys) {

@@ -21,14 +21,15 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	private boolean left = false, right = false, fwd = false, backwards = false, up = false, down = false;
 	private Vector3f tempAvatarDir = new Vector3f();
 	private Vector3f lastSafePos = new Vector3f();
-	
-	public KrakatoaHeliAvatar(SpectrumArcade _game, float x, float y, float z, String tex) {
+	private Rope rope;
+
+	public KrakatoaHeliAvatar(SpectrumArcade _game, Vector3f pos, String tex) {
 		super(_game, "Player");
 
 		heli = new KrakatoaHelicopter(game.getAssetManager(), tex);
 		this.getMainNode().attachChild(heli);
-		
-		this.getMainNode().setLocalTranslation(x, y, z);
+
+		this.getMainNode().setLocalTranslation(pos);
 
 		BoundingBox bb = (BoundingBox) heli.getWorldBound();
 		heli.setLocalTranslation(0, -bb.getYExtent(), 0);
@@ -43,14 +44,14 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	@Override
 	public void process(float tpfSecs) {
 		this.lastSafePos.set(this.getMainNode().getLocalTranslation());
-		
+
 		tempAvatarDir.set(game.getCamera().getDirection());
 		tempAvatarDir.y = 0;
 		//tempAvatarDir.multLocal(-1);
 		JMEAngleFunctions.rotateToWorldDirection((Spatial)this.getMainNode(), tempAvatarDir);
 
 		//fwdSpeed.set(0, 0, 0);
-/*		
+		/*		
 		double x = Math.cos(angleRads);
 		double z = Math.sin(angleRads);
 
@@ -66,8 +67,8 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		while (angleRads < -Math.PI) {
 			this.angleRads += Math.PI*2;
 		}
- 
- */
+
+		 */
 		if (fwd) {
 			if (tiltDiff > -4) {
 				tiltDiff -= tpfSecs *.2;
@@ -104,8 +105,8 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		lookat.y += tiltDiff;
 		lookat.z += z;
 		this.getMainNode().lookAt(lookat, Vector3f.UNIT_Y);
-		*/
-		
+		 */
+
 		/*if (!Settings.FREE_CAM) {
 			game.getCamera().lookAt(lookat, Vector3f.UNIT_Y);
 		}*/
@@ -120,15 +121,15 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 		Vector3f force = dir.mult(5 * tpfSecs);
 		this.getMainNode().move(force);
 	}
-	
-	
+
+
 	private void moveUp(float diff, float tpfSecs) {
 		//Vector3f dir = this.getMainNode().getLocalRotation().getRotationColumn(2);
 		//Vector3f force = dir.mult(1 * tpfSecs);
 		this.getMainNode().move(0, diff*tpfSecs*5f, 0);
 	}
-	
-	
+
+
 	@Override
 	public void onAction(String binding, boolean isPressed, float tpf) {
 		if (binding.equals("Left")) {
@@ -143,6 +144,18 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 			up = isPressed;
 		} else if (binding.equals("Down")) {
 			down = isPressed;
+		} else if (binding.equals("R")) {
+			if (isPressed) {
+				if (rope == null) {
+					rope = new Rope(game, 3);
+					game.addEntity(rope);
+					game.camSys.shoulderAngleRads = 1f;
+				} else {
+					rope.markForRemoval();
+					rope = null;
+					game.camSys.shoulderAngleRads = 0;
+				}
+			}
 		}
 
 	}
@@ -162,12 +175,12 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	@Override
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		Globals.p("heli collided with " + collidedWith);
-		
+
 		this.getMainNode().setLocalTranslation(this.lastSafePos);
 		//fwdSpeed.y = 0;
 	}
 
-	
+
 	@Override
 	public void setAvatarVisible(boolean b) {
 		if (b) {
@@ -188,7 +201,7 @@ public class KrakatoaHeliAvatar extends AbstractPhysicalEntity implements IAvata
 	@Override
 	public void showKilledAnim() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

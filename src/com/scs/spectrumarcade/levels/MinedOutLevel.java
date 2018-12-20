@@ -29,19 +29,11 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	private boolean[][] mines = new boolean[MAP_SIZE_X][MAP_SIZE_Z];
 	private VoxelTerrainEntity terrainUDG;
-	//private RealtimeInterval checkMinesInt = new RealtimeInterval(100);
 	private int levelNum;
 	private int lastCheckX, lastCheckZ;
 
-	//private CameraSystem camSys;
-
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		/*camSys = new CameraSystem(game, FOLLOW_CAM, 2f);
-		if (FOLLOW_CAM) {
-			camSys.setupFollowCam(3, 0, true);
-		}*/
-
 		levelNum = _levelNum;
 
 		terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(MAP_SIZE_X, 1, MAP_SIZE_Z), 16, 1f, 1f);
@@ -98,8 +90,6 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
-		//camSys.process(game.getCamera(), game.player);
-		
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
 		int x = (int)pos.x;
 		int z = (int)pos.z;
@@ -117,8 +107,6 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 			// Check if player completed level
 			if (pos.z >= MAP_SIZE_Z-1) {
-				//this.levelNum++;
-				//game.setLevel(this.getClass(), levelNum);
 				game.setNextLevel(this.getClass(), levelNum++);
 			}
 		}
@@ -164,12 +152,12 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 		return "Level: " + this.levelNum + "\nThere are " + count + " mines next to you";
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
 	}
-
+*/
 
 	private void explosion(Vector3f pos) {
 		// Shards

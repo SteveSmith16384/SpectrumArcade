@@ -26,7 +26,7 @@ public class Tanker extends AbstractPhysicalEntity {
 
 		this.mainNode.attachChild(model);
 		mainNode.setLocalTranslation(x, y, z);
-		mainNode.updateModelBound();
+		//mainNode.updateModelBound();
 
 		srb = new RigidBodyControl(1);
 		mainNode.addControl(srb);

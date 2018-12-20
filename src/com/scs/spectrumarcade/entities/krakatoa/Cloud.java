@@ -1,16 +1,11 @@
 package com.scs.spectrumarcade.entities.krakatoa;
 
-import com.jme3.material.RenderState.BlendMode;
-import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
-
-import ssmith.lang.NumberFunctions;
 
 public class Cloud extends AbstractPhysicalEntity implements IProcessable {
 

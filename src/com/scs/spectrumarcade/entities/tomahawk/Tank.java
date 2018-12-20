@@ -1,5 +1,6 @@
 package com.scs.spectrumarcade.entities.tomahawk;
 
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.SpectrumArcade;
@@ -25,10 +26,14 @@ public class Tank extends AbstractPhysicalEntity implements IProcessable, INotif
 
 		this.mainNode.attachChild(model);
 		mainNode.setLocalTranslation(x, y, z);
-		mainNode.updateModelBound();
+		//mainNode.updateModelBound();
 
+		srb = new RigidBodyControl(1);
+		mainNode.addControl(srb);
+		srb.setKinematic(true);
 	}
 
+	
 	@Override
 	public void process(float tpfSecs) {
 		JMEAngleFunctions.moveForwards(this.getMainNode(), tpfSecs * 1f);

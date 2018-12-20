@@ -23,7 +23,7 @@ public class CameraSystem {
 
 	private SpectrumArcade game;
 	private float followDist = 1f;
-	private float shoulderAngleRads = 0f;
+	public float shoulderAngleRads = 0f;
 	private float fixedHeight = -1;
 	private float heightOffset3rdPerson;
 	private boolean camInCharge;
@@ -133,7 +133,7 @@ public class CameraSystem {
 				cam.getLocation().y = fixedHeight;
 			}
 
-			if (!camInCharge) {
+			if (!camInCharge || this.currentView == View.TopDown) {
 				cam.lookAt(avatar.getMainNode().getWorldTranslation(), Vector3f.UNIT_Y);
 			}
 

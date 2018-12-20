@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
 import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
@@ -16,6 +15,7 @@ import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.krakatoa.Cloud;
 import com.scs.spectrumarcade.entities.tomahawk.Hill;
+import com.scs.spectrumarcade.entities.tomahawk.Tank;
 import com.scs.spectrumarcade.entities.tomahawk.TomahawkHeliAvatar;
 
 import ssmith.lang.NumberFunctions;
@@ -33,8 +33,8 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		//Hill hill = new Hill(game, 250, 0, 260, 10, 5, "Textures/blocks/grass.jpg");
-		//game.addEntity(hill);
+		Tank t = new Tank(game, 250, 0, 260);
+		game.addEntity(t);
 		
 		// Scenery
 		int sections = MAP_SIZE/MAP_SECTION_SIZE;
@@ -126,12 +126,12 @@ public class TomahawkLevel extends AbstractLevel implements ILevelGenerator {
 	public String getHUDText() {
 		return "";
 	}
-
+/*
 
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 	}
-
+*/
 
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(6f, 0f, false, 3f);

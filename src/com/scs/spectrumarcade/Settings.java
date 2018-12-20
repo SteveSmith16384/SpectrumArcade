@@ -27,4 +27,15 @@ public class Settings {
 	// User Data
 	public static final String ENTITY = "Entity";
 	
+
+	
+	public static void p(String s) {
+		System.out.println(s);
+	}
+
+
+	public static void pe(String s) {
+		System.err.println(s);
+	}
+
 }

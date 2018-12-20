@@ -33,7 +33,7 @@ public interface ILevelGenerator {
 	
 	//boolean isCamInCharge();
 	
-	void setInitialCameraDir(Camera cam);
+	//void setInitialCameraDir(Camera cam);
 	
 	//void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs);
 	

@@ -3,6 +3,7 @@ package com.scs.spectrumarcade.entities.antattack;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Globals;
@@ -10,6 +11,7 @@ import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.INotifiedOfCollision;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
+import com.scs.spectrumarcade.entities.HUDTextEntity;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
@@ -26,7 +28,7 @@ public class Damsel extends AbstractPhysicalEntity implements IProcessable { // 
 	public boolean followingPlayer;
 	private BetterCharacterControl playerControl;
 
-	private RealtimeInterval checkPosInterval = new RealtimeInterval(2000);
+	private RealtimeInterval checkPosInterval = new RealtimeInterval(500);
 	private Vector3f prevPos = new Vector3f();
 	private long dontWalkUntil = 0;
 
@@ -63,7 +65,7 @@ public class Damsel extends AbstractPhysicalEntity implements IProcessable { // 
 					this.model.walkAnim();
 					moveFwds();
 					if (checkPosInterval.hitInterval()) {
-						if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .5f) {
+						if (this.mainNode.getWorldTranslation().distance(this.prevPos) < .1f) {
 							Globals.p("Damsel stuck; jumping");
 
 							Vector3f walkDirection = this.playerControl.getViewDirection();
@@ -80,7 +82,11 @@ public class Damsel extends AbstractPhysicalEntity implements IProcessable { // 
 				Vector3f pos = this.getMainNode().getWorldTranslation();
 				if (pos.z > 127) {
 					// Game complete
-					Globals.p("Damsel has reached the end");
+					Globals.p("Damsel has reached the end!");
+
+					HUDTextEntity be = new HUDTextEntity(game, "WELL DONE!", 72, ColorRGBA.Black, 10, game.getCamera().getHeight()-50, 5);
+					game.addEntity(be);
+
 					game.setNextLevel(ArcadeRoom.class, -1);
 				}
 			} else {
@@ -112,18 +118,6 @@ public class Damsel extends AbstractPhysicalEntity implements IProcessable { // 
 		playerControl.setWalkDirection(walkDirection.mult(4.1f));
 
 	}
-
-/*
-	@Override
-	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
-		/*if (collidedWith == game.player) {
-			followingPlayer = true;
-		} else if (collidedWith instanceof VoxelTerrainEntity) {
-			//this.playerControl.jump();
-			//this.model.jumpAnim();
-		}*/
-
-//	}
 
 
 	@Override

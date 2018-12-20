@@ -120,6 +120,7 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 
 	private void moveFwds() {
 		Vector3f walkDirection = this.playerControl.getViewDirection();//.mainNode.getWorldRotation().getRotationColumn(2);
+		walkDirection.y = 0;
 		//Globals.p("Ant dir: " + walkDirection);
 		playerControl.setWalkDirection(walkDirection.mult(2.4f));
 
@@ -135,7 +136,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
 		this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
-		//this.srb.applyTorqueImpulse(turnDir);
 	}
 
 
@@ -148,7 +148,6 @@ public class Ant extends AbstractPhysicalEntity implements ICausesHarmOnContact,
 			JMEAngleFunctions.turnSpatialLeft(this.mainNode, -TURN_SPEED);
 		}
 		this.playerControl.setViewDirection(mainNode.getWorldRotation().getRotationColumn(2));
-		//this.srb.applyTorqueImpulse(turnDir);
 	}
 
 /*

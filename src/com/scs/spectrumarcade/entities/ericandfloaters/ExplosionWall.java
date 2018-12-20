@@ -68,6 +68,8 @@ public class ExplosionWall extends AbstractPhysicalEntity implements IProcessabl
 	public void notifiedOfCollision(AbstractPhysicalEntity collidedWith) {
 		if (collidedWith instanceof Floater) {
 			collidedWith.markForRemoval();
+		} else if (collidedWith instanceof DestroyableWall) {
+			collidedWith.markForRemoval();
 		} else if (collidedWith instanceof IAvatar) {
 			//todo - re-add game.playerKilled("Own bomb");
 		}

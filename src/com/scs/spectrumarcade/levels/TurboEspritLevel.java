@@ -67,12 +67,12 @@ public class TurboEspritLevel extends AbstractLevel implements ILevelGenerator {
 		return "Speed: " + this.car.vehicle.getCurrentVehicleSpeedKmHour();
 	}
 
-
+/*
 	@Override
 	public void setInitialCameraDir(Camera cam) {
 		// No neeed
 	}
-
+*/
 
 	public void setupCameraSystem(CameraSystem sys) {
 		sys.setupCam(3f, 0, false, 1f);

@@ -43,7 +43,7 @@ import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.levels.AndroidsLevel;
+import com.scs.spectrumarcade.levels.AntAttackLevel;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
 
@@ -85,7 +85,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	private Class<? extends ILevelGenerator> nextLevel;
 	private int nextLevelNum;
-	private CameraSystem camSys;
+	public CameraSystem camSys;
 	protected FixedLoopTime loopTimer = new FixedLoopTime(5);
 
 	public boolean playerDead = false;
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(AndroidsLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(AntAttackLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 
@@ -236,8 +236,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addMapping("Cam2", new KeyTrigger(KeyInput.KEY_2));
 		inputManager.addMapping("Cam3", new KeyTrigger(KeyInput.KEY_3));
 		inputManager.addMapping("Cam4", new KeyTrigger(KeyInput.KEY_4));
-		inputManager.addMapping(KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
+		//inputManager.addMapping(KEY_RECORD, new KeyTrigger(KeyInput.KEY_R));
 		inputManager.addMapping(KEY_RETURN_TO_ARCADE, new KeyTrigger(KeyInput.KEY_X));
+		inputManager.addMapping("R", new KeyTrigger(KeyInput.KEY_R));
 
 		inputManager.addListener(this, "Left");
 		inputManager.addListener(this, "Right");
@@ -251,7 +252,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		inputManager.addListener(this, "Cam2");
 		inputManager.addListener(this, "Cam3");
 		inputManager.addListener(this, "Cam4");
-		inputManager.addListener(this, KEY_RECORD);
+		inputManager.addListener(this, "R");
 		inputManager.addListener(this, KEY_RETURN_TO_ARCADE);
 
 		inputManager.addMapping("Ability1", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
@@ -283,13 +284,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		} else {
 			this.getCamera().setLocation(this.player.getMainNode().getWorldTranslation());
 		}
-		/*if (true) {
-			//camSys.setupCam(level.isFollowCam(), 3f, .1f, level.isCamInCharge());
-		}*/
 
 		IAvatar a = (IAvatar)player;
-		//a.setCameraLocation(cam); // Ready to set direction
-		level.setInitialCameraDir(cam);
+		//level.setInitialCameraDir(cam);
 
 		// Default to 3rd person
 		if (!Settings.FREE_CAM) {
