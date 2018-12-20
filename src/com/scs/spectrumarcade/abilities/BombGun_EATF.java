@@ -32,7 +32,7 @@ public class BombGun_EATF extends AbstractAbility implements IAbility {
 				Vector3f pos = game.player.getMainNode().getWorldTranslation().clone();
 				pos.y += Settings.PLAYER_HEIGHT;
 				pos.addLocal(game.getCamera().getDirection().mult(2));
-				bomb = new Bomb_EATF(game, pos.x, pos.y, pos.z);
+				bomb = new Bomb_EATF(game, pos.x, pos.y, pos.z, 3);
 				game.addEntity(bomb);
 			}
 		}

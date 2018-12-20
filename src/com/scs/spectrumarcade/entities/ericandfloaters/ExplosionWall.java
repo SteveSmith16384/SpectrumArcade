@@ -13,7 +13,7 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
-public class ExplosionWall extends AbstractPhysicalEntity implements IProcessable, INotifiedOfCollision {
+public class ExplosionWall extends AbstractPhysicalEntity implements IProcessable, INotifiedOfCollision { // todo - use ghost control
 
 	private long removeTime;
 	//private boolean checkedForCollisions = false;
