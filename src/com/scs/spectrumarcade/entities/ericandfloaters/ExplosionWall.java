@@ -1,6 +1,9 @@
 package com.scs.spectrumarcade.entities.ericandfloaters;
 
-import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.control.GhostControl;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.texture.Texture;
@@ -13,8 +16,9 @@ import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
-public class ExplosionWall extends AbstractPhysicalEntity implements IProcessable, INotifiedOfCollision { // todo - use ghost control
+public class ExplosionWall extends AbstractPhysicalEntity implements IProcessable, INotifiedOfCollision {
 
+	private GhostControl gc;
 	private long removeTime;
 	//private boolean checkedForCollisions = false;
 
@@ -32,12 +36,25 @@ public class ExplosionWall extends AbstractPhysicalEntity implements IProcessabl
 		mainNode.setLocalTranslation(((xGrid)*EricAndTheFloatersLevel.SEGMENT_SIZE), 0, ((zGrid) * EricAndTheFloatersLevel.SEGMENT_SIZE));
 		mainNode.updateModelBound();
 
-		srb = new RigidBodyControl(0);
-		mainNode.addControl(srb);
-		
+		//srb = new RigidBodyControl(0);
+		//mainNode.addControl(srb);
+
+		BoundingBox bb = (BoundingBox) geometry.getWorldBound();
+		BoxCollisionShape bcs = new BoxCollisionShape(new Vector3f(bb.getXExtent(), bb.getYExtent(), bb.getZExtent()));
+		gc = new GhostControl(bcs);
+		mainNode.addControl(gc);
+
 		removeTime = System.currentTimeMillis() + 2000;
 
 	}
+
+
+	@Override
+	public void actuallyRemove() {
+		super.actuallyRemove();
+		this.game.bulletAppState.getPhysicsSpace().remove(gc);
+	}
+
 
 	@Override
 	public void process(float tpfSecs) {
@@ -54,7 +71,7 @@ public class ExplosionWall extends AbstractPhysicalEntity implements IProcessabl
 		} else if (collidedWith instanceof IAvatar) {
 			//todo - re-add game.playerKilled("Own bomb");
 		}
-		
+
 	}
 
 

@@ -72,9 +72,9 @@ public class LaserRifle extends AbstractAbility implements IAbility {
 					}
 				}
 
-				Vector3f startPos = game.player.getCentre();//.getMainNode().getWorldTranslation().clone();
-				Vector3f dir = col.getContactPoint().subtract(r.origin).normalizeLocal();
-				//startPos.y += Settings.PLAYER_HEIGHT;
+				Vector3f startPos = game.player.getMainNode().getWorldTranslation().clone();
+				startPos.y += Settings.PLAYER_HEIGHT;
+				Vector3f dir = col.getContactPoint().subtract(startPos).normalizeLocal();
 				startPos.addLocal(dir.mult(2));
 
 				LaserBolt laser = new LaserBolt(game, shooter, startPos.x, startPos.y, startPos.z, dir);
