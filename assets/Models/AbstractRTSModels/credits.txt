@@ -1,5 +1,7 @@
 Taken from OpenGameArt.org - https://opengameart.org/content/abstract-rts-model-pack
 
+Remove file path in mtl files to get them working.
+
 -------------------
 
 License: CC-BY-SA 3.0

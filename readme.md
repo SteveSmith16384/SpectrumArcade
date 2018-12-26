@@ -9,6 +9,8 @@ Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlmail.com)
 * Space to brake if in a car, or jump when walking around.
 * X to return to the arcade.
 * 1 - 4 to change the view
+* Esc - quit
+
 
 ### Game Specific:
 * Krakatoa: E & Q for up and down, R to raise/lower the rope

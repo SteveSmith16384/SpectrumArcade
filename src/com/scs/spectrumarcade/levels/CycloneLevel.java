@@ -31,7 +31,7 @@ import ssmith.util.RealtimeInterval;
 
 public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 
-	private static final int MAP_SIZE = 500;
+	private static final int MAP_SIZE = 200;
 	private static final int MAP_BORDER = 50;
 
 	private VoxelTerrainEntity terrainUDG;
@@ -45,7 +45,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE+(MAP_BORDER*2), 1, MAP_SIZE+(MAP_BORDER*2), "Textures/krakatoa/water2.png"); // make water a better colour?
 		game.addEntity(floor);
 
-		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, new Vector3Int(MAP_SIZE+(MAP_BORDER*2), 8, MAP_SIZE+(MAP_BORDER*2)), 16, 1f, 1f);
+		terrainUDG = new VoxelTerrainEntity(game, 0, 0f, 0, new Vector3Int(MAP_SIZE+(MAP_BORDER*2), 20, MAP_SIZE+(MAP_BORDER*2)), 16, 1f, 1f);
 		game.addEntity(terrainUDG);
 
 		int mx=0;
@@ -54,15 +54,24 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		for (int i=0 ; i<b.length ; i++) {
 			mx++;
 			if (i % 150 == 0) {
-				//System.out.println("");
+				System.out.println("");
 				mx = 0;
 				mz++;
 			}
+			int c = b[i]+48;
+			char ch = (char)c;
+			System.out.print(b[i] + ",");
 
-			if (b[i] > 0 ) {
-				this.terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(mx, 1, mz), new Vector3Int(1, b[i], 1));
+			try {
+				while (b[i] > 20) {
+					b[i] = (byte)(b[i]/2);
+				}
+				if (b[i] > 0 && b[i] < 20) {
+					this.terrainUDG.addRectRange_Blocks(BlockCodes.GRASS_LONG, new Vector3Int(mx, 1, mz), new Vector3Int(1, b[i], 1));
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
 			}
-
 			/*
 			if (b[i] == 0) {
 				System.out.print("W");
@@ -71,9 +80,6 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 			} else if (b[i] == 2) {
 				System.out.print("2");
 			} else {
-				int c = b[i]+48;
-				char ch = (char)c;
-				System.out.print(ch);
 			}*/
 		}
 		/*
@@ -84,7 +90,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		// Helipad
 		terrainUDG.addRectRange_Blocks(BlockCodes.ROAD, new Vector3Int(98, 20, 98), new Vector3Int(4, 1, 4));
 		 */
-
+/*
 		// Water
 		FilterPostProcessor fpp = new FilterPostProcessor(game.getAssetManager());
 		WaterFilter water = new WaterFilter(game.getRootNode(), game.sun.getDirection());
@@ -92,7 +98,7 @@ public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 		//water.setWaveScale(waveScale);
 		fpp.addFilter(water);
 		game.getViewPort().addProcessor(fpp);
-
+*/
 		// Clouds
 		for (int i=0 ; i<10 ; i++) {
 			float x = NumberFunctions.rndFloat(0,  MAP_SIZE);

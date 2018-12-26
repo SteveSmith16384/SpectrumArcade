@@ -44,8 +44,8 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 
 		setupLight();
 
-		Spatial model = assetManager.loadModel("Models/AbstractRTSModels/Tank1.obj");
-		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AbstractRTSModels/textures/Tank1_diffuse.png");
+		Spatial model = assetManager.loadModel("Models/AbstractRTSModels/AntiAirTank1.obj");
+		JMEModelFunctions.setTextureOnSpatial(assetManager, model, "Models/AbstractRTSModels/textures/AirTank1_diffuse.png");
 
 		String animNode = "Woman (Node)";
 		String animToUse = "Walking";

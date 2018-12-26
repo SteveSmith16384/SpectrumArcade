@@ -18,7 +18,7 @@ public class Key extends AbstractPhysicalEntity implements IPlayerCollectable, I
 	public Key(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "Key");
 
-		Geometry geometry = (Geometry)game.getAssetManager().loadModel("Models/key.obj");
+		Geometry geometry = (Geometry)game.getAssetManager().loadModel("Models/key/key.obj");
 		JMEModelFunctions.scaleModelToWidth(geometry, 1f);
 		JMEModelFunctions.setTextureOnSpatial(game.getAssetManager(), geometry, "Textures/yellowsun.jpg");
 		geometry.setShadowMode(ShadowMode.CastAndReceive);

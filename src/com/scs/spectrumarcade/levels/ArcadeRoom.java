@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
@@ -68,15 +67,24 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 		ArcadeMachine machine9 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Androids", AndroidsLevel.class);
 		game.addEntity(machine9);
 
+		//ArcadeMachine machine10 = new ArcadeMachine(game, this, 10, 0, 2, "ArcadeMachine_cyclone", CycloneLevel.class);
+		//game.addEntity(machine10);
+
+		//ArcadeMachine machine11 = new ArcadeMachine(game, this, 11, 0, 2, "ArcadeMachine_tomahawk", TomahawkLevel.class);
+		//game.addEntity(machine11);
+
+		//ArcadeMachine machine12 = new ArcadeMachine(game, this, 12, 0, 2, "ArcadeMachine_3dcombatzone", CombatZoneLevel.class);
+		//game.addEntity(machine12);
+
 		// -----------
 		
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 1, 0, 3, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
+		ArcadeMachine machine2 = new ArcadeMachine(game, this, 3, 0, 4, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
 		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode().getChild(0), new Vector3f(0, 0, -1));
 		game.addEntity(machine2);
 
-		//ArcadeMachine machine10 = new ArcadeMachine(game, this, 1, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
-		//JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
-		//game.addEntity(machine10);
+		ArcadeMachine machine10 = new ArcadeMachine(game, this, 4, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
+		game.addEntity(machine10);
 
 		//ArcadeMachine machine7 = new ArcadeMachine(game, this, 9, 0, 2, "ArcadeMachine_Gauntlet", GauntletLevel.class);
 		//game.addEntity(machine7);

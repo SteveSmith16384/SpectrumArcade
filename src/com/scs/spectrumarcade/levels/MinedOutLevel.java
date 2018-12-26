@@ -90,6 +90,10 @@ public class MinedOutLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void process(float tpfSecs) {
+		if (game.playerDead) {
+			return;
+		}
+		
 		Vector3f pos = game.player.getMainNode().getWorldTranslation();
 		int x = (int)pos.x;
 		int z = (int)pos.z;

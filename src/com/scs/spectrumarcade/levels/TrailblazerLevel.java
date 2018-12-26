@@ -35,7 +35,6 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 	private RealtimeInterval checkWinInt = new RealtimeInterval(100);
 	private int levelNum;
 	public int[][] map;
-	//private CameraSystem camSys;
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -143,14 +142,12 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public ColorRGBA getBackgroundColour() {
-		return ColorRGBA.Blue;
+		return ColorRGBA.Cyan;
 	}
 
 
 	@Override
 	public void process(float tpfSecs) {
-		//camSys.process(game.getCamera(), game.player);
-
 		if (checkWinInt.hitInterval()) {
 			Vector3f pos = game.player.getMainNode().getWorldTranslation();
 			// Check if player completed level
@@ -162,19 +159,12 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 		}
 	}
 
-
-
+	
 	@Override
 	public String getHUDText() {
 		return "LEVEL: " + this.levelNum;
 	}
 
-/*
-	@Override
-	public void setInitialCameraDir(Camera cam) {
-		cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
-	}
-*/
 
 	@Override
 	public void setupCameraSystem(CameraSystem sys) {

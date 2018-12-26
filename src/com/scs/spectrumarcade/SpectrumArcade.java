@@ -44,8 +44,8 @@ import com.scs.spectrumarcade.components.IEntity;
 import com.scs.spectrumarcade.components.IProcessable;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
 import com.scs.spectrumarcade.levels.ArcadeRoom;
-import com.scs.spectrumarcade.levels.CycloneLevel;
 import com.scs.spectrumarcade.levels.ILevelGenerator;
+import com.scs.spectrumarcade.levels.TrailblazerLevel;
 
 import ssmith.util.FixedLoopTime;
 
@@ -94,7 +94,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	public static void main(String[] args) {
 		try {
 			if (Settings.RELEASE_MODE) {
-				String msg = "Please note this game is very early in development!  It will probably frequently crash, and the games are unfinished and poorly balanced with few features.";
+				String msg = "Please note this game is very early in development!  It will probably frequently crash,\nand the games are unfinished and poorly balanced with few features.  But apart from that, have fun!";
 				JOptionPane.showMessageDialog(null, msg);
 			}
 
@@ -176,7 +176,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			/*
 		level = new StockCarChamp3DLevel();//GauntletLevel();//ArcadeRoom();//MotosLevel();//MinedOutLevel(); //TurboEspritLevel();//SplatLevel();//EricAndTheFloatersLevel();//(); //
 			 */
-			this.setNextLevel(CycloneLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
+			this.setNextLevel(TrailblazerLevel.class, 1); // TrailblazerLevel // AntAttackLevel // ManicMinerCentralCavern // AndroidsLevel
 			// AndroidsLevel // KrakatoaLevel // TomahawkLevel
 		}
 
@@ -270,6 +270,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.entitiesToAdd.clear();
 		this.entitiesToRemove.clear();
 		entitiesForProcessing.clear();
+
+		this.guiNode.attachChild(hud);
 
 		loadingLevel = true;
 		level.generateLevel(this, levelNum);
@@ -428,12 +430,13 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				}
 			}
 		} else if (binding.equals(KEY_RETURN_TO_ARCADE)) {
-			// this.startNewLevel(new ArcadeRoom(), -1);
-			mode = MODE_RETURNING_TO_ARCADE;
-			Vector3f pos = this.getCamera().getLocation().clone();
-			pos.y = 0; // In case we've fallen off edge
-			this.getCamera().setLocation(pos);
-			this.setNextLevel(ArcadeRoom.class, -1);
+			if (mode != MODE_RETURNING_TO_ARCADE && this.level instanceof ArcadeRoom == false) {
+				mode = MODE_RETURNING_TO_ARCADE;
+				Vector3f pos = this.getCamera().getLocation().clone();
+				pos.y = 0; // In case we've fallen off edge
+				this.getCamera().setLocation(pos);
+				this.setNextLevel(ArcadeRoom.class, -1);
+			}
 		}
 
 	}
@@ -553,12 +556,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			Globals.p("Player killed by " + name);
 			playerDead = true;
 			this.restartPlayerAt = System.currentTimeMillis() + 3000;
-			
+
 			hud.showDamageBox();
-			
+
 			IAvatar a = (IAvatar)player;
 			a.showKilledAnim();
-			
+
 			this.camSys.setView(View.Third);
 			a.setAvatarVisible(true);
 
@@ -586,7 +589,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 
 	public void setNextLevel(Class<? extends ILevelGenerator> clazz, int levelNum) {
-		//gameData.setLevel(clazz, levelNum);
 		this.setLevel(clazz, levelNum);
 
 		this.nextLevel = clazz;

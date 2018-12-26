@@ -58,6 +58,7 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 					geom.addControl(control);
 					game.bulletAppState.getPhysicsSpace().add(control);
 					control.setFriction(friction); // So players can jump up it easily
+					//control.setRestitution(restitution); // So players can jump up it easily
 				}
 				control.setCollisionShape(new MeshCollisionShape(geom.getMesh()));
 			}
