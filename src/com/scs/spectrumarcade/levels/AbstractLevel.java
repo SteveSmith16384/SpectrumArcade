@@ -23,6 +23,14 @@ public abstract class AbstractLevel implements ILevelGenerator {
 		sys.setupCam(3f, .1f, true, 1f);
 	}
 	
+	
+	@Override
+	public void remove() {
+		
+	}
+
+
+
 
 
 }

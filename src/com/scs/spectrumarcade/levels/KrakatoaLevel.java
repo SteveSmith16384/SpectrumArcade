@@ -44,6 +44,7 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 	WaterFilter water;
 	private float initialWaterHeight = 0.8f;
 	private Tanker tanker;
+	private FilterPostProcessor fpp;
 	
 	@Override
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
@@ -93,7 +94,7 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 
 
 		// Water
-		FilterPostProcessor fpp = new FilterPostProcessor(game.getAssetManager());
+		fpp = new FilterPostProcessor(game.getAssetManager());
 		water = new WaterFilter(game.getRootNode(), game.sun.getDirection());
 		water.setWaterHeight(1f);
 		fpp.addFilter(water);
@@ -263,4 +264,14 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 			}			
 		}
 	}
+	
+	
+	@Override
+	public void remove() {
+		game.getViewPort().removeProcessor(fpp);
+		
+	}
+
+
+
 }

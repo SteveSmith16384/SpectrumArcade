@@ -78,11 +78,11 @@ public class ArcadeRoom extends AbstractLevel implements ILevelGenerator {
 
 		// -----------
 		
-		ArcadeMachine machine2 = new ArcadeMachine(game, this, 3, 0, 4, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
+		ArcadeMachine machine2 = new ArcadeMachine(game, this, 2, 0, 5, "ArcadeMachine_Krakatoa", KrakatoaLevel.class);
 		JMEAngleFunctions.rotateToWorldDirection(machine2.getMainNode().getChild(0), new Vector3f(0, 0, -1));
 		game.addEntity(machine2);
 
-		ArcadeMachine machine10 = new ArcadeMachine(game, this, 4, 0, 4, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
+		ArcadeMachine machine10 = new ArcadeMachine(game, this, 3, 0, 5, "ArcadeMachine_TurboEsprit", TurboEspritLevel.class);
 		JMEAngleFunctions.rotateToWorldDirection(machine10.getMainNode(), new Vector3f(0, 0, -1));
 		game.addEntity(machine10);
 

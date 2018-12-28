@@ -261,7 +261,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	}
 
 
-	private void startNewLevel(ILevelGenerator level, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
+	private void startNewLevel(int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		// Clear previous
 		this.getBulletAppState().getPhysicsSpace().removeAll(this.getRootNode());
 		this.rootNode.detachAllChildren();
@@ -288,7 +288,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		}
 
 		IAvatar a = (IAvatar)player;
-		//level.setInitialCameraDir(cam);
 
 		// Default to 3rd person
 		if (!Settings.FREE_CAM) {
@@ -326,9 +325,12 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			// Start a new level?
 			if (this.nextLevel != null) {
 				try {
+					if (level != null) {
+						level.remove();
+					}
 					level = nextLevel.newInstance();
 					level.setGame(this);
-					this.startNewLevel(level, this.nextLevelNum);
+					this.startNewLevel(this.nextLevelNum);
 				} catch (Exception e) {
 					//e.printStackTrace();
 					throw new RuntimeException("Error", e);
@@ -433,7 +435,9 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			if (mode != MODE_RETURNING_TO_ARCADE && this.level instanceof ArcadeRoom == false) {
 				mode = MODE_RETURNING_TO_ARCADE;
 				Vector3f pos = this.getCamera().getLocation().clone();
-				pos.y = 0; // In case we've fallen off edge
+				if (pos.y < 0) {
+					pos.y = 0; // In case we've fallen off edge
+				}
 				this.getCamera().setLocation(pos);
 				this.setNextLevel(ArcadeRoom.class, -1);
 			}

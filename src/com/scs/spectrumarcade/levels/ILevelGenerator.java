@@ -29,12 +29,6 @@ public interface ILevelGenerator {
 	
 	void setupCameraSystem(CameraSystem sys);
 	
-	//boolean isFollowCam();
-	
-	//boolean isCamInCharge();
-	
-	//void setInitialCameraDir(Camera cam);
-	
-	//void prePhysicsTick(PhysicsSpace physicsSpace, float tpfSecs);
+	void remove();
 	
 }
