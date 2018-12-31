@@ -26,9 +26,7 @@ public class Settings {
 	
 	// User Data
 	public static final String ENTITY = "Entity";
-	
-
-	
+		
 	public static void p(String s) {
 		System.out.println(s);
 	}

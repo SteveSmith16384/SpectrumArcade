@@ -8,3 +8,4 @@ bulletjme.dll
 lwjgl.dll
 .svn
 *.log
+/target/
