@@ -129,13 +129,7 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 
 	protected abstract Node getModel();
 	
-	/*
-	@Override
-	public void process(float tpfSecs) {
-		//Globals.p("Car pos: " + this.getMainNode().getWorldTranslation());
-	}
-*/
-	
+
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {
 		if (binding.equals("Left")) {

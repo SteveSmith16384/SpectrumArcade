@@ -40,7 +40,8 @@ public class Functions {
 	public static String readAllTextFileFromJar(String filename) throws IOException {
 		StringBuilder result = new StringBuilder("");
 
-		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream(filename);
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream(filename);
 		InputStreamReader streamReader = new InputStreamReader(inputStream, "UTF-8");
 		BufferedReader in = new BufferedReader(streamReader);
 
