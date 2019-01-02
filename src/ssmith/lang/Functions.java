@@ -54,7 +54,9 @@ public class Functions {
 
 
 	public static byte[] readAllBinaryFileFromJar(String filename) throws IOException {
-		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream(filename);
+		//InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream(filename);
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream(filename);
 
 		BufferedInputStream is = new BufferedInputStream(inputStream);
 		

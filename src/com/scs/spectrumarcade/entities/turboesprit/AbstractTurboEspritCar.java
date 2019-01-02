@@ -27,6 +27,8 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 	private float accelerationValue = 0;
 	protected Node carModel;
 	
+	private boolean keyReleased = false;
+	
 	public AbstractTurboEspritCar(SpectrumArcade _game, float x, float y, float z) {
 		super(_game, "PlayerCar");
 
@@ -132,6 +134,10 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {
+		if (keyReleased == false && !value) {
+			return;
+		}
+		keyReleased = true;
 		if (binding.equals("Left")) {
 			if (value) {
 				steeringValue += .5f;
