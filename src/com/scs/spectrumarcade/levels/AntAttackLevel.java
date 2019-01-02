@@ -66,7 +66,7 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(ant);
 
 		} else {
-			String text = Functions.readAllTextFileFromJar("data/maps/antattack_map.txt");
+			String text = Functions.readAllTextFileFromJar("maps/antattack_map.txt");
 			String[] lines = text.split("\n");
 
 			for (String line : lines) {

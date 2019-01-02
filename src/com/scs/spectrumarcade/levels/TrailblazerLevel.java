@@ -45,7 +45,7 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 			game.addEntity(floor);
 
 		} else {
-			String text = Functions.readAllTextFileFromJar("data/maps/trailblazer_map1.csv");
+			String text = Functions.readAllTextFileFromJar("maps/trailblazer_map1.csv");
 			String[] lines = text.split("\n");
 
 			terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(5, 2, lines.length), 100, 1f, 1f);

@@ -3,7 +3,6 @@ package com.scs.spectrumarcade;
 public class Settings {
 
 	public static final boolean RECORD_VID = false;
-	//public static final boolean LOAD_FROM_JAR = true;
 	public static final boolean RELEASE_MODE = true;
 	public static final boolean FREE_CAM = false; // For viewing maps
 	
