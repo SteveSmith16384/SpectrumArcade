@@ -24,14 +24,14 @@ Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlemail.com)
 
 
 ## CREDITS
-Written by Steve Smith ( http://twitter.com/stephencsmith/ )
-All games copyrights owned by their respective owners.
+* Written by Steve Smith ( http://twitter.com/stephencsmith/ )
+* All games copyrights owned by their respective owners.
 
 
 ### OTHER CREDITS
-This game uses JMonkeyEngine for the 3D.
-TTF font loader from https://1337atr.weebly.com/jttf.html
-For all other credits, please see the credits.txt in the relevant asset's folder.
+* This game uses JMonkeyEngine for the 3D.
+* TTF font loader from https://1337atr.weebly.com/jttf.html
+* For all other credits, please see the credits.txt in the relevant asset's folder.
 
 
 ## LICENCES

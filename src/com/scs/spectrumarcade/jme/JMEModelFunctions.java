@@ -48,7 +48,6 @@ public class JMEModelFunctions {
 			if (LOAD_JME_VERSION) {
 				String filename = "Models/" + j30_path;
 				System.out.println("Loading " + filename);
-				//}
 			}
 		} catch (AssetNotFoundException | IllegalArgumentException ex) {
 			// Do nothing
@@ -90,12 +89,12 @@ public class JMEModelFunctions {
 
 	}
 
-	
+
 	public static Texture setTextureOnSpatial(AssetManager assetManager, Spatial spatial, String tex) {
 		return setTextureOnSpatial(assetManager, spatial, tex, false);
 	}
-	
-	
+
+
 	public static Texture setTextureOnSpatial(AssetManager assetManager, Spatial spatial, String tex, boolean transparent) {
 		TextureKey key3 = new TextureKey(tex);
 		key3.setGenerateMips(true);
@@ -105,13 +104,13 @@ public class JMEModelFunctions {
 		Material material = new Material(assetManager,"Common/MatDefs/Light/Lighting.j3md");  // create a simple material
 		material.setTexture("DiffuseMap", tex3);
 		setMaterialOnSpatial(spatial, material);
-		
+
 		if (transparent) {
 			material.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 			spatial.setQueueBucket(Bucket.Transparent);
 
 		}
-		
+
 		return tex3;
 	}
 
@@ -148,7 +147,7 @@ public class JMEModelFunctions {
 	public static void centreXZ(Spatial model) {
 		/*Node parent = model.getParent();
 		if (parent == null) {
-			
+
 		}*/
 		BoundingBox bb = (BoundingBox)model.getWorldBound();
 		Vector3f pos = model.getLocalTranslation();

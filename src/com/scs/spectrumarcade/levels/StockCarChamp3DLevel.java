@@ -44,7 +44,7 @@ public class StockCarChamp3DLevel extends AbstractLevel implements ILevelGenerat
 		terrainUDG.addRectRange_Blocks(BlockCodes.STOCK_CAR_WALL_CYAN, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
 		 */
 
-		int map[][] = MapLoader.loadMap("maps/stockcarchamp" + levelNum + ".csv");
+		int map[][] = MapLoader.loadMap("data/maps/stockcarchamp" + levelNum + ".csv");
 		int MAP_SIZE = map.length;
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, MAP_SIZE*SQ_SIZE, 1, MAP_SIZE*SQ_SIZE, "Textures/road2.png");

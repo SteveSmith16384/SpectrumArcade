@@ -16,6 +16,7 @@ import com.atr.jme.font.asset.TrueTypeLoader;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.app.state.VideoRecorderAppState;
+import com.jme3.asset.plugins.ClasspathLocator;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsTickListener;
@@ -98,7 +99,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 				JOptionPane.showMessageDialog(null, msg);
 			}
 
-
 			AppSettings settings = new AppSettings(true);
 			try {
 				settings.load(Settings.NAME);
@@ -126,16 +126,25 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e);
-
 		}
 
 	}
 
 
 	public void simpleInitApp() {
-		assetManager.registerLocator("assets/", FileLocator.class); // default
-		//assetManager.registerLocator("assets/Textures/", FileLocator.class);
+		//if (Settings.LOAD_FROM_JAR) {
+			assetManager.registerLocator("assets/", ClasspathLocator.class);
+		/*} else {
+			assetManager.registerLocator("assets/", FileLocator.class);
+		}*/
 
+		/*
+		assetManager.registerLocator("./", FileLocator.class); // default
+		assetManager.registerLocator("../", FileLocator.class); // default
+		assetManager.registerLocator("../assets/", FileLocator.class); // default
+		assetManager.registerLocator("./assets/", FileLocator.class); // default
+		assetManager.registerLocator("assets/Textures/", FileLocator.class);
+		 */
 		getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
 
 		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
