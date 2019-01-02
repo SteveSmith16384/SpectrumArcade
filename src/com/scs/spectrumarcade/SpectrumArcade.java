@@ -125,6 +125,8 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e);
+
 		}
 
 	}
