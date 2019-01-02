@@ -4,7 +4,7 @@ Play various classic Spectrum games in 3D.  Just walk into the arcade to play.  
 
 Current state (as of 2nd Jan 2019): Most games work and you can move around, but none are complete (and some are barely started).
 
-Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlmail.com)
+Written by Stephen Carlyle-Smith (stephen.carlylesmith@googlemail.com)
 
 ## Gameplay Video
 
