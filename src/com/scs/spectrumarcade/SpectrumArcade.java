@@ -132,7 +132,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 	public void simpleInitApp() {
 		//if (Settings.LOAD_FROM_JAR) {
-			assetManager.registerLocator("assets/", ClasspathLocator.class);
+			//assetManager.registerLocator("assets/", ClasspathLocator.class);
 		/*} else {
 			assetManager.registerLocator("assets/", FileLocator.class);
 		}*/
@@ -145,8 +145,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		assetManager.registerLocator("assets/Textures/", FileLocator.class);
 		 */
 		getAssetManager().registerLoader(TrueTypeLoader.class, "ttf");
-
-		//BitmapFont guiFont_small = assetManager.loadFont("Interface/Fonts/Console.fnt");
 
 		cam.setFrustumPerspective(45f, (float) cam.getWidth() / cam.getHeight(), 0.01f, Settings.CAM_DIST);
 		//cam.lookAt(new Vector3f(1, 1, 1), Vector3f.UNIT_Y);

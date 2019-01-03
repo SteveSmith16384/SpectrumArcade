@@ -63,9 +63,9 @@ public class CameraSystem {
 		} else if (this.currentView == View.Cinema) {
 			Vector3f pos = avatar.getMainNode().getWorldTranslation();
 			cam.lookAt(pos, Vector3f.UNIT_Y);
-			cam.getLocation().x = (int)(pos.x / 15) * 15;
-			cam.getLocation().y = (int)(pos.y / 10) * 10 + 5;
-			cam.getLocation().z = (int)(pos.z / 15) * 15;
+			cam.getLocation().x = (int)(pos.x / 25) * 25;
+			cam.getLocation().y = (int)(pos.y / 20) * 20 + 5;
+			cam.getLocation().z = (int)(pos.z / 25) * 25;
 		} else {
 			Vector3f avatarPos = avatar.getMainNode().getWorldTranslation().clone(); // todo - don't create each time - todo - use physics node!
 			avatarPos.y += heightOffset3rdPerson;//avatar.avatarModel.getCameraHeight() + .1f;
