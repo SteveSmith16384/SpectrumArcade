@@ -44,7 +44,9 @@ public class AndroidsLevel extends AbstractLevel implements ILevelGenerator {
 	public void generateLevel(SpectrumArcade game, int _levelNum) throws FileNotFoundException, IOException, URISyntaxException {
 		levelNum = _levelNum;
 
-		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/androids_map.png");
+		//InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/androids_map.png");
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream("maps/androids_map.png");
 		BufferedImage image = ImageIO.read(inputStream);
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, BLOCK_SIZE*image.getWidth()/16, 1, BLOCK_SIZE*image.getHeight()/16, "Textures/blocks/white.png");

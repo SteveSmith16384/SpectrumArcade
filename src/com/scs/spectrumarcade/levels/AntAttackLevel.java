@@ -41,50 +41,30 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		if (Settings.TEST_ANT_AI) {
-			MAP_SIZE = 20;
-		}
-
 		FloorOrCeiling floor = new FloorOrCeiling(game, -MAP_BORDER, 0, -MAP_BORDER, MAP_SIZE+(MAP_BORDER*2), 2, MAP_SIZE+(MAP_BORDER*2), "Textures/blocks/white.png");
 		game.addEntity(floor);
 
 		VoxelTerrainEntity terrainUDG = new VoxelTerrainEntity(game, 0f, 0f, 0f, new Vector3Int(MAP_SIZE+2, 9, MAP_SIZE+2), 16, 1f, .1f);
 		game.addEntity(terrainUDG);
 
-		if (Settings.TEST_ANT_AI) {
-			// Border
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(MAP_SIZE, 1, 1));
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(0, 0, MAP_SIZE-1), new Vector3Int(MAP_SIZE, 1, 1));
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(MAP_SIZE, 0, 0), new Vector3Int(1, 1, MAP_SIZE));
+		String text = Functions.readAllTextFileFromJar("maps/antattack_map.txt");
+		String[] lines = text.split("\n");
 
-			// Platform
-			terrainUDG.addRectRange_Blocks(BlockCodes.ANT_ATTACK, new Vector3Int(5, 0, 5), new Vector3Int(2, 1, 2));
+		for (String line : lines) {
+			String[] parts = line.split(",");
+			int x = Integer.parseInt(parts[0]);
+			int y = Integer.parseInt(parts[1]);
+			int z = Integer.parseInt(parts[2]);
+			terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
+		}
 
-			// Add ants
-			Ant ant = new Ant(game, 10, 2, 10); // Make height unique to stop collisions at start
+
+		// Add ants
+		for (int i=0 ; i<5 ; i++) {
+			int x = NumberFunctions.rnd(10, MAP_SIZE-20);
+			int z = NumberFunctions.rnd(10, MAP_SIZE-20);
+			Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
 			game.addEntity(ant);
-
-		} else {
-			String text = Functions.readAllTextFileFromJar("maps/antattack_map.txt");
-			String[] lines = text.split("\n");
-
-			for (String line : lines) {
-				String[] parts = line.split(",");
-				int x = Integer.parseInt(parts[0]);
-				int y = Integer.parseInt(parts[1]);
-				int z = Integer.parseInt(parts[2]);
-				terrainUDG.addBlock_Block(new Vector3Int(x, y, z), BlockCodes.ANT_ATTACK);
-			}
-
-
-			// Add ants
-			for (int i=0 ; i<5 ; i++) {
-				int x = NumberFunctions.rnd(10, MAP_SIZE-20);
-				int z = NumberFunctions.rnd(10, MAP_SIZE-20);
-				Ant ant = new Ant(game, x, 9, z); // Make height unique to stop collisions at start
-				game.addEntity(ant);
-			}
 		}
 
 		// Add damsel
@@ -137,14 +117,4 @@ public class AntAttackLevel extends AbstractLevel implements ILevelGenerator {
 		}
 	}
 
-/*
-	@Override
-	public void setInitialCameraDir(Camera cam) {
-		if (Settings.TEST_BILLBOARD) {
-			cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, 1)), Vector3f.UNIT_Y);
-		} else {
-			cam.lookAt(cam.getLocation().add(new Vector3f(0, 0, -1)), Vector3f.UNIT_Y);
-		}
-	}
-*/
 }

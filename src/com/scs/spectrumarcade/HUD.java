@@ -40,7 +40,7 @@ public class HUD extends Node {
 
 		TrueTypeKeyMesh ttkSmall = new TrueTypeKeyMesh("Fonts/zx_spectrum-7.ttf", Style.Bold, (int)30);
 		TrueTypeFont ttfSmall = (TrueTypeMesh)_game.getAssetManager().loadAsset(ttkSmall);
-		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "HELLO!"), col);
+		textArea = ttfSmall.getFormattedText(new StringContainer(ttfSmall, "LOAD \"\" CODE"), col);
 		textArea.setLocalTranslation(10, (int)(cam.getHeight()*1), 0);
 		this.attachChild(textArea);
 
