@@ -108,7 +108,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 			if (Settings.SHOW_LOGO) {
 				settings.setSettingsDialogImage("todo");
 			} else {
-				settings.setSettingsDialogImage(null);
+				//settings.setSettingsDialogImage(null);
 			}
 
 			SpectrumArcade app = new SpectrumArcade();
