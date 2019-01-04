@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 
 public class Functions {
 
-
 	public static void sleep(long t) {
 		try {
 			Thread.sleep(t);

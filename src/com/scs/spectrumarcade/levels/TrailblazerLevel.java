@@ -126,17 +126,20 @@ public class TrailblazerLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public Vector3f getAvatarStartPos() {
+		game.getCamera().lookAtDirection(new Vector3f(0, 0, 1), Vector3f.UNIT_Y);
 		return new Vector3f(map.length/2, 2f, 1f);
 	}
 
 
 	@Override
 	public IAvatar createAndPositionAvatar() {
+		TrailblazerAvatar ta = null;
 		if (Settings.TEST_BALL_ROLLING) {
-			return new TrailblazerAvatar(game, this, 10f, 2f, 1f);
+			ta = new TrailblazerAvatar(game, this, 10f, 2f, 1f);
 		} else {
-			return new TrailblazerAvatar(game, this, map.length/2, 2f, 1f);
+			ta = new TrailblazerAvatar(game, this, map.length/2, 2f, 1f);
 		}
+		return ta;
 	}
 
 

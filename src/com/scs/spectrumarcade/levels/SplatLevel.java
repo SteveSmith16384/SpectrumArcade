@@ -34,7 +34,9 @@ public class SplatLevel extends AbstractLevel implements ILevelGenerator {
 
 	@Override
 	public void generateLevel(SpectrumArcade game, int levelNum) throws FileNotFoundException, IOException, URISyntaxException {
-		InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/splatmap1.jpg");
+		//InputStream inputStream = ClassLoader.getSystemClassLoader().getSystemResourceAsStream("maps/splatmap1.jpg");
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		InputStream inputStream = classLoader.getResourceAsStream("maps/splatmap1.jpg");
 		BufferedImage image = ImageIO.read(inputStream);
 
 		FloorOrCeiling floor = new FloorOrCeiling(game, 0, 0, 0, image.getWidth(), 1, image.getHeight(), "Textures/splat/white.png");

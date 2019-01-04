@@ -9,7 +9,6 @@ public class Settings {
 	public static final boolean TEST_BOMBS = false;
 	public static final boolean TEST_BILLBOARD = false;	
 	public static final boolean TEST_BALL_ROLLING = false;
-	public static final boolean TEST_ANT_AI = false;
 	public static final boolean DEBUG_CLEAR_FORCES = false;
 		
 	public static final boolean SHOW_LOGO = false;

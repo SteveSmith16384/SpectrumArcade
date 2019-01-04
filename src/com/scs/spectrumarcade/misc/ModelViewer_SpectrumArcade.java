@@ -34,9 +34,7 @@ public class ModelViewer_SpectrumArcade extends SimpleApplication implements Ani
 
 	@Override
 	public void simpleInitApp() {
-		assetManager.registerLocator("assets/", FileLocator.class); // default
-
-		//assetManager.registerLocator("assets/Textures/", FileLocator.class);
+		//assetManager.registerLocator("assets/", FileLocator.class); // default
 
 		cam.setFrustumPerspective(60, settings.getWidth() / settings.getHeight(), .1f, 100);
 
