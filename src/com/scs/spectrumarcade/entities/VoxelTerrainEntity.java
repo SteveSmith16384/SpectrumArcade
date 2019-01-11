@@ -19,12 +19,6 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 
 	public BlockTerrainControl blocks;
 	private float blockSize;
-	//private int worldSizeBlocks;
-/*
-	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, int _worldSizeBlocks, float _blockSize, float friction) {
-		this(_game, x, y, z, _worldSizeBlocks, 16, _blockSize, friction);
-	}
-*/
 
 	public VoxelTerrainEntity(SpectrumArcade _game, float x, float y, float z, Vector3Int worldSizeBlocks, int chunkSize, float _blockSize, float friction) {
 		super(_game, "VoxelTerrainEntity");

@@ -42,12 +42,6 @@
     </dependency>
     <dependency>
       <groupId>${jme3_g}</groupId>
-      <artifactId>jme3-networking</artifactId>
-      <version>${jme3_v}</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>${jme3_g}</groupId>
       <artifactId>jme3-blender</artifactId>
       <version>${jme3_v}</version>
       <scope>runtime</scope>

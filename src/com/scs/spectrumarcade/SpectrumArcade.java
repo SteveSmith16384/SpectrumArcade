@@ -83,7 +83,6 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 	private ILevelGenerator currentLevel;
 	private Class<? extends ILevelGenerator> nextLevel;
 	private Thread loadingLevelThread = null;
-	//private boolean loadingLevel = false;
 
 	private int nextLevelNum;
 	public CameraSystem camSys;

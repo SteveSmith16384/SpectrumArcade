@@ -6,7 +6,7 @@ import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.antattack.Bomb_AA;
 
-public class BombGun_AA extends AbstractAbility implements IAbility {//, PhysicsTickListener {
+public class BombGun_AA extends AbstractAbility implements IAbility {
 
 	private static final long SHOT_INTERVAL = 4000;
 

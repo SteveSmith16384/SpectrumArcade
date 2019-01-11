@@ -14,7 +14,7 @@ import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 public abstract class AbstractPhysicalEntity extends AbstractEntity {
 
-	private static final float TURN_SPEED = 1f;
+	//private static final float TURN_SPEED = 1f;
 
 	protected Node mainNode, leftNode, rightNode;
 	public RigidBodyControl srb;

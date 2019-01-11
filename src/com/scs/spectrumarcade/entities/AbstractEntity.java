@@ -32,12 +32,6 @@ public abstract class AbstractEntity implements IEntity, Savable {
 	}
 
 
-	/**
-	 * Since the root_node contains everything including the (invisible) left & right nodes, this method is for getting the actual visible Geometry.
-	 * 
-	 */
-	//public abstract Spatial getGeometry();
-
 	public void markForRemoval() {
 		if (!markedForRemoval) {
 			markedForRemoval = true;
