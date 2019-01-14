@@ -10,9 +10,7 @@ import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.entities.AbstractPhysicalEntity;
-import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.LaserBolt;
-import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 
 public class LaserRifle extends AbstractAbility implements IAbility {
 

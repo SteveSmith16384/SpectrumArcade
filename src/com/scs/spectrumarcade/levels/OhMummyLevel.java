@@ -6,20 +6,14 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 import com.scs.spectrumarcade.BlockCodes;
-import com.scs.spectrumarcade.Globals;
 import com.scs.spectrumarcade.SpectrumArcade;
 import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.WalkingPlayer;
-import com.scs.spectrumarcade.entities.ericandfloaters.ExplosionShard;
-import com.scs.spectrumarcade.entities.minedout.Fence;
-import com.scs.spectrumarcade.entities.minedout.SquareIndicator;
 import com.scs.spectrumarcade.models.GenericWalkingAvatar;
 
 import mygame.util.Vector3Int;
-import ssmith.lang.NumberFunctions;
 
 public class OhMummyLevel extends AbstractLevel implements ILevelGenerator {
 

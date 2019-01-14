@@ -1,7 +1,6 @@
 package com.scs.spectrumarcade.models;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.math.FastMath;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;

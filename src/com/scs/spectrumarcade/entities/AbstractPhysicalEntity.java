@@ -10,7 +10,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.Settings;
 import com.scs.spectrumarcade.SpectrumArcade;
-import com.scs.spectrumarcade.levels.EricAndTheFloatersLevel;
 
 public abstract class AbstractPhysicalEntity extends AbstractEntity {
 

@@ -6,9 +6,6 @@ import java.net.URISyntaxException;
 
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.renderer.Camera;
-import com.jme3.water.WaterFilter;
 import com.scs.spectrumarcade.BlockCodes;
 import com.scs.spectrumarcade.CameraSystem;
 import com.scs.spectrumarcade.Globals;
@@ -17,17 +14,11 @@ import com.scs.spectrumarcade.components.IAvatar;
 import com.scs.spectrumarcade.entities.FloorOrCeiling;
 import com.scs.spectrumarcade.entities.VoxelTerrainEntity;
 import com.scs.spectrumarcade.entities.krakatoa.Cloud;
-import com.scs.spectrumarcade.entities.krakatoa.House;
 import com.scs.spectrumarcade.entities.krakatoa.KrakatoaHeliAvatar;
-import com.scs.spectrumarcade.entities.krakatoa.LavaRock;
-import com.scs.spectrumarcade.entities.krakatoa.Missile;
-import com.scs.spectrumarcade.entities.krakatoa.Submarine;
-import com.scs.spectrumarcade.entities.krakatoa.Tanker;
 
 import mygame.util.Vector3Int;
 import ssmith.lang.Functions;
 import ssmith.lang.NumberFunctions;
-import ssmith.util.RealtimeInterval;
 
 public class CycloneLevel extends AbstractLevel implements ILevelGenerator {
 

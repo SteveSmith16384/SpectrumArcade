@@ -3,7 +3,6 @@ package com.scs.spectrumarcade;
 import com.atr.jme.font.TrueTypeFont;
 import com.atr.jme.font.TrueTypeMesh;
 import com.atr.jme.font.asset.TrueTypeKeyMesh;
-import com.atr.jme.font.asset.TrueTypeLoader;
 import com.atr.jme.font.shape.TrueTypeContainer;
 import com.atr.jme.font.util.StringContainer;
 import com.atr.jme.font.util.Style;
