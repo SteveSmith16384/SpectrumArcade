@@ -134,10 +134,11 @@ public abstract class AbstractTurboEspritCar extends AbstractPhysicalEntity impl
 
 	@Override
 	public void onAction(String binding, boolean value, float tpf) {
-		if (keyReleased == false && !value) {
+		if (keyReleased == false && !value) { // Prevent the key being registered from the previous module
 			return;
 		}
 		keyReleased = true;
+		
 		if (binding.equals("Left")) {
 			if (value) {
 				steeringValue += .5f;
