@@ -40,7 +40,7 @@ public class KrakatoaLevel extends AbstractLevel implements ILevelGenerator {
 	private RealtimeInterval lavaInt = new RealtimeInterval(500);
 	private float time = 0.0f;
 	private float waterHeight = 0.0f;
-	WaterFilter water;
+	private WaterFilter water;
 	private float initialWaterHeight = 0.8f;
 	private Tanker tanker;
 	private FilterPostProcessor fpp;

@@ -32,6 +32,8 @@ import com.jme3.light.LightList;
 import com.jme3.light.SpotLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.renderer.Camera.FrustumIntersect;
 import com.jme3.scene.Spatial;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
@@ -162,7 +164,7 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 
 		bulletAppState.getPhysicsSpace().addCollisionListener(this);
 
-		final int SHADOWMAP_SIZE = 1024;
+		final int SHADOWMAP_SIZE = 1024*2;
 		DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(getAssetManager(), SHADOWMAP_SIZE, 2);
 		dlsr.setLight(sun);
 		this.viewPort.addProcessor(dlsr);
@@ -173,7 +175,17 @@ public class SpectrumArcade extends SimpleApplication implements ActionListener,
 		this.guiNode.attachChild(hud);
 
 		stateManager.getState(StatsAppState.class).toggleStats(); // Turn off stats
-
+/*
+		{
+			// DepthOfFieldFilter
+			FilterPostProcessor fpp2 = new FilterPostProcessor(getAssetManager());
+			DepthOfFieldFilter dff = new DepthOfFieldFilter();
+			dff.setFocusDistance(2f);
+			dff.setFocusRange(20f);
+			fpp2.addFilter(dff);
+			viewPort.addProcessor(fpp2);
+		}
+*/
 		if (Settings.RELEASE_MODE) {
 			this.setNextLevel(ArcadeRoom.class, -1);
 		} else {

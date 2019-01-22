@@ -31,8 +31,9 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 		blockSettings.setBlockSize(blockSize);
 		blockSettings.setMaterial(game.getAssetManager().loadMaterial("Materials/BlockTexture.j3m"));
 		//int s = (int)Math.ceil(worldSizeBlocks / chunkSize);
-		worldSizeBlocks.set(worldSizeBlocks.getX() / chunkSize + 1, worldSizeBlocks.getY() / chunkSize + 1, worldSizeBlocks.getZ() / chunkSize + 1);
-		blockSettings.setWorldSizeInChunks(worldSizeBlocks);//new Vector3Int(s+1, s+1, s+1));
+		Vector3Int worldSizeChunks = new Vector3Int(worldSizeBlocks.getX() / chunkSize + 1, worldSizeBlocks.getY() / chunkSize + 1, worldSizeBlocks.getZ() / chunkSize + 1);
+		//worldSizeBlocks.set(worldSizeBlocks.getX() / chunkSize + 1, worldSizeBlocks.getY() / chunkSize + 1, worldSizeBlocks.getZ() / chunkSize + 1);
+		blockSettings.setWorldSizeInChunks(worldSizeChunks);//new Vector3Int(s+1, s+1, s+1));
 		//blockSettings.setViewDistance(viewDist);
 		blockSettings.texturesPerSheet = Settings.TEX_PER_SHEET;
 
