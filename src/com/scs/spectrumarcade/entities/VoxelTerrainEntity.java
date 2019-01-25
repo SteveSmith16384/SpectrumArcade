@@ -12,6 +12,7 @@ import com.scs.spectrumarcade.misc.FibonacciSequence;
 import mygame.BlockSettings;
 import mygame.blocks.BlockTerrainControl;
 import mygame.blocks.ChunkControl;
+import mygame.blocks.IBlock;
 import mygame.blocks.IBlockTerrainListener;
 import mygame.util.Vector3Int;
 
@@ -104,15 +105,15 @@ public class VoxelTerrainEntity extends AbstractPhysicalEntity {
 	}
 
 
-	public void addSphereRange_Blocks(int blockType, Vector3f worldPos, int size) {
+	public void addSphereRange_Actual(Vector3f worldPos, int size, Class<? extends IBlock> blockType) {
 		Vector3Int blockPos = new Vector3Int(worldPos.subtract(this.mainNode.getWorldTranslation()).multLocal(1/blockSize));
-		blocks.setBlockAreaBySphere(blockPos, size, BlockCodes.getClassFromCode(blockType));
+		blocks.setBlockAreaBySphere(blockPos, (int)(size/blockSize), blockType);
 	}
 
 
-	public void removeSphereRange_Blocks(Vector3f worldPos, int size) {
+	public void removeSphereRange_Actual(Vector3f worldPos, int size) {
 		Vector3Int blockPos = new Vector3Int(worldPos.subtract(this.mainNode.getWorldTranslation()).multLocal(1/blockSize));
-		blocks.setBlockAreaBySphere(blockPos, size, null);
+		blocks.setBlockAreaBySphere(blockPos, (int)(size/blockSize), null);
 	}
 
 

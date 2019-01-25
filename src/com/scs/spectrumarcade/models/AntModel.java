@@ -11,7 +11,7 @@ import com.jme3.scene.Spatial;
 import com.scs.spectrumarcade.jme.JMEAngleFunctions;
 import com.scs.spectrumarcade.jme.JMEModelFunctions;
 
-// SpiderStand, SpiderWalk
+// Anims: SpiderStand, SpiderWalk
 public class AntModel extends Node {
 
 	public static final float MODEL_WIDTH = 0.9f;
@@ -25,7 +25,6 @@ public class AntModel extends Node {
 		model.setShadowMode(ShadowMode.CastAndReceive);
 		JMEAngleFunctions.rotateToWorldDirection(model, new Vector3f(-1, 0, 0)); // Point model fwds
 		JMEModelFunctions.scaleModelToWidth(model, MODEL_WIDTH);
-		//JMEModelFunctions.scaleModelToWidth(model, MODEL_WIDTH);
 		JMEModelFunctions.moveYOriginTo(model, 0f);
 		
 
