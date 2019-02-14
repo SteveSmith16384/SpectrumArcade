@@ -1,4 +1,4 @@
-MIT Licence for SteveTech1
+MIT Licence for Advanced Spectrum Arcade Simulator
 
 Copyright (c)2018 Stephen Carlyle-Smith
 
